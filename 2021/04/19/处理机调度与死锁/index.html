@@ -1,0 +1,1175 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.png">
+  <link rel="icon" href="/img/insert1.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  
+    <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="学习">
+  
+  <title>处理机调度与死锁 - Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Mike Taylor's</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                日志
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                目录
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                个人
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="处理机调度与死锁">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Mike Taylor
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-19 13:15" pubdate>
+        2021年4月19日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      13.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      139
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">处理机调度与死锁</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月23日 上午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>教材：《计算机操作系统》（第四版） 汤子丹等</p>
+<h1 id="第三章-处理机调度与死锁"><a href="#第三章-处理机调度与死锁" class="headerlink" title="第三章 处理机调度与死锁"></a>第三章 处理机调度与死锁</h1><p>3.1 处理机调度的层次和调度算法的目标</p>
+<p>3.2 作业和作业调度</p>
+<p>3.3 进程调度 </p>
+<p>3.4 实时调度 </p>
+<p>3.5 死锁概述 </p>
+<p>3.6 预防死锁</p>
+<p>3.7 避免死锁</p>
+<p>3.8 死锁的检测与解除 </p>
+<h2 id="3-1-处理机调度的层次和调度算法的目标"><a href="#3-1-处理机调度的层次和调度算法的目标" class="headerlink" title="3.1 处理机调度的层次和调度算法的目标"></a>3.1 处理机调度的层次和调度算法的目标</h2><p>分配处理机的任务是由处理机调度程序完成。</p>
+<p>处理机调度算法是指根据处理机分配策略所规定的处理机分配算法。</p>
+<p>由于处理机是最重要的计算机资源，提高处理机的利用率及改善系统性能（吞吐量、响应时间），在很大程度上取决于处理机调度性能的好坏。</p>
+<h3 id="3-1-1-处理机调度层次（三级调度）"><a href="#3-1-1-处理机调度层次（三级调度）" class="headerlink" title="3.1.1 处理机调度层次（三级调度）"></a>3.1.1 处理机调度层次（三级调度）</h3><ul>
+<li><p>高级调度（High Level Scheduling）</p>
+<ul>
+<li><p>又称<strong>作业调度、长程调度</strong>（long-term scheduling），调度对象为<strong>作业</strong>。主要功能是根据某种算法，决定将<strong>外存上处于后备队列</strong>中的哪些作业调入内存。它为被调度作业或用户程序创建进程，分配必要的系统资源，并将新创建的进程插入就绪队列，等待短程调度。</p>
+</li>
+<li><p>作业基本概念。</p>
+<ul>
+<li><strong>作业（Job）</strong>是一个比程序更为广泛的概念，它不仅包含了通常的程序和数据，而且还应配有一份作业说明书，系统根据该说明书来对程序的运行进行控制。<strong>在批处理系统中，是以作业为基本单位从外存调入内存的。</strong></li>
+<li><strong>作业步(Job Step)**。通常，在作业运行期间，每个作业都必须经过若干个相对独立，又相互关联的顺序加工步骤才能得到结果，我们把其中的每一个</strong>加工步骤**称为一个作业步，各作业步之间存在着相互联系，往往是把上一个作业步的输出作为下一个作业步的输入。一个典型的作业可分为：“编译”工作步，“链接”工作步和“运行”工作步。</li>
+<li><strong>作业流</strong>。若干个作业进入系统后，被依次存放在<strong>外存</strong>上，这便形成了输入的作业流；在操作系统的控制下，逐个作业进行处理，于是便形成了处理作业流。</li>
+<li>每当作业进入系统时，系统便为每个作业建立一个<strong>JCB</strong>，根据作业类型将它插入相应的后备队列中。作业调度程序依据一定的调度算法来调度它们，被调度到的作业将会装入内存。在作业运行期间，系统就按照JCB 中的信息对作业进行控制。当一个作业执行结束进入完成状态时，系统负责回收分配给它的资源，撤消它的作业控制块。</li>
+<li><strong>批处理系统中，作业进入系统后，先驻留在磁盘上，组织成批处理队列，称为<em>后备队列</em>。长程调度从该队列中选择一个或多个作业，为之创建进程。</strong></li>
+</ul>
+</li>
+<li><p><strong>高级调度主要用于多道批处理系统，在分时、实时系统中不设置高级调度。</strong>因为为了做到及时响应，用户通过键盘输入的命令或数据等都被<strong>直接送入内存</strong>，因而无需配置上述作业调度机制，但也需有某种接纳控制措施来限制进入系统的用户数目，实时系统类似。</p>
+</li>
+<li><p><a href="https://imgtu.com/i/cojjTe"><img src="https://z3.ax1x.com/2021/04/19/cojjTe.png" srcset="/img/loading.gif" alt="cojjTe.png"></a></p>
+</li>
+<li><p>选择多少作业进入内存：<br>作业调度每次要接纳多少个作业进入内存，取决于<strong>多道程序度</strong>(Degree of Multiprogramming)，即允许多少个作业同时在内存中运行。当内存中同时运行的作业数目太多时，可能会影响到系统的服务质量，比如，使周转时间太长。但如果在内存中同时运行作业的数量太少时，又会导致系统的资源利用率和系统吞吐量太低，因此，多道程序度的确定应根据系统的规模和运行速度等情况做适当的折衷。</p>
+<p>选择哪些作业进入内存：取决于高级调度算法</p>
+</li>
+</ul>
+</li>
+<li><p>低级调度(Low Level Scheduling)</p>
+<ul>
+<li><p>又称<strong>进程调度或短程调度</strong>(Short-term Scheduling)，调度对象是：<strong>进程（内核级线程）</strong>。</p>
+</li>
+<li><p>低级调度用来决定就绪队列中的哪个进程应获得处理机，然后再由分派程序把处理机分配给该进程的具体操作。</p>
+</li>
+<li><p>功能：</p>
+<ul>
+<li>保存处理机的现场信息。在进程调度进行调度时，首先需要保存当前进程的处理机的现场信息，如程序计数器、多个通用寄存器中的内容等，将它们送入该进程的进程控制块(PCB)中的相应单元。</li>
+<li>按某种算法选取进程。低级调度程序按某种算法如优先法、轮转法等，从就绪队列中选取一个进程，把它的状态改为运行状态，并准备把处理机分配给它。</li>
+<li>把处理器分配给进程。由分派程序(Dispatcher)把处理器分配给进程。此时需为选中的进程恢复处理机现场，即把选中进程的进程控制块内有关处理机现场的信息装入处理器相应的各个寄存器中，把处理器的控制权交给该进程，让它从取出的断点处开始继续运行。</li>
+</ul>
+</li>
+<li><p>进程调度是<strong>最基本</strong>的一种调度，<strong>在多道批处理、分时和实时三种OS中，都必须配置。</strong></p>
+</li>
+<li><p>短程调度运行频率最高。</p>
+</li>
+<li><p>低级调度分类：</p>
+<ul>
+<li><p>非抢占方式</p>
+<ul>
+<li><p>在采用这种调度方式时，一旦把处理机分配给某进程后，便让该进程一直执行，直至该进程完成或发生某事件而被阻塞时，才再把处理机分配给其他进程，<strong>决不允许某进程抢占已经分配出去的处理机</strong>。</p>
+</li>
+<li><p>引起进程调度：</p>
+<p>①正在执行的进程执行完毕，或因发生某事件而不能再继续执行；</p>
+<p> ②执行中的进程因提出I／O请求而暂停执行；</p>
+<p> ③在进程通信或同步过程中执行了某种原语操作，如P操作（wait操作）、Block原语、 Wakeup原语等。</p>
+</li>
+<li><p>优点：实现简单，系统开销小，适合批处理任务。</p>
+</li>
+<li><p>缺点：难以满足实时任务。（硬实时任务）</p>
+</li>
+</ul>
+</li>
+<li><p>抢占方式</p>
+<ul>
+<li>这种调度方式，允许调度程序根据某种原则，去暂停某个正在执行的进程，将已分配给该进程的<strong>处理机重新分配</strong>给另一进程。</li>
+<li>原则：<ul>
+<li><strong>优先权原则</strong>：(1)通常是对一些重要的和紧急的作业赋予较高的优先权。当这种作业到达时，如果其优先权比正在执行进程的优先权高，便停止正在执行(当前)的进程，将处理机分配给优先权高的新到的进程，使之执行；或者说，允许优先权高的新到进程抢占当前进程的处理机。</li>
+<li><strong>短作业优先原则</strong>：当新到达的作业(进程)比正在执行的作业(进程)（<strong>尚需运行时间</strong>）明显的短时，将暂停当前长作业(进程)的执行，将处理机分配给新到的短作业(进程)，使之优先执行；或者说，短作业(进程)可以抢占当前较长作业(进程)的处理机。</li>
+<li><strong>时间片原则</strong>：各进程按时间片轮流运行，当一个时间片用完后，便停止该进程的执行而重新进行调度。这种原则适用于分时系统、大多数的实时系统，以及要求较高的批处理系统。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>中级调度(Medium-term scheduling)</p>
+<ul>
+<li><p>又称<strong>中程调度、内存调度</strong>，引入中级调度的主要目的是为了提高内存利用率和系统吞吐量。 </p>
+</li>
+<li><p>当内存空间非常紧张时，或处理机找不到一个可执行的就绪进程时，需要选择一个进程（阻塞或就绪状态）<strong>换出到外存</strong>，释放出内存空间给别的进程使用；当内存空间较充裕时，从外存选择一个挂起状态的进程调度到内存（<strong>换入</strong>）。</p>
+</li>
+<li><p>中级调度决定把外存上的哪些具备运行条件的就绪进程<strong>，重新调入内存</strong>，并修改其状态为就绪状态，挂在就绪队列上等待调度。</p>
+</li>
+<li><p>实际上是<strong>存储器管理的对换功能</strong>。</p>
+</li>
+<li><p>补充：可用于作业调度</p>
+<p><strong>下面的图很重要！！！</strong></p>
+</li>
+<li><p><a href="https://imgtu.com/i/cT99qx"><img src="https://z3.ax1x.com/2021/04/19/cT99qx.png" srcset="/img/loading.gif" alt="cT99qx.png"></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-1-2-处理机调度算法的目标和准则"><a href="#3-1-2-处理机调度算法的目标和准则" class="headerlink" title="3.1.2 处理机调度算法的目标和准则"></a>3.1.2 处理机调度算法的目标和准则</h3><p>引言：在一个操作系统的设计中，应如何选择调度方式和算法，<strong>在很大程度上取决于操作系统的类型及其目标</strong>。例如，在批处理系统、分时系统和实时系统中，通常都采用不同的调度方式和算法。选择调度方式和算法的准则，有的是面向用户的，有的是面向系统的。</p>
+<ul>
+<li><p>处理机调度算法的共同目标</p>
+<ul>
+<li><p>资源利用率。为提高系统的资源利用率，应使系统中的处理机和其他所有资源都尽可能地保持忙碌。</p>
+<ul>
+<li><p><strong>计算CPU利用率</strong>：</p>
+<p><strong>CPU利用率 = CPU有效工作时间/（CPU有效工作时间+CPU空闲等待时间）</strong></p>
+</li>
+</ul>
+</li>
+<li><p>公平性。应使诸进程都获得合理的CPU时间，<strong>不会发生饥饿时间</strong>。公平是相对的，对于相同类型的进程应获得相同的服务；但对于不同类型的进程，由于其紧急程度/重要性不同，则应提供不同的服务。</p>
+</li>
+<li><p>平衡性。由于在系统中可能具有多种类型的进程，为了使系统中的CPU和各种外部设备都能经常处于忙碌状态，调度算法应尽可能保持系统资源使用的平衡性。</p>
+</li>
+<li><p>策略强制执行。对所制订的策略其中包括安全策略，只要需要，就必须予以准确地执行，即使会造成某些工作的延迟。</p>
+</li>
+</ul>
+</li>
+<li><p>批处理系统的目标：</p>
+<ul>
+<li><p>平均周转时间短。</p>
+<ul>
+<li><p><strong>所谓周转时间，是指作业从被提交给系统开始，到作业完成为止的这段时间间隔（作业周转时间）</strong></p>
+</li>
+<li><p><strong>周转时间T包括四部分：</strong></p>
+<ul>
+<li><strong>作业在外存后备队列上的等待时间</strong></li>
+<li><strong>进程在就绪队列上等待进程调度的时间</strong></li>
+<li><strong>进程在CPU上执行的时间</strong></li>
+<li><strong>进程等待I/O操作的时间</strong></li>
+</ul>
+<p>后三项在一个作业处理过程中可能发生多次。</p>
+</li>
+<li><p><strong>平均周转时间</strong>：</p>
+<p><a href="https://imgtu.com/i/cTFiXd"><img src="https://z3.ax1x.com/2021/04/19/cTFiXd.png" srcset="/img/loading.gif" alt="cTFiXd.png"></a></p>
+<p>从系统管理者角度出发，平均周转时间越短越好。</p>
+</li>
+<li><p><strong>带权周转时间：作业的周转时间T</strong> <strong>/</strong> <strong>系统为其提供服务的时间T<sub>s</sub></strong></p>
+<p><strong>W = T/T<sub>s</sub></strong></p>
+<p><a href="https://imgtu.com/i/cTFP6H"><img src="https://z3.ax1x.com/2021/04/19/cTFP6H.png" srcset="/img/loading.gif" alt="cTFP6H.png"></a></p>
+</li>
+</ul>
+</li>
+<li><p>系统吞吐量高。</p>
+<ul>
+<li><strong>吞吐量：单位时间内系统所完成的作业数</strong>，与处理作业的平均长度有关。</li>
+<li>单纯为了提高吞吐量，就应尽量选择短作业处理。</li>
+</ul>
+</li>
+<li><p>处理机利用率高。</p>
+<ul>
+<li>处理机利用率：衡量系统性能的重要指标。</li>
+<li>单纯为了提高处理机利用率，应尽量选择计算量大的作业进行处理。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>分时系统的目标</p>
+<ul>
+<li>响应时间快。<ul>
+<li><strong>响应时间：是从用户通过键盘提交一个请求开始，直至系统首次产生响应为止的时间。</strong></li>
+<li>响应时间包括三部分：<ul>
+<li><strong>从键盘输入的请求信息传送到处理机的时间</strong></li>
+<li><strong>处理机对请求信息进行处理的时间</strong></li>
+<li><strong>将所形成的响应信息回送到终端显示器的时间</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>均衡性。指系统响应时间快慢应与用户请求的复杂性相适应。</li>
+</ul>
+</li>
+<li><p>实时系统的目标</p>
+<ul>
+<li>截止时间保证。<ul>
+<li><strong>截止时间：指某任务必须开始执行的最迟时间，或必须完成的最迟时间。</strong></li>
+<li>可预测性。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-2-作业和作业调度"><a href="#3-2-作业和作业调度" class="headerlink" title="3.2 作业和作业调度"></a>3.2 作业和作业调度</h2><p>多道批处理系统：</p>
+<ul>
+<li>用户提交作业</li>
+<li>操作员输入作业，存放在外存，作业存放在后备队列</li>
+<li>由作业调度（长程调度）程序调入内存</li>
+</ul>
+<h3 id="3-2-1-批处理系统中的作业"><a href="#3-2-1-批处理系统中的作业" class="headerlink" title="3.2.1 批处理系统中的作业"></a>3.2.1 批处理系统中的作业</h3><p>1.作业和作业步（上面已详细说明）</p>
+<p>2.作业控制块（Job Control Block，JCB）</p>
+<p>JCB包含：作业标识、用户名称、用户账号、作业类型（CPU繁忙型、I/O繁忙型、批量型、终端型）、作业状态、调度信息、资源需求、资源使用情况等。</p>
+<p>每当一个作业进入系统时，便由“作业注册”程序为该作业建立一个作业控制块JCB，再根据作业类型，将它放到相应的作业后备队列中，等待调度。调度程序按一定的调度算法来调度它们，被调度的作业将被装入内存。作业运行期间，系统按照JCB中的信息和作业说明书对作业进行控制。当一个作业执行结束进入完成状态，系统负责回收以已分配给它的资源，撤销该作业控制块。</p>
+<p>3.作业运行的三个阶段和三种状态<br>作业进入系统到运行结束，通常需要经历：<strong>收容、运行、完成</strong>，三个阶段。相应的作业有<strong>“后备状态”、“运行状态”、“完成状态”</strong>。</p>
+<ul>
+<li>收容。操作员把用户提交的作业通过某种方式或SPOOKing系统输入到硬盘上，再为该作业建立JCB并把它放入到后备队列中。相应地，此时地作业的状态为“后备状态”。</li>
+<li>运行。当作业被调度选中后，便为它分配必要的资源和建立进程，并将它放入就绪队列。<strong>一个作业第一次进入就绪状态，直到它运行结束前，在此期间处于“运行状态”。</strong></li>
+<li>完成阶段。当作业完后、或发生异常情况而提前结束时，作业便进入完成阶段，相应的作业状态为“完成状态”。此时系统中的“终止作业”程序将会回收已经分配给该作业的作业控制块和所有资源，并将作业运行结果信息形成输出文件后输出。</li>
+</ul>
+<h3 id="3-2-2-作业调度的主要任务"><a href="#3-2-2-作业调度的主要任务" class="headerlink" title="3.2.2  作业调度的主要任务"></a>3.2.2  作业调度的主要任务</h3><p>根据JCB信息，检查系统中的资源能否满足作业对资源的需求，按照一定的调度算法，从外存的后备队列中选取某些作业调入内存，并为他们创建进程、分配必要资源，安排在就绪队列。作业调度也叫接纳调度（Admission Scheduling）。</p>
+<p><strong>作业调度</strong>（外存到内存）需要做出以下决定：</p>
+<ul>
+<li>接纳多少作业（多道程序度）</li>
+<li>接纳哪些作业（调度算法）</li>
+</ul>
+<p>3.2.3 FCFS和SJF算法</p>
+<h4 id="先来先服务调度算法"><a href="#先来先服务调度算法" class="headerlink" title="先来先服务调度算法"></a>先来先服务调度算法</h4><p><strong>可用于作业调度，也可以用于进程调度</strong>。</p>
+<ul>
+<li><p>当在作业调度中采用该算法时，系统安照作业到到达的先后次序来进行调度。优先考虑在系统中等待时间最长的作业，将他们调入内存、分配资源、创建进程，然后放入就绪队列中。</p>
+<p>如果在进程调度中采用FCFS，每次调度从就绪队列中挑选最先到达的进程分配处理机。</p>
+</li>
+<li><p>FCFS很少作为主调度算法，经常与其他调度算法结合使用，形成一种更为有效的调度算法。</p>
+</li>
+<li><p>FCFS算法比较<strong>有利于长作业（进程）</strong>，而不利于短作业（进程）。</p>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/cTUVQe"><img src="https://z3.ax1x.com/2021/04/19/cTUVQe.jpg" srcset="/img/loading.gif" alt="cTUVQe.jpg"></a></p>
+<h4 id="短作业优先调度算法（SJF）"><a href="#短作业优先调度算法（SJF）" class="headerlink" title="短作业优先调度算法（SJF）"></a>短作业优先调度算法（SJF）</h4><ul>
+<li>短作业(进程)优先调度算法<strong>SJ(P)F</strong>，是指对短作业或短进程优先调度的算法。<ul>
+<li>短作业优先(SJF)的调度算法是从后备队列中选择一个或若干个估计运行时间最短的作业，将它们<strong>调入内存</strong>运行。</li>
+<li>短进程优先(SPF)调度算法是从就绪队列中选出一个估计运行时间最短的进程，将处理机分配给它，<strong>使它立即执行并一直执行到完成，或发生某事件而被阻塞放弃处理机时再重新调度</strong>。</li>
+<li><a href="https://imgtu.com/i/cTarNt"><img src="https://z3.ax1x.com/2021/04/19/cTarNt.jpg" srcset="/img/loading.gif" alt="cTarNt.jpg"></a></li>
+</ul>
+</li>
+<li>短作业优先调度算法的缺点：<ul>
+<li>该算法对长作业不利。</li>
+<li>该算法完全未考虑作业的紧迫程度，因而不能保证紧迫性作业（进程）会被及时处理。</li>
+<li>由于作业（进程）的长短只是根据用户所提供的估计执行时间而定的，而用户又可能会估计不准运行时间，致使该算法不一定能真正做到短作业优先调度。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-4-优先级调度算法和高响应比优先调度算法"><a href="#3-2-4-优先级调度算法和高响应比优先调度算法" class="headerlink" title="3.2.4 优先级调度算法和高响应比优先调度算法"></a>3.2.4 优先级调度算法和高响应比优先调度算法</h3><h4 id="优先级调度算法-priority-scheduling-algorithm-PSA"><a href="#优先级调度算法-priority-scheduling-algorithm-PSA" class="headerlink" title="优先级调度算法(priority-scheduling algorithm,PSA)"></a>优先级调度算法(priority-scheduling algorithm,PSA)</h4><ul>
+<li>实际应用中，作业的性质可能是不同，运行的迫切性也有所不同。因此，可以为每个作业定义一个优先级，优先级越高的作业将优先获得调度从后备队列进入内存就绪队列之中。<ul>
+<li>当应用于作业调度时，优先级调度算法是把具有最高优先级的作业调入内存之中。</li>
+<li>当应用于进程调度时，优先级调度算法是调度就绪队列中具有最高优先级的进程获得处理机。</li>
+</ul>
+</li>
+</ul>
+<h4 id="高响应比优先调度算法-Highest-Response-Ratio-Next-HRRN"><a href="#高响应比优先调度算法-Highest-Response-Ratio-Next-HRRN" class="headerlink" title="高响应比优先调度算法(Highest Response Ratio Next,HRRN)"></a>高响应比优先调度算法(Highest Response Ratio Next,HRRN)</h4><ul>
+<li><p><strong>引入动态优先级，随等待时间延长而增加。</strong></p>
+<ul>
+<li><p>响应比R<sub>p</sub> = （等待时间+要求服务时间）/要求服务时间 </p>
+<p>​                = 1 + 等待时间/要求服务时间 </p>
+<p>​                = 响应时间/要求服务时间</p>
+</li>
+<li><p>如果作业的等待时间相同，则要求服务的时间愈短，其优先权愈高，因而该算法有利于短作业。<br>当要求服务的时间相同时，作业的优先权决定于其等待时间，等待时间愈长，其优先权愈高，因而它实现的是先来先服务。<br>对于长作业，作业的优先级可以随等待时间的增加而提高，当其等待时间足够长时，其优先级便可升到很高，从而也可获得处理机。简言之，<strong>该算法既照顾了短作业，又考虑了作业到达的先后次序，不会使长作业长期得不到服务</strong>。因此，该算法实现了一种较好的折衷。当然，在利用该算法时，每要进行调度之前，都须先做响应比的计算，这会<strong>增加系统开销</strong>。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-3-进程调度"><a href="#3-3-进程调度" class="headerlink" title="3.3 进程调度"></a>3.3 进程调度</h2><ul>
+<li><p>进程调度的任务：</p>
+<ul>
+<li>保存处理机现场</li>
+<li>按照某种算法选取进程</li>
+<li>把处理机分配给进程</li>
+</ul>
+</li>
+<li><p>进程调度机制</p>
+<ul>
+<li><p>排队器。为提高进程调度的效率，应事先将系统中的所有就绪进程按照一定策略排成一个或多个队列，以便调度程序能最快找到它。以后每当有一个进程变为就绪状态时，排队器就将它插入到相应的就绪队列。</p>
+</li>
+<li><p>分派器。分派器依据进程调度程序所选的进程，将其从就绪队列中取出，然后进行从分派器到新选出进程间的上下文切换，将处理机分配给新选出的进程。</p>
+</li>
+<li><p>上下文切换器。在对处理机进行切换时，会发生两对上下文切换操作。</p>
+<ul>
+<li>第一对上下文切换时，OS将保存当前进程的上下文，即把当前进程的处理机寄存器内容保存到该进程的PCB的相应单元，再装入分派程序的上下文，以便分派程序运行。</li>
+<li>第二对上下文切换是移出分派程序的上下文，而把新选进程的CPU现场信息装入到处理机各个相应的寄存器中，以便新进程运行。</li>
+<li>进行上下文切换时，需要执行大量的load和store等操作指令，以保存寄存器的内容。</li>
+</ul>
+<p><a href="https://imgtu.com/i/cTwrSf"><img src="https://z3.ax1x.com/2021/04/19/cTwrSf.png" srcset="/img/loading.gif" alt="cTwrSf.png"></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="进程调度方式"><a href="#进程调度方式" class="headerlink" title="进程调度方式"></a>进程调度方式</h4><p><strong>1.非抢占方式(Nonpreemptive Mode)</strong><br>在这种方式下，系统一旦把处理机分配给就绪队列中优先权最高的进程后，该进程便一直执行下去，直至完成；或因发生某事件使该进程放弃处理机时，系统方可再将处理机重新分配给另一优先权最高的进程。<br>不能用于分时系统和实时系统。</p>
+<p><strong>2.抢占方式(Preeptive Mode)</strong><br>在这种方式下，系统同样是把处理机分配给优先权最高的进程，使之执行。但在其执行期间，只要又出现了另一个其优先权更高的进程，进程调度程序就立即停止当前进程的执行，重新将处理机分配给新到的优先权最高的进程。<br>抢占的原则：<strong>优先权原则、短进程优先原则、时间片原则</strong></p>
+<h3 id="3-3-2-轮转调度算法-Round-Robin-RR"><a href="#3-3-2-轮转调度算法-Round-Robin-RR" class="headerlink" title="3.3.2 轮转调度算法(Round Robin,RR)"></a>3.3.2 轮转调度算法(Round Robin,RR)</h3><ul>
+<li><p>在时间片轮转法中，系统将所有的就绪进程<strong>按先来先服务FCFS的原则</strong>，排成一个队列，每次调度时，把CPU分配给队首进程。并令其执行一个时间片。</p>
+</li>
+<li><p>当执行的时间片用完时，由一个计时器发出时钟<strong>中断请求</strong>，调度程序便据此信号来停止该进程的执行，若程序尚未运行完毕，将它送往就绪队列的末尾；然后，再把处理机分配给就绪队列中新的队首进程（或新到达的紧迫进程），同时也让它执行一个时间片。</p>
+</li>
+<li><p>这样就可以保证就绪队列中的所有进程，在一给定的时间内，均能获得一时间片的处理机执行时间，换言之，系统能在给定的时间内，响应所有用户的请求。</p>
+</li>
+<li><p>进程切换时机：</p>
+<ul>
+<li>若一个时间片尚未用完，正在运行的进程便已经完成，就立即激活调度程序，将它从就绪队列删除，再调度就绪队列中队首进程运行，并启动一个新的时间片。</li>
+<li>在一个时间片用完时，计时器中断处理程序被激活。如果进程尚未运行完毕，调度程序将它送往就绪队列的末尾。</li>
+</ul>
+</li>
+<li><p>进程切换将会增加系统的额外开销。</p>
+<p>时间片设定得太短，进程切换会非常频繁，从而降低处理机的效率；时间片设定得太长，将无法满足交互式用户对响应时间的要求。</p>
+<p>因此，时间片大小的确定应综合考虑系统的最大用户数、响应时间、系统效率等多种因素。 </p>
+<ul>
+<li>例题：</li>
+</ul>
+<p><a href="https://imgtu.com/i/cHMcXq"><img src="https://z3.ax1x.com/2021/04/20/cHMcXq.jpg" srcset="/img/loading.gif" alt="cHMcXq.jpg"></a></p>
+<p><strong>上图有错！！！</strong></p>
+<p>为了简单，图中忽略了进程切换时的系统开销，而实际操作系统中，这类额外开销是客观存在的。</p>
+<p>采用基于时间片轮转调度法，进程的周转时间和平均周转时间并不比采用FCFS和短进程优先调度算法小。</p>
+<p>加上进程切换所需的系统开销时间，该算法的平均周转时间还会增长。</p>
+</li>
+<li><p>常用于<strong>分时系统及事务处理系统</strong>，合理的时间片大小将带来满意的响应时间。</p>
+<p>通常，合理的时间片指，能让**80%**左右的进程在一个时间片内完成。</p>
+<p>对于短的、计算型的进程较有利。</p>
+<p>不适合于批处理系统的进程调度。</p>
+<p>不利于I/O型的进程。</p>
+<p>改进的方法之一，可以将I/O阻塞事件完成的进程单独组织一个就绪队列，该队列进程的时间片可以设置的小一些，且优先调度</p>
+</li>
+</ul>
+<h3 id="3-3-3-优先级调度算法"><a href="#3-3-3-优先级调度算法" class="headerlink" title="3.3.3 优先级调度算法"></a>3.3.3 优先级调度算法</h3><h4 id="优先调度算法类型"><a href="#优先调度算法类型" class="headerlink" title="优先调度算法类型"></a>优先调度算法类型</h4><p>非抢占式优先级调度算法<br>抢占式优先级调度算法</p>
+<h4 id="优先级的类型"><a href="#优先级的类型" class="headerlink" title="优先级的类型"></a>优先级的类型</h4><p>优先级调度算法的关键：应该如何确定进程的优先级。</p>
+<ul>
+<li>静态优先级<ul>
+<li>静态优先级是在创建进程时确定的，在进程整个运行期间保持不变。</li>
+<li>优先级利用某一范围内的一个整数表示，例如0~255中的某一个整数，把该整数称为<strong>优先数</strong>。</li>
+<li>确定进程优先级的依据：<ul>
+<li>进程类型。系统进程的优先权高于一般用户进程的优先权。</li>
+<li>进程对资源的需求。对要求少的进程应赋予较高的优先权。</li>
+<li>用户要求。根据进程的紧迫程度以及用户所付费用的多少确定优先级。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>动态优先级<ul>
+<li>动态优先级：  动态优先级是指，在创建进程时所赋予的优先权，是可以随进程的推进或随其等待时间的增加而改变的，以便获得更好的调度性能。  <ul>
+<li>例如，可以规定<strong>在就绪队列中的进程随其等待时间增长，使其优先级相应提升</strong>。若所有进程具有相同的优先级初始值，则最先进入就绪队列的进程会因其优先级变得最高，而优先获得处理机，这相当于FCFS算法。若所有的就绪进程具有各自不同的优先级初值，那么对于优先级初值低的进程，在等待了足够时间后，也可以得到处理机。<strong>当采用抢占式调度方式时，若再规定当前进程的优先级随时间的推移而下降，则可以防止一个长作业长期地垄断处理机。</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-3-4-多队列调度算法"><a href="#3-3-4-多队列调度算法" class="headerlink" title="3.3.4 多队列调度算法"></a>3.3.4 多队列调度算法</h3><ul>
+<li><p>将进程的就绪队列拆分为多个</p>
+<p>不同类型或性质的进程固定分配在对应的就绪队列</p>
+<p>不同的就绪队列采用不同的调度算法</p>
+<p>进程可以有不同的优先级、队列也可以有不同的优先级</p>
+<p>一个就绪队列中的进程可以设置不同的优先级，不同的就绪队列本身也可以设置不同的优先级。</p>
+</li>
+</ul>
+<h3 id="3-3-5-多级反馈队列调度算法-multileved-feedback-queue"><a href="#3-3-5-多级反馈队列调度算法-multileved-feedback-queue" class="headerlink" title="3.3.5 多级反馈队列调度算法(multileved feedback queue)"></a>3.3.5 多级反馈队列调度算法(multileved feedback queue)</h3><p>应设置多个就绪队列，并为各个队列赋予不同的优先级。 第一个最高，以后依次降低。</p>
+<p><a href="https://imgtu.com/i/cHR9Re"><img src="https://z3.ax1x.com/2021/04/20/cHR9Re.png" srcset="/img/loading.gif" alt="cHR9Re.png"></a></p>
+<ul>
+<li><p>当一个新进程进入内存后，首先将它放入第一队列的末尾，按FCFS原则排队等待调度。</p>
+<ul>
+<li>①当轮到该进程执行时，如它能在该时间片内完成，便可准备撤离系统；</li>
+<li>②如果它在一个时间片结束时尚未完成，调度程序便将该进程转入第二队列的末尾，再同样地按FCFS原则等待调度执行；</li>
+<li>③如果它在第二队列中运行一个时间片后仍未完成，再依次将它放入第三队列，……。</li>
+</ul>
+<p>仅当第一队列空闲时，调度程序才调度第二队列中的进程运行。</p>
+</li>
+<li><p>多级反馈队列调度算法具有较好的性能，能较好地满足各种类型用户的需要。</p>
+<ul>
+<li>终端型用户。由终端型用户提交的作业多属于交互型作业，通常较小，系统要使作业能在第一队列所规定的时间片内完成，可使终端型作业用户都感到满意。</li>
+<li>短批处理作业用户。对该用户更有利，周转时间较短。</li>
+<li>长批处理作业用户。对于长作业，它将依次在第1，2,…，n个队列中运行，然后再按轮转方式运行，用户不必担心其作业长期得不到处理。</li>
+</ul>
+</li>
+</ul>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul>
+<li>如何选择进程调度算法与系统设计的目标有关。</li>
+<li>交互式多任务系统，主要考虑联机用户对响应时间的要求，一般采用基于时间片轮转调度算法，同时，根据进程的性质设置不同的优先级。</li>
+<li>批处理系统往往以进程（或作业）的平均周转时间来衡量调度性能，常选用基于优先级的短进程（或作业）优先调度算法。 </li>
+</ul>
+<h2 id="3-4-实时调度"><a href="#3-4-实时调度" class="headerlink" title="3.4 实时调度"></a>3.4 实时调度</h2><p>由于在实时系统中都存在着若干个实时进程或任务，它们用来反应或控制某个外部事件，往往带有某种程度的紧迫性，因而对实时系统中的调度提出了某些特殊要求，前面所介绍的多种调度算法，并不能很好地满足实时系统对调度的要求，为此，需要引入一种新的调度，即<strong>实时调度</strong>。</p>
+<h3 id="3-4-1-实现实时调度的基本条件"><a href="#3-4-1-实现实时调度的基本条件" class="headerlink" title="3.4.1 实现实时调度的基本条件"></a>3.4.1 实现实时调度的基本条件</h3><h4 id="提供必要的信息"><a href="#提供必要的信息" class="headerlink" title="提供必要的信息"></a>提供必要的信息</h4><ul>
+<li><p><strong>就绪时间</strong>。这是该任务成为就绪状态的起始时间，在周期任务的情况下，它就是事先预知的一串时间序列；而在非周期任务的情况下，它也可能是预知的。</p>
+</li>
+<li><p><strong>开始截止时间和完成截止时间</strong>。对于典型的实时应用，只须知道开始截止时间，或者知道完成截止时间。</p>
+</li>
+<li><p> <strong>处理时间</strong>。这是指一个任务从开始执行直至完成所需的时间。在某些情况下，该时间也是系统提供的。</p>
+</li>
+<li><p><strong>资源要求</strong>。这是指任务执行时所需的一组资源。</p>
+</li>
+<li><p><strong>优先级</strong>。如果某任务的开始截止时间已经错过，就会引起故障，则应为该任务赋予“绝对”优先级；如果开始截止时间的推迟对任务的继续运行无重大影响，则可为该任务赋予“相对”优先级，供调度程序参考。</p>
+</li>
+</ul>
+<h4 id="系统处理能力强"><a href="#系统处理能力强" class="headerlink" title="系统处理能力强"></a>系统处理能力强</h4><p>在实时系统中，通常都有着多个实时任务。若处理机的处理能力不够强，则有可能因处理机忙不过来而使某些实时任务不能得到及时处理。</p>
+<p>解决方法：</p>
+<ul>
+<li>仍是采用单处理机系统，但须增强其处理能力，以显著地减少对每一个任务的处理时间。</li>
+<li>采用多处理机系统。</li>
+</ul>
+<h4 id="采用抢占式调度机制"><a href="#采用抢占式调度机制" class="headerlink" title="采用抢占式调度机制"></a>采用抢占式调度机制</h4><p>在含有硬实时任务的实时系统中，广泛采用抢占机制。当一个优先权更高的任务到达时，允许将当前任务暂时挂起，而令高优先权任务立即投入运行，这样便可满足该硬实时任务对截止时间的要求。</p>
+<h4 id="具有快速切换机制"><a href="#具有快速切换机制" class="headerlink" title="具有快速切换机制"></a>具有快速切换机制</h4><p>为保证要求较高的硬实时任务能及时运行，在实时系统中还应具有快速切换机制，以保证能进行任务的快速切换。该机制应具有如下两方面的能力：</p>
+<ul>
+<li><strong>对外部中断的快速响应能力。</strong>为使在紧迫的外部事件请求中断时系统能及时响应，要求系统具有快速硬件中断机构，还应使禁止中断的时间间隔尽量短，以免耽误时机(其它紧迫任务)。</li>
+<li><strong>快速的任务分派能力。</strong>在完成任务调度后，便应进行任务切换。为了提高分派程序进行任务切换时的速度，应使系统中的每个运行功能单位适当地小，以减少任务切换的时间开销。</li>
+</ul>
+<h3 id="3-4-2-实时调度算法分类"><a href="#3-4-2-实时调度算法分类" class="headerlink" title="3.4.2 实时调度算法分类"></a>3.4.2 实时调度算法分类</h3><p>根据实时任务性质，可将实时调度算法分为：</p>
+<ul>
+<li>硬实时调度算法</li>
+<li>软实时调度算法</li>
+</ul>
+<p>根据调度方式分类：</p>
+<ul>
+<li>抢占式调度算法</li>
+<li>非抢占式调度算法</li>
+</ul>
+<h4 id="非抢占式调度算法"><a href="#非抢占式调度算法" class="headerlink" title="非抢占式调度算法"></a>非抢占式调度算法</h4><ul>
+<li><p><strong>非抢占式轮转调度算法</strong></p>
+<p>调度程序每次选择队列中的第一个任务投入运行。当该任务完成后，便把它挂在轮转队列的末尾，等待下次调度运行。该算法可获得数秒到数十秒的响应时间，可用于要求不太严格的实时控制系统。<br><a href="https://imgtu.com/i/cHfcxe"><img src="https://z3.ax1x.com/2021/04/20/cHfcxe.png" srcset="/img/loading.gif" alt="cHfcxe.png"></a></p>
+</li>
+<li><p><strong>非抢占式优先调度算法</strong></p>
+<p>如果在系统中存在着实时要求较为严格的任务，则可采用非抢占式优先调度算法，为这些任务赋予较高的优先级。当这些实时任务到达时，把它们安排在就绪队列的队首，等待当前任务自我终止或运行完成后，才能被调度执行。</p>
+<p><a href="https://imgtu.com/i/cHf2KH"><img src="https://z3.ax1x.com/2021/04/20/cHf2KH.png" srcset="/img/loading.gif" alt="cHf2KH.png"></a></p>
+</li>
+</ul>
+<h4 id="抢占式调度算法"><a href="#抢占式调度算法" class="headerlink" title="抢占式调度算法"></a>抢占式调度算法</h4><ul>
+<li><p><strong>基于时钟中断的抢占式优先权调度算法</strong></p>
+<p>某实时任务到达后，如果该任务的优先级高于当前任务的优先级，这时并不立即抢占当前任务的处理机，而是等到时钟中断到来时，调度程序才剥夺当前任务的执行，将处理机分配给新到的高优先权任务。 </p>
+<p><a href="https://imgtu.com/i/cHfy8O"><img src="https://z3.ax1x.com/2021/04/20/cHfy8O.png" srcset="/img/loading.gif" alt="cHfy8O.png"></a></p>
+</li>
+<li><p><strong>立即抢占的优先权调度算法</strong></p>
+<p>一旦出现外部中断，只要当前任务未处于临界区，便能立即剥夺当前任务的执行，把处理机分配给请求中断的紧迫任务<strong>。</strong> </p>
+<p><a href="https://imgtu.com/i/cHfsPK"><img src="https://z3.ax1x.com/2021/04/20/cHfsPK.png" srcset="/img/loading.gif" alt="cHfsPK.png"></a></p>
+</li>
+</ul>
+<h3 id="3-4-3-常用的几种实时调度算法"><a href="#3-4-3-常用的几种实时调度算法" class="headerlink" title="3.4.3 常用的几种实时调度算法"></a>3.4.3 常用的几种实时调度算法</h3><h4 id="最早截止时间优先-Earliest-Deadline-First-EDF"><a href="#最早截止时间优先-Earliest-Deadline-First-EDF" class="headerlink" title="最早截止时间优先(Earliest Deadline First)EDF"></a>最早截止时间优先(Earliest Deadline First)EDF</h4><p>该算法要求在系统中保持一个实时任务就绪队列，该队列按各任务截止时间的早晚排序；具有最早截止时间的任务排在队列的最前面。调度程序总是选择就绪队列中的第一个任务，为之分配处理机，使之投入运行。 </p>
+<ul>
+<li><p>EDF算法用于非抢占式调度方式</p>
+<p>四个非周期任务，现后达到</p>
+<p><a href="https://imgtu.com/i/cHhlsH"><img src="https://z3.ax1x.com/2021/04/21/cHhlsH.png" srcset="/img/loading.gif" alt="cHhlsH.png"></a></p>
+</li>
+<li><p>抢占式调度方式用于周期实时任务</p>
+<p><a href="https://imgtu.com/i/cH4X40"><img src="https://z3.ax1x.com/2021/04/21/cH4X40.jpg" srcset="/img/loading.gif" alt="cH4X40.jpg"></a></p>
+<p><a href="https://imgtu.com/i/cH4vCV"><img src="https://z3.ax1x.com/2021/04/21/cH4vCV.png" srcset="/img/loading.gif" alt="cH4vCV.png"></a></p>
+</li>
+</ul>
+<h4 id="最低松弛度优先-Least-Laxity-First"><a href="#最低松弛度优先-Least-Laxity-First" class="headerlink" title="最低松弛度优先(Least Laxity First)"></a>最低松弛度优先(Least Laxity First)</h4><p><strong>松弛度 = 必须完成时间 - 本身运行时间 - 当前时间</strong></p>
+<p>该算法<strong>按松弛度排序实时任务的就绪队列</strong>，松弛度值最小的任务排在队列最前面，调度程序总是选择就绪队列中的队首任务执行。</p>
+<p><a href="https://imgtu.com/i/cbmHED"><img src="https://z3.ax1x.com/2021/04/21/cbmHED.png" srcset="/img/loading.gif" alt="cbmHED.png"></a></p>
+<p><a href="https://imgtu.com/i/cbmbUe"><img src="https://z3.ax1x.com/2021/04/21/cbmbUe.png" srcset="/img/loading.gif" alt="cbmbUe.png"></a></p>
+<ul>
+<li><p>在刚开始时(t1 = 0)，A1必须在20 ms 时完成，而它本身运行又需 10 ms，可算出A1的松弛度为10 ms；B1必须在50 ms 时完成，而它本身运行就需25 ms，可算出B1的松弛度为25 ms，故调度程序应先调度A1执行。</p>
+</li>
+<li><p>在<em>t</em>2 = 10 ms 时，A2的松弛度可按下式算出：<br>A2的松弛度 = 必须完成时间 - 其本身的运行时间 - 当前时间</p>
+<pre><code>                 = 40 ms-10 ms-10 ms = 20 ms
+</code></pre>
+<p>类似地，可算出B1的松弛度为15 ms，故调度程序应选择B2运行。</p>
+</li>
+<li><p>在t3 = 30 ms 时，A2的松弛度已减为0(即40 - 10 - 30)，而B1的松弛度为15 ms(即50 - 5 - 30)，于是调度程序应抢占B1的处理机而调度A2运行。</p>
+</li>
+<li><p>。在<em>t</em> 4 = 40 ms时，A3的松弛度为10 ms(即60 - 10 - 40)，而B1的松弛度仅为5 ms(即50 - 5 - 40)，故又应重新调度B1执行。</p>
+</li>
+<li><p>在t5 = 45 ms 时，B1执行完成，而此时A3 的松弛度已减为5 ms(即60 - 10 - 45)，而B2 的松弛度为30 ms(即100 - 25 - 45)，于是又应调度A3执行。</p>
+</li>
+<li><p>在t6 = 55 ms 时，任务A 尚未进入第4 周期，而任务B 已进入第2 周期，故再调度B2执行。</p>
+</li>
+<li><p>在t7 = 70 ms 时，A4的松弛度已减至0 ms(即80 - 10 - 70)，而B2的松弛度为20 ms(即100 - 10 - 70)，故此时调度又应抢占B2的处理机而调度A4 执行。</p>
+</li>
+<li><p>注意：</p>
+<ul>
+<li><p><strong>当等待任务的松弛度值为0时才进行抢占（如20ms时虽然A2的松弛度比B1的松弛度小，但A2并没有抢占B1）。</strong></p>
+</li>
+<li><p>当有任务执行时，只有等待任务的松弛度值为0才会发生任务的调度，其他情况不发生调度。</p>
+</li>
+<li><p><strong>任务执行结束后或无任务执行时，再比较等待任务的松弛度值，较小的先执行。</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-5-产生死锁的原因和条件"><a href="#3-5-产生死锁的原因和条件" class="headerlink" title="3.5 产生死锁的原因和条件"></a>3.5 产生死锁的原因和条件</h2><p>所谓<strong>死锁（Deadlock）</strong>，是指多个进程在运行过程中因争夺资源而造成的一种僵局（<strong>Deadly- Embrace</strong>），当进程处于这种僵持状态时，若无外力作用，它们都将无法再向前推进。</p>
+<h3 id="3-5-1-资源问题"><a href="#3-5-1-资源问题" class="headerlink" title="3.5.1 资源问题"></a>3.5.1 资源问题</h3><ul>
+<li><p><strong>可重用性资源</strong></p>
+<ul>
+<li>每一个可重用资源中的单元只能分配给一个进程使用，不允许多个进程共享</li>
+<li>进程在使用该类资源过程中，须按照下列顺序：请求，使用，释放</li>
+<li>系统中每一类可重用资源中的单元数目是相对固定的，进程在运行期间既不能创建也不能删除它</li>
+</ul>
+</li>
+<li><p><strong>可消耗性资源</strong></p>
+<p>临时性资源，其在进程运行期间，由进程动态地创建和消耗的</p>
+<ul>
+<li>每一类可消耗性资源的单元数目在运行期间是不断变化的</li>
+<li>进程在运行过程中，可以不断地创造可消耗性资源的单元</li>
+<li>进程在运行过程中，可以请求若干个可消耗性资源单元</li>
+<li>典型：消息</li>
+</ul>
+</li>
+<li><p><strong>可抢占性资源</strong></p>
+<ul>
+<li><p>某进程在获得这类资源后，该资源可以再被其他进程或系统剥夺</p>
+</li>
+<li><p>优先权高的进程可以剥夺优先权低的进程的处理机</p>
+</li>
+<li><p>内存区可由存储器管理程序把一个进程从一个存储区移到另一个存储区，此即剥夺了该进程原来占有的存储区。甚至可将一个进程从内存调出到外存上</p>
+</li>
+<li><p>CPU和主存均属于可剥夺性资源</p>
+</li>
+<li><p>多道程序环境下，不会因为竞争可抢占资源而发生死锁。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>不可抢占资源</strong></p>
+<ul>
+<li>当系统把这类资源分配给某进程后，再不能强行收回，只能在进程用完后自行释放</li>
+<li>如磁带机、打印机等</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-5-2-计算机系统中的死锁"><a href="#3-5-2-计算机系统中的死锁" class="headerlink" title="3.5.2 计算机系统中的死锁"></a>3.5.2 计算机系统中的死锁</h3><ul>
+<li>竞争资源。当系统中供多个进程共享的资源如打印机、公用队列等，其数目不足以满足诸进程的需要时，会引起诸进程对资源的竞争而产生死锁。</li>
+<li>进程间推进顺序非法。进程在运行过程中，请求和释放资源的顺序不当，也同样会导致产生进程死锁。</li>
+</ul>
+<h4 id="竞争资源引起的进程死锁"><a href="#竞争资源引起的进程死锁" class="headerlink" title="竞争资源引起的进程死锁"></a>竞争资源引起的进程死锁</h4><ul>
+<li><p>竞争不可抢占性(非剥夺性)资源</p>
+<ul>
+<li><p>在系统中所配置的非剥夺性资源，由于它们的数量不能满足诸进程运行的需要，会使进程在运行过程中，因争夺这些资源而陷入僵局。</p>
+</li>
+<li><p>例如，系统中只有一台打印机R1和一台磁带机R2，可供进程P1和P2共享。处理不好，在P1与P2之间会形成僵局，引起死锁。</p>
+<p>假定P1已占用了打印机R1，P2已占用了磁带机R2。此时，若P2继续要求打印机，P2将阻塞；P1若又要求磁带机，P1也将阻塞。于是，在P1与P2之间便形成了僵局，两个进程都在等待对方释放出自己所需的资源。但它们又都因不能继续获</p>
+<p>得自己所需的资源而不能继续推进，从而也不能释放出自己已占有的资源，以致进入死锁状态。</p>
+<p>为便于说明，我们用方块代表资源，用圆圈代表进程。当箭头从进程指向资源时，表示进程请求资源；当箭头从资源指向进程时，表示该资源已被分配给该进程。从中可以看出，这时在P1、P2及R1和R2之间已经形成了一个环路，说明已进入死锁状态。</p>
+<p><a href="https://imgtu.com/i/cbR0ud"><img src="https://z3.ax1x.com/2021/04/21/cbR0ud.png" srcset="/img/loading.gif" alt="cbR0ud.png"></a></p>
+</li>
+</ul>
+</li>
+<li><p>竞争可消耗性(临时性)资源</p>
+<ul>
+<li><p>永久性资源：可顺序重复使用型资源称为永久性资源。</p>
+</li>
+<li><p>临时性资源，是指由一个进程产生，被另一进程使用一暂短时间后便无用的资源，故也称之为消耗性资源，它也可能引起死锁。</p>
+</li>
+<li><p>例如：S1、S2和S3是临时性资源，由进程P1、P2和P3产生的消息。如果消息通信处理顺序不当也会发生死锁。</p>
+<p><a href="https://imgtu.com/i/cbWJqs"><img src="https://z3.ax1x.com/2021/04/21/cbWJqs.png" srcset="/img/loading.gif" alt="cbWJqs.png"></a></p>
+<p>如果消息通信按下述顺序进行：</p>
+<p>P1： …Release(S1)； Reqaest(S3)； …</p>
+<p>P2： …Release(S2)； Request(S1)； …</p>
+<p>P3： …Release(S3)； Request(S2)； …</p>
+<p>并不可能发生死锁，</p>
+<p>P1： …Request(S3)； Release(S1)； …</p>
+<p>P2： …Request(S1)； Release(S2)； …</p>
+<p>P3： …Request(S2)； Release(S3)； …</p>
+<p>则可能发生死锁。</p>
+</li>
+</ul>
+</li>
+<li><p>进程推进顺序不合法引起死锁</p>
+<ul>
+<li><p>进程推进顺序合法</p>
+<p>  进程推进顺序是合法不会引起进程死锁的。 </p>
+</li>
+<li><p>进程推进顺序非法 </p>
+<p>若并发进程P1和P2推进顺序不合法，进入不安全状态，于是发生了进程死锁 </p>
+</li>
+<li><p><a href="https://imgtu.com/i/cbfLnJ"><img src="https://z3.ax1x.com/2021/04/21/cbfLnJ.png" srcset="/img/loading.gif" alt="cbfLnJ.png"></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-5-3-死锁的必要条件和处理方法"><a href="#3-5-3-死锁的必要条件和处理方法" class="headerlink" title="3.5.3 死锁的必要条件和处理方法"></a>3.5.3 死锁的必要条件和处理方法</h3><p><strong>死锁的定义</strong>：<strong>如果一组进程中的每一个进程都在等待仅由该组进程中的其他进程才能引发的事件</strong>，那么该组的进程是死锁的。(Deadlock)</p>
+<p><strong>死锁的发生必须具备下列四个必要条件：</strong></p>
+<ul>
+<li><p><strong>互斥条件</strong>。指进程对所分配到的资源进行排它性使用。</p>
+</li>
+<li><p><strong>请求和保持条件</strong>。指进程已经保持了至少一个资源，但又提出了新的资源请求 ，而该资源已被其他进程占用，此时进程被阻塞，但对自己获得的资源保持不放。</p>
+</li>
+<li><p><strong>不剥夺条件</strong>。指进程已获得的资源，在未使用完之前，不能被剥夺，只能在使用完时由自己释放。</p>
+</li>
+<li><p><strong>环路等待条件</strong>。在发生死锁时，必然存在一个<strong>进程——资源的环形链</strong> </p>
+</li>
+</ul>
+<h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
+<li><p><strong>预防死锁</strong>：破坏产生死锁的四个必要条件中的一个或几个条件。</p>
+</li>
+<li><p><strong>避免死锁</strong>：用某种方法去防止系统进入不安全状态。 </p>
+<p>在资源的动态分配过程中进行。</p>
+</li>
+<li><p><strong>检测死锁</strong>：及时地检测出死锁的发生，确定有关的进程和资源。</p>
+</li>
+<li><p><strong>解除死锁</strong>：撤消或挂起一些进程。</p>
+</li>
+</ul>
+<h2 id="3-6-预防死锁"><a href="#3-6-预防死锁" class="headerlink" title="3.6 预防死锁"></a>3.6 预防死锁</h2><p>预防死锁的方法是使四个必要条件中的第2、3、4条件之一不能成立，来避免发生死锁。</p>
+<p>至于必要条件1，因为它是由设备的固有属性所决定的，不仅不能改变，还应加以保证。</p>
+<h3 id="3-6-1-摒弃“请求和保持”条件"><a href="#3-6-1-摒弃“请求和保持”条件" class="headerlink" title="3.6.1 摒弃“请求和保持”条件"></a>3.6.1 摒弃“请求和保持”条件</h3><p>系统规定所有进程在开始运行之前，<strong>都必须一次性地申请其在整个运行过程所需的全部资源</strong>。这样，该进程在整个运行期间：便不会再提出资源要求，从而摒弃了请求和保持条件，从而可以避免发生死锁。</p>
+<p>这种预防死锁的方法的优点：简单、易于实现且很安全。</p>
+<p>缺点：资源被严重浪费，出现饥饿现象，使进程延迟运行。</p>
+<h3 id="3-6-2-摒弃“不剥夺”条件"><a href="#3-6-2-摒弃“不剥夺”条件" class="headerlink" title="3.6.2 摒弃“不剥夺”条件"></a>3.6.2 摒弃“不剥夺”条件</h3><p>进程是逐个地提出对资源的要求的。<strong>当一个已经保持了某些资源的进程，再提出新的资源请求而不能立即得到满足时，必须释放它已经保持了的所有资源。</strong>待以后需要时再重新申请。从而摒弃了“不剥夺”条件。</p>
+<p>这种预防死锁的方法，实现起来比较复杂且要付出很大代价。因为一个资源在使用一段时间后，它的被迫释放可能会造成前段工作的失效。还会使进程前后两次运行的信息不连续 。</p>
+<h3 id="3-6-3-摒弃“环路等待”条件"><a href="#3-6-3-摒弃“环路等待”条件" class="headerlink" title="3.6.3 摒弃“环路等待”条件"></a>3.6.3 摒弃“环路等待”条件</h3><p>这种方法中规定，系统<strong>将所有资源按类型进行线性排队，并赋予不同的序号</strong>。 <strong>所有进程对资源的请求必须严格按照资源序号递增的次序提出</strong>，这样，在所形成的资源分配图中，不可能再出现环路，因而摒弃了“环路等待”条件。</p>
+<ul>
+<li>存在的问题：<ul>
+<li>首先是为系统中各类资源所分配（确定）的序号，必须相对稳定，这就限制了新类型设备的增加</li>
+<li>作业（进程）使用各类资源的顺序，与系统规定的顺序不同，造成对资源的浪费 </li>
+<li>限制用户简单、自主地编程 。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-7-避免死锁"><a href="#3-7-避免死锁" class="headerlink" title="3.7 避免死锁"></a>3.7 避免死锁</h2><h3 id="3-7-1-系统安全状态"><a href="#3-7-1-系统安全状态" class="headerlink" title="3.7.1 系统安全状态"></a>3.7.1 系统安全状态</h3><ul>
+<li><p>定义：所谓安全状态，是指系统能按某种进程顺序（P1，P2，…，Pn），来为每个进程Pi分配其所需资源，直至满足每个进程对资源的最大需求，使每个进程都可顺利地完成，称系统处于<strong>安全状态</strong>，称〈P1，P2，…，Pn〉序列为<strong>安全序列</strong> 。否则<strong>，如果系统无法找到这样一个安全序列，则称系统处于不安全状态</strong>。（找到一个序列即可）</p>
+</li>
+<li><p>安全状态实例</p>
+<p>假定系统中有三个进程P1、P2和P3，共有12台磁带机。进程P1总共要求10台磁带机，P2和P3分别要求4台和9台。假设在T0** 时刻进程P1、P2和P3已分别获得5台、2台和2台磁带机，尚有3台空闲未分配，在T0时刻系统是否安全？</p>
+<p>&lt;P2,P1,P3&gt;,安全。</p>
+</li>
+<li><p><strong>由安全状态向不安全状态的转换</strong></p>
+<p><strong>不按照安全序列分配资源</strong></p>
+</li>
+</ul>
+<h3 id="3-7-2-利用银行家算法避免死锁"><a href="#3-7-2-利用银行家算法避免死锁" class="headerlink" title="3.7.2 利用银行家算法避免死锁"></a>3.7.2 利用银行家算法避免死锁</h3><p>银行家算法（！！！）</p>
+<p>最有代表性的避免死锁的算法，是<strong>Dijkstra 的银行家算法</strong>。这是由于该算法能用于银行系统现金贷款的发放而得名的。为实现银行家算法，系统中必须设置若干数据结构。</p>
+<h4 id="银行家算法中的数据结构"><a href="#银行家算法中的数据结构" class="headerlink" title="银行家算法中的数据结构"></a>银行家算法中的数据结构</h4><ul>
+<li><p><strong>可利用资源向量</strong>Available：这是一个含有m个元素的数组，其中的每一个元素代表一类<strong>可利用的资源数目</strong>。其数值随该类资源的分配和回收而动态地改变。</p>
+</li>
+<li><p><strong>最大需求矩阵</strong>Max：这是一个n×m的矩阵，它定义了系统中n个进程中的每一个进程对m类资源的<strong>最大需求</strong>。如果Max[i,j]=K，则表示进程i需要Rj类资源的最大数目为K。</p>
+</li>
+<li><p><strong>分配矩阵</strong>Allocation：这是一个n×m的矩阵，它定义了系统中每一类资源当前<strong>已分配</strong>给每一进程的资源数。如果Allocation[ i,j ]=K，则表示进程Pi当前已分得Rj类资源的数目为K。</p>
+</li>
+<li><p><strong>需求矩阵</strong>Need：这也是一个n×m的矩阵，用以表示每一个进程<strong>尚需</strong>的各类资源数。如果Need[ i,j ]=K，则表示进程Pi还需要Rj类资源K个，方能完成其任务。</p>
+<p> <strong>Need[ i,j ] ＝ Max[ i,j ]  -  Allocation[ i,j ]</strong></p>
+</li>
+</ul>
+<h4 id="银行家算法"><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h4><p>设Requesti，是进程Pi的请求向量，当Pi发出资源请求后，系统按下述步骤进行检查：</p>
+<ul>
+<li><p>如果Requesti[ j ] ≤ Need[ i,j ], 便转向步骤2；否则认为出错，因为它所需要的资源数已超过它所宣布的最大值。</p>
+</li>
+<li><p>如果Requesti[ j ] ≤ Available[ j ]，便转向步骤（3）；否则，表示尚无足够资源，Pi须等待。</p>
+</li>
+<li><p>系统试探着把资源分配给进程Pi，并修改下面数据结构中的数值：</p>
+<p>   Available[ j ] = Available[ j ] — Requesti[ j ]；</p>
+<p>   Allocation[ i,j ] =  Allocation[ i,j ] + Requesti[ j ];</p>
+<p>​    Need[ i, j ] = Need[ i, j ] - Requesti[ j ]；</p>
+</li>
+<li><p>系统执行安全性算法，检查此次资源分配后，系统是否处于安全状态。若安全，才正式将资源分配给进程Pi，以完成本次分配；否则，将本次的试探分配作废，恢复原来的资源分配状态，让进程Pi等待。</p>
+</li>
+</ul>
+<h4 id="安全性算法"><a href="#安全性算法" class="headerlink" title="安全性算法"></a>安全性算法</h4><p>  （1） 设置两个向量：</p>
+<p>①工作向量Work: <strong>它表示系统可提供给进程继续运行所需的各类资源数目，Work =  Available</strong></p>
+<p>②Finish：开始时先做Finish[i] = false；当有足够资源分配给进程时，再令Finish[i] = true。</p>
+<p>（2）从进程集合中找到一个能满足下述条件的进程：</p>
+<p>   ①Finish[i] = false；</p>
+<p>   ②Need[i,j] ≤ work[j]；</p>
+<p>   找到，执行步骤（3)；否则，执行步骤（4）。</p>
+<p>（3）当进程只获得资源后，可顺利执行，直至完成，并释放出分配给它的资源，故应执行：</p>
+<p>​    Work[ j ] = Work[ i ] + Allocation[ i,j ]；</p>
+<p>​    Finish[ i ] = true; </p>
+<p>​    go to step 2</p>
+<p> （4）如果所有进程的Finish[i]＝true都满足，则表示系统处于安全状态；否则，系统处于不安全状态。</p>
+<h4 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h4><h2 id="3-8-死锁的检测与解除"><a href="#3-8-死锁的检测与解除" class="headerlink" title="3.8 死锁的检测与解除"></a>3.8 死锁的检测与解除</h2><h3 id="3-8-1-死锁的检测"><a href="#3-8-1-死锁的检测" class="headerlink" title="3.8.1 死锁的检测"></a>3.8.1 死锁的检测</h3><p>当系统为进程分配资源时，若未采取任何限制性措施，则系统必须提供检测和解除死锁的手段。</p>
+<h4 id="资源分配图"><a href="#资源分配图" class="headerlink" title="资源分配图"></a>资源分配图</h4><p>该图是由一组结点N和一组边E所组成的一个对偶G＝（N,E）。其中：</p>
+<ul>
+<li><p>把N分为两个互斥的子集，即一组进程结点P={P1,P2，…，Pn）和一组资源结点R={r1, r2, …, rn}，N＝PUR。 </p>
+</li>
+<li><p>凡属于E中的一个边e∈ E都连接着P中的一个结点和R中的一个结点。</p>
+<ul>
+<li><p>e＝{Pi,rj} </p>
+<p>  它表示进程pj请求一个单位的rj资源。</p>
+<p>e={rj，Pi}   </p>
+<p>  它表示把一个单位的资源rj分配给进程Pi。 </p>
+</li>
+<li><p><a href="https://imgtu.com/i/cbT5N9"><img src="https://z3.ax1x.com/2021/04/21/cbT5N9.png" srcset="/img/loading.gif" alt="cbT5N9.png"></a></p>
+<p>我们用圆圈代表一个进程，用方框代表一类资源。由于一种类型的资源可能有多个，我们用方框中的一个点代表一类资源中的一个资源。此时，请求边是由进程指向方框中的rj，而分配边则应始于方框中的一个点。图3-20 示出了一个资源分配图。图中，p1进程已经分得了两个r1资源，并又请求一个r2资源；p2进程分得了一个r1和一个r2资源，并又请求r1资源。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="死锁定理"><a href="#死锁定理" class="headerlink" title="死锁定理"></a>死锁定理</h4><p>S为死锁状态的<strong>充分条件</strong>是：当且仅当S状态的资源分配图是<strong>不可完全简化的</strong>。该充分条件被称为死锁定理。</p>
+<p><a href="https://imgtu.com/i/cb7BDO"><img src="https://z3.ax1x.com/2021/04/21/cb7BDO.png" srcset="/img/loading.gif" alt="cb7BDO.png"></a></p>
+<ul>
+<li><p>在资源分配图中，找出一个既不阻塞又非独立的进程结点Pi。在顺利的情况下，Pi可获得所需资源而继续运行，直至运行完毕，再释放其所占有的全部资源，这相当于消去pi所求的请求边和分配边，使之成为孤立的结点。在图3-21(a)中，将p1的两个分配边和一个请求边消去，便形成图(b)所示的情况。</p>
+</li>
+<li><p>p1释放资源后，便可使p2获得资源而继续运行，直至p2完成后又释放出它所占有的全部资源，形成图(c)所示的情况。</p>
+</li>
+<li><p>在进行一系列的简化后，若能消去图中所有的边，使所有的进程结点都成为孤立结点，则称该图是可完全简化的；若不能通过任何过程使该图完全简化，则称该图是不可完全简化的。</p>
+</li>
+</ul>
+<p>对于较复杂的资源分配图，可能有多个既未阻塞，又非孤立的进程结点，不同的简化顺序是否会得到不同的简化图？有关文献已经证明，<strong>所有的简化顺序，都将得到相同的不可简化图。</strong>同样可以证明：S为死锁状态的充分条件是：当且仅当S状态的资源分配图是不可完全简化的。该充分条件被称为死锁定理。</p>
+<h4 id="死锁检测中的数据结构"><a href="#死锁检测中的数据结构" class="headerlink" title="死锁检测中的数据结构"></a>死锁检测中的数据结构</h4><p>（1）可利用资源向量Available，它表示了m类资源中每一类资源的可用数目。</p>
+<p>（2）把不占用资源的进程（Allocation：=0）记入L表中，即Li U L</p>
+<p>（3）从进程集合中找到一个Requesti≤work的进程，做如下处理：</p>
+<p>​     ① Work :＝ Work + Allocationi，</p>
+<p>​     ②将它记入L表中。</p>
+<p>（4）<strong>若不能把所有进程都记入L表中，便表明系统状态S的资源分配图是不可完全简化的。</strong>因此，该系统状态将发生死锁。</p>
+<h3 id="3-8-2-解除死锁"><a href="#3-8-2-解除死锁" class="headerlink" title="3.8.2 解除死锁"></a>3.8.2 解除死锁</h3><p>当发现有进程死锁时，常采用的两种方法是解除死锁：</p>
+<ul>
+<li><strong>剥夺资源</strong>。从其它进程剥夺足够数量的资源给死锁进程，以解除死锁状态。</li>
+<li><strong>撤消进程</strong>。最简单的撤消进程的方法，是使全部死锁进程都夭折掉；或者按照某种顺序逐个地撤消进程，直至有足够的资源可用，使死锁状态消除为止。</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/19/%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86/">
+                        <span class="hidden-mobile">存储器管理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        京ICP证123456号
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon"/>
+            
+            <span>京公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

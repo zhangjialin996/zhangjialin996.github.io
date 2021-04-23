@@ -20,7 +20,7 @@
   <meta name="author" content="Mike Taylor">
   <meta name="keywords" content="学习">
   
-  <title>Linux入门 - Mike Taylor</title>
+  <title>机器学习概述 - Mike Taylor</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Linux入门">
+            <span class="h2" id="subtitle" title="机器学习概述">
               
             </span>
 
@@ -180,8 +180,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-04 12:08" pubdate>
-        2021年3月4日 中午
+      <time datetime="2021-04-16 14:43" pubdate>
+        2021年4月16日 下午
       </time>
     </span>
   
@@ -192,7 +192,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      619 字
+      1.5k 字
     </span>
   
 
@@ -202,7 +202,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      15
        分钟
     </span>
   
@@ -240,43 +240,44 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Linux入门</h1>
+            <h1 style="display: none">机器学习概述</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月17日 晚上
+                  本文最后更新于：2021年4月17日 凌晨
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="Linux简介"><a href="#Linux简介" class="headerlink" title="Linux简介"></a>Linux简介</h2><p>1.Linux简介：操作系统、安装在计算机硬件上、用来管理计算机的硬件和软件资源的系统软件。它是一种开源的、免费的操作系统，注重系统安全性、稳定性，卡顿相比windows来说低，高并发处理能力好，但没有优异的可视化操作界面。windows用于个人电脑，Linux用于企业服务器上。</p>
-<p>2.Linux发行版本：1991年Linus开发Linux内核程序，后来很多软件开发组织以及软件公司在内核程序基础上，陆续推出了很多不同版本的Linux操作系统：Ubuntu、RedHat、CentOS</p>
-<p>3、安装Linux操作系统：</p>
-<p>1）虚拟机：可以软件模拟出一套具有完整硬件系统的、运行在一个完全隔离环境中的完整计算机系统。</p>
-<p>2）安装Linux：Linux镜像，可视化界面单薄，使用Linux多数基于终端命令行，来使用Linux指令操作计算机。</p>
-<p>4、Linux的目录结构</p>
-<p>1）Linux只有一个根目录。/</p>
-<p>2）层级式目录结构：</p>
+              <h2 id="一、朴素贝叶斯分类器（略）"><a href="#一、朴素贝叶斯分类器（略）" class="headerlink" title="一、朴素贝叶斯分类器（略）"></a>一、朴素贝叶斯分类器（略）</h2><h2 id="二、监督学习-supervised-learning"><a href="#二、监督学习-supervised-learning" class="headerlink" title="二、监督学习(supervised learning)"></a>二、监督学习(supervised learning)</h2><p>机器学习分为：监督学习、无监督学习、半监督学习</p>
+<h3 id="第一部分-监督学习"><a href="#第一部分-监督学习" class="headerlink" title="第一部分 监督学习"></a>第一部分 监督学习</h3><p>从给定的训练集中学习出一个函数（模型参数），当新的数据到来时，可以根据这个函数预测结果。监督学习的训练集要求包括：输入、输出，也可以说是特征和目标。训练集中的目标由人标注。监督学习最常见的分类（注意和聚类区分）问题，通过已有的训练样本（已知数据以及对应的输出）去训练得到一个最优模型（模型属于某个函数的集合，最优表示某个评价准则下是最佳的），再利用这个模型将所有的输入映射为相应的输出，对输出进行简单的判断从而实现分类的目的，也就有了对未知数据分类的能力。监督学习的目的往往是让计算机去学习我们已经创建好的分类系统（模型）。</p>
+<p>监督学习是训练神经网络和决策树的常见技术。这两种技术高度依赖事先确定的分类系统给出的信息，对于神经网络，分类系统利用信息判断网络的错误，然后不断调整网络参数。对于决策树，分类系统利用它来判断哪些属性提供了最多的信息。</p>
+<p>常见的监督学习算法：回归分析和统计分析。最典型的算法是KNN和SVM。</p>
+<p>监督学习最常见的就是：regression&amp;classification</p>
+<p>Regression：Y是实数vector。回归问题，就是拟合(x,y)的一条曲线，使得价值函数（costfunction）L最小。</p>
+<p>L(f,(X,Y)) = ||f(X) - Y||^2</p>
+<p>Classification：Y是一个有穷树数(finitenumber)，可以看做类标号，分类问题首先要给定有Label的数据训练分类器，故属于监督学习。分类过程中价值函数（costfunction（X,Y））是属X属于Y类的概率的负对数。</p>
+<p>L(f,(X,Y)) = -logf<del>Y</del>(X)</p>
+<p>其中fi(X) = P(Y=i|X)</p>
+<p>f<del>Y</del>(X)&gt;=0, f<del>i</del>(X)和为1</p>
+<h3 id="第二部分-无监督学习-unsupervised-learning"><a href="#第二部分-无监督学习-unsupervised-learning" class="headerlink" title="第二部分 无监督学习(unsupervised learning)"></a>第二部分 无监督学习(unsupervised learning)</h3><p>输入数据没有被标记，也没有确定的结果。样本数据类别未知，需要根据样本间的相似性对样本集进行分类(聚类，clustering)，试图使类内差距最大化。通俗讲就是实际应用中，不少情况下无法预先知道样本的标签，也就是说没有训练样本对应的类别，因而只能从原来没有样本标签的样本集开始学习分类器设计。</p>
+<p>非监督学习不是告诉计算机怎么做，而是让计算机自己学习怎么做事情。非监督学习有两种思路。第一种是在指导Agent时不为其指定明确分类，而是在成功时采取某种形式的激励制度。需要注意的是，这类训练通常会置于决策问题的框架内，因为它的目标不是为了产生一个分类系统，而是做出最大回报的决定，这种思路很好的概括了现实世界，Agent可以对正确的行为做出激励，而对错误的行为做出惩罚。</p>
+<p>无监督学习方法分为两类：</p>
 <ul>
-<li>/root：该目录为系统管理员目录，root是具有超级权限的用户。<ul>
-<li>root/Desktop</li>
-<li>root/Maildir</li>
+<li>基于概率密度函数估值的直接方法：指设法找到各类别的特征空间的分布函数，再进行分类。</li>
+<li>基于样本间的相似性度量的简洁聚类方法：其原理是设法定出不同类别的核心或初始内核，然后依据样本与核心之间的相似性度量将样本聚集成不同的类别。</li>
 </ul>
+<p>利用聚类结果，可以提取数据集中隐藏的信息，对未来数据进行分类预测。应用于数据挖掘，模式识别，图像处理等。</p>
+<p>PCA(常用于高维数据的降维,可用于提取数据的主要特征分量)和deep learning中的很多算法都属于无监督学习。</p>
+<h3 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h3><ul>
+<li><p>有监督学习方法必须要有训练集与测试样本。在训练集中找规律，而对测试样本使用这种规律。而非监督学习没有训练集，只有一组数据，在该组数据集内寻找规律。</p>
 </li>
-<li>/bin（bin-&gt;usr/bin）：存放系统预装的可执行文件，<strong>这里存放的可执行文件可以在系统的任何目录下执行</strong>。</li>
-<li>/boot：这个目录存放Linux启动时使用的一些核心文件，包括一些连接文件和镜像文件。</li>
-<li>/dev：是设备（device）的缩写，该目录下存放的是Linux的外部设备，Linux中的设备也是以文件形式存在。</li>
-<li>/etc：存放所有的系统管理所需要的配置文件。</li>
-<li>/home：用户的主目录，在Linux中，每个用户都拥有一个自己的目录，一般该目录名以用户的账号命名，叫做用户的根目录，用户登录以后，默认打开自己的根目录。</li>
-<li>/var</li>
-<li>/liblib-&gt;usr/lib）：存放系统最基本的动态连接共享库，作用类似于windows中的DLL文件，几乎所有的应用程序都需要用到这个共享库。</li>
-<li>/usr：Linux系统资源目录，里面存放的是一些系统可执行文件或系统以来的一些文件库。<ul>
-<li>/usr/bin</li>
-<li>/usr/lib</li>
-<li>/usr/local/bin：存放用户自己的可执行文件，同样，这里存放的可执行文件，可以在系统的任何目录下</li>
-</ul>
+<li><p> 有监督学习的方法就是识别事物，识别的结果表现在给待识别数据加上了标签。因此训练样本集必须由带标签的样本组成。而非监督学习方法只有要分析的数据集的本身，预先没有什么标签。如果发现数据集呈现某种聚集性，则可按自然的聚集性分类，但不予以某种预先分类标签对上号为目的。</p>
 </li>
-<li>/media</li>
+<li><p>非监督学习方法在寻找数据集中的规律性，这种规律性并不一定要达到划分数据集的目的，也就是说不一定要“分类”。<br>这一点是比有监督学习方法的用途要广。  譬如分析一堆数据的主分量，或分析数据集有什么特点都可以归于非监督学习方法的范畴。</p>
+</li>
+<li><p>用非监督学习方法分析数据集的主分量与用K-L变换(用于数据压缩技术)计算数据集的主分量又有区别。后者从方法上讲不是学习方法。因此用K-L变换找主分量不属于无监督学习方法，即方法上不是。而通过学习逐渐找到规律性这体现了学习方法这一点。在人工神经元网络中寻找主分量的方法属于无监督学习方法。 </p>
+</li>
 </ul>
 
             </div>
@@ -288,7 +289,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                      <a class="hover-with-bg" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>
                     
                   </div>
                 
@@ -305,9 +306,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/04/MK%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0/">
+                      <a href="/2021/04/17/Linux%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MarkDown</span>
+                        <span class="hidden-mobile">Linux进程控制</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -315,8 +316,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/04/%E9%9A%8F%E5%BF%83/">
-                        <span class="hidden-mobile">生活随笔</span>
+                      <a href="/2021/04/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%9C%E4%B8%9A2/">
+                        <span class="hidden-mobile">数据库第四章实践作业</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

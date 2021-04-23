@@ -1,0 +1,1048 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.png">
+  <link rel="icon" href="/img/insert1.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  
+    <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="学习">
+  
+  <title>进程 - Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.8","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Mike Taylor's</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                日志
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                目录
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                个人
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="进程">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Mike Taylor
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-17 20:19" pubdate>
+        2021年4月17日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      8.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      96
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">进程</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月23日 上午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>教材：《计算机操作系统》（第四版） 汤子丹等</p>
+<h1 id="进程的描述与控制"><a href="#进程的描述与控制" class="headerlink" title="进程的描述与控制"></a>进程的描述与控制</h1><h2 id="2-4-进程同步"><a href="#2-4-进程同步" class="headerlink" title="2.4 进程同步"></a>2.4 进程同步</h2><p>引言：由于进程的异步性，会给系统造成混乱，在OS中引入进程同步机制，包括：硬件同步机制、信号量机制、管程机制，是使并发执行的诸进程之间能有效地共享资源和相互合作，从而使程序的执行具有可再现性。</p>
+<p>同步：并发进程在执行<strong>次序</strong>上的协调，以达到有效的资源共享和相互合作，使程序执行有可再现性。</p>
+<h3 id="2-4-1-进程同步基本概念"><a href="#2-4-1-进程同步基本概念" class="headerlink" title="2.4.1 进程同步基本概念"></a>2.4.1 进程同步基本概念</h3><h4 id="1-两种形式的制约关系"><a href="#1-两种形式的制约关系" class="headerlink" title="1.两种形式的制约关系"></a>1.两种形式的制约关系</h4><ul>
+<li>间接相互制约关系。由于资源共享。<ul>
+<li>如CPU、I/O设备等，对于这类资源，必须由系统实施统一分配，即用户在要用之前，应该先提出申请，而不允许用户进程直接使用。</li>
+</ul>
+</li>
+<li>直接相互制约关系。由于进程间的合作关系。<ul>
+<li>例如：某些应用程序，为了完成某任务而建立了两个或者多个进程。这些进程将为完成同一件任务而相互合作。输入进程A和计算进程B，以及缓冲区。</li>
+</ul>
+</li>
+</ul>
+<p><strong>异步性</strong>：进程在运行过程中是否能获得处理机、以怎么样的速度运行，并不由自身所控制。由此会产生对共享的变量或数据结构资源不正确的访问次序，从而造成每次执行结果不一致。这种差错往往与时间有关，故称为“与时间有关的错误”。</p>
+<h4 id="2-临界资源（Critical-Resource）"><a href="#2-临界资源（Critical-Resource）" class="headerlink" title="2.临界资源（Critical Resource）"></a>2.临界资源（Critical Resource）</h4><p><strong>一次仅允许一个进程访问的资源为临界资源</strong>（生产者-消费者问题）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">int</span> in=<span class="hljs-number">0</span>,out=<span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> count=<span class="hljs-number">0</span>;<br>item buffer[n];<br></code></pre></td></tr></table></figure>
+
+<p><a href="https://imgtu.com/i/c5u0zT"><img src="https://z3.ax1x.com/2021/04/17/c5u0zT.png" srcset="/img/loading.gif" alt="c5u0zT.png"></a></p>
+<p>伪代码：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-type">void</span> producer&#123;<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>……<br>produce an item <span class="hljs-keyword">in</span> nextp;<br>……<br><span class="hljs-keyword">while</span>(count==n)&#123;<br>&#125;<span class="hljs-comment">//do no-op</span><br><span class="hljs-keyword">buffer</span>[<span class="hljs-keyword">in</span>]=nextp;<br><span class="hljs-keyword">in</span> = (<span class="hljs-keyword">in</span>+<span class="hljs-number">1</span>)%n;<br>counter=counter+<span class="hljs-number">1</span>;<br>&#125;<br>&#125;<br><br><span class="hljs-type">void</span> consumer&#123;<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>	<span class="hljs-keyword">while</span>(counter==<span class="hljs-number">0</span>)&#123;<br>	&#125;<span class="hljs-comment">//do no-op</span><br>	nextc = <span class="hljs-keyword">buffer</span>[<span class="hljs-keyword">out</span>];<br>	<span class="hljs-keyword">out</span>=(<span class="hljs-keyword">out</span>+<span class="hljs-number">1</span>)%n;<br>	counter=counter<span class="hljs-number">-1</span>;<br>	consume the item <span class="hljs-keyword">in</span> nextc;<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>引例：</p>
+<ul>
+<li><p>设counter的初值为5</p>
+<p>register1 = counter;       register2 = counter;</p>
+<p>register1 = register1+1;    register2 = register2-1;</p>
+<p>counter = register1;       counter = register2;</p>
+</li>
+<li><p>Register1 = counter;        (register1=5)</p>
+<p>Register1 = register1+1;    (register1=6)</p>
+<p>Register2 = counter;        (register2=5)</p>
+<p>Register2 = register2-1;    (register2=4)</p>
+<p>counter = register1; (counter=6)</p>
+<p>counter = register2;  (counter=4)</p>
+</li>
+</ul>
+<h4 id="3-临界区（Critical-section）"><a href="#3-临界区（Critical-section）" class="headerlink" title="3.临界区（Critical section）"></a>3.临界区（Critical section）</h4><ul>
+<li><p>临界区定义：把在每个进程中访问临界资源的那段<strong>代码</strong>称为临界区。</p>
+<p>若能保证诸进程互斥的进入自己的临界区，便可以实现诸进程对资源的互斥访问。为此，每个进程在进入临界区之前，应对欲访问的临界资源进行检查，看他是否正在被访问。</p>
+</li>
+<li><p>进入区(Entry section)定义：临界区前用于检查临界资源是否正在被访问的<strong>代码</strong>。</p>
+</li>
+<li><p>退出区(Exit section)定义：位于临界区后的代码，用于将临界区正在访问的标志恢复为未被访问标志。</p>
+</li>
+<li><p>剩余区：除去临界区、进入区、退出区之外的其他部分代码。</p>
+</li>
+</ul>
+<p>伪代码：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">while</span><span class="hljs-params">(ture)</span></span>&#123;<br>进入区<br>临界区<br>退出区<br>剩余区<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-进程同步进制应遵循的规则"><a href="#4-进程同步进制应遵循的规则" class="headerlink" title="4.进程同步进制应遵循的规则"></a>4.进程同步进制应遵循的规则</h4><ul>
+<li><strong>空闲让进</strong>：当无进程进入临界区，表明临界资源处于空闲，应允许一个请求进入临界区，以有效利用临界资源</li>
+<li><strong>忙则等待</strong>：当已有进程进入临界区，表明临界资源正在被访问，因而其他试图进入临界区的进程必须等待，以确保对资源的互斥访问。</li>
+<li><strong>有限等待</strong>：对要求访问临界资源的进程，应确保在有限时间内能进入自己的临界区，以免进入“死等”状态。</li>
+<li><strong>让权等待</strong>：当进程不能进入自己的临界区时，应立即释放处理机，以免陷入“忙等”状态。</li>
+</ul>
+<h3 id="2-4-2-硬件同步机制"><a href="#2-4-2-硬件同步机制" class="headerlink" title="2.4.2 硬件同步机制"></a>2.4.2 硬件同步机制</h3><p>引言：利用计算机硬件指令解决临界区问题</p>
+<ul>
+<li>对临界区管理将标识看做一个锁，“锁开”进入，“锁关”等待。</li>
+<li>初始打开，每个进入临界区的进程必须对锁进行测试。</li>
+<li><strong>测试和关锁是原子操作。</strong></li>
+</ul>
+<p>三种方法：</p>
+<ul>
+<li>关中断</li>
+<li>利用Test-and-Set指令实现互斥</li>
+<li>利用Swap指令实现进程互斥</li>
+</ul>
+<h4 id="1-关中断"><a href="#1-关中断" class="headerlink" title="1.关中断"></a>1.关中断</h4><p><strong>进入锁测试前关闭中断，完成锁测试并上锁后打开中断。</strong>进程在临界区时，计算机不响应中断，不会引发进程调度，也就不会发生进程或者线程的切换。由此保证了对锁的测试和关索操作的连续性和完整性，有效保证了互斥。</p>
+<p>缺点：</p>
+<ul>
+<li>滥用关中断会引起严重后果</li>
+<li>关中断时间过长会影响系统效率，限制了处理器交叉执行程序的能力</li>
+<li>不适用于多CPU系统。一个处理器上关中断并不能防止进程在其他处理器上执行相同的临界区代码</li>
+</ul>
+<h4 id="2-利用Test-and-Set指令实现互斥"><a href="#2-利用Test-and-Set指令实现互斥" class="headerlink" title="2.利用Test-and-Set指令实现互斥"></a>2.利用Test-and-Set指令实现互斥</h4><p>硬件指令–“测试并建立”TS</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-function">boolen <span class="hljs-title">TS</span><span class="hljs-params">( boolen *lock)</span></span>&#123;<br>    boolean old;<br>    old = *lock;<br>    *lock =TURE;<br>    <span class="hljs-keyword">return</span> old;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>函数过程，执行过程不可分割，是一条原语。</li>
+<li><em>lock=FLASE,代表资源空闲；\</em>lock=TRUE代表资源正在被使用</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">do</span>&#123;<br>    …<br>    <span class="hljs-function"><span class="hljs-keyword">while</span> <span class="hljs-title">TS</span><span class="hljs-params">( &amp;lock)</span></span>;<br>    critical section;<br>    *lock=FALSE;<br>    remainder section;<br>&#125;<span class="hljs-keyword">while</span>(TRUE);<br><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>当资源正在被使用，<em>lock=TRUE，while循环一直测试TS(s)，再到\</em>lock为TRUE</li>
+</ul>
+<h4 id="3-利用Swap指令实现进程的互斥"><a href="#3-利用Swap指令实现进程的互斥" class="headerlink" title="3.利用Swap指令实现进程的互斥"></a>3.利用Swap指令实现进程的互斥</h4><p>Swap–对换指令，相当于80x86中的XCHG指令，<strong>用于交换两个字的内容。</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">( boolen *a, boolen *b)</span></span>&#123;<br>    boolean temp;<br>    temp = *a;<br>    *a =*b;<br>    *b=temp;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">do</span>&#123;<br>    key=TRUE;<br>    <span class="hljs-keyword">do</span>&#123;<br>        swap(&amp;lock,&amp;key);<br>    &#125;<span class="hljs-keyword">while</span>(key!=FALSE);<br>    临界区操作;<br>    lock = FALSE;<br>   …<br>&#125;<span class="hljs-keyword">while</span>(TRUE);<br><br><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>每个临界资源都设置有一个全局的布尔变量lock，其初始值为FALSE，在每个进程中，再利用一个局部布尔变量key。</li>
+<li>缺点：当临界资源忙碌，其他访问进程不断进行测试，处于一种“忙等”状态，<strong>不符合“让权等待”原则</strong>，造成了处理机时间的浪费，也很难用于解决复杂的进程同步问题。</li>
+</ul>
+<h3 id="2-4-3-信号量-Semaphores-机制"><a href="#2-4-3-信号量-Semaphores-机制" class="headerlink" title="2.4.3 信号量(Semaphores)机制"></a>2.4.3 信号量(Semaphores)机制</h3><p>一种卓有成效的进程同步工具，广泛用于单处理机和多处理机以及计算机网络。分为：</p>
+<ul>
+<li>整型信号量</li>
+<li>记录型信号量</li>
+<li>AND型信号量</li>
+<li>信号量集</li>
+</ul>
+<h4 id="1-整型信号量"><a href="#1-整型信号量" class="headerlink" title="1.整型信号量"></a>1.整型信号量</h4><ul>
+<li><p>定义为一个用于表示<strong>资源数量的整型量S</strong></p>
+</li>
+<li><p>除初始化外，仅能通过两个标准<strong>原子操作</strong>(Atomic Operation):wait(S)、signal(S)来访问。这两个操作一直被称为<strong>P、V操作</strong></p>
+</li>
+<li><p>执行不可中断（原子操作），同时只允许一个进程修改信号量</p>
+</li>
+</ul>
+<p>代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c">wait(S)&#123;<br>	<span class="hljs-keyword">while</span>(S&lt;=<span class="hljs-number">0</span>);<span class="hljs-comment">//do no-op</span><br>	S--;<br>&#125;<br>signal&#123;<br>    S++;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>由于while会不断的测试是否可以得到临界资源，所以不符合“让权等待”</li>
+</ul>
+<h4 id="2-记录型信号量"><a href="#2-记录型信号量" class="headerlink" title="2.记录型信号量"></a>2.记录型信号量</h4><ul>
+<li>与整型信号量不同，不存在“忙等”现象，采用“让权等待”。</li>
+<li>除了需要一个用于代表资源数目的整型变量value外，还应该增加一个进程链表指针list，用于链接上述所有等待进程。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span>&#123;<br>	<span class="hljs-keyword">int</span> value;<br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">process_control_block</span> *<span class="hljs-title">list</span>;</span><br>&#125;semaphore;<br></code></pre></td></tr></table></figure>
+
+<p>wait(S)与signal(S)：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c">wait(semaphore *S)&#123;<br>	S-&gt;value--;<br>	<span class="hljs-keyword">if</span>(S-&gt;value&lt;<span class="hljs-number">0</span>)<br>		block(S-&gt;<span class="hljs-built_in">list</span>);<br>&#125;<br><br>signal(semaphore *S)&#123;<br>	S-&gt;value++;<br>	<span class="hljs-keyword">if</span>(S-&gt;value&lt;=<span class="hljs-number">0</span>)<br>		wakeup(S-&gt;<span class="hljs-built_in">list</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>解析：<ul>
+<li>S-&gt;value：初值表示系统某类资源的数目，因而被称为资源信号量。</li>
+<li>S-&gt;value&lt;0，表示该类资源已经分配完毕，因此进程应该调用block原语进行自我阻塞，放弃处理机，并插入到信号量链表S-&gt;list中。</li>
+</ul>
+</li>
+<li>可见信号量机制遵循“让权等待”机制。</li>
+<li>注意，如果某次signal完成后，**S-&gt;value&lt;=0(千万注意一定是小于等于)**，那么就还有进程因为等待资源被阻塞，需要使用wakeup原语将之唤醒。</li>
+</ul>
+<p><strong>引申问题</strong>：整形型信号量与记录型信号量的问题是针对各进程之间只共享一个临界资源而言的。在有些应用场合，是一个进程需要先获得两个或更多的共享资源后方能执行其任务。</p>
+<p>例：多个临界资源情况：访问共享数据D、E</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c">process A:<br>wait(Dmutex);<br>wait(Emutex);<br><br>process B:<br>wait(Dmutex);<br>wait(Emutex);<br></code></pre></td></tr></table></figure>
+
+<p>次序：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">processA：wait(Dmutex);    <span class="hljs-comment">//Dmutex=0</span><br>processB：wait(Emutex);    <span class="hljs-comment">//Emutex=0</span><br>processA：wait(Emutex);    <span class="hljs-comment">//Emutex=-1，A阻塞</span><br>processB：wait(Dmutex);    <span class="hljs-comment">//Dmutex=-1，B阻塞</span><br></code></pre></td></tr></table></figure>
+
+<p>进程A和B处于僵持状态。在无外力作用下，两者都将无法从僵持状态中解脱出来。我们称此时的进程A和B已进入<strong>死锁状态</strong>。显然，当进程同时要求的共享资源愈多时，发生进程死锁的可能性也就愈大。</p>
+<h4 id="3-AND型信号量"><a href="#3-AND型信号量" class="headerlink" title="3.AND型信号量"></a>3.AND型信号量</h4><ul>
+<li>AND同步机制的基本思想：将进程在整个运行过程中需要的全部资源，<strong>一次性</strong>分配给进程，待进程使用完后一起释放。只要尚有一个资源未分配给进程，其他所有可能为之分配的资源，也不分配给它。</li>
+<li><strong>分配采取原子操作</strong>：要么全部分配到进程，要么一个也不分配。</li>
+<li>在wait操作中增加了一个“AND”条件，故称为AND同步，或称为同时wait操作，即Swait（simultaneous wait）。</li>
+</ul>
+<p>定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c">Swait(S1,S2,……,Sn)&#123;<br>	<span class="hljs-keyword">while</span>(TRUE)&#123;<br>		<span class="hljs-keyword">if</span>(S1≥<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> S2≥<span class="hljs-number">1</span>……Sn≥<span class="hljs-number">1</span>)&#123;<br>			<span class="hljs-keyword">for</span>(i=<span class="hljs-number">1</span>,i&lt;n,i++)&#123;<br>				Si--;<br>			&#125;<br>			<span class="hljs-keyword">break</span>;<span class="hljs-comment">//分配成功后，跳出循环</span><br>		&#125;<br>		<span class="hljs-keyword">else</span>&#123;<span class="hljs-comment">//分配失败，插入第一个不满足资源的阻塞队列</span><br>		place  the process  in  the waiting  <span class="hljs-built_in">queue</span>  			associated  with  the  first  Si  found  with  Si＜		  <span class="hljs-number">1</span>,  <span class="hljs-keyword">and</span>  <span class="hljs-built_in">set</span>  the program  count  of  <span class="hljs-keyword">this</span>  process  		   to  the  beginning  of  Swait  operation<br>		&#125;<br>	&#125;<br>&#125;<br><br>Ssignal(S1,S2,……,Sn)&#123;<br>    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">1</span>;i&lt;=n;i++)&#123;<br>        Si++;<br>        Remove  all  the  process  waiting  in  the  <span class="hljs-built_in">queue</span>  		associated  with  Si  into  the  ready  <span class="hljs-built_in">queue</span>.(一定		 是所有)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-信号量集"><a href="#4-信号量集" class="headerlink" title="4.信号量集"></a>4.信号量集</h4><p>在记录型信号量机制中，wait(S)或signal(S)操作仅能对信号量施以加1 或减1 操作，意味着每次只能获得或释放一个单位的临界资源。而当一次需要N 个某类临界资源时，便要进行N 次wait(S)操作，显然这是低效的。此外，在有些情况下，当资源数量低于某一下限值时，便不予以分配。因而，在每次分配之前，都必须测试该资源的数量，看其是否大于其下限值。基于上述两点，可以对AND 信号量机制加以扩充，形成一般化的“信号量集”机制。</p>
+<ul>
+<li><p>变量含义</p>
+<ul>
+<li>t<sub>i</sub>：资源分配下限，要求S<sub>i</sub>&gt;=t<sub>i</sub>，否则不予分配</li>
+<li>d<sub>i</sub>：资源需求量，分配后进行操作：<strong>S<sub>i</sub>=S<sub>i</sub>-d<sub>i</sub></strong></li>
+</ul>
+</li>
+<li><p>Swait和Ssignal格式：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">Swait(S1,t1,d1,……,Sn,tn,dn);<br>Ssignal(S1,d1,……,Sn,dn);<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>完整代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c">Swait(S1,t1,d1,……,Sn,tn,dn)&#123;<br>	<span class="hljs-keyword">if</span>(S1&gt;=t1&amp;……Sn&gt;=tn)&#123;<br>		<span class="hljs-keyword">for</span>(i=<span class="hljs-number">1</span>;i&lt;=n;i++)&#123;<br>			Si=Si-di;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">else</span>&#123;<br>		Place the executing process in the waiting <span class="hljs-built_in">queue</span> of 		the first Si with Si＜ti <span class="hljs-keyword">and</span> <span class="hljs-built_in">set</span> its program 			counter to 		the beginning of the Swait 				operation.<br>	&#125;<br>&#125;<br><br>Ssignal(S1,d1,……,Sn,dn)&#123;<br>    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">1</span>;i&lt;=n;i++)&#123;<br>        Si=Si+di;<br>        Remove  all  the  process  waiting  <br>        in  the  <span class="hljs-built_in">queue</span>  associated  with  Si  <br>        into  the  ready  <span class="hljs-built_in">queue</span>.(一定是ALL)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>三种特例</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-constructor">Swait(S,<span class="hljs-params">d</span>,<span class="hljs-params">d</span>)</span>：允许每次申请d个资源。当资源少于d时，不予分配。<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Swait</span>(S,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)：S&gt;<span class="hljs-number">1</span>，记录型信号量<br>			  <span class="hljs-attribute">S</span>=<span class="hljs-number">1</span>，互斥型信号量<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Swait</span>(S,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)：相当于一个可控开关。当S&gt;=<span class="hljs-number">1</span>，允许进入；S&lt;<span class="hljs-number">1</span>时，将阻止任何进程进入特定区。<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-4-4-信号量的应用"><a href="#2-4-4-信号量的应用" class="headerlink" title="2.4.4 信号量的应用"></a>2.4.4 信号量的应用</h3><h4 id="1-利用信号量实现进程互斥"><a href="#1-利用信号量实现进程互斥" class="headerlink" title="1.利用信号量实现进程互斥"></a>1.利用信号量实现进程互斥</h4><p>为使多个进程能互斥访问某个临界资源，只必须为该资源设置一互斥型信号量mutex，并设置其初始值为1，然后将各进程访问该资源的临界区CS置于wait(mutex)和signal(mutex)操作之间即可。</p>
+<p>具体描述：</p>
+<ul>
+<li><p>mutex取值范围(-1,0,1)</p>
+<ul>
+<li>当mutex=1，表示两个进程都未进入临界区；</li>
+<li>当mutex=0表示有一个进程进入临界区运行，另一个必须等待，挂入阻塞队列；</li>
+<li>当mutex=-1，表示有一个进程正在临界区运行，另一个进程因等待而阻塞在信号量队列里，需要被当前已在临界区运行的进程退出时唤醒。</li>
+</ul>
+</li>
+<li><p>伪代码</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs abnf">semaphore mutex=<span class="hljs-number">1</span><span class="hljs-comment">;</span><br>PA()&#123;<br>	while(<span class="hljs-number">1</span>)&#123;<br>		wait(mutex)<span class="hljs-comment">;</span><br>		临界区<span class="hljs-comment">;</span><br>		signal(mutex)<span class="hljs-comment">;</span><br>		剩余区<span class="hljs-comment">;</span><br>	&#125;<br>&#125;<br><br>PB()&#123;<br>	while(<span class="hljs-number">1</span>)&#123;<br>		wait(mutex)<span class="hljs-comment">;</span><br>		临界区<span class="hljs-comment">;</span><br>		signal(mutex)<span class="hljs-comment">;</span><br>		剩余区<span class="hljs-comment">;</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>注意：wait(mutex)和signal(mutex)必须成对出现。</p>
+<ul>
+<li>缺少wait(mutex)会导致系统混乱，不能保证对临界资源的互斥访问</li>
+<li>缺少signal(mutex)会使临界资源永远得不到释放，等待资源的进程不能被唤醒</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-利用信号量实现前驱关系"><a href="#2-利用信号量实现前驱关系" class="headerlink" title="2.利用信号量实现前驱关系"></a>2.利用信号量实现前驱关系</h4><p><a href="https://imgtu.com/i/cI8QIg"><img src="https://z3.ax1x.com/2021/04/18/cI8QIg.png" srcset="/img/loading.gif" alt="cI8QIg.png"></a></p>
+<p>注意：</p>
+<ul>
+<li>有多少个前驱关系就要设置多少个<strong>初始值为“0”</strong>信号量。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c">p1()&#123;S1;signal(a);signal(b)&#125;<br>p2()&#123;wait(a);S2;signal(s);signal(d)&#125;<br>p3()&#123;wait(b);S3;signal(e)&#125;<br>p4()&#123;wait(c);S4;signal(f)&#125;<br>p5()&#123;wait(d);S5;signal(g)&#125;<br>p6()&#123;wait(e);wait(f);wait(g);S6&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>	semaphore a,b,c,d,e,f,g;<br>	a.value=<span class="hljs-number">0</span>;b.value=<span class="hljs-number">0</span>;<br>	c.value=<span class="hljs-number">0</span>;d.value=<span class="hljs-number">0</span>;<br>	e.value=<span class="hljs-number">0</span>;f.value=<span class="hljs-number">0</span>;<br>	g.value=<span class="hljs-number">0</span>;<br>	cobegin<br>		p1();p2();p3();p4();p5();p6();<br>	coend<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-4-5-管程机制"><a href="#2-4-5-管程机制" class="headerlink" title="2.4.5 管程机制"></a>2.4.5 管程机制</h3><p>产生原因：虽然信号量机制是一种既方便、又有效的进程同步机制，但每个要访问临界资源的进程都必须自备同步操作wait（S）和signal（s）。这就使大量的同步操作<strong>分散</strong>在各个进程中。这不仅给系统的<strong>管理</strong>带来了麻烦，而且还会因同步操作的使用不当而导致系统<strong>死锁</strong>。这样，在解决上述问题的过程中，便产生了一种新的进程同步工具——管程 。</p>
+<ul>
+<li>当共享资源使用共享数据结构表示，资源管理程序可用对该数据结构进行操作的一组过程来表示（例如，资源的请求和释放过程request和release），我们把这样一组相关<strong>数据结构和过程</strong>一并称为管程。</li>
+<li>Hansan为管程所下的定义：“<strong>一个管程定义了一个数据结构和能为并发进程所执行（在该数据结构上）的一组操作，这组操作能同步进程和改变管程中的数据</strong>”。</li>
+<li>管程由四部分组成：<ul>
+<li>管程名称</li>
+<li>局部于管程的共享数据结构说明</li>
+<li>对该数据结构进行操作的一组过程</li>
+<li>对局部于管程的数据设置初始值的语句</li>
+</ul>
+</li>
+<li>包含了面向对象的思想</li>
+</ul>
+<p>管程示意图</p>
+<p><a href="https://imgtu.com/i/cIJJbV"><img src="https://z3.ax1x.com/2021/04/18/cIJJbV.png" srcset="/img/loading.gif" alt="cIJJbV.png"></a></p>
+<ul>
+<li>管程特性：<ul>
+<li>模块化：管程是一个基本程序单位，可以单独编译</li>
+<li>抽象数据类型：管程中不仅有数据，而且有对数据的操作</li>
+<li>信息屏蔽：管程中的数据结构只能被管程中的过程访问，这些过程也是管程内部定义，供管程外的进程调用，而管程中的数据结构以及过程过程（函数）的具体实现外部不可见</li>
+</ul>
+</li>
+<li>管程与进程的<strong>区别</strong>：<ul>
+<li>虽然二者都定义了数据结构，但进程定义的是<strong>私有</strong>数据结构PCB；而管程定义的是<strong>公共</strong>数据结构，如消息队列等。</li>
+<li>二者都存在对各自数据结构上的操作，但进程是由顺序程序执行的有关操作；而管程主要是进行与同步操作和初始化操作。</li>
+<li>设置进程的目的在于实现系统的并发性；管程设置的目的在于解决共享资源互斥使用问题。</li>
+<li>进程通过调用管程中的过程对共享数据对共享数据结构实行操作，该过程就像通常的子程序被调用，因而：<strong>管程是被动工作方式，进程则是主动工作方式</strong>。</li>
+<li>进程之间可以并发执行，而管程则不能与其调用者并发。</li>
+<li>进程具有动态性，有“创建”而诞生，由“撤销”而消亡，而管程是操作系统中的一个资源管理模块，供进程调用。</li>
+</ul>
+</li>
+<li>管程主要特点：<ul>
+<li>局部数据变量只能被管程的过程访问，任何外部过程都不能访问。</li>
+<li>一个进程通过调用管程的一个过程进入管程。</li>
+<li>在任何时候，只能有一个进程在管程中执行，调用管程的任何其他进程都被挂起，以等待管程变成可用的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-5-经典进程同步问题"><a href="#2-5-经典进程同步问题" class="headerlink" title="2.5 经典进程同步问题"></a>2.5 经典进程同步问题</h2><ul>
+<li>“生产者–消费者”问题</li>
+<li>“读者–写者”问题</li>
+<li>“哲学家进餐问题”</li>
+</ul>
+<h2 id="2-6-进程通信"><a href="#2-6-进程通信" class="headerlink" title="2.6 进程通信"></a>2.6 进程通信</h2><p>进程通信：进程之间的信息交换</p>
+<p>两类进程通信：</p>
+<ul>
+<li>低级通信（如信号量机制）–缺点<ul>
+<li>效率低，即交换信息量少。在”生产者–消费者“问题中，生产者每次只能向缓冲池投放一个产品（消息），消费者每次只能从缓冲区获得一个产品。</li>
+<li>通信对用户不透明。OS只为进程之间的通信提供了共享存储器，而关于进程之间通信所需的共享数据结构的设置、数据的传送、进程的互斥与同步，都必须由程序员去实现。</li>
+</ul>
+</li>
+<li>高级通信：用户直接利用OS提供的一组通信命令，高效地传送大量数据地一种通信方式。<ul>
+<li>使用方便。通信过程透明，隐藏了实现进程通信的具体细节。</li>
+<li>高效地传送大量数据。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-6-1进程通信的类型"><a href="#2-6-1进程通信的类型" class="headerlink" title="2.6.1进程通信的类型"></a>2.6.1进程通信的类型</h3><p>高级通信机制分类：</p>
+<ul>
+<li>共享存储器系统</li>
+<li>管道系统</li>
+<li>消息传递系统</li>
+<li>客户—服务器系统</li>
+</ul>
+<h4 id="1-共享存储器系统（Shared-Memory-System）"><a href="#1-共享存储器系统（Shared-Memory-System）" class="headerlink" title="1.共享存储器系统（Shared-Memory System）"></a>1.共享存储器系统（Shared-Memory System）</h4><p>相互通信的进程共享某些数据结构或者共享存储区，进程之间能通过这些空间进行通信。</p>
+<ul>
+<li>基于<strong>共享数据结构</strong>的通信方式（低级通信）<ul>
+<li>要求诸进程公用某些数据结构，借以实现诸进程的信息交换。</li>
+<li>OS仅提供共享存储器，由程序员负责对公用数据结构的设置以及对进程间的同步处理。</li>
+</ul>
+</li>
+<li>基于<strong>共享存储区</strong>的通信方式（高级通信）<ul>
+<li>为传输大量数据，在存储区划出一块共享存储区，诸进程可以通过对共享存储区中的数据的读/写实现通信。</li>
+<li>进程在通信前，先向系统申请获得共享存储区中的一个分区，并指定该分区的关键字；若系统已经给其他进程分配了这样的分区，则将该分区的描述符返回给申请者，继之，由申请者把获得的共享存储分区连接到本进程上（附加到自己的地址空间）；此后，便可像读、写普通存储器一样地读、写该公用存储分区。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-管道（pipe）通信系统"><a href="#2-管道（pipe）通信系统" class="headerlink" title="2.管道（pipe）通信系统"></a>2.管道（pipe）通信系统</h4><ul>
+<li>管道：<strong>连接一个读进程和一个写进程以实现它们之间通信的共享文件</strong>，又名pipe文件。</li>
+<li>向管道（共享文件）提供输入的发送进程（写进程）以字符流形式将大量的数据送入管道；接受管道输出的接受进程（读进程）则从管道中接收数据。由于发送进程和接受进程利用管道进行通信，故称为管道通信。</li>
+<li>管道必须提供以下三方面的协调能力：<ul>
+<li>互斥。当一个进程正在对pipe执行读/写操作时，其他（另一）进程必须等待。</li>
+<li>同步。指当写（输入）进程把一定数量（如4KB）的数据写入pipe，便去睡眠等待，直到读（输入）进程取走数据后再把它唤醒。即使pipe为空也不例外。</li>
+<li>确定对方是否存在，只有确定对方的存在，才能进行通信。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-消息传递系统（Message-passing-system）"><a href="#3-消息传递系统（Message-passing-system）" class="headerlink" title="3.消息传递系统（Message passing system）"></a>3.消息传递系统（Message passing system）</h4><ul>
+<li><p>目前应用最广泛的进程间的通信机制，信息单位：消息（报文）</p>
+</li>
+<li><p>机制：进程不必借助任何共享存储区或数据结构，而是以格式化的消息（message）为单位，将通信的数据封装在消息中，并利用OS提供的一组通信命令（原语），在进程间进行消息传递，完成进程间的数据交换。</p>
+</li>
+<li><p>分类：</p>
+<ul>
+<li><p>直接通信方式：指发送进程利用OS所提供的<strong>发送原语</strong>，直接把消息发送给目标进程。</p>
+<ul>
+<li><p>原语</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-constructor">Send(Receiver,<span class="hljs-params">message</span>)</span>;<br><span class="hljs-constructor">Receive(Sender,<span class="hljs-params">message</span>)</span>;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>间接通信方式：指发送和接收进程，都通过<strong>共享中间实体（邮箱）</strong>的方式进行消息的发送和接收。<br>利用信箱的通信方式。发送进程发送给目标进程的消息存放信箱；接收进程则从该信箱中，取出对方发送给自己的消息；消息在信箱中可以安全地保存，只允许核准的目标用户<strong>随时读取</strong>。（优点：在读写时间上的<strong>随机性</strong>）<br>系统为信箱通信提供了若干条原语，分别用于信箱的创建、撤消和消息的发送、接收等。 </p>
+<ul>
+<li><p>原语</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake">Send (mailbox, <span class="hljs-keyword">message</span>)<br>Receive (mailbox，<span class="hljs-keyword">message</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>信箱分类：</p>
+<ul>
+<li>私用信箱：用户进程可为自己建立一个新信箱，并作为该进程的一部分。</li>
+<li>公用信箱：它由操作系统创建，并提供给系统中的所有核准进程使用。</li>
+<li>共享信箱：信箱的拥有者和共享者，都有权从信箱中取走发送给自己的消息。</li>
+</ul>
+</li>
+<li><p>在利用信箱通信时，在发送进程和接收进程之间，存在以下四种关系。4：</p>
+<ul>
+<li>一对一关系</li>
+<li>多对一关系，客户/服务器交互</li>
+<li>一对多，广播方式</li>
+<li>多对多方式</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-客户机—服务器系统-Client-Server-system"><a href="#4-客户机—服务器系统-Client-Server-system" class="headerlink" title="4.客户机—服务器系统(Client-Server system)"></a>4.客户机—服务器系统(Client-Server system)</h4><p>三种实现方法：</p>
+<ul>
+<li>套接字(Socket)：不仅适用于同一台计算机内部的进程通信，也适用于网络环境中不同计算机间的进程通信。<ul>
+<li>基于文件型</li>
+<li>基于网络型</li>
+</ul>
+</li>
+<li>远程过程调用和远程方法调用</li>
+</ul>
+<h2 id="2-7线程-Threads-的基本概念"><a href="#2-7线程-Threads-的基本概念" class="headerlink" title="2.7线程(Threads)的基本概念"></a>2.7线程(Threads)的基本概念</h2><p>比进程更小的基本单位—线程，用它进一步提高程序并发执行的程度，以进一步改善系统服务质量。</p>
+<h3 id="2-7-1-线程的引入"><a href="#2-7-1-线程的引入" class="headerlink" title="2.7.1 线程的引入"></a>2.7.1 线程的引入</h3><p>引入进程：使多个程序并发执行，以提高资源利用率和系统吞吐量。<br>引入线程：减少程序在并发执行时所付出的时空开销，提高OS并发性能。</p>
+<p>为使程序并发执行，系统必须进行以下系列操作：</p>
+<ul>
+<li>创建进程</li>
+<li>撤销进程</li>
+<li>进程切换</li>
+</ul>
+<p>进程的两个基本属性：</p>
+<ul>
+<li>一个进程是一个可拥有资源的独立单位，一个进程要能独立运行，必须拥有一定资源，包括用于存放程序正文、数据的磁盘和内存地址空间，以及它在运行时所需要的I/O设备、已打开文件、信号量等。</li>
+<li>进程也是一个可独立分派和调度的基本单位。进程是被操作系统调度的实体。</li>
+</ul>
+<p><strong>引入线程，作为调度和分派的基本单元</strong>。</p>
+<p>线程：轻型进程（Light-Weight Process）/进程元</p>
+<p>进程：重型进程（Heavy-Weight Process）</p>
+<p>在引入线程后，通常一个进程都拥有若干各线程，至少也有一个线程。</p>
+<ul>
+<li>对比1：<ul>
+<li>线程的切换只涉及指令的切换</li>
+<li>进程的切换涉及到映射表的切换。映射表代表着进程的内存空间映像。</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/coVqHA"><img src="https://z3.ax1x.com/2021/04/19/coVqHA.png" srcset="/img/loading.gif" alt="coVqHA.png"></a></p>
+<ul>
+<li><p>对比2：</p>
+<ul>
+<li>当线程并发执行。接收一段数据，切换到显示文本，再切换回接收数据。</li>
+<li>当线程共用进程的同一个内存地址空间，<strong>线程切换时资源不会切换</strong>。</li>
+</ul>
+</li>
+<li><p>对比3：</p>
+<ul>
+<li>进程体现出两个特点：<ul>
+<li>资源（代码和数据空间、打开的文件等）</li>
+<li>调度执行</li>
+</ul>
+</li>
+<li>线程是进程内的独立执行代码的实体和调度单元，也能是能独立运行的基本单位。</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/coZJC6"><img src="https://z3.ax1x.com/2021/04/19/coZJC6.png" srcset="/img/loading.gif" alt="coZJC6.png"></a></p>
+<p>访问全局变量：</p>
+<p>①将内存单元中的数据读入寄存器</p>
+<p>②对寄存器中的值进行运算</p>
+<p>③将寄存器中的值写回内存单元</p>
+<h4 id="2-7-2-对比进程和线程的对比"><a href="#2-7-2-对比进程和线程的对比" class="headerlink" title="2.7.2 对比进程和线程的对比"></a>2.7.2 对比进程和线程的对比</h4><ul>
+<li><p>调度的基本单位</p>
+<ul>
+<li>在传统的操作系统中，进程作为拥有资源和独立调度、分派的基本单位。<strong>而在引入线程的操作系统中，则把线程作为调度和分派的基本单位，而进程作为资源拥有的基本单位。</strong></li>
+<li><strong>在同一进程中，线程的切换不会引起进程的切换；但从一个进程中的线程切换到另一个进程中的线程时，必然会引起进程的切换。</strong></li>
+</ul>
+</li>
+<li><p>并发性：<strong>在引入线程的操作系统中，不仅进程之间可以并发执行，而且在一个进程中的多个线程之间亦可并发执行。</strong></p>
+<ul>
+<li>引入线程的操作系统中，可以在一个文件服务进程中设置多个服务线程。当第一个线程等待时，文件服务进程中的第二个线程可以继续运行，以提供文件服务；当第二个线程阻塞时，则可由第三个继续执行，提供服务。</li>
+</ul>
+</li>
+<li><p>拥有资源</p>
+<ul>
+<li>一般而言，<strong>线程自己不拥有系统资源</strong>（也有一点必不可少的资源：TCB、局部变量等)，但它可以访问其隶属进程的资源，即一个进程的代码段、数据段及所拥有的系统资源，如已打开的文件、I/O 设备等，可以供该进程中的所有线程所共享。</li>
+</ul>
+</li>
+<li><p>独立性</p>
+<ul>
+<li>同一进程中的不同线程共享进程的内存空间和资源</li>
+<li>同一进程中的不同线程的独立性低于不同进程</li>
+</ul>
+</li>
+<li><p>系统开销</p>
+<ul>
+<li>进程切换、创建、撤销，所需的开销代价远高于线程的切换。</li>
+<li>线程之间的同步和通信也比进程简单。由于一个进程中的多个线程具有相同的地址空间。</li>
+<li><strong>在一些操作系统中，线程的切换、同步和通信都无须操作系统内核的干预。</strong></li>
+</ul>
+</li>
+<li><p>支持多处理机系统(SMP(Symmetrical Multi-Processing))</p>
+<ul>
+<li>一个进程分为多个线程，分配到多个处理机上并行执行，可加速进程的完成。</li>
+</ul>
+</li>
+<li><p>例题</p>
+<ul>
+<li><p>下面关于线程的叙述中，正确的是（  C   ）。</p>
+<p>**A.**不论是系统支持线程还是用户级线程，其切换都需要内核的支持。</p>
+<p>**B.**线程是资源的分配单位，进程是调度和分配的单位。</p>
+<p>**C.**不管系统中是否有线程，进程都是拥有资源的独立单位。</p>
+<p>**D.**在引入线程的系统中，进程仍是资源分配和调度分派的基本单位。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-7-3-线程的属性"><a href="#2-7-3-线程的属性" class="headerlink" title="2.7.3 线程的属性"></a>2.7.3 线程的属性</h4><ul>
+<li>轻型实体</li>
+<li>独立调度和分派的基本单位</li>
+<li>可并发执行</li>
+<li>共享进程资源</li>
+<li>注意：<strong>多线程OS中，进程已经是不可执行的实体。</strong></li>
+</ul>
+<h4 id="2-7-4-线程的状态"><a href="#2-7-4-线程的状态" class="headerlink" title="2.7.4 线程的状态"></a>2.7.4 线程的状态</h4><p>同进程一样，线程之间也存在共享资源、相互合作的制约关系，致使线程在运行时也具有间断性。</p>
+<ul>
+<li><p>线程运行的三种状态：</p>
+<ul>
+<li>执行状态：表示线程正获得CPU而运行</li>
+<li>就绪状态：表示线程已具备了各种运行条件，一旦获得CPU便可以执行。</li>
+<li>阻塞状态：表示线程在运行中因为某事件而受阻，处于暂停执行状态。</li>
+</ul>
+</li>
+<li><p>线程中的挂起操作与进程中的挂起操作是否为同一概念？为什么？</p>
+<ul>
+<li>答：不一样。线程只有CPU资源，不会申请如I/O设备这样的的其他资源，所以挂起线程就是剥夺它的CPU,使其进入阻塞状态。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-7-5-线程控制块TCB"><a href="#2-7-5-线程控制块TCB" class="headerlink" title="2.7.5 线程控制块TCB"></a>2.7.5 线程控制块TCB</h4><ul>
+<li>组成：<ul>
+<li>线程标识符（唯一）</li>
+<li>一组寄存器 ：包括程序计数器、状态寄存器、通用寄存器的内容。</li>
+<li>线程运行状态：用于描述线程正处于何种运行状态。</li>
+<li>优先级：描述线程执行的优先程度</li>
+<li>线程专有存储器</li>
+<li>信号屏蔽：对某些信号加以屏蔽</li>
+<li>两个堆栈指针：用户栈、核心栈</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-8-Linux线程"><a href="#2-8-Linux线程" class="headerlink" title="2.8 Linux线程"></a>2.8 Linux线程</h2><h2 id="2-9-线程的实现"><a href="#2-9-线程的实现" class="headerlink" title="2.9 线程的实现"></a>2.9 线程的实现</h2><h3 id="2-9-1-线程实现方式"><a href="#2-9-1-线程实现方式" class="headerlink" title="2.9.1 线程实现方式"></a>2.9.1 线程实现方式</h3><ul>
+<li><p>内核支持线程（KST—Kernel Supported Threads）</p>
+<ul>
+<li><p>内核支持线程KST在内核支持下运行，它们的创建、阻塞、撤销、切换等，都是在内核空间内实现的。为了对内核线程进行控制和管理，在内核空间为每一个内核进程设置了一个线程控制块，内核根据该控制块而感知某线程的存在并加以控制，当前大多数OS都支持内核支持线程。</p>
+</li>
+<li><p>当进程要创建一个线程时，便为新线程分配一个TCB，将有关信息填入TCB，并为之分配必要的资源。新线程便可立即执行。当进程要撤消一个线程时，也应收回线程的TCB和所有资源。</p>
+</li>
+<li><p>优点：</p>
+<ul>
+<li>SMP中，内核可以同时调度同一进程的多个线程并行执行。</li>
+<li>如果一个进程中的线程被阻塞，内核可以调度该进程中的其他线程占有处理器运行，也可以运行其他进程中的线程。</li>
+<li>内核支持线程具有很小的数据结构和堆栈，线程的切换比较快，切换开销小。</li>
+<li>内核本身可采用多线程技术，可以提高系统并发执行速度和效率。</li>
+</ul>
+</li>
+<li><p>缺点：对于用户的线程切换而言，其切换模式开销较大，在同一个进程中，从一个线程切换到另一个线程时，需要用户从用户态转到核心态进行，这是因为<strong>用户进程的线程在用户态运行，而线程的调度和管理在内核实现</strong>，系统开销较大。</p>
+</li>
+</ul>
+</li>
+<li><p>用户级线程ULT（User Level Threads）</p>
+<ul>
+<li>在用户空间内实现。对线程的创建、撤销、同步与通信等功能，都<strong>无需内核支持，即用户线程与内核无关</strong>。在一个系统中的用户级线程数目可以达到数百、数千个。由于这些线程的任务控制块都是设置在用户空间，而线程所执行的工作也无需内核帮助，因而内核完全不知道用户级线程的存在。</li>
+<li>对于设置了ULT的系统，<strong>其调度仍以进程为单位进行</strong>。</li>
+<li>优点：<ul>
+<li>线程切换不需要转换到内核空间。节省了模式切换开销。</li>
+<li>调度算法可以是进程专用的。在不干扰OS调度的情况下，不同的进程可以根据自身需要选择不同的调度算法，对自己的线程进行管理和调度，而与线程的低级调度算法无关。</li>
+<li>用户线程实现与OS平台无关，因为对于线程的管理代码是属于用户程序的一部分，所有应用程序都可以对之进行共享。因此，用户级线程甚至可以在不支持线程机制的操作系统平台上实现。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>系统调用阻塞问题。在基于进程的OS中，大多数系统调用将使进程阻塞，因此，当线程执行一个系统调用时，不仅该线程被阻塞，而且进程内的所有线程会被阻塞。而在KST方式中，则进程中的其他线程仍然可以运行。</li>
+<li>在单纯的用户级线程实现方式中，多线程应用不能利用SMP进行多重处理的优点，内核每次分配给一个进程仅有的一个CPU，因此，进程中仅有一个线程能执行，在该线程放弃CPU前，其他线程只能等待。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>组合方式（KST/ULT）：内核支持线程的创建、调度、管理；允许用户应用程序创建、调度、管理用户级线程。<br>在同一进程内的多个线程可以同时在多处理器上并行执行，而且阻塞一个线程时并不需要将整个进程阻塞。</p>
+</li>
+<li><p>三种不同的模型：</p>
+<ul>
+<li>多对一：将一个用户线程映射到一个内核控制线程。</li>
+<li>一对多：将每一个用户级线程映射到一个内核支持线程。</li>
+<li>多对多：将多个用户线程映射到相同数量/更少数量的内核线程上。</li>
+</ul>
+<p><a href="https://imgtu.com/i/coQT0S"><img src="https://z3.ax1x.com/2021/04/19/coQT0S.png" srcset="/img/loading.gif" alt="coQT0S.png"></a></p>
+</li>
+</ul>
+<h3 id="2-9-2-线程的实现"><a href="#2-9-2-线程的实现" class="headerlink" title="2.9.2 线程的实现"></a>2.9.2 线程的实现</h3><p><strong>核心：上下文切换</strong></p>
+<ul>
+<li><p>KST</p>
+<p><a href="https://imgtu.com/i/coKgBD"><img src="https://z3.ax1x.com/2021/04/19/coKgBD.png" srcset="/img/loading.gif" alt="coKgBD.png"></a></p>
+</li>
+<li><p>ULT</p>
+<p><a href="https://imgtu.com/i/coKj4s"><img src="https://z3.ax1x.com/2021/04/19/coKj4s.png" srcset="/img/loading.gif" alt="coKj4s.png"></a></p>
+<p>在“Runtime system”中的所有函数都驻留在用户空间，并作为用户级线程与内核之间的接口。</p>
+<p>无论在传统OS还是在多线程OS中，系统资源都是由内核管理的。</p>
+<p><a href="https://imgtu.com/i/coMt2t"><img src="https://z3.ax1x.com/2021/04/19/coMt2t.png" srcset="/img/loading.gif" alt="coMt2t.png"></a></p>
+<p><a href="https://imgtu.com/i/coMgx0"><img src="https://z3.ax1x.com/2021/04/19/coMgx0.png" srcset="/img/loading.gif" alt="coMgx0.png"></a></p>
+<ul>
+<li><p>每一个LWP一直捆绑在一个内核级线程上</p>
+</li>
+<li><p>用LWP实现用户级线程和内核级线程的捆绑</p>
+</li>
+<li><p>线程库（用户级）可以控制LWP、并完成捆绑</p>
+</li>
+<li><p>LWP实现了内核与用户级线程之间的隔离，从而使用户级线程与内核无关</p>
+</li>
+<li><p>多个用户级线程多路复用一个LWP，只有当前连接到LWP上的线程才能与内核通信，其余线程或阻塞，或等待LWP。</p>
+</li>
+<li><p>在一个系统中，用户级线程的数量可能很大，为节省系统开销不可能设置太多的LWP，而把这些LWP做成一个缓冲池，用户进程中的任一线程都可连接到LWP池的任一LWP上。</p>
+</li>
+<li><p>每个LWP都要连接到一个内核支持线程上，由此，LWP把用户级线程与内核支持线程连接起来，用户级线程便可访问内核。</p>
+<p><a href="https://imgtu.com/i/coQnij"><img src="https://z3.ax1x.com/2021/04/19/coQnij.png" srcset="/img/loading.gif" alt="coQnij.png"></a></p>
+</li>
+</ul>
+</li>
+<li><p>采用线程的优点：</p>
+<ul>
+<li>在一个已有进程中创建一个新线程比创建一个全新进程所需的时间少。</li>
+<li>终止一个线程比终止一个进程花费的时间少。</li>
+<li>线程间切换比进程间切换花费的时间少。</li>
+<li>线程提高了不同的执行程序间通信的效率。同一个进程中的线程共享存储空间和文件，它们无需调用内核就可以互相通信。</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/19/%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">存储器管理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/17/Linux%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6/">
+                        <span class="hidden-mobile">Linux进程控制</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        京ICP证123456号
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/img/police_beian.png" srcset="/img/loading.gif" alt="police-icon"/>
+            
+            <span>京公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
