@@ -20,7 +20,7 @@
   <meta name="author" content="Mike Taylor">
   <meta name="keywords" content="学习">
   
-  <title>Spring+Vue - Mike Taylor</title>
+  <title>项目实战—纽曼官网实现 - Mike Taylor</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Spring+Vue">
+            <span class="h2" id="subtitle" title="项目实战—纽曼官网实现">
               
             </span>
 
@@ -180,8 +180,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-22 15:15" pubdate>
-        2021年3月22日 下午
+      <time datetime="2021-05-21 13:42" pubdate>
+        2021年5月21日 下午
       </time>
     </span>
   
@@ -192,7 +192,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      315 字
+      138 字
     </span>
   
 
@@ -202,7 +202,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      1
        分钟
     </span>
   
@@ -240,32 +240,26 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Spring+Vue</h1>
+            <h1 style="display: none">项目实战—纽曼官网实现</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月29日 晚上
+                  本文最后更新于：2021年5月25日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="前后端分离开发"><a href="#前后端分离开发" class="headerlink" title="前后端分离开发"></a>前后端分离开发</h1><p>前后端分离就是将一个应用的前端代码和后端代码分开写，提升效率。</p>
-<p>前端：客户端代码</p>
-<p>后端：独立编写服务端代码，提供数据接口即可。</p>
-<p>前端通过Ajax请求来访问后端数据接口，将Model展示到view即可。</p>
-<p>前后端开发者只需要提前约定好接口文档（URL、参数、数据类型），然后独立开发即可，前端可以独立造假数据金进行测试即可，完全不需要依赖后端。最后完成前后端集成即可；真正实现前后端的解耦合，极大提升了开发效率。</p>
-<p>单体—》前端应用+后端应用</p>
-<p>前端应用：负责数据展示和用户交互</p>
-<p>后端应用：负责提供数据处理接口</p>
-<p>前端HTML—》Ajax接口—》RESTful后端数据接口（JAVA/Spring Boot/…）</p>
-<p>传统单体应用</p>
-<p><img src="../image/2.png" srcset="/img/loading.gif" alt="传统单体应用"></p>
-<p>前后端分离应用</p>
-<p><img src="../image/3.png" srcset="/img/loading.gif" alt="前后端分离应用"></p>
-<p>前后端分离就是将一个单体应用拆分成两个独立的应用，前端应用和后端应用以JSON格式进行数据交互。</p>
-<p><strong>实现技术</strong></p>
-<p>Spring+Vue</p>
-<p>使用Spring Boot进行后端应用开发，使用Vue进行前端应用开发。</p>
+              <p>代码格式化：<code>Ctrl</code> +<code>Alt</code>+<code>L</code></p>
+<p>文件格式化：<code>Ctrl</code> +<code>Alt</code>+<code>Shift</code>+<code>L</code></p>
+<p>行级标签里不能加块级标签。</p>
+<p><code>&gt;</code>：只作用于某标签的儿子，孙子中有满足的标签会被忽略</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.welcome</span>&gt;<span class="hljs-selector-tag">p</span>&#123;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>;<br>  <span class="hljs-attribute">color</span>: <span class="hljs-number">#666</span>;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">85px</span> <span class="hljs-number">0</span> <span class="hljs-number">80px</span>;<br>  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">24px</span>;<br>  <span class="hljs-attribute">text-align</span>: center;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>学会如何用border+border-left+border-right+border-bottom+border-top绘制三角形。</p>
+<p>复杂工程问题中，注意标签的权重。</p>
+<p><strong>!important(10000)&gt;内联样式（1000）&gt;ID选择器（100）&gt;类、伪类选择器（10）&gt;标签选择器（1）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br></code></pre></td></tr></table></figure>
+
 
             </div>
             <hr>
@@ -276,7 +270,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB-Spring-Vue/">前后端分离/Spring/Vue</a>
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%AE%9E%E6%88%98/">前端实战</a>
                     
                   </div>
                 
@@ -293,9 +287,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%9C%E4%B8%9A1/">
+                      <a href="/2021/05/25/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A015/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">数据库第三章实践作业</span>
+                        <span class="hidden-mobile">JavaScript基础</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -303,8 +297,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/22/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A017/">
-                        <span class="hidden-mobile">JS正则表达式</span>
+                      <a href="/2021/05/10/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0/">
+                        <span class="hidden-mobile">数据库笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

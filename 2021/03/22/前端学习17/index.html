@@ -20,7 +20,7 @@
   <meta name="author" content="Mike Taylor">
   <meta name="keywords" content="学习">
   
-  <title>Spring+Vue - Mike Taylor</title>
+  <title>JS正则表达式 - Mike Taylor</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Spring+Vue">
+            <span class="h2" id="subtitle" title="JS正则表达式">
               
             </span>
 
@@ -192,7 +192,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      315 字
+      910 字
     </span>
   
 
@@ -202,7 +202,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      12
        分钟
     </span>
   
@@ -240,32 +240,55 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Spring+Vue</h1>
+            <h1 style="display: none">JS正则表达式</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月29日 晚上
+                  本文最后更新于：2021年5月28日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="前后端分离开发"><a href="#前后端分离开发" class="headerlink" title="前后端分离开发"></a>前后端分离开发</h1><p>前后端分离就是将一个应用的前端代码和后端代码分开写，提升效率。</p>
-<p>前端：客户端代码</p>
-<p>后端：独立编写服务端代码，提供数据接口即可。</p>
-<p>前端通过Ajax请求来访问后端数据接口，将Model展示到view即可。</p>
-<p>前后端开发者只需要提前约定好接口文档（URL、参数、数据类型），然后独立开发即可，前端可以独立造假数据金进行测试即可，完全不需要依赖后端。最后完成前后端集成即可；真正实现前后端的解耦合，极大提升了开发效率。</p>
-<p>单体—》前端应用+后端应用</p>
-<p>前端应用：负责数据展示和用户交互</p>
-<p>后端应用：负责提供数据处理接口</p>
-<p>前端HTML—》Ajax接口—》RESTful后端数据接口（JAVA/Spring Boot/…）</p>
-<p>传统单体应用</p>
-<p><img src="../image/2.png" srcset="/img/loading.gif" alt="传统单体应用"></p>
-<p>前后端分离应用</p>
-<p><img src="../image/3.png" srcset="/img/loading.gif" alt="前后端分离应用"></p>
-<p>前后端分离就是将一个单体应用拆分成两个独立的应用，前端应用和后端应用以JSON格式进行数据交互。</p>
-<p><strong>实现技术</strong></p>
-<p>Spring+Vue</p>
-<p>使用Spring Boot进行后端应用开发，使用Vue进行前端应用开发。</p>
+              <p>后盾人的文档。</p>
+<h1 id="JS中的正则表达式"><a href="#JS中的正则表达式" class="headerlink" title="JS中的正则表达式"></a>JS中的正则表达式</h1><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p>正则表达式是用于匹配字符串中字符组合的模式，在 JavaScript中，正则表达式也是对象。</p>
+<ul>
+<li><p>正则表达式是在宿主环境下运行的，如<code>js/php/node.js</code> 等</p>
+</li>
+<li><p>本章讲解的知识在其他语言中知识也是可用的，会有些函数使用上的区别</p>
+</li>
+</ul>
+<h3 id="对比分析"><a href="#对比分析" class="headerlink" title="对比分析"></a>对比分析</h3><p>与普通函数操作字符串来比较，正则表达式可以写出更简洁、功能强大的代码。</p>
+<p>下面使用获取字符串中的所有数字来比较函数与正则的差异。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//过滤字符串中的数字</span><br>    <span class="hljs-keyword">let</span> hd = <span class="hljs-string">&#x27;zhangjjiiallllliiiiinnnnn132&#x27;</span>;<br>    <span class="hljs-comment">// console.log([...hd]);//展开成一个数组。</span><br>    <span class="hljs-comment">// console.log(isNaN(hd));</span><br>    <span class="hljs-keyword">let</span> nums = [...hd].filter(<span class="hljs-function"><span class="hljs-params">a</span>=&gt;</span>!<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-built_in">parseInt</span>(a)));<br>    <span class="hljs-built_in">console</span>.log(nums);<br>    <span class="hljs-built_in">console</span>.log(nums.join(<span class="hljs-string">&#x27;&#x27;</span>));<span class="hljs-comment">//连接数字</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//正则方法</span><br>    <span class="hljs-built_in">console</span>.log(hd.match(<span class="hljs-regexp">/\d/g</span>).join(<span class="hljs-string">&#x27;&#x27;</span>));<br></code></pre></td></tr></table></figure>
+
+<h3 id="创建正则"><a href="#创建正则" class="headerlink" title="创建正则"></a>创建正则</h3><p>JS提供字面量与对象两种方式创建正则表达式</p>
+<h4 id="字面量创建"><a href="#字面量创建" class="headerlink" title="字面量创建"></a>字面量创建</h4><p>使用<code>//</code>包裹的字面量创建方式是推荐的作法，但它不能在其中使用变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> mk = <span class="hljs-string">&quot;miketaylor.com&quot;</span>;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/u/</span>.test(mk));<span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<p>下面尝试使用 <code>a</code> 变量时将不可以查询</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;script&gt;<br>  <span class="hljs-comment">// 操作变量进行正则匹配</span><br>  <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&quot;miketaylorjuly123.cn&quot;</span>;<br>  <span class="hljs-keyword">let</span> site= <span class="hljs-string">&quot;t&quot;</span>;<br>  <span class="hljs-keyword">let</span> a = <span class="hljs-string">&quot;t&quot;</span>;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/t/</span>.test(mk)); <span class="hljs-comment">// true</span><br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/site/</span>.test(mk)); <span class="hljs-comment">// false</span><br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/a/</span>.test(mk)); <span class="hljs-comment">//false , 测试的是a,不是t</span><br><br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">eval</span>(<span class="hljs-string">`/<span class="hljs-subst">$&#123;a&#125;</span>/`</span>).test(mk));<span class="hljs-comment">//eval()可以把字符串变成JS表达式</span><br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="对象创建"><a href="#对象创建" class="headerlink" title="对象创建"></a>对象创建</h4><p>当正则需要动态创建时使用对象方式。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js">  <span class="hljs-comment">//对象创建正则表达式</span><br>  <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&#x27;miketaylorjuly123.cn&#x27;</span>;<br>  <span class="hljs-keyword">let</span> test1 = <span class="hljs-string">&#x27;u&#x27;</span>;<br>  <span class="hljs-keyword">let</span> reg1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">&#x27;u&#x27;</span>,<span class="hljs-string">&#x27;g&#x27;</span>);<br>  <span class="hljs-keyword">let</span> reg2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(test1 ,<span class="hljs-string">&#x27;g&#x27;</span>);<br><br>  <span class="hljs-built_in">console</span>.log(reg1.test(mk));<span class="hljs-comment">// true </span><br>  <span class="hljs-built_in">console</span>.log(reg2.test(mk));<span class="hljs-comment">// true ，可以识别变量</span><br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p>字符串替换：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;script&gt;<br><span class="hljs-comment">//字符串替换</span><br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;abcd&quot;</span>.replace(<span class="hljs-string">&#x27;ab&#x27;</span>,<span class="hljs-string">&#x27;@@&#x27;</span>));<br><span class="hljs-comment">//把字符串后脏的下字母替换成@@</span><br>	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;_a_b_c_d_&quot;</span>.replace(<span class="hljs-regexp">/\w/g</span>,<span class="hljs-string">&#x27;@@&#x27;</span>));<br>	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;_a_b_c_d_&quot;</span>.replace(<span class="hljs-regexp">/\w/g</span>,<span class="hljs-function"><span class="hljs-params">search</span> =&gt;</span> &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;@@&#x27;</span>;<br>    &#125;));<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p>根据用户输入高亮显示内容，支持用户输入正则表达式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;script&gt;<br>  <span class="hljs-keyword">const</span> mk = prompt(<span class="hljs-string">&#x27;请输入要检测的内容，支持则正则&#x27;</span>);<br>  <span class="hljs-keyword">const</span> reg = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(mk, <span class="hljs-string">&quot;g&quot;</span>);<br>  <span class="hljs-keyword">let</span> body = <span class="hljs-built_in">document</span><br>    .querySelector(<span class="hljs-string">&#x27;#content&#x27;</span>)<br>    .innerHTML.replace(reg, <span class="hljs-function"><span class="hljs-params">search</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`&lt;span style=&quot;color:#ff0000&quot;&gt;<span class="hljs-subst">$&#123;search&#125;</span>&lt;/span&gt;`</span>;<br>  &#125;);<br>  <span class="hljs-built_in">document</span>.body.innerHTML = body;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p>通过对象创建正则提取标签</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;body&gt;<br>  &lt;h1&gt;miketaylor.com&lt;/h1&gt;<br>  &lt;h1&gt;miketaylorjuly123.cn&lt;/h1&gt;<br>&lt;/body&gt;<br><br>&lt;script&gt;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">element</span>(<span class="hljs-params">tag</span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> html = <span class="hljs-built_in">document</span>.body.innerHTML;<br>  <span class="hljs-keyword">let</span> reg = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">&quot;&lt;(&quot;</span> + tag + <span class="hljs-string">&quot;)&gt;.+&lt;/\\1&gt;&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>);<br>  <span class="hljs-keyword">return</span> html.match(reg);<br>&#125;<br><span class="hljs-built_in">console</span>.table(element(<span class="hljs-string">&quot;h1&quot;</span>));<br></code></pre></td></tr></table></figure>
+
+<p><code>|</code> 这个符号带表选择修释符，也就是 <code>|</code> 左右两侧有一个匹配到就可以。</p>
+<p>检测电话是否是上海或北京的坐机</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> tel = <span class="hljs-string">&quot;010-12345678&quot;</span>;<br><span class="hljs-comment">//错误结果：只匹配 | 左右两边任一结果</span><br><span class="hljs-built_in">console</span>.log(tel.match(<span class="hljs-regexp">/010|020\-\d&#123;7,8&#125;/</span>)); <br><br><span class="hljs-comment">//正确结果：所以需要放在原子组中使用</span><br><span class="hljs-built_in">console</span>.log(tel.match(<span class="hljs-regexp">/(010|020)\-\d&#123;7,8&#125;/</span>));<br></code></pre></td></tr></table></figure>
+
+<p>匹配字符是否包含<code>miketaylor.cn</code> 或 <code>miketayulorjuly123.cn</code></p>
+<h3 id="字符转义"><a href="#字符转义" class="headerlink" title="字符转义"></a>字符转义</h3><p>转义用于改变字符的含义，用来对某个字符有多种语义时的处理。</p>
+<p>假如有这样的场景，如果我们想通过正则查找<code>/</code>符号，但是 <code>/</code>在正则中有特殊的意义。如果写成<code>///</code>这会造成解析错误，所以要使用转义语法 <code>/\//</code>来匹配。</p>
 
             </div>
             <hr>
@@ -276,7 +299,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB-Spring-Vue/">前后端分离/Spring/Vue</a>
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
                     
                   </div>
                 
@@ -293,9 +316,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%9C%E4%B8%9A1/">
+                      <a href="/2021/03/22/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">数据库第三章实践作业</span>
+                        <span class="hidden-mobile">Spring+Vue</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -303,8 +326,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/22/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A017/">
-                        <span class="hidden-mobile">JS正则表达式</span>
+                      <a href="/2021/03/22/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A07/">
+                        <span class="hidden-mobile">CSS浮动&盒模型</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
