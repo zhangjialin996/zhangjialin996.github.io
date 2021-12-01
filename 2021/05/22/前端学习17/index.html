@@ -1,0 +1,1106 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
+  <link rel="icon" href="/img/insert2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="我的博客">
+  <meta name="description" content="后盾人的文档 JS中的正则表达式基础知识正则表达式是用于匹配字符串中字符组合的模式，在 JavaScript中，正则表达式也是对象。  正则表达式是在宿主环境下运行的，如js&#x2F;php&#x2F;node.js 等  本章讲解的知识在其他语言中知识也是可用的，会有些函数使用上的区别   对比分析与普通函数操作字符串来比较，正则表达式可以写出更简洁、功能强大的代码。 下面使用获取字符串中的所有数字来比较函数与正">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS正则表达式">
+<meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/2021/05/22/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A017/index.html">
+<meta property="og:site_name" content="Mike Taylor">
+<meta property="og:description" content="后盾人的文档 JS中的正则表达式基础知识正则表达式是用于匹配字符串中字符组合的模式，在 JavaScript中，正则表达式也是对象。  正则表达式是在宿主环境下运行的，如js&#x2F;php&#x2F;node.js 等  本章讲解的知识在其他语言中知识也是可用的，会有些函数使用上的区别   对比分析与普通函数操作字符串来比较，正则表达式可以写出更简洁、功能强大的代码。 下面使用获取字符串中的所有数字来比较函数与正">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-22T07:15:23.000Z">
+<meta property="article:modified_time" content="2021-10-11T09:35:17.582Z">
+<meta property="article:author" content="Mike Taylor">
+<meta property="article:tag" content="JS">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>JS正则表达式 - Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":100,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e71cddb60357a788e6ed79bca37db76d","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mike Taylor&#39;s</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/p12.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JS正则表达式">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-22 15:15" pubdate>
+        2021年5月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      28k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      138 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JS正则表达式</h1>
+            
+            <div class="markdown-body">
+              <p>后盾人的文档</p>
+<h1 id="JS中的正则表达式"><a href="#JS中的正则表达式" class="headerlink" title="JS中的正则表达式"></a>JS中的正则表达式</h1><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p>正则表达式是用于匹配字符串中字符组合的模式，在 JavaScript中，正则表达式也是对象。</p>
+<ul>
+<li><p>正则表达式是在宿主环境下运行的，如<code>js/php/node.js</code> 等</p>
+</li>
+<li><p>本章讲解的知识在其他语言中知识也是可用的，会有些函数使用上的区别</p>
+</li>
+</ul>
+<h3 id="对比分析"><a href="#对比分析" class="headerlink" title="对比分析"></a>对比分析</h3><p>与普通函数操作字符串来比较，正则表达式可以写出更简洁、功能强大的代码。</p>
+<p>下面使用获取字符串中的所有数字来比较函数与正则的差异。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//过滤字符串中的数字</span><br>    <span class="hljs-keyword">let</span> hd = <span class="hljs-string">&#x27;zhangjjiiallllliiiiinnnnn132&#x27;</span>;<br>    <span class="hljs-comment">// console.log([...hd]);//展开成一个数组。</span><br>    <span class="hljs-comment">// console.log(isNaN(hd));</span><br>    <span class="hljs-keyword">let</span> nums = [...hd].filter(<span class="hljs-function"><span class="hljs-params">a</span>=&gt;</span>!<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-built_in">parseInt</span>(a)));<br>    <span class="hljs-built_in">console</span>.log(nums);<br>    <span class="hljs-built_in">console</span>.log(nums.join(<span class="hljs-string">&#x27;&#x27;</span>));<span class="hljs-comment">//连接数字</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//正则方法</span><br>    <span class="hljs-built_in">console</span>.log(hd.match(<span class="hljs-regexp">/\d/g</span>).join(<span class="hljs-string">&#x27;&#x27;</span>));<br></code></pre></td></tr></table></figure>
+
+<h3 id="创建正则"><a href="#创建正则" class="headerlink" title="创建正则"></a>创建正则</h3><p>JS提供字面量与对象两种方式创建正则表达式</p>
+<h4 id="字面量创建"><a href="#字面量创建" class="headerlink" title="字面量创建"></a>字面量创建</h4><p>使用<code>//</code>包裹的字面量创建方式是推荐的作法，但它不能在其中使用变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> mk = <span class="hljs-string">&quot;miketaylor.com&quot;</span>;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/u/</span>.test(mk));<span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<p>下面尝试使用 <code>a</code> 变量时将不可以查询</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-comment">// 操作变量进行正则匹配</span></span><br><span class="javascript">  <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&quot;miketaylorjuly123.cn&quot;</span>;</span><br><span class="javascript">  <span class="hljs-keyword">let</span> site= <span class="hljs-string">&quot;t&quot;</span>;</span><br><span class="javascript">  <span class="hljs-keyword">let</span> a = <span class="hljs-string">&quot;t&quot;</span>;</span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/t/</span>.test(mk)); <span class="hljs-comment">// true</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/site/</span>.test(mk)); <span class="hljs-comment">// false</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/a/</span>.test(mk)); <span class="hljs-comment">//false , 测试的是a,不是t</span></span><br><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">eval</span>(<span class="hljs-string">`/<span class="hljs-subst">$&#123;a&#125;</span>/`</span>).test(mk));<span class="hljs-comment">//eval()可以把字符串变成JS表达式</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="对象创建"><a href="#对象创建" class="headerlink" title="对象创建"></a>对象创建</h4><p>当正则需要动态创建时使用对象方式。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js">  <span class="hljs-comment">//对象创建正则表达式</span><br>  <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&#x27;miketaylorjuly123.cn&#x27;</span>;<br>  <span class="hljs-keyword">let</span> test1 = <span class="hljs-string">&#x27;u&#x27;</span>;<br>  <span class="hljs-keyword">let</span> reg1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">&#x27;u&#x27;</span>,<span class="hljs-string">&#x27;g&#x27;</span>);<br>  <span class="hljs-keyword">let</span> reg2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(test1 ,<span class="hljs-string">&#x27;g&#x27;</span>);<br><br>  <span class="hljs-built_in">console</span>.log(reg1.test(mk));<span class="hljs-comment">// true </span><br>  <span class="hljs-built_in">console</span>.log(reg2.test(mk));<span class="hljs-comment">// true ，可以识别变量</span><br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p>字符串替换：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript"><span class="hljs-comment">//字符串替换</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;abcd&quot;</span>.replace(<span class="hljs-string">&#x27;ab&#x27;</span>,<span class="hljs-string">&#x27;@@&#x27;</span>));</span><br><span class="javascript"><span class="hljs-comment">//把字符串后脏的下字母替换成@@</span></span><br><span class="javascript">	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;_a_b_c_d_&quot;</span>.replace(<span class="hljs-regexp">/\w/g</span>,<span class="hljs-string">&#x27;@@&#x27;</span>));</span><br><span class="javascript">	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;_a_b_c_d_&quot;</span>.replace(<span class="hljs-regexp">/\w/g</span>,<span class="hljs-function"><span class="hljs-params">search</span> =&gt;</span> &#123;</span><br><span class="javascript">      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;@@&#x27;</span>;</span><br>    &#125;));<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>根据用户输入高亮显示内容，支持用户输入正则表达式：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-keyword">const</span> mk = prompt(<span class="hljs-string">&#x27;请输入要检测的内容，支持则正则&#x27;</span>);</span><br><span class="javascript">  <span class="hljs-keyword">const</span> reg = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(mk, <span class="hljs-string">&quot;g&quot;</span>);</span><br><span class="javascript">  <span class="hljs-keyword">let</span> body = <span class="hljs-built_in">document</span></span><br><span class="javascript">    .querySelector(<span class="hljs-string">&#x27;#content&#x27;</span>)</span><br><span class="javascript">    .innerHTML.replace(reg, <span class="hljs-function"><span class="hljs-params">search</span> =&gt;</span> &#123;</span><br><span class="javascript">    <span class="hljs-keyword">return</span> <span class="hljs-string">`&lt;span style=&quot;color:#ff0000&quot;&gt;<span class="hljs-subst">$&#123;search&#125;</span>&lt;/span&gt;`</span>;</span><br>  &#125;);<br><span class="javascript">  <span class="hljs-built_in">document</span>.body.innerHTML = body;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>通过对象创建正则提取标签</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>miketaylor.com<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>miketaylorjuly123.cn<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">element</span>(<span class="hljs-params">tag</span>) </span>&#123;</span><br><span class="javascript">  <span class="hljs-keyword">const</span> html = <span class="hljs-built_in">document</span>.body.innerHTML;</span><br><span class="javascript">  <span class="hljs-keyword">let</span> reg = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">&quot;&lt;(&quot;</span> + tag + <span class="hljs-string">&quot;)&gt;.+&lt;/\\1&gt;&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>);</span><br><span class="javascript">  <span class="hljs-keyword">return</span> html.match(reg);</span><br>&#125;<br><span class="javascript"><span class="hljs-built_in">console</span>.table(element(<span class="hljs-string">&quot;h1&quot;</span>));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><code>|</code> 这个符号带表选择修释符，也就是 <code>|</code> 左右两侧有一个匹配到就可以。</p>
+<p>检测电话是否是上海或北京的坐机</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> tel = <span class="hljs-string">&quot;010-12345678&quot;</span>;<br><span class="hljs-comment">//错误结果：只匹配 | 左右两边任一结果</span><br><span class="hljs-built_in">console</span>.log(tel.match(<span class="hljs-regexp">/010|020\-\d&#123;7,8&#125;/</span>)); <br><br><span class="hljs-comment">//正确结果：所以需要放在原子组中使用</span><br><span class="hljs-built_in">console</span>.log(tel.match(<span class="hljs-regexp">/(010|020)\-\d&#123;7,8&#125;/</span>));<br></code></pre></td></tr></table></figure>
+
+<p>匹配字符是否包含<code>miketaylor.cn</code> 或 <code>miketayulorjuly123.cn</code></p>
+<h3 id="字符转义"><a href="#字符转义" class="headerlink" title="字符转义"></a>字符转义</h3><p>转义用于改变字符的含义，用来对某个字符有多种语义时的处理。</p>
+<p>假如有这样的场景，如果我们想通过正则查找<code>/</code>符号，但是 <code>/</code>在正则中有特殊的意义。如果写成<code>///</code>这会造成解析错误，所以要使用转义语法 <code>/\//</code>来匹配。</p>
+<h3 id="字符边界"><a href="#字符边界" class="headerlink" title="字符边界"></a>字符边界</h3><p>使用字符边界符用于控制匹配内容的开始与结束约定。</p>
+<table>
+<thead>
+<tr>
+<th>^</th>
+<th>匹配字符串的开始</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$</td>
+<td>匹配字符串的结束，忽略换行符</td>
+</tr>
+</tbody></table>
+<p>检测用户名长度为3~6位，且只能为字母。如果不使用 <code>^与$</code> 限制将得不到正确结果。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span>  <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;user&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-keyword">let</span> mk =  <span class="hljs-string">&#x27;miketaylorjuly123.cn&#x27;</span>;</span><br><span class="javascript">  <span class="hljs-comment">//匹配字符串包含数字与否</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/\d/</span>.test(mk));</span><br><span class="javascript">  <span class="hljs-comment">//匹配字符串开头是数字与否</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/^\d/</span>.test(mk));</span><br><span class="javascript">  <span class="hljs-comment">//匹配字符串结尾是数字与否</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/\d$/</span>.test(mk));</span><br><span class="javascript">  <span class="hljs-comment">//匹配字符串是否全由数字组成</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/\d$/</span>.test(mk));</span><br><br><span class="javascript">  <span class="hljs-comment">// 限定起始结束匹配</span></span><br><span class="javascript">  <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;[name = &#x27;user&#x27;]&quot;</span>).addEventListener(<span class="hljs-string">&quot;keyup&quot;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>)</span>&#123;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> flag = <span class="hljs-built_in">this</span>.value.match(<span class="hljs-regexp">/^[a-z]&#123;3,6&#125;$/</span>)<span class="hljs-comment">//限定匹配3-6位的小写英文字母。</span></span><br><span class="javascript">    <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;span&quot;</span>).innerHTML = flag?<span class="hljs-string">&quot;正确&quot;</span>:<span class="hljs-string">&quot;错误&quot;</span>;</span><br>  &#125;);<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p>元字符是正则表达式中的最小元素，只代表单一（一个）字符</p>
+<h3 id="字符列表"><a href="#字符列表" class="headerlink" title="字符列表"></a>字符列表</h3><table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\d</td>
+<td>匹配任意一个<strong>数字</strong></td>
+<td>[0-9]</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>与<strong>除了数字以外的任何一个字符</strong>匹配</td>
+<td>[^0-9]</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>与任意一个<strong>英文字母,数字或下划线</strong>匹配</td>
+<td>[a-zA-Z_]</td>
+</tr>
+<tr>
+<td>\W</td>
+<td><strong>除了字母,数字或下划线外</strong>与任何字符匹配</td>
+<td>[^a-zA-Z_]</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>任意一个<strong>空白字符</strong>匹配，如空格，制表符<code>\t</code>，换行符<code>\n</code></td>
+<td>[\n\f\r\t\v]</td>
+</tr>
+<tr>
+<td>\S</td>
+<td><strong>除了空白符外任意一个字符匹配</strong></td>
+<td>[^\n\f\r\t\v]</td>
+</tr>
+<tr>
+<td>.</td>
+<td><strong>匹配除换行符外的任意字符</strong></td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    mk = <span class="hljs-string">&quot;miketaylor 2021&quot;</span>;</span><br><span class="javascript">    <span class="hljs-comment">// console.log(mk.match(/\d\d\d\d/));</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/\d+/g</span>));  <span class="hljs-comment">// 多个数字匹配</span></span><br><br><span class="javascript">    <span class="hljs-comment">//匹配电话号</span></span><br><span class="javascript">    <span class="hljs-comment">// \d匹配数字</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> info = <span class="hljs-string">`张三:010-20012932233,李四:020-2020321355`</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(info.match(<span class="hljs-regexp">/\d&#123;3&#125;-\d+/g</span>)); <span class="hljs-comment">//g参数，一直扫描到结尾，返回0个或多个结果</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(info.match(<span class="hljs-regexp">/[-\d:,]/g</span>));  <span class="hljs-comment">// 匹配[]中的所有元素并输出</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(info.match(<span class="hljs-regexp">/[-\d:,]+/g</span>));  <span class="hljs-comment">// 连续匹配[]中的所有元素并输出</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(info.match(<span class="hljs-regexp">/[^-\d:,]/g</span>));  <span class="hljs-comment">// 匹配除了[]中的所有元素并输出</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(info.match(<span class="hljs-regexp">/[^-\d:,]+/g</span>));  <span class="hljs-comment">// 连续匹配除了[]中的所有元素并输出</span></span><br><br><span class="javascript">    <span class="hljs-comment">//  \D与除了数字以外的任何一个字符匹配</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk2 = <span class="hljs-string">&quot;miketaylor 2021&quot;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk2.match(<span class="hljs-regexp">/\D+/g</span>)); <span class="hljs-comment">//g参数，一直扫描到结尾，返回0个或多个结果</span></span><br><br><span class="javascript">    <span class="hljs-comment">// \s  任意一个空白字符匹配，如空格，制表符`\t`，换行符`\n`</span></span><br><span class="javascript">     <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/\s/</span>.test(mk2));</span><br><br><span class="javascript">     <span class="hljs-comment">// \S 除了空白符外任意一个字符匹配</span></span><br><span class="javascript">     <span class="hljs-built_in">console</span>.log(mk2.match(<span class="hljs-regexp">/\S+/g</span>));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;script&gt;<br>    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&quot;miketaylorjuly123.cn&quot;</span>;<br>    <span class="hljs-comment">// \w与任意一个英文字母,数字或下划线匹配</span><br>    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/\w+/g</span>));<br><br>    <span class="hljs-comment">// 邮箱匹配</span><br>    <span class="hljs-keyword">let</span> email = <span class="hljs-string">&quot;3105085561@qq.com&quot;</span>;<br>    <span class="hljs-built_in">console</span>.log(email.match(<span class="hljs-regexp">/^\w+@\w+\.\w+$/g</span>));<br><br>    <span class="hljs-comment">// \W除了字母,数字或下划线外与任何字符匹配</span><br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;jiajialingongzhang@gmail.com&#x27;</span>.match(<span class="hljs-regexp">/\W/g</span>));<br><br>    <span class="hljs-comment">// 用户名匹配：5-10位，a-z开头5</span><br>    <span class="hljs-keyword">let</span> username = prompt(<span class="hljs-string">&quot;Enter your username&quot;</span>);<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/^[a-z]\w&#123;4,9&#125;$/</span>.test(username));<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-comment">//.匹配除换行符外的任意字符</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&quot;miketaylorjuly123.cn-+!@#$@$#%%^%$&amp;^&quot;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/.+/g</span>));</span><br><br><span class="javascript">    <span class="hljs-comment">// 网址匹配</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> my_site = <span class="hljs-string">&quot;https://miketaylorjuly123.cn&quot;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(my_site.match(<span class="hljs-regexp">/https?:\/\/\w+\.\w+/g</span>));</span><br><br><span class="javascript">    <span class="hljs-keyword">let</span> my_site2 = <span class="hljs-string">`</span></span><br><span class="javascript">    https:<span class="hljs-comment">//miketaylorjuly123.cn</span></span><br><span class="javascript">    https:<span class="hljs-comment">//www.baidu.com</span></span><br>    `;<br><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(my_site2.match(<span class="hljs-regexp">/.+/</span>s)[<span class="hljs-number">0</span>]);<span class="hljs-comment">// s模式：把匹配对象视为单行/把换行符当做普通空白使用。</span></span><br><br><span class="javascript">    <span class="hljs-comment">// 空格处理</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> tel = <span class="hljs-string">&#x27;155 8322 3946&#x27;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(tel.match(<span class="hljs-regexp">/\d+ \d+ \d+/</span>));</span><br><span class="javascript">    <span class="hljs-comment">// 或console.log(tel.match(/\d+\s\d+\s\d+/));</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>匹配任何字符</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-comment">// 匹配所有字符[\s\S] [\d\D] [\w\W] [.\s]</span></span><br><span class="javascript">  <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&quot;mik1123%$#@!#%%^&amp;%^&amp;*()|&lt;&gt;,./;&#x27;[]|*/~`etaylorjuly123.cn&quot;</span>;</span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/[\s\S]+/</span>.test(mk));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="模式修饰"><a href="#模式修饰" class="headerlink" title="模式修饰"></a>模式修饰</h2><p>正则表达式在执行时会按他们的默认执行方式进行，但有时候默认的处理方式总不能满足我们的需求，所以可以使用模式修正符更改默认方式。</p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>i</td>
+<td>不区分大小写字母的匹配</td>
+</tr>
+<tr>
+<td>g</td>
+<td>全局搜索所有匹配内容</td>
+</tr>
+<tr>
+<td>m</td>
+<td>视为多行</td>
+</tr>
+<tr>
+<td>s</td>
+<td>视为单行忽略换行符，使用<code>.</code> 可以匹配所有字符</td>
+</tr>
+<tr>
+<td>y</td>
+<td>从 <code>regexp.lastIndex</code> 开始匹配</td>
+</tr>
+<tr>
+<td>u</td>
+<td>正确处理四个字符的 UTF-16 编码</td>
+</tr>
+</tbody></table>
+<p>模式g与模式i</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-comment">//模式i</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&quot;miketaylorjuly123.cnV&quot;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/v/</span>));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/v/i</span>));</span><br><br><span class="javascript">    <span class="hljs-comment">//模式g</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk2 = <span class="hljs-string">&quot;miketVaVyVloVrjVuly1V23.VcVn&quot;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk2.match(<span class="hljs-regexp">/v/gi</span>)); <span class="hljs-comment">// 混合使用。</span></span><br>    <br><span class="javascript">    <span class="hljs-comment">// 利用模式匹配实现替换</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk2.replace(<span class="hljs-regexp">/v/gi</span> , <span class="hljs-string">&#x27;@&#x27;</span>));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>m多行匹配修正符实例</p>
+<p><strong>将以 <code>#数字</code>开始的课程解析为对象结构</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">`</span></span><br>    #1 Data Structure,90 #<br>    #2 Computer Network,90 #<br>    #3 Operation system,85 # 张云<br>    #4 Artificial Vision,100 #<br>    `;<br><span class="javascript">    <span class="hljs-comment">//希望提取结构[&#123;course_name:&#x27;&#x27;,scores:&#x27;&#x27;,&#125;]，需要过滤掉”# 张云“项</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> lessons = mk.match(<span class="hljs-regexp">/\s*#\d\s+.+#$/gm</span>).map(<span class="hljs-function"><span class="hljs-params">v</span>=&gt;</span>&#123;</span><br><span class="javascript">      v = v.replace(<span class="hljs-regexp">/\s*#\d+\s+/</span>,<span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-regexp">/\s#/</span>,<span class="hljs-string">&#x27;&#x27;</span>);</span><br><span class="javascript">      [name,price] = v.split(<span class="hljs-string">&#x27;,&#x27;</span>);</span><br><span class="javascript">      <span class="hljs-keyword">return</span> &#123;name ,price&#125;;</span><br>    &#125;)<br><span class="javascript">    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(lessons,<span class="hljs-literal">null</span>,<span class="hljs-number">2</span>));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>汉字与字符属性</p>
+<p>每个字符都有属性，如<code>L</code>属性表示是字母，<code>P</code> 表示标点符号，需要结合 <code>u</code> 模式才有效。其他属性简写可以访问 <a href="https://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt">属性的别名 (opens new window)</a>网站查看。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> mk  = <span class="hljs-string">&quot;miketaylorjuly123.加加林，冲冲冲。&quot;</span>;<br>    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/\p&#123;L&#125;/gu</span>));<span class="hljs-comment">// 匹配中英文字</span><br>    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/\p&#123;P&#125;/gu</span>)); <span class="hljs-comment">//匹配标点符号</span><br></code></pre></td></tr></table></figure>
+
+<p>字符也有Unicode文字系统属性 <code>Script=文字系统</code>，下面是使用 <code>\p&#123;sc=Han&#125;</code> 获取中文字符 <code>han</code>为中文系统，其他语言请查看 <a href="http://www.unicode.org/standard/supported.html">文字语言表</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> hd = <span class="hljs-string">`</span><br><span class="hljs-string">张三:010-99999999,李四:020-88888888`</span>;<br><span class="hljs-keyword">let</span> res = hd.match(<span class="hljs-regexp">/\p&#123;sc=Han&#125;+/gu</span>);<br><span class="hljs-built_in">console</span>.log(res);<br></code></pre></td></tr></table></figure>
+
+<p>使用 <code>u</code> 模式可以正确处理四个字符的 UTF-16 字节编码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> str = <span class="hljs-string">&quot;𝒳𝒴&quot;</span>;<br><span class="hljs-built_in">console</span>.table(str.match(<span class="hljs-regexp">/[𝒳𝒴]/</span>)); <span class="hljs-comment">//结果为乱字符&quot;�&quot;</span><br><br><span class="hljs-built_in">console</span>.table(str.match(<span class="hljs-regexp">/[𝒳𝒴]/u</span>)); <span class="hljs-comment">//结果正确 &quot;𝒳&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="lastIndex"><a href="#lastIndex" class="headerlink" title="lastIndex"></a>lastIndex</h3><p>RegExp对象<code>lastIndex</code> 属性可以返回或者设置正则表达式开始匹配的位置</p>
+<ul>
+<li><strong>必须结合 <code>g</code> 修饰符使用</strong></li>
+<li><strong>对 <code>exec</code> 方法有效</strong></li>
+<li><strong>匹配完成时，<code>lastIndex</code> 会被重置为0</strong></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-comment">//lastIndex</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&#x27;miketaylorjuly123.cn&#x27;</span>;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/\w/g</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(reg)); <span class="hljs-comment">//无法保留主信息</span></span><br><br><span class="javascript">    <span class="hljs-comment">//注意：必须/g进入全局属性</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">//0</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.exec(mk)); <span class="hljs-comment">//m</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">//1</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.exec(mk)); <span class="hljs-comment">//i</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">//2</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.exec(mk)); <span class="hljs-comment">//k</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">//3</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.exec(mk)); <span class="hljs-comment">//e</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">//4</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.exec(mk)); <span class="hljs-comment">//t</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">//9</span></span><br>    <br><span class="javascript">    <span class="hljs-comment">//遍历</span></span><br><span class="javascript">    <span class="hljs-keyword">while</span>((res = reg.exec(mk)))&#123;</span><br><span class="javascript">      <span class="hljs-built_in">console</span>.log(res);</span><br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="y"><a href="#y" class="headerlink" title="y"></a>y</h3><p>我们来对比使用 <code>y</code> 与<code>g</code> 模式，使用 <code>g</code> 模式会一直匹配字符串。</p>
+<p>提高检索大文档的效率。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-comment">// g</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&#x27;lovemikelovetaylor&#x27;</span>;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/l/g</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.exec(mk));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">//1</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.exec(mk));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">//9</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.exec(mk));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex);  <span class="hljs-comment">// 16</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.exec(mk));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">// 0</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-comment">// g</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&#x27;lovemikelovetaylor&#x27;</span>;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/l/y</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.exec(mk));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">//1</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.exec(mk));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">//0</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.exec(mk));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex);  <span class="hljs-comment">// 1</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.exec(mk));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">// 0</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>因为使用 <code>y</code> 模式可以在匹配不到时停止匹配，在匹配下面字符中的qq时可以提高匹配效率。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js">  <span class="hljs-keyword">let</span> hd = <span class="hljs-string">`铁憨憨QQ号:11111111,999999999,88888888，我将不断学习，并且称为全栈！`</span>;<br><br><span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/(\d+),?/y</span>;<br><span class="hljs-keyword">let</span> qq = [];<br>reg.lastIndex = <span class="hljs-number">7</span>;<br><span class="hljs-keyword">while</span> ((res = reg.exec(hd))) qq.push(res[<span class="hljs-number">1</span>]);<br><span class="hljs-built_in">console</span>.log(qq);<br></code></pre></td></tr></table></figure>
+
+<h2 id="原子表"><a href="#原子表" class="headerlink" title="原子表"></a>原子表</h2><p>在一组字符中匹配某个元字符，在正则表达式中通过元字符表来完成，就是放到<code>[]</code> (方括号)中。</p>
+<h3 id="使用语法"><a href="#使用语法" class="headerlink" title="使用语法"></a>使用语法</h3><table>
+<thead>
+<tr>
+<th>原子表</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[]</td>
+<td>只匹配其中的一个原子</td>
+</tr>
+<tr>
+<td>[^]</td>
+<td>只匹配”除了”其中字符的任意一个原子</td>
+</tr>
+<tr>
+<td>[0-9]</td>
+<td>匹配0-9任何一个数字</td>
+</tr>
+<tr>
+<td>[a-z]</td>
+<td>匹配小写a-z任何一个字母</td>
+</tr>
+<tr>
+<td>[A-Z]</td>
+<td>匹配大写A-Z任何一个字母</td>
+</tr>
+</tbody></table>
+<h3 id="实例操作"><a href="#实例操作" class="headerlink" title="实例操作"></a>实例操作</h3><p>使用<code>[]</code>匹配其中任意字符即成功，下例中匹配<code>ue</code>任何一个字符，而不会当成一个整体来对待。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&quot;miketaylorjuly123.cn&quot;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/kt/</span>.test(mk)); <span class="hljs-comment">//f</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/[kt]/</span>.test(mk)); <span class="hljs-comment">//t</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>日期匹配</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-comment">// 日期的匹配</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> date = <span class="hljs-string">&quot;2022/02/23&quot;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(date.match(<span class="hljs-regexp">/^\d&#123;4&#125;([-\/])\d&#123;2&#125;\1\d&#123;2&#125;$/</span>)); <span class="hljs-comment">// 这里使用了原子组，取组用\1，目的是防止前/后-这类事故。</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>区间匹配</p>
+<p>0-3匹配</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> num = <span class="hljs-string">&quot;2&quot;</span>;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/[0-3]/</span>.test(num)); <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<p>匹配a~f间的任意字符</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> hd = <span class="hljs-string">&quot;e&quot;</span>;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/[a-f]/</span>.test(hd)); <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>顺序为升序否则将报错</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> num = <span class="hljs-string">&quot;2&quot;</span>;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/[3-0]/</span>.test(num)); <span class="hljs-comment">//SyntaxError</span><br></code></pre></td></tr></table></figure>
+
+<p>字母也要升序否则也报错</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> hd = <span class="hljs-string">&quot;houdunren.com&quot;</span>;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/[f-a]/</span>.test(hd)); <span class="hljs-comment">//SyntaxError</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> hd = <span class="hljs-string">&quot;houdunren.com&quot;</span>;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/[f-a]/</span>.test(hd)); <span class="hljs-comment">//SyntaxError</span><br></code></pre></td></tr></table></figure>
+
+<p>验证用户名，要求数字开头，后面数字下划线字母，4-7位</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;username&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> input = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">`[name=&quot;username&quot;]`</span>);</span><br><span class="javascript">    input.addEventListener(<span class="hljs-string">&#x27;keyup&#x27;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.value.match(<span class="hljs-regexp">/^[a-z]\w+&#123;3,6&#125;$/i</span>));  <span class="hljs-comment">// i不区分大小写 , 4- 7位</span></span><br>    &#125;);<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>排除匹配</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> hd = <span class="hljs-string">`</span><br><span class="hljs-string">张三:010-99999999,李四:020-88888888`</span>;<br><span class="hljs-keyword">let</span> res = hd.match(<span class="hljs-regexp">/[^:\d-,]+/g</span>); <span class="hljs-comment">// 放在第一个位置不用转义，而-不在第一个，要转义</span><br><span class="hljs-built_in">console</span>.log(res);<br></code></pre></td></tr></table></figure>
+
+<p>原子表中有些正则字符不需要转义，如果转义也是没问题的，可以理解为在原子表中<code>.</code> 就是小数点。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> str = <span class="hljs-string">&quot;(miketaylorjuly123.cn)+&quot;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.table(str.match(<span class="hljs-regexp">/[().+]/g</span>));</span><br><br><span class="javascript">    <span class="hljs-comment">//使用转义也没有问题</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.table(str.match(<span class="hljs-regexp">/[\(\)\.\+]/g</span>));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>下面是使用原子表知识<strong>删除所有标题</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>憨憨<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>miketaylorjuly123.cn<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>baidu.fanyi.com<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-keyword">const</span> body = <span class="hljs-built_in">document</span>.body;</span><br><span class="javascript">  <span class="hljs-keyword">const</span> reg = <span class="hljs-regexp">/&lt;(h[1-6])&gt;[\s\S]*&lt;\/\1&gt;*/gi</span>;</span><br><span class="javascript">  <span class="hljs-keyword">let</span> content = body.innerHTML.replace(reg, <span class="hljs-string">&quot;&quot;</span>);</span><br><span class="javascript">  <span class="hljs-built_in">document</span>.body.innerHTML = content;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>匹配所有内容</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-keyword">let</span> mk = <span class="hljs-string">`</span></span><br>  miketaylor<br>  Juile<br>  `;<br><span class="javascript">  <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/.+/g</span>s)); <span class="hljs-comment">// s模式忽略换行符</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/[\S\s]+/g</span>s));  <span class="hljs-comment">// 匹配所有内容</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="原子组"><a href="#原子组" class="headerlink" title="原子组"></a>原子组</h2><ul>
+<li>如果一次要匹配多个元子，可以通过元子组完成</li>
+<li>原子组与原子表的差别在于原子组一次匹配多个元子，而原子表则是匹配任意一个字符</li>
+<li>元字符组用 <code>()</code> 包裹</li>
+</ul>
+<p>下面使用原子组匹配 <code>h</code> 标签。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-keyword">let</span> mk = <span class="hljs-string">`</span></span><br><span class="handlebars"><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>miketaylorjuly<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span></span><br><span class="handlebars"><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Linux<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span></span><br>  `;<br><br><span class="javascript">  <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/&lt;(h[1-6])&gt;[\s\S]*&lt;\/\1&gt;/i</span>; <span class="hljs-comment">//原子组 \1 \2 \3取出原子组</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(mk.match(reg));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>没有添加 <code>g</code> 模式修正符时只匹配到第一个，匹配到的信息包含以下数据</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>匹配到的完整内容</td>
+</tr>
+<tr>
+<td>1,2….</td>
+<td>匹配到的原子组</td>
+</tr>
+<tr>
+<td>index</td>
+<td>原字符串中的位置</td>
+</tr>
+<tr>
+<td>input</td>
+<td>原字符串</td>
+</tr>
+<tr>
+<td>groups</td>
+<td>命名分组</td>
+</tr>
+</tbody></table>
+<p>在<code>match</code>中使用原子组匹配，会将每个组数据返回到结果中</p>
+<ul>
+<li>0 为匹配到的完成内容</li>
+<li>1/2 等 为原子级内容</li>
+<li>index 匹配的开始位置</li>
+<li>input 原始数据</li>
+<li>groups 组别名</li>
+</ul>
+<p>邮箱匹配</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;mail&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;23134565556@qq.com&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;website&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;miketaylorjuly123@qq.com.cn&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-keyword">let</span> mail = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">`[name = &quot;mail&quot;]`</span>).value;</span><br><span class="javascript">  <span class="hljs-keyword">let</span> website = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">`[name = &quot;website&quot;]`</span>).value;</span><br><span class="javascript">  <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/^[\w-]+@[\w-]+\.(com|org|cc|cn|net)$/i</span>;  <span class="hljs-comment">// 必须用原子组，不然单纯的com或cc也能直接匹配</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(mail.match(reg));</span><br><br><br><span class="javascript">  <span class="hljs-keyword">let</span> reg_pro = <span class="hljs-regexp">/^[\w-]+@([\w-]+\.)+(com|org|cc|cn|net)$/i</span>;<span class="hljs-comment">//改良</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(website.match(reg_pro));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>邮箱匹配并输出结果</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;website&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;miketaylorjuly123@qq.com.cn&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br>  <br><span class="javascript">  <span class="hljs-keyword">let</span> website = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">`[name = &quot;website&quot;]`</span>).addEventListener(<span class="hljs-string">&quot;keyup&quot;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> reg_pro = <span class="hljs-regexp">/^[\w-]+@([\w-]+\.)+(com|org|cc|cn|net)$/i</span>;</span><br><span class="javascript">    <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;span&quot;</span>).innerHTML = reg_pro.test(<span class="hljs-built_in">this</span>.value)?<span class="hljs-string">&quot;正确&quot;</span>:<span class="hljs-string">&quot;错误&quot;</span>;</span><br>  &#125;);<br><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="引用分组"><a href="#引用分组" class="headerlink" title="引用分组"></a>引用分组</h3><p><code>\n</code> 在匹配时引用原子组， <code>$n</code> 指在替换时使用匹配的组数据。下面将标签替换为<code>p</code>标签。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">`</span></span><br><span class="handlebars"><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>miketaylorjuly<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span></span><br><span class="handlebars"><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span></span><br><span class="handlebars"><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>hulu<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>      </span></span><br>    `;<br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/&lt;(h[1-6])&gt;([\s\S]+)&lt;\/\1&gt;/gi</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.replace(reg, <span class="hljs-string">&#x27;&lt;p&gt;$2&lt;/p&gt;&#x27;</span>));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>替换进阶</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">`</span></span><br><span class="handlebars"><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>miketaylorjuly<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span></span><br><span class="handlebars"><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span></span><br><span class="handlebars"><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>hulu<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>      </span></span><br>    `;<br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/&lt;(h[1-6])&gt;(\w([\s\S]+))&lt;\/\1&gt;/gi</span>;</span><br><span class="handlebars"><span class="xml">    // console.log(mk.replace(reg, &#x27;<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>$2<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&#x27;));</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> res = mk.replace(reg, <span class="hljs-function">(<span class="hljs-params">p0,p1,p2,p3</span>)=&gt;</span>&#123;</span><br><span class="javascript">      <span class="hljs-keyword">return</span> <span class="hljs-string">`&lt;span&gt;<span class="hljs-subst">$&#123;p2&#125;</span>&lt;/span&gt;`</span>;</span><br><span class="javascript">    &#125;); <span class="hljs-comment">//p0~p3代表不同的括号内容。</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(res);</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="嵌套分组与不记录组"><a href="#嵌套分组与不记录组" class="headerlink" title="嵌套分组与不记录组"></a>嵌套分组与不记录组</h4><p>如果只希望组参与匹配，便不希望返回到结果中使用 <code>(?:</code> 处理。下面是获取所有域名的示例。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-keyword">let</span> mk = <span class="hljs-string">`</span></span><br><span class="javascript">  https:<span class="hljs-comment">//www.baidu.com</span></span><br><span class="javascript">  https:<span class="hljs-comment">//miketaylorjuly123.cn</span></span><br><span class="javascript">  https:<span class="hljs-comment">//www.google.com</span></span><br>  `;<br><span class="javascript">  <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/https?:\/\/((?:\w+\.)?\w+\.(?:com|org|cn|cc))/ig</span>; <span class="hljs-comment">//?:不记录一块数据，也就无法使用\1或$1这种形式。</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.dir(reg.exec(mk));</span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">//26</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.dir(reg.exec(mk));</span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(reg.lastIndex); <span class="hljs-comment">// 59</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.dir(reg.exec(mk));</span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(reg.lastIndex);  <span class="hljs-comment">//86</span></span><br><span class="javascript">  <span class="hljs-built_in">console</span>.dir(reg.exec(mk));</span><br><span class="javascript">  <span class="hljs-built_in">console</span>.log(reg.lastIndex);  <span class="hljs-comment">//0</span></span><br>  <br><span class="javascript">  <span class="hljs-comment">//使用循环操作</span></span><br><span class="javascript">  <span class="hljs-keyword">let</span> urls = [];</span><br><span class="javascript">  <span class="hljs-keyword">while</span>((res = reg.exec(mk)))&#123;</span><br>    urls.push(res[1]);<br>  &#125;<br><span class="javascript">  <span class="hljs-built_in">console</span>.table(urls);</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="分组别名"><a href="#分组别名" class="headerlink" title="分组别名"></a>分组别名</h3><p>如果希望返回的组数据更清晰，可以为原子组编号，结果将保存在返回的 <code>groups</code>字段中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> hd = <span class="hljs-string">&quot;&lt;h1&gt;miketaylorjuly123.cn&lt;/h1&gt;&quot;</span>;<br><span class="hljs-built_in">console</span>.dir(hd.match(<span class="hljs-regexp">/&lt;(?&lt;tag&gt;h[1-6])[\s\S]*&lt;\/\1&gt;/</span>));<br></code></pre></td></tr></table></figure>
+
+<p>组别名使用 <code>?&lt;&gt;</code> 形式定义，下面将标签替换为<code>p</code>标签</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> hd = <span class="hljs-string">`</span><br><span class="hljs-string">  &lt;h1&gt;miketaylor&lt;/h1&gt;</span><br><span class="hljs-string">  &lt;span&gt;铁憨憨&lt;/span&gt;</span><br><span class="hljs-string">  &lt;h2&gt;macos&lt;/h2&gt;</span><br><span class="hljs-string">`</span>;<br><span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/&lt;(?&lt;tag&gt;h[1-6])&gt;(?&lt;con&gt;[\s\S]*)&lt;\/\1&gt;/gi</span>;<br><span class="hljs-built_in">console</span>.log(hd.replace(reg, <span class="hljs-string">`&lt;p&gt;$&lt;con&gt;&lt;/p&gt;`</span>));<br></code></pre></td></tr></table></figure>
+
+<h2 id="重复匹配"><a href="#重复匹配" class="headerlink" title="重复匹配"></a>重复匹配</h2><h3 id="https-houdunren-gitee-io-note-js-14-正则表达式-html-基本使用-2-基本使用"><a href="#https-houdunren-gitee-io-note-js-14-正则表达式-html-基本使用-2-基本使用" class="headerlink" title="[#](https://houdunren.gitee.io/note/js/14 正则表达式.html#基本使用-2)基本使用"></a>[#](<a href="https://houdunren.gitee.io/note/js/14">https://houdunren.gitee.io/note/js/14</a> 正则表达式.html#基本使用-2)基本使用</h3><p>如果要重复匹配一些内容时我们要使用重复匹配修饰符，包括以下几种。</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*</td>
+<td>重复零次或更多次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>重复一次或更多次</td>
+</tr>
+<tr>
+<td>?</td>
+<td>重复零次或一次</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>重复n次</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>重复n次或更多次</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>重复n到m次</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>因为正则最小单位是元字符，而我们很少只匹配一个元字符如a、b所以基本上重复匹配在每条正则语句中都是必用到的内容。</p>
+</blockquote>
+<p>多重重复匹配</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk= <span class="hljs-string">&#x27;mkkkkkkkkkk&#x27;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/mk+/</span>)); <span class="hljs-comment">// + 只影响k，不影响m,贪婪匹配模式。</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/mk*/</span>)); <span class="hljs-comment">// * 表示 0 个或多个</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/mk&#123;2,5&#125;/</span>)); <span class="hljs-comment">// &#123;&#125;为匹配个数限制</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/mk&#123;1,&#125;/</span>));<span class="hljs-comment">// &#123;1,&#125;等价于+</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/mk&#123;0,&#125;/</span>));<span class="hljs-comment">//&#123;0,&#125;等价于*</span></span><br><span class="javascript">     <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/mk?/</span>)); <span class="hljs-comment">//?：0个或者1个</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>电话匹配正则</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&#x27;mkkkkkkkkmkmkmk&#x27;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/(mk)+/g</span>)); <span class="hljs-comment">// 对原子组后面的+，影响的是整个原子组</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> tel = <span class="hljs-string">&#x27;0315-3693243&#x27;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(tel.match(<span class="hljs-regexp">/^0\d&#123;2,3&#125;\-\d&#123;7,8&#125;$/</span>));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>网站用户名验证</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text &quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;username&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">        <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">`[name = &quot;username&quot;]`</span>).addEventListener(<span class="hljs-string">&#x27;keyup&#x27;</span>,<span class="hljs-function">(<span class="hljs-params">e</span>)=&gt;</span>&#123;</span><br><span class="javascript">            <span class="hljs-keyword">const</span> value =e.target.value;</span><br><span class="javascript">            <span class="hljs-built_in">console</span>.log(value);</span><br><span class="javascript">            <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/^[a-z][\w-]&#123;2,7&#125;$/i</span>;</span><br><span class="javascript">            <span class="hljs-built_in">console</span>.log(reg.test(value));</span><br>        &#125;);<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>​    批量使用正则完成密码验证</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> input = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">`[name=&quot;password&quot;]`</span>);</span><br><span class="javascript">    input.addEventListener(<span class="hljs-string">&#x27;keyup&#x27;</span>,<span class="hljs-function"><span class="hljs-params">e</span>=&gt;</span>&#123;</span><br><span class="javascript">        <span class="hljs-keyword">const</span> value = e.target.value;</span><br><span class="javascript">        <span class="hljs-comment">//匹配多个正则</span></span><br><span class="javascript">        <span class="hljs-keyword">const</span> regs = [</span><br>            /^[a-z0-9]&#123;5,10&#125;$/i,<br>            /[A-Z]/,<br>            /[0-9]/,<br>        ]<br><span class="javascript">        <span class="hljs-keyword">let</span> state = regs.every(<span class="hljs-function"><span class="hljs-params">e</span>=&gt;</span>e.test(value));</span><br><span class="javascript">        <span class="hljs-built_in">console</span>.log(state?<span class="hljs-string">&quot;正确&quot;</span>:<span class="hljs-string">&quot;错误&quot;</span>);</span><br>    &#125;);<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="禁止贪婪"><a href="#禁止贪婪" class="headerlink" title="禁止贪婪"></a>禁止贪婪</h3><p>正则表达式在进行重复匹配时，默认是贪婪匹配模式，也就是说会尽量匹配更多内容，但是有的时候我们并不希望他匹配更多内容，这时可以通过?进行修饰来禁止重复匹配</p>
+<table>
+<thead>
+<tr>
+<th>使用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*?</td>
+<td>重复任意次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>+?</td>
+<td>重复1次或更多次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>??</td>
+<td>重复0次或1次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>{n,m}?</td>
+<td>重复n到m次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>{n,}?</td>
+<td>重复n次以上，但尽可能少重复</td>
+</tr>
+</tbody></table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&#x27;mkkkkkkk&#x27;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/mk+?/</span>));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/mk*?/</span>));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/mk&#123;2,100&#125;/</span>));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/mk&#123;2,100&#125;?/</span>));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/mk&#123;2,&#125;?/</span>));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(<span class="hljs-regexp">/mk??/</span>));<span class="hljs-comment">//相当于&#123;0,1&#125;?，禁止问号贪婪。</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>将所有span更换为<code>h4</code> 并描色，并在内容前加上 <code>铁憨憨-</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;IE=edge&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">main</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>wangbuer<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>baidu.com<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>miketaylorjuly123.cn<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-comment">//不禁止贪婪是不行的！</span></span><br><span class="javascript">    <span class="hljs-keyword">const</span> main = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;main&quot;</span>);</span><br><span class="javascript">    <span class="hljs-keyword">const</span> reg = <span class="hljs-regexp">/&lt;span&gt;([\s\S]+?)&lt;\/span&gt;/gi</span>;</span><br><span class="javascript">    main.innerHTML = main.innerHTML.replace(reg,<span class="hljs-function">(<span class="hljs-params">v , p1</span>)=&gt;</span>&#123;</span><br><span class="javascript">        <span class="hljs-built_in">console</span>.log(p1);</span><br><span class="javascript">        <span class="hljs-keyword">return</span> <span class="hljs-string">`&lt;h4 style=&quot;color:#8080ff&quot;&gt;铁憨憨--<span class="hljs-subst">$&#123;p1&#125;</span>&lt;/h4&gt;`</span>;</span><br>    &#125;);<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>下面是使用禁止贪婪查找页面中的标题元素</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;body&gt;<br>  &lt;h1&gt;<br>    houdunren.com<br>  &lt;/h1&gt;<br>  &lt;h2&gt;miketaylorjuly123.cn&lt;/h2&gt;<br>  &lt;h3&gt;&lt;/H3&gt;<br>  &lt;H1&gt;&lt;/H1&gt;<br>&lt;/body&gt;<br><br>&lt;script&gt;<br>  <span class="hljs-keyword">let</span> body = <span class="hljs-built_in">document</span>.body.innerHTML;<br>  <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/&lt;(h[1-6])&gt;[\s\S]*?&lt;\/\1&gt;/gi</span>;<br>  <span class="hljs-built_in">console</span>.table(body.match(reg));<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="全局匹配"><a href="#全局匹配" class="headerlink" title="全局匹配"></a>全局匹配</h2><h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>使用<code>match</code> 全局获取页面中标签内容，但并不会返回匹配细节。</p>
+<h3 id="matchAll"><a href="#matchAll" class="headerlink" title="matchAll"></a>matchAll</h3><p>在新浏览器中支持使用 <code>matchAll</code> 操作，并返回迭代对象</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>wangbuer<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>baidu.com<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>铁憨憨<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/&lt;(h[1-6])&gt;([\s\S]+?)&lt;\/\1&gt;/ig</span>;</span><br><span class="javascript">    <span class="hljs-keyword">const</span>  body = <span class="hljs-built_in">document</span>.body;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(body.innerHTML.match(reg)); <span class="hljs-comment">//不能剔除标签，取不到内容，去掉g后取得到，但又不是全局了。</span></span><br><span class="javascript">    <span class="hljs-comment">//最新版浏览器的方法：matchAll</span></span><br><span class="javascript">    <span class="hljs-keyword">const</span> mk = body.innerHTML.matchAll(reg);</span><br><span class="javascript">    <span class="hljs-keyword">let</span> content = [];</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk);</span><br><span class="javascript">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">const</span> iterator <span class="hljs-keyword">of</span> mk)&#123;</span><br><span class="javascript">        <span class="hljs-built_in">console</span>.dir(iterator);</span><br>        content.push(iterator[2]);<br>    &#125;<br><span class="javascript">    <span class="hljs-built_in">console</span>.table(content);</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>为低版本浏览器定义原型方法matchAll()</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>wangbuer<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>baidu.com<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>铁憨憨<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-comment">//matchAll</span></span><br><span class="javascript">    <span class="hljs-built_in">String</span>.prototype.matchAll=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">reg</span>)</span>&#123;</span><br><span class="javascript">        <span class="hljs-keyword">let</span> res = <span class="hljs-built_in">this</span>.match(reg);</span><br>        if(res)&#123;<br><span class="javascript">            <span class="hljs-keyword">let</span> str = <span class="hljs-built_in">this</span>.replace(res[<span class="hljs-number">0</span>],<span class="hljs-string">&quot;^&quot;</span>.repeat(res[<span class="hljs-number">0</span>].length));</span><br><span class="javascript">            <span class="hljs-keyword">let</span> match = str.matchAll(reg) || [];</span><br><span class="javascript">            <span class="hljs-keyword">return</span> [res,...match];</span><br>        &#125;<br>    &#125;;<br><span class="javascript">    <span class="hljs-keyword">let</span> body = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">`body`</span>).innerHTML;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> search = body.matchAll(<span class="hljs-regexp">/&lt;(h[1-6])&gt;([\s\S]+?)&lt;\/\1&gt;/</span>);</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(search)</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h3><p>使用 <code>g</code> 模式修正符并结合 <code>exec</code> 循环操作可以获取结果和匹配细节</p>
+<p><strong>一定要用模式g!!!</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>wangbuer<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>baidu.com<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>铁憨憨<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">search</span>(<span class="hljs-params">string, reg</span>) </span>&#123;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> matchs = [];</span><br><span class="javascript">    <span class="hljs-keyword">while</span> ((data = reg.exec( string))) &#123;</span><br>      matchs.push(data);<br>    &#125;<br><span class="javascript">    <span class="hljs-keyword">return</span> matchs;</span><br>  &#125;<br><span class="javascript">  <span class="hljs-built_in">console</span>.log(search(<span class="hljs-built_in">document</span>.body.innerHTML, <span class="hljs-regexp">/&lt;(h[1-6])&gt;[\s\S]+?&lt;\/\1&gt;/gi</span>));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="字符方法"><a href="#字符方法" class="headerlink" title="字符方法"></a>字符方法</h2><p>下面介绍的方法是 <code>String</code> 提供的支持正则表达式的方法</p>
+<h3 id="search"><a href="#search" class="headerlink" title="search"></a>search</h3><p>search() 方法用于检索字符串中指定的子字符串，也可以使用正则表达式搜索，返回值为索引位置</p>
+<h3 id="match"><a href="#match" class="headerlink" title="match"></a>match</h3><p>直接使用字符串搜索。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&quot;miketaylorjuly123.cn&quot;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.search(<span class="hljs-string">&quot;.cn&quot;</span>)); <span class="hljs-comment">//17</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.search(<span class="hljs-string">&quot;.@&quot;</span>)); <span class="hljs-comment">//-1</span></span><br><br><span class="javascript">    <span class="hljs-keyword">let</span> mk2 = <span class="hljs-string">`</span></span><br><span class="javascript">    https:<span class="hljs-comment">//miketaylorjuly123.cn </span></span><br><span class="javascript">    https:<span class="hljs-comment">//www.sina.com.cn</span></span><br><span class="javascript">    https:<span class="hljs-comment">//www.baidu.com</span></span><br>    `;<br><br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/https?:\/\/(\w+\.)?(\w+\.)+(com|cn|org|cc)/gi</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk2.match(reg));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="matchAll-1"><a href="#matchAll-1" class="headerlink" title="matchAll"></a>matchAll</h3><p>在新浏览器中支持使用 <code>matchAll</code> 操作，并返回迭代对象，返回由细节！</p>
+<h3 id="split"><a href="#split" class="headerlink" title="split"></a>split</h3><p>用于使用字符串或正则表达式分隔字符串，下面是使用字符串分隔日期</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk2 = <span class="hljs-string">`</span></span><br><span class="javascript">    https:<span class="hljs-comment">//miketaylorjuly123.cn </span></span><br><span class="javascript">    https:<span class="hljs-comment">//www.sina.com.cn</span></span><br><span class="javascript">    https:<span class="hljs-comment">//www.baidu.com</span></span><br>    `;<br><br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/https?:\/\/(\w+\.)?(\w+\.)+(com|cn|org|cc)/gi</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.table(mk2.match(reg));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk2.matchAll(reg));<span class="hljs-comment">//返回迭代器</span></span><br><span class="javascript">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> iterator <span class="hljs-keyword">of</span> mk2.matchAll(reg)) &#123;</span><br><span class="javascript">     <span class="hljs-built_in">console</span>.table(iterator);</span><br>        &#125;;<br><br><span class="javascript">    <span class="hljs-comment">//split按照给出的模板匹配。</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&quot;2021/05/29&quot;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.split(<span class="hljs-regexp">/[\/-]/</span>));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h3><p><code>replace</code> 方法不仅可以执行基本字符替换，也可以进行正则替换，下面替换日期连接符</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> str = <span class="hljs-string">&quot;2023/02/12&quot;</span>;<br><span class="hljs-built_in">console</span>.log(str.replace(<span class="hljs-regexp">/\//g</span>, <span class="hljs-string">&quot;-&quot;</span>)); <span class="hljs-comment">//2023-02-12</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&#x27;(010)65313213 (020)3468621&#x27;</span>;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/\((\d&#123;3,4&#125;)\)(\d&#123;7,8&#125;)/g</span>;</span><br><span class="javascript">    <span class="hljs-comment">// console.log(mk.match(reg));</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.replace(reg, <span class="hljs-string">&#x27;$1-$2&#x27;</span>));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>替换字符串可以插入下面的特殊变量名：</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$$</code></td>
+<td>插入一个 “$”。</td>
+</tr>
+<tr>
+<td><code>$&amp;</code></td>
+<td>插入匹配的子串。</td>
+</tr>
+<tr>
+<td>$`</td>
+<td>插入当前匹配的子串左边的内容。</td>
+</tr>
+<tr>
+<td><code>$&#39;</code></td>
+<td>插入当前匹配的子串右边的内容。</td>
+</tr>
+<tr>
+<td><code>$n</code></td>
+<td>假如第一个参数是 <code>RegExp</code> 对象，并且 n 是个小于100的非负整数，那么插入第 n 个括号匹配的字符串。提示：索引是从1开始</td>
+</tr>
+</tbody></table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-comment">// let mk = &#x27;(010)65313213 (020)3468621&#x27;;</span></span><br><span class="javascript">    <span class="hljs-comment">// let reg = /\((\d&#123;3,4&#125;)\)(\d&#123;7,8&#125;)/g;</span></span><br><span class="javascript">    <span class="hljs-comment">// // console.log(mk.match(reg));</span></span><br><span class="javascript">    <span class="hljs-comment">// console.log(mk.replace(reg, &#x27;$1-$2&#x27;));</span></span><br><br><span class="javascript">    <span class="hljs-comment">//$` $&#x27;  $&amp;</span></span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&#x27;=%铁憨憨@=&#x27;</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.replace(<span class="hljs-regexp">/铁憨憨/</span>,<span class="hljs-string">&quot;==$&amp;==&quot;</span>)); <span class="hljs-comment">//$&amp;表示匹配到的内容</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.replace(<span class="hljs-regexp">/铁憨憨/</span>,<span class="hljs-string">&quot;$`&quot;</span>)); <span class="hljs-comment">//把匹配到的内容替换为匹配到的内容的前面部分</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.replace(<span class="hljs-regexp">/铁憨憨/</span>,<span class="hljs-string">&quot;$&#x27;&quot;</span>)); <span class="hljs-comment">//把匹配到的内容替换为匹配到的内容的后面部分</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>把所有<code>准则</code>汉字加上链接 百度百科链接。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">main</span>&gt;</span><br>        核心价值观，简单来说就是某一社会群体判断社会事务时依据的是非标准，遵循的行为准则。<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> main = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;body main&quot;</span>);</span><br><span class="javascript">    main.innerHTML = main.innerHTML.replace(<span class="hljs-regexp">/准则/g</span>,<span class="hljs-string">`&lt;a href=&quot;https://baike.baidu.com/item%E6%A0%B8%E5%BF%83%E4%BB%B7%E5%80%BC%E8%A7%82/6946423?fr=aladdin&quot;&gt;$&amp;&lt;/a&gt;`</span>);</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>为链接添加上<code>https</code> ，并补全 <code>www.</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">main</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color:red&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://www.hdcms.com&quot;</span>&gt;</span><br>      开源系统<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;l1&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://houdunren.com&quot;</span>&gt;</span>后盾人<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://yahoo.com&quot;</span>&gt;</span>雅虎<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>http://www.hdcms.com<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-keyword">const</span> main = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;body main&quot;</span>);</span><br><span class="javascript">  <span class="hljs-keyword">const</span> reg = <span class="hljs-regexp">/(&lt;a.*href=[&#x27;&quot;])(http)(:\/\/)(www\.)?(hdcms|houdunren)/gi</span>;</span><br><span class="javascript">  main.innerHTML = main.innerHTML.replace(reg, <span class="hljs-function">(<span class="hljs-params">v, ...args</span>) =&gt;</span> &#123;</span><br><span class="javascript">    args[<span class="hljs-number">1</span>] += <span class="hljs-string">&quot;s&quot;</span>;</span><br><span class="javascript">    args[<span class="hljs-number">3</span>] = args[<span class="hljs-number">3</span>] || <span class="hljs-string">&quot;www.&quot;</span>;</span><br><span class="javascript">    <span class="hljs-keyword">return</span> args.splice(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>).join(<span class="hljs-string">&quot;&quot;</span>);</span><br>  &#125;);<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>把h标签全换成h4。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">`</span></span><br><span class="handlebars"><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>miketaylor<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span></span><br><span class="handlebars"><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>铁憨憨<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span></span><br><span class="handlebars"><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>baidu<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span></span><br>    `;<br><span class="javascript">    <span class="hljs-keyword">const</span> reg = <span class="hljs-regexp">/&lt;(h[1-6])&gt;(?&lt;con&gt;.*?)&lt;\/\1&gt;/g</span>;</span><br><span class="handlebars"><span class="xml">    console.log(mk.replace(reg,&#x27;<span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">con</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>&#x27;));</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>使用原子组命名优化正则</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">main</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;miketaylorjuly123.cn&quot;</span>&gt;</span>个人站点<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;www.baidu.com&quot;</span>&gt;</span>百度<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;www.google.com&quot;</span>&gt;</span>谷歌<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-comment">// [&#123;link:&#x27;&#x27;,title:&#x27;&#x27;&#125;]提取结果</span></span><br><span class="javascript">    <span class="hljs-keyword">const</span> main = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;body main&quot;</span>);</span><br><span class="javascript">    <span class="hljs-keyword">const</span> reg = <span class="hljs-regexp">/&lt;a.*?href=([&quot;&#x27;])(?&lt;link&gt;.*?)\1&gt;(?&lt;title&gt;.*?)&lt;\/a&gt;/gi</span>;</span><br><span class="javascript">    <span class="hljs-comment">// console.log(main.innerHTML.match(reg));</span></span><br><span class="javascript">    <span class="hljs-keyword">const</span> links = [];</span><br><span class="javascript">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> iterator <span class="hljs-keyword">of</span> main.innerHTML.matchAll(reg))&#123;</span><br><span class="javascript">        links.push(iterator[<span class="hljs-string">&quot;groups&quot;</span>]);</span><br>    &#125;<br><span class="javascript">    <span class="hljs-built_in">console</span>.log(links);</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>test方法</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;email&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> mail = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">`[name=&quot;email&quot;]`</span>);</span><br><span class="javascript">    mail.addEventListener(<span class="hljs-string">&quot;keyup&quot;</span>,<span class="hljs-function"><span class="hljs-params">e</span>=&gt;</span>&#123;</span><br><span class="javascript">        <span class="hljs-keyword">let</span> value = e.target.value;</span><br><span class="javascript">        <span class="hljs-comment">//允许aaaaaaa@sina.com.cn这种结构</span></span><br><span class="javascript">       <span class="hljs-keyword">let</span> flag =  <span class="hljs-regexp">/^[\w-]+@(\w+\.)+(com|cn|cc|org)$/i</span>.test(value);</span><br><span class="javascript">       <span class="hljs-built_in">console</span>.log(flag);</span><br>    &#125;);<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>回调函数</strong></p>
+<p>replace 支持回调函数操作，用于处理复杂的替换逻辑</p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>代表的值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>match</code></td>
+<td>匹配的子串。（对应于上述的$&amp;。）</td>
+</tr>
+<tr>
+<td><code>p1,p2, ...</code></td>
+<td>假如replace()方法的第一个参数是一个 <code>RegExp</code> 对象，则代表第n个括号匹配的字符串。（对应于上述的$1，$2等。）例如，如果是用 <code>/(\a+)(\b+)/</code> 这个来匹配，<code>p1</code> 就是匹配的 <code>\a+</code>，<code>p2</code> 就是匹配的 <code>\b+</code>。</td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td>匹配到的子字符串在原字符串中的偏移量。（比如，如果原字符串是 <code>&#39;abcd&#39;</code>，匹配到的子字符串是 <code>&#39;bc&#39;</code>，那么这个参数将会是 1）</td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td>被匹配的原字符串。</td>
+</tr>
+<tr>
+<td>NamedCaptureGroup</td>
+<td>命名捕获组匹配的对象</td>
+</tr>
+</tbody></table>
+<p>使用回调函数将 <code>后盾人</code> 添加上链接</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span><br>    后盾人不断更新优质视频教程<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-keyword">let</span> content = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;.content&quot;</span>);</span><br><span class="javascript">  content.innerHTML = content.innerHTML.replace(<span class="hljs-string">&quot;后盾人&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span></span></span><br>    search,<br>    pos,<br>    source<br>  ) &#123;<br><span class="javascript">    <span class="hljs-keyword">return</span> <span class="hljs-string">`&lt;a href=&quot;https://www.houdunren.com&quot;&gt;<span class="hljs-subst">$&#123;search&#125;</span>&lt;/a&gt;`</span>;</span><br>  &#125;);<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>为所有标题添加上 <code>hot</code> 类</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>后盾人<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>houdunren.com<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>后盾人<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-keyword">let</span> content = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;.content&quot;</span>);</span><br><span class="javascript">  <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/&lt;(h[1-6])&gt;([\s\S]*?)&lt;\/\1&gt;/gi</span>;</span><br>  content.innerHTML = content.innerHTML.replace(<br>    reg,<br>    (<br><span class="javascript">      search, <span class="hljs-comment">//匹配到的字符</span></span><br><span class="javascript">      p1, <span class="hljs-comment">//第一个原子组</span></span><br><span class="javascript">      p2, <span class="hljs-comment">//第二个原子组</span></span><br><span class="javascript">      index, <span class="hljs-comment">//索引位置</span></span><br><span class="javascript">      source <span class="hljs-comment">//原字符</span></span><br>    ) =&gt; &#123;<br><span class="javascript">      <span class="hljs-keyword">return</span> <span class="hljs-string">`</span></span><br><span class="javascript">    &lt;$&#123;p1&#125; <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;hot&quot;</span>&gt;$&#123;p2&#125;&lt;/$&#123;p1&#125;&gt;</span><br>    `;<br>    &#125;<br>  );<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="断言匹配"><a href="#断言匹配" class="headerlink" title="断言匹配"></a>断言匹配</h2><p>断言虽然写在扩号中但它不是组，所以不会在匹配结果中保存，可以将断言理解为正则中的条件。</p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="(?=exp)"></a>(?=exp)</h3><p><strong>零宽先行断言</strong> <code>?=exp</code> 匹配后面为 <code>exp</code> 的内容</p>
+<p>把后面是<code>就</code> 的<code>miketaylor</code>加上链接</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html">    <span class="hljs-tag">&lt;<span class="hljs-name">main</span>&gt;</span><br>        miketaylor会不断学习，所以，只要坚持，miketaylor就会成为全栈！<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> main = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;body main&#x27;</span>);</span><br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/miketaylor(?=就)/g</span>; <span class="hljs-comment">//?=后面为条件</span></span><br><span class="handlebars"><span class="xml">    main.innerHTML = main.innerHTML.replace(reg,`<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://miketaylorjuly123.cn&quot;</span>&gt;</span>$&amp;<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>`);</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>使用断言规范分数</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">`</span></span><br>    Data Structure,90分<br>    Computer Network,90分 <br>    Operation system,85.0分<br>    Artificial Vision,100分<br>    `;<br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/(\d+)(.0)?(?=分)/gi</span>;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk2 = mk.replace(reg, <span class="hljs-function">(<span class="hljs-params">v, ... args</span>)=&gt;</span>&#123;</span><br><span class="javascript">        <span class="hljs-built_in">console</span>.log(args);</span><br><span class="javascript">        args[<span class="hljs-number">1</span>] = args[<span class="hljs-number">1</span>] || <span class="hljs-string">&#x27;.0&#x27;</span>;</span><br><span class="javascript">        <span class="hljs-keyword">return</span> args.splice(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>).join(<span class="hljs-string">&#x27;&#x27;</span>);</span><br>    &#125;);<br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk2)</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>使用断言验证用户名必须为五位，下面正则体现断言是不是组，并且不在匹配结果中记录</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;username&quot;</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-built_in">document</span></span><br><span class="javascript">    .querySelector(<span class="hljs-string">`[name=&quot;username&quot;]`</span>)</span><br><span class="javascript">    .addEventListener(<span class="hljs-string">&quot;keyup&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">      <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/^(?=[a-z]&#123;5&#125;$)/i</span>;</span><br><span class="javascript">      <span class="hljs-built_in">console</span>.log(reg.test(<span class="hljs-built_in">this</span>.value));</span><br>    &#125;);<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="lt-exp"><a href="#lt-exp" class="headerlink" title="(?&lt;=exp)"></a>(?&lt;=exp)</h3><p><strong>零宽后行断言</strong> <code>?&lt;=exp</code> 匹配前面为 <code>exp</code> 的内容</p>
+<p>匹配miketaylor后面的数字</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&quot;miketaylorjuly123.cn&quot;</span>;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/(?&lt;=miketaylorjuly)\d+/i</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(reg)); <span class="hljs-comment">//123</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>所有超链接替换为<code>https://miketaylorjuly123.cn</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-comment">//网址替换</span></span><br><span class="javascript">    <span class="hljs-keyword">const</span> main = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;main&quot;</span>);</span><br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/(?&lt;=href=([&#x27;&quot;])).+(?=\1)/ig</span>;</span><br><span class="javascript">    <span class="hljs-comment">// console.log(main.innerHTML.match(reg));</span></span><br><span class="javascript">    main.innerHTML = main.innerHTML.replace(reg,<span class="hljs-string">&quot;https://miketaylorjuly123.cn&quot;</span>);</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>使用断言模糊电话号码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> users = <span class="hljs-string">`</span></span><br>    我的电话:15583703266<br>    备用电话:15581664469<br>    `;<br><br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/(?&lt;=\d&#123;7&#125;)\d&#123;4&#125;/gi</span>;</span><br><span class="javascript">    users = users.replace(reg , <span class="hljs-function">(<span class="hljs-params">v</span>) =&gt;</span>&#123;</span><br><span class="javascript">        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;*&#x27;</span>.repeat(<span class="hljs-number">4</span>);</span><br>    &#125;);<br><span class="javascript">    <span class="hljs-built_in">console</span>.log(users);</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>获取标题中的内容</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html">let hd = `<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>我真的是铁憨憨<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>`;<br>let reg = /(?&lt;=<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>).*(?=&lt;\/h1&gt;)/g;<br>console.log(hd.match(reg));<br></code></pre></td></tr></table></figure>
+
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="(?!exp)"></a>(?!exp)</h3><p><strong>零宽负向先行断言</strong> 后面不能出现 <code>exp</code> 指定的内容</p>
+<p>使用 <code>(?!exp)</code>字母后面不能为两位数字</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&#x27;miketaylorjuly1232013dada&#x27;</span>;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/[a-z]+(?!\d)$/i</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(reg));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>断言限制用户关键词</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;username&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">const</span> input = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">`[name=&quot;username&quot;]`</span>);</span><br><span class="javascript">    input.addEventListener(<span class="hljs-string">&#x27;keyup&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="javascript">        <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/^(?!.*加加林.*)[a-z]&#123;5,6&#125;$/i</span>;</span><br><span class="javascript">        <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.value.match(reg))</span><br>    &#125;)<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="lt-exp-1"><a href="#lt-exp-1" class="headerlink" title="(?&lt;!exp)"></a>(?&lt;!exp)</h3><p><strong>零宽负向后行断言</strong> 前面不能出现exp指定的内容</p>
+<p>获取前面不是数字的字符</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> mk = <span class="hljs-string">&#x27;miketaylorjuly1232013dada&#x27;</span>;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/(?&lt;!\d+)[a-z]+/i</span>;</span><br><span class="javascript">    <span class="hljs-keyword">let</span> reg2 = <span class="hljs-regexp">/(?&lt;!\d+).+/i</span>;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(reg));</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(mk.match(reg2));</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>使用断言排除法同一数据</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">main</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://www.houdunren.com/1.jpg&quot;</span>&gt;</span>1.jpg<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://oss.houdunren.com/2.jpg&quot;</span>&gt;</span>2.jpg<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://cdn.houdunren.com/2.jpg&quot;</span>&gt;</span>3.jpg<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://houdunren.com/2.jpg&quot;</span>&gt;</span>3.jpg<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">  <span class="hljs-keyword">const</span> main = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;main&quot;</span>);</span><br><span class="javascript">  <span class="hljs-keyword">const</span> reg = <span class="hljs-regexp">/https:\/\/(\w+)?(?&lt;!oss)\..+?(?=\/)/gi</span>;</span><br><span class="javascript">  main.innerHTML = main.innerHTML.replace(reg, <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> &#123;</span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(v);</span><br><span class="javascript">    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;https://oss.houdunren.com&quot;</span>;</span><br>  &#125;);<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>上完正则啦，感谢后端人教程UP主。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    灯火阑珊
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/25/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A015/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaScript基础</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/21/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A014/">
+                        <span class="hidden-mobile">项目实战—纽曼官网实现</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark-orange';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhangjialin996/comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" lazyload class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-love" style="color: #8080ff"></i> <i class="iconfont icon-love" style="color: red"></i> <i class="iconfont icon-love" style="color: #8080ff"></i> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e71cddb60357a788e6ed79bca37db76d";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

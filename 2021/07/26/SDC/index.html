@@ -1,0 +1,656 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
+  <link rel="icon" href="/img/insert2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="我的博客">
+  <meta name="description" content="HiLens开发基础配置SDC APP无法访问网络，只能通过SDC提供的HTTP代理或者TCP&#x2F;UDP代理和外界交 互。   huawei@123 Huawei123  ssh : develop@123  华为云：hid_o_wr4qm_ay0v521 IAM：zjl 密码*：Z****.     工作重点：  权限管理 组网  论坛 问hilens kit如何用asp.net web网站程序控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDC">
+<meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/2021/07/26/SDC/index.html">
+<meta property="og:site_name" content="Mike Taylor">
+<meta property="og:description" content="HiLens开发基础配置SDC APP无法访问网络，只能通过SDC提供的HTTP代理或者TCP&#x2F;UDP代理和外界交 互。   huawei@123 Huawei123  ssh : develop@123  华为云：hid_o_wr4qm_ay0v521 IAM：zjl 密码*：Z****.     工作重点：  权限管理 组网  论坛 问hilens kit如何用asp.net web网站程序控">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20210831093050349.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20210831093113478.png">
+<meta property="og:image" content="https://support.huaweicloud.com/qs-hilens/zh-cn_image_0234077611.png">
+<meta property="og:image" content="https://support.huaweicloud.com/usermanual-hilens/zh-cn_image_0000001150682111.png">
+<meta property="og:image" content="https://support.huaweicloud.com/usermanual-hilens/zh-cn_image_0000001133768000.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20210904192822002.png">
+<meta property="og:image" content="https://bbs-img.huaweicloud.com/data/forums/attachment/forum/202108/02/175936jb1caarspcqmfo7i.png">
+<meta property="article:published_time" content="2021-07-26T13:05:21.000Z">
+<meta property="article:modified_time" content="2021-12-01T07:38:33.132Z">
+<meta property="article:author" content="Mike Taylor">
+<meta property="article:tag" content="SDC">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20210831093050349.png">
+  
+  <title>SDC - Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":100,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e71cddb60357a788e6ed79bca37db76d","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mike Taylor&#39;s</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/p12.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SDC">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-26 21:05" pubdate>
+        2021年7月26日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      10 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SDC</h1>
+            
+            <div class="markdown-body">
+              <h1 id="HiLens开发"><a href="#HiLens开发" class="headerlink" title="HiLens开发"></a>HiLens开发</h1><h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><p>SDC APP无法访问网络，只能通过SDC提供的HTTP代理或者TCP/UDP代理和外界交 互。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20210831093050349.png" srcset="/img/loading.gif" lazyload alt="image-20210831093050349"></p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20210831093113478.png" srcset="/img/loading.gif" lazyload alt="image-20210831093113478"></p>
+<p>huawei@123</p>
+<p>Huawei123 </p>
+<p>ssh : develop@123</p>
+<hr>
+<p>华为云：hid_o_wr4qm_ay0v521</p>
+<p>IAM：zjl</p>
+<p>密码*<em>：Z**<strong>**</strong></em>.</p>
+<hr>
+<p><img src="https://support.huaweicloud.com/qs-hilens/zh-cn_image_0234077611.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://support.huaweicloud.com/usermanual-hilens/zh-cn_image_0000001150682111.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://support.huaweicloud.com/usermanual-hilens/zh-cn_image_0000001133768000.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>工作重点：</p>
+<ul>
+<li>权限管理</li>
+<li>组网</li>
+</ul>
+<h2 id="论坛"><a href="#论坛" class="headerlink" title="论坛"></a>论坛</h2><ul>
+<li><p>问hilens kit如何用asp.net web网站程序控制，不用控制台？</p>
+<ul>
+<li><p>控制台接口暂未开放，无法支持asp.net web网站程序控制，预计10月份将开放控制台接口。</p>
+<p>目前可通过控制台和SSH连接HiLens Kit，API接口可通过API Explorer获取：</p>
+<p><a href="https://apiexplorer.developer.huaweicloud.com/apiexplorer/doc?product=HiLens&amp;api=DeleteDevice">https://apiexplorer.developer.huaweicloud.com/apiexplorer/doc?product=HiLens&amp;api=DeleteDevice</a></p>
+<p>设备连接指引：</p>
+<p><a href="https://support.huaweicloud.com/usermanual-hilens/hilens_02_0048.html">https://support.huaweicloud.com/usermanual-hilens/hilens_02_0048.html</a></p>
+</li>
+</ul>
+</li>
+<li><p><a href="https://bbs.huaweicloud.com/forum/thread-142784-1-1.html">张小白的HiLens初体验_HiLens_EI企业智能_华为云论坛 (huaweicloud.com)</a></p>
+</li>
+<li><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20210904192822002.png" srcset="/img/loading.gif" lazyload alt="image-20210904192822002"></p>
+</li>
+<li><p><a href="https://bbs.huaweicloud.com/forum/thread-117818-1-1.html">【云小课】EI第14课 玩转HiLens Studio之手机实时视频流调试代码_HiLens_EI企业智能_华为云论坛 (huaweicloud.com)</a></p>
+</li>
+<li><p><a href="https://bbs.huaweicloud.com/forum/thread-113394-1-1.html">HiLens常见问题汇总第2期_HiLens_EI企业智能_华为云论坛 (huaweicloud.com)</a></p>
+</li>
+<li><p><a href="https://bbs.huaweicloud.com/forum/thread-88924-1-1.html">【HilensKit】HilensKit可以实现打电话的功能么_HiLens_EI企业智能_华为云论坛 (huaweicloud.com)</a></p>
+</li>
+<li><p><a href="https://bbs.huaweicloud.com/forum/thread-83448-1-1.html">【hilens】【信号量输出】请教下hilens如何和外设联动？_HiLens_EI企业智能_华为云论坛 (huaweicloud.com)</a></p>
+</li>
+<li><img src="https://bbs-img.huaweicloud.com/data/forums/attachment/forum/202108/02/175936jb1caarspcqmfo7i.png" srcset="/img/loading.gif" lazyload alt="img"  />
+
+</li>
+</ul>
+<p>SDC账号密码合集：</p>
+<p>Huawei@123</p>
+<p>ChangeMe123</p>
+<p>HuaWei123</p>
+<p>cd /usr/alg_model/ninetest/</p>
+<p>vi /usr/alg_model/ninetest/V</p>
+<p>huawei@123</p>
+<p>序列号SN:2102312SSF10KA000009</p>
+<p>zhulan@Z</p>
+<p>ApiAdmin/HuaWei123</p>
+<p>rtsp://admin:Huawei@<a href="mailto:&#x31;&#50;&#51;&#x40;&#x31;&#57;&#x32;&#x2e;&#x31;&#54;&#56;&#x2e;&#x30;&#x2e;&#x31;&#50;&#48;">&#x31;&#50;&#51;&#x40;&#x31;&#57;&#x32;&#x2e;&#x31;&#54;&#56;&#x2e;&#x30;&#x2e;&#x31;&#50;&#48;</a></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">ffmpeg -re -i  rtsp:<span class="hljs-regexp">//</span>admin:HuaWei123@<span class="hljs-number">192.168</span>.<span class="hljs-number">0.20</span><span class="hljs-regexp">/LiveMedia/</span>ch1<span class="hljs-regexp">/Media1 -vcodec copy -acodec copy -f flv rtmp:/</span><span class="hljs-regexp">/192.168.0.19:1935/my</span>app/dash<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">ffmpeg</span> -rtsp_transport tcp -i rtsp://admin:HuaWei<span class="hljs-number">123</span>@<span class="hljs-number">192.168.0.20</span>/LiveMedia/ch<span class="hljs-number">1</span>/Media<span class="hljs-number">1</span> -qscale:v <span class="hljs-number">0</span> -qscale:a <span class="hljs-number">0</span> -ar <span class="hljs-number">22050</span> -c:v libx<span class="hljs-number">264</span> -f flv rtmp://<span class="hljs-number">192.168.0.19:1935</span>/myapp/dash<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><br><br>ffmpeg -<span class="hljs-selector-tag">i</span> 去人像前<span class="hljs-selector-class">.mp4</span> -codec copy -bsf: h264_mp4toannexb -f h264 test1<span class="hljs-selector-class">.h264</span> 效果好<br><br>ffmpeg -<span class="hljs-selector-tag">i</span> 去人像后<span class="hljs-selector-class">.mp4</span> -codec copy -bsf: h264_mp4toannexb -f h264 ls<span class="hljs-selector-class">.h264</span> 效果好<br><br><br><br><br>ffmpeg -<span class="hljs-selector-tag">i</span> 去人像前<span class="hljs-selector-class">.mp4</span> -vcodec h264 test2.h264<br><br><br><br><br><br>ffmpeg -<span class="hljs-selector-tag">i</span> 去人像前<span class="hljs-selector-class">.mp4</span> -c:v libx264 test3.h264<br><br><br><br>ffmpeg -<span class="hljs-selector-tag">i</span> 去人像前<span class="hljs-selector-class">.mp4</span> -c h264 test4.h264<br><br><br> <span class="hljs-comment">// ffmpeg -i QQ视频20210919021302.mp4 -c:v libx264 down.h264 抖动</span><br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">ffmpeg</span> -ss <span class="hljs-number">0</span> -i 李顺.mp<span class="hljs-number">4</span> -to <span class="hljs-number">10</span> -c copy 李顺<span class="hljs-number">2</span>.mp<span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">mongodb</span>+srv://admin:&lt;zhulan&gt;@cluster<span class="hljs-number">0</span>.m<span class="hljs-number">74</span>a<span class="hljs-number">9</span>.mongodb.net/myFirstDatabase?retryWrites=true&amp;w=majority<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 实时截取<br><br>ffmpeg -i rtsp:<span class="hljs-regexp">//</span>admin:HuaWei123@<span class="hljs-number">192.168</span>.<span class="hljs-number">0.20</span><span class="hljs-regexp">/LiveMedia/</span>ch1/Media1 -r <span class="hljs-number">1</span> -q:v <span class="hljs-number">2</span> -f image2 F:\\全栈项目\\ffmpeg_cut\\pic-%<span class="hljs-number">03</span>d.jpeg<br><br><span class="hljs-regexp">//</span> -r 表示每一秒几帧<br>-q:v表示存储jpeg的图像质量，一般<span class="hljs-number">2</span>是高质量。<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">ssh -T <span class="hljs-symbol">git@</span>github.com<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/SDC/">SDC</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    灯火阑珊
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/01/Vue%E5%85%A8%E5%AE%B6%E6%A1%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vue全家桶</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/26/Spring5/">
+                        <span class="hidden-mobile">Spring5</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark-orange';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhangjialin996/comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" lazyload class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-love" style="color: #8080ff"></i> <i class="iconfont icon-love" style="color: red"></i> <i class="iconfont icon-love" style="color: #8080ff"></i> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e71cddb60357a788e6ed79bca37db76d";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

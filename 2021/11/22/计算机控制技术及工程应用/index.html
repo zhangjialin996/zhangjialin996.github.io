@@ -1,0 +1,1092 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
+  <link rel="icon" href="/img/insert2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="我的博客">
+  <meta name="description" content="《计算机控制技术及工程应用（第三版）-林敏》 教师：电子科技大学 吴正华 第1章计算机控制概述考察方式不会出大题，主要就是选题，结合第11 12 13 14章，重点是了解概念。 要点：  计算机控制系统组成 计算机控制系统分类 计算机控制系统种类  计算机控制技术及工程应用是把计算机技术与自动化控制系统融为一体的一门综合性学科。从计算机应用角度出发，自动化控制工程是其最重要的一个应用领域；而从自动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机控制技术及工程应用">
+<meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/2021/11/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%8A%80%E6%9C%AF%E5%8F%8A%E5%B7%A5%E7%A8%8B%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="Mike Taylor">
+<meta property="og:description" content="《计算机控制技术及工程应用（第三版）-林敏》 教师：电子科技大学 吴正华 第1章计算机控制概述考察方式不会出大题，主要就是选题，结合第11 12 13 14章，重点是了解概念。 要点：  计算机控制系统组成 计算机控制系统分类 计算机控制系统种类  计算机控制技术及工程应用是把计算机技术与自动化控制系统融为一体的一门综合性学科。从计算机应用角度出发，自动化控制工程是其最重要的一个应用领域；而从自动">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122164532499.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122170022252.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122184848387.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122192455720.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122193408699.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122193537341.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122194301200.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122195801353.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122201454839.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122201840232.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128152425799.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128152503570.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128154006311.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128173634882.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128194548549.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128205015932.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128211738733.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129154607461.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129163732367.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129164331141.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129164639328.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129185616846.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129185755348.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129185927930.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129190219797.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129190649268.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129190702464.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129190822417.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129191323875.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129203324913.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129205912003.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129211606136.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130151014344.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130153113342.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130154747690.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130160155871.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130161038650.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130162307356.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130165127045.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130165924767.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130170357067.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130173017036.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130174527339.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130194620579.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130201022203.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130205208472.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130205331050.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130211544566.png">
+<meta property="article:published_time" content="2021-11-22T07:42:17.000Z">
+<meta property="article:modified_time" content="2021-11-30T13:33:20.700Z">
+<meta property="article:author" content="Mike Taylor">
+<meta property="article:tag" content="考试">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122164532499.png">
+  
+  <title>计算机控制技术及工程应用 - Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":100,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e71cddb60357a788e6ed79bca37db76d","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mike Taylor&#39;s</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/p12.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="计算机控制技术及工程应用">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-22 15:42" pubdate>
+        2021年11月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      17k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      85 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计算机控制技术及工程应用</h1>
+            
+            <div class="markdown-body">
+              <p>《计算机控制技术及工程应用（第三版）-林敏》</p>
+<p>教师：电子科技大学 吴正华</p>
+<h1 id="第1章计算机控制概述"><a href="#第1章计算机控制概述" class="headerlink" title="第1章计算机控制概述"></a>第1章计算机控制概述</h1><h2 id="考察方式"><a href="#考察方式" class="headerlink" title="考察方式"></a>考察方式</h2><p>不会出大题，主要就是选题，结合第11 12 13 14章，重点是了解概念。</p>
+<p>要点：</p>
+<ul>
+<li>计算机控制系统组成</li>
+<li>计算机控制系统分类</li>
+<li>计算机控制系统种类</li>
+</ul>
+<p>计算机控制技术及工程应用是把计算机技术与自动化控制系统融为一体的一门综合性学科。从计算机应用角度出发，自动化控制工程是其最重要的一个应用领域；而从自动化控制工程来看，计算机技术又是一个主要的实现手段。</p>
+<p>用于自动化控制的计算机统称为工业控制计算机，它与用于计算及数据处理的商务计算机是两类不同用途，不同结构的计算机。</p>
+<p>本书立足于工业自动化领域，讨论这种不同于普通计算机的计算机控制系统的结构组成、相关技术及其工程应用。</p>
+<h2 id="1-1-控制系统组成"><a href="#1-1-控制系统组成" class="headerlink" title="1.1 控制系统组成"></a>1.1 控制系统组成</h2><h3 id="1-1-1-控制系统概念"><a href="#1-1-1-控制系统概念" class="headerlink" title="1.1.1 控制系统概念"></a>1.1.1 控制系统概念</h3><p>计算机控制系统是由常规仪表控制系统演变而来，常规仪表组成的自动控制系统根据不同的控制要求，一般分为：<strong>闭环控制和开环控制</strong>。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122164532499.png" srcset="/img/loading.gif" lazyload alt="image-20211122164532499"></p>
+<p>闭环控制系统：测量变送器对被控对象进行检测，把被控量（如：温度、压力等物理量）转换为电信号，再反馈到控制器中，控制器将此测量值与设定值进行对比，形成偏差输入，并按照一定的控制规律产生相应的控制信号驱动执行器工作，执行器产生的操纵变量使被控对象的被控量跟踪值趋近于设定值，从而实现自动控制稳定生产的目的。这种信号传递形成了闭合回路，所以称之为按偏差进行控制的闭环反馈控制系统。</p>
+<p>开环控制系统：控制器直接根据设定值驱动执行器去操控对象，信号传递是单方向的，也称程序（顺序）控制系统。显然，开环控制系统不能自动消除被控量与设定值之间的偏差，控制性能也不如闭环控制系统。</p>
+<p>大多数控制系统均采用闭环控制系统，通常意义下的自动控制系统也是闭环控制系统。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122170022252.png" srcset="/img/loading.gif" lazyload alt="image-20211122170022252"></p>
+<p>将控制器用控制计算机（微型计算机、A/D（模/数）转换器接口、D/A（数/模）转换器接口）代替。由于计算机采用的是数字信号传递，而一次仪表多采用模拟信号传递，因此需要有A/D转换器将模拟量转换为数字量输入；需要有D/A转换器将数字量转换为模拟量输出。</p>
+<p>计算机控制系统的监控过程：</p>
+<ul>
+<li>实时数据采集：对来自测量变送器的被控量的瞬时值进行采集和输入。</li>
+<li>实时数据处理：对采集到的被控量进行分析、比较和处理，按一定的控制规律运算，进行控制决策。</li>
+<li>实时输出控制：根据控制决策，适时地对执行器发出控制信号，完成监控任务。</li>
+</ul>
+<p>“实时”：信号的输入、运算处理和输出能在一定时间内完成，超过这个时间，就会失去控制时机。</p>
+<p>完整的计算机控制系统是由硬件和软件两大部分组成。</p>
+<h3 id="1-1-2-硬件组成"><a href="#1-1-2-硬件组成" class="headerlink" title="1.1.2  硬件组成"></a>1.1.2  硬件组成</h3><p>计算机控制系统一般由主机、常规外部设备、过程输入/输出（I/O）通道、操作台和通信设备等组成。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122184848387.png" srcset="/img/loading.gif" lazyload alt="image-20211122184848387"></p>
+<ul>
+<li><p>主机：由CPU、RAM（随机存储器）、ROM（只读存储器）和系统总线构成的主机是控制系统的指挥部。主机所产生的各种控制是按照人们事先安排好的程序进行的。</p>
+</li>
+<li><p>常规外部设备：实现主机和外界信息交换功能的设备被称为常规外部设备，简称外设。由输入设备、输出设备、外存储器等组成。</p>
+<p>常规外部设备 + 主机组成的计算机基本系统，即通常说的普通计算机。</p>
+</li>
+<li><p>过程输入/输出通道：在计算机与生产过程被控对象之间起着信息传递和变换的作用的连接装置。</p>
+<ul>
+<li>过程输入通道分为数字量输入通道（DI通道，用于输入开关量信号或数字信号量）和模拟量输入通道（A/D或AI通道，用于将模拟量输入信号转换为数字信号）两种。</li>
+<li>过程输出通道分为数字量输出通道（DO通道，用于输出开关量信号或数字信号量）和模拟量输出通道（D/A或AO通道，用于将数字信号转换为模拟信号）两种。</li>
+</ul>
+</li>
+<li><p>操作台：操作员和计算机控制系统之间进行联系的纽带，可以完成计算机输入程序、修改数据、显示参数、发出各种操作指令等功能。</p>
+<p>操作员分为系统操作员和生产操作员两种。系统操作员和生产操作员的操作设备一般是分开的。</p>
+</li>
+<li><p>通信设备：连接网络，进行信息交互。</p>
+</li>
+</ul>
+<h3 id="1-1-3-软件组成"><a href="#1-1-3-软件组成" class="headerlink" title="1.1.3 软件组成"></a>1.1.3 软件组成</h3><p>软件：完成各种功能的计算机程序的总和，是计算机控制系统神经中枢。</p>
+<ul>
+<li>软件通常分为：系统软件、应用软件两大类。<ul>
+<li>系统软件：面向计算机硬件系统本身的软件，可以解决普遍性问题。<ul>
+<li>操作系统是系统软件的核心，提供软件开发环境，和运行环境</li>
+<li>语言处理程序：将人们编写的源程序转换成计算机能识别并执行的程序</li>
+<li>数据库管理系统：有效实现数据信息的存储、更新、查询、检索、通信控制等</li>
+<li>实用工具软件：用于对程序进行编辑、装配链接、调试以及对系统程序进行监控等。</li>
+</ul>
+</li>
+<li>应用软件：面向特定问题的软件，可解决特殊性问题，是在系统软件的支持下运行。<ul>
+<li>过程监视程序</li>
+<li>过程控制计算程序</li>
+<li>公共服务程序</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>当前，最流行的设计方法之一，是采用VB作为平台和数据库管理、VC作为面向对象程序、汇编作为I/O接口处理的编程方式。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122192455720.png" srcset="/img/loading.gif" lazyload alt="image-20211122192455720"></p>
+<h2 id="1-2-控制系统分类"><a href="#1-2-控制系统分类" class="headerlink" title="1.2 控制系统分类"></a>1.2 控制系统分类</h2><h4 id="1-2-1-数据采集系统DAS"><a href="#1-2-1-数据采集系统DAS" class="headerlink" title="1.2.1 数据采集系统DAS"></a>1.2.1 数据采集系统DAS</h4><p>计算机应用于生产过程控制最早、也是最基本的一种类型。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122193408699.png" srcset="/img/loading.gif" lazyload alt="image-20211122193408699"></p>
+<p>对于指导生产以及建立或改善生产过程的数学模型，是有着重要作用的，它是所有计算机控制系统的基础。</p>
+<h4 id="1-2-2-操作指导控制系统OGC"><a href="#1-2-2-操作指导控制系统OGC" class="headerlink" title="1.2.2 操作指导控制系统OGC"></a>1.2.2 操作指导控制系统OGC</h4><p>基于数据采集系统的一种<strong>开环结构</strong>。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122193537341.png" srcset="/img/loading.gif" lazyload alt="image-20211122193537341"></p>
+<p>计算机根据采集到的数据以及工艺要求进行优化计算，计算出最优操作条件，并不直接输出控制被控对象，而是显示打印出来，操作人员据此去改变各个控制器的设定值或操作执行器，达到操作知道的作用。相当于模拟仪表控制系统的设定值或操作指导的作用。</p>
+<p>OGC系统优点：结构简单，控制灵活和安全。</p>
+<p>缺点：要由人工操作，速度受到限制，不能同时控制多个回路。常用于计算机控制系统设置的初级阶段，或用于试验新的数学模型、调试新的控制程序等场合。</p>
+<h4 id="1-2-3-直接数字控制系统DDC"><a href="#1-2-3-直接数字控制系统DDC" class="headerlink" title="1.2.3 直接数字控制系统DDC"></a>1.2.3 直接数字控制系统DDC</h4><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122194301200.png" srcset="/img/loading.gif" lazyload alt="image-20211122194301200"></p>
+<p>DDC系统用一台计算机即可完成对多个被控对象的数据采集，而且能按一定的控制规律进行实时决策，并通过过程输出通道发出控制信号，实现对生产过程的<strong>闭环控制</strong>。</p>
+<p>DDC系统以其可靠性高，功能完善、灵活性大而成为计算机在工业生产过程中最典型的一种应用方式。</p>
+<h4 id="1-2-4-监督计算机控制系统SCC"><a href="#1-2-4-监督计算机控制系统SCC" class="headerlink" title="1.2.4 监督计算机控制系统SCC"></a>1.2.4 监督计算机控制系统SCC</h4><p>SCC系统是OGC系统和常规仪表控制系统或DDC系统综合而成的两级系统。</p>
+<p>计算机设定值控制系统SPC：SCC+模拟控制器系统</p>
+<p>SCC+DDC控制系统，作为上位机的SCC计算机按照描述生产过程的数学模型，根据原始工艺数据与实时采集的现场变量计算出最佳动态设定值，送给作为下位机的控制器或DDC计算机，由下位机控制生产过程。这样系统可以根据生产工况变化，不断地修正设定值，使生产过程始终处于最优工况，属于计算机在线最优控制的一种形式。</p>
+<p>当上位机出故障时，可由下位机独立完成控制。下位机直接参与生产过程控制，要求其实时性好、可靠性高和抗干扰能力强；而上位承担高级控制与管理任务，应配置数据处理能力强，存储容量大的高档计算机。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122195801353.png" srcset="/img/loading.gif" lazyload alt="image-20211122195801353"></p>
+<h4 id="1-2-5-分散控制系统DCS"><a href="#1-2-5-分散控制系统DCS" class="headerlink" title="1.2.5 分散控制系统DCS"></a>1.2.5 分散控制系统DCS</h4><p>DCS以微处理器为基础，借助计算机网络对生产过程进行集中式呵呵分散式控制的先进计算机控制系统，是”4C”技术的结晶。</p>
+<p>既不同于分散的仪表控制系统，也不同于集中式的计算机控制系统，而是在吸收了两者的优点基础上发展起来的具有崭新结构体系和独特技术风格的新型自动化系统。</p>
+<h4 id="1-2-6-现场总线控制系统FCS"><a href="#1-2-6-现场总线控制系统FCS" class="headerlink" title="1.2.6 现场总线控制系统FCS"></a>1.2.6 现场总线控制系统FCS</h4><p>改进了DCS成本高和由于各个厂商的产品通信标准不统一而造成的不能互联等弱点，采用集管理、控制功能于一体的工作站与现场总线智能仪表的二层结构模式，把原DCS控制站的功能分散到智能型现场仪表中去。每个现场仪表（如：变送器、执行器）都作为一个智能结点，都带CPU单元，可以分别独立完成测量、校正、调节、诊断等功能，靠网络协议把它们连接在一起统筹工作。这种彻底的分散控制模式使系统更加可靠。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122201454839.png" srcset="/img/loading.gif" lazyload alt="image-20211122201454839"></p>
+<p>FCS的核心是现场总线，将当今的网络通信与管理概念引入工业控制领域。现场总线本质上是一种数字通信协议，是连接智能现场设备和自动化系统的数字式、双向传输、多分支结构的串行通信网络。FCS代表了今后工业控制体系结构发展的一种方向。</p>
+<h4 id="1-2-7-计算机集成制造系统CIMS"><a href="#1-2-7-计算机集成制造系统CIMS" class="headerlink" title="1.2.7 计算机集成制造系统CIMS"></a>1.2.7 计算机集成制造系统CIMS</h4><p>CIMS采用多任务分层体系结构，现在已经形成多种方案。流程工业CIMS的递阶层次结构：（从下至上）控制层、监控层、调度层、管理层、决策层。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211122201840232.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<h2 id="1-3-控制装置的类型"><a href="#1-3-控制装置的类型" class="headerlink" title="1.3 控制装置的类型"></a>1.3 控制装置的类型</h2><h3 id="1-3-1-可编程控制器PLc"><a href="#1-3-1-可编程控制器PLc" class="headerlink" title="1.3.1 可编程控制器PLc"></a>1.3.1 可编程控制器PLc</h3><p>计算机与继电逻辑控制概念相结合的产物，其低端为常规继电逻辑控制的替代装置，而高端为一种高性能的工业计算机。主要由：CPU、存储器、输入组件、输出组件、电源、编程器等组成。</p>
+<p>PLC具有系统构成灵活、易扩展、编程简单、调试容易、抗干扰能力强的优点，不仅在顺序程序控制领域中具有优势，而且在运动控制、过程控制、网络通信领域方面也毫不逊色。</p>
+<h3 id="1-3-2-可编程调节器"><a href="#1-3-2-可编程调节器" class="headerlink" title="1.3.2 可编程调节器"></a>1.3.2 可编程调节器</h3><p>主要由微处理单元，过程I/O单元、面板单元、通信单元、硬手操单元等组成，实际是一种仪表化的微型控制计算机。</p>
+<p>可编程调节器不仅可以作为大型分散控制系统中最基本的单元，而且也可以在一些重要场合下单独构成复杂的控制系统，完成1个~4个控制回路。</p>
+<p><strong>特别适用于连续过程模拟量信号的控制系统中。</strong></p>
+<h3 id="1-3-3-总线式工控机IPC"><a href="#1-3-3-总线式工控机IPC" class="headerlink" title="1.3.3 总线式工控机IPC"></a>1.3.3 总线式工控机IPC</h3><p>总线式工控机是基于总线技术和模块化结构的一种专用于工业控制的通用型计算机。</p>
+<p>总线式工控机具有小型化、模板化、组合化、标准化的设计特点，能满足不同层次、不同控制对象的需要，又能在恶劣的工业环境中可靠的运行。<strong>因此，广泛用于各种控制场合，尤其是十几个到几十个回路中的中等规模的控制系统中。</strong></p>
+<h3 id="1-3-4-嵌入式计算机系统"><a href="#1-3-4-嵌入式计算机系统" class="headerlink" title="1.3.4 嵌入式计算机系统"></a>1.3.4 嵌入式计算机系统</h3><p>嵌入式计算机系统，简称嵌入式系统，<strong>以应用为核心</strong>，以计算机技术为基础，软件、硬件可以裁剪，<strong>适应于应用系统对功能、可靠性、成本、体积、功耗等方面有严格要求的专用计算机</strong>。</p>
+<p>三大基本要素：</p>
+<ul>
+<li>嵌入性</li>
+<li>专用性</li>
+<li>计算机系统</li>
+</ul>
+<p>嵌入式系统可分为系统级、模板级、芯片级。</p>
+<p>以单片机为核心的低级嵌入式系统是嵌入式发展的最初阶段。</p>
+<p>嵌入式系统进入了以因特网为标志的高级发展阶段。</p>
+<h3 id="1-3-5-其他控制装置"><a href="#1-3-5-其他控制装置" class="headerlink" title="1.3.5 其他控制装置"></a>1.3.5 其他控制装置</h3><p>当前计算机控制技术正在进一步向综合自动化、网络化、智能化、虚拟化、绿色化发展。</p>
+<h3 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h3><ul>
+<li>简述计算机控制系统与常规仪表控制系统的基本结构及主要异同点。</li>
+<li>分析说明图1-3计算机控制系统的硬件组成及其作用。</li>
+<li>计算机控制系统的软件由哪些部分构成。</li>
+<li>按控制方案来分，计算机控制系统分为哪几大类。</li>
+<li>计算机控制装置可以分为哪几种类型。</li>
+</ul>
+<h1 id="第2章-模拟量输出通道"><a href="#第2章-模拟量输出通道" class="headerlink" title="第2章 模拟量输出通道"></a>第2章 模拟量输出通道</h1><h2 id="引言部分"><a href="#引言部分" class="headerlink" title="引言部分"></a>引言部分</h2><p>模拟量输出通道的任务：把计算机处理后的数字量信号转换成模拟量电压或电流信号，去驱动相应的执行器，从而达到控制的目的。</p>
+<p>模拟量输出通道(称为D/A通道或AO通道）构成：一般是由接口电路、数/模转换器（简称D/A或AO)和电压/电流变换器等。</p>
+<h3 id="多D-A结构"><a href="#多D-A结构" class="headerlink" title="多D/A结构"></a>多D/A结构</h3><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128152425799.png" srcset="/img/loading.gif" lazyload alt="image-20211128152425799"></p>
+<ul>
+<li>一路输出通道使用一个D/A转换器</li>
+<li>D/A转换芯片内部一般都带有数据锁存器</li>
+<li>D/A转换器具有数字信号转换模拟信号、信号保持作用</li>
+<li>优点：结构简单，转换速度快，工作可靠，精度较高、通道独立</li>
+<li>缺点：所需要的D/A转换器芯片较多</li>
+</ul>
+<h3 id="共享D-A结构"><a href="#共享D-A结构" class="headerlink" title="共享D/A结构"></a>共享D/A结构</h3><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128152503570.png" srcset="/img/loading.gif" lazyload alt="image-20211128152503570"></p>
+<ul>
+<li>多路输出通道共用一个D/A转换器</li>
+<li>每一路通道都配有一个采样保持放大器</li>
+<li>D/A转换器只起数字信号到模拟信号的转换作用</li>
+<li>采样保持器实现模拟信号保持功能</li>
+<li>优点：节省D/A转换器</li>
+<li>缺点：电路复杂，精度差，可靠低，占用主机时间（为了使保持信号不至于下降太多需要不断刷新数据而占用主机时间）</li>
+</ul>
+<p>总结：现在，随着集成电路D/A转换器芯片价格不断下降，控制系统中的模拟信号输出通道<strong>普遍采用多D/A结构形式</strong>。</p>
+<h2 id="2-1-D-A转换器"><a href="#2-1-D-A转换器" class="headerlink" title="2.1 D/A转换器"></a>2.1 D/A转换器</h2><ul>
+<li>分类：<ul>
+<li>按位数：<ul>
+<li>8位</li>
+<li>10位</li>
+<li>12位</li>
+</ul>
+</li>
+<li>按输出形式：<ul>
+<li>电流输出型</li>
+<li>电压输出型</li>
+</ul>
+</li>
+<li>满足特殊需求的D/A转换器</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-1-1-工作原理与性能指标"><a href="#2-1-1-工作原理与性能指标" class="headerlink" title="2.1.1 工作原理与性能指标"></a>2.1.1 工作原理与性能指标</h3><h4 id="1-D-A转换器的工作原理"><a href="#1-D-A转换器的工作原理" class="headerlink" title="1.D/A转换器的工作原理"></a>1.D/A转换器的工作原理</h4><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128154006311.png" srcset="/img/loading.gif" lazyload alt="image-20211128154006311"></p>
+<p>以4位D/A转换器为例：</p>
+<p>D/A转换器主要由基准电压V<sub>REF</sub>、R-2R T型电阻网络、位切换开关BS<sub>i</sub>和运算放大器A四部分构成。</p>
+<p>基准电压V<sub>REF</sub>由外部稳压电源提供，位切换开关BS<sub>3</sub>~BS<sub>0</sub>分别接受要转换的二进制数D<sub>3</sub>~D<sub>0</sub>的控制，当某一位D<sub>i</sub> = 1，则相应开关BS<sub>i</sub>切换到“1”端（虚地），就会把基准电压V<sub>REF</sub>加在该分支电阻2R上的电流I<sub>i</sub>切换到放大器的反相端，此电流经反馈电阻R<sub>fb</sub>直至输出端，从而把D<sub>i</sub> = 1转换成相应的模拟电压V<sub>OUT</sub>输出；而当D<sub>i</sub> = 0时，BS<sub>i</sub>切换到“0”端（地），则电流I<sub>i</sub>切换到放大器的正相端流入地中而对放大器输出不起作用。</p>
+<p>由于T型电阻网络中各个节点向右看地等效电阻均为2R，因此各2R支路上的电流就按1/2系数进行分配，即：在各2R支路上产生与二进制数各位的权成比例的电流，并经运算放大器A相加，从而输出成比例关系的模拟电压V<sub>OUT</sub>。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128173634882.png" srcset="/img/loading.gif" lazyload alt="image-20211128173634882"></p>
+<h4 id="2-D-A转换器性能指标"><a href="#2-D-A转换器性能指标" class="headerlink" title="2.D/A转换器性能指标"></a>2.D/A转换器性能指标</h4><p>衡量芯片质量的重要参数，也是选取D/A芯片型号的依据。</p>
+<ul>
+<li><p>分辨率</p>
+<p>指D/A转换器能分辨的最小输出模拟增量，即当输入数字发生单位数码变化时所对应输出模拟量的变化量，它取决于能转换的二进制位数，数字量位数越多，分辨率也就越高。其分辨率与二进制位数n呈以下关系：<br>$$<br>分辨率 = \frac{1}{2^n - 1} \<br>分辨力 = \frac{电压满量程}{2^n - 1}<br>$$</p>
+</li>
+<li><p>转换精度</p>
+<p>指转换所得的实际值和理论值的接近程度，它可以用绝对误差和相对误差来表示。</p>
+<p>与分辨率时两个不同的概念。对于分辨率很高的D/A转换器，有可能由于温度漂移、线性度差等原因并不具有很高的精度。</p>
+<p>例如：满量程时的理论输出值为10V，实际输出值为9.99V~10.01V之间，其转换精度为±10mV。</p>
+<p>对于分辨率很高的D/A转换器并不一定具有很高的精度。</p>
+</li>
+<li><p>偏移量误差</p>
+<p>指输入数字量时，输出模拟量对于零的偏移值。此误差可通过D/A转换器外接的V<sub>REF</sub>和电位器加以调整。</p>
+</li>
+<li><p>稳定时间</p>
+<p>描述D/A转换速度快慢的一个参数，指从输入数字量到输出模拟量达到终值误差1/2LSB（对应于满量程输出的1/（2^n - 1）)所需的时间。</p>
+<p>显然，稳定时间越大，转换速度越低。对于输出是电流的D/A转换器来说，稳定时间是很快的，约几微秒，而输出是电压的D/A转换器，其稳定时间主要取决于运算放大器的响应时间。</p>
+</li>
+</ul>
+<h3 id="2-1-2-8位DAC0832芯片"><a href="#2-1-2-8位DAC0832芯片" class="headerlink" title="2.1.2 8位DAC0832芯片"></a>2.1.2 8位DAC0832芯片</h3><ul>
+<li><p>性能：</p>
+<ul>
+<li>一个8位D/A转换器</li>
+<li>电流输出方式</li>
+<li>稳定时间为1us</li>
+<li>采用20脚双立直插式封装</li>
+<li>同系列芯片还有DAC0830、DAC0831</li>
+</ul>
+</li>
+<li><p>工作原理</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128194548549.png" srcset="/img/loading.gif" lazyload alt="image-20211128194548549"></p>
+<p>DAC0832主要由8位输入寄存器、8位DAC寄存器、8位D/A转换器以及输入控制电路四部分组成。</p>
+<ul>
+<li><p>8位输入寄存器：用于存放主机送来的数字量，使输入数字量得到缓冲和锁存，由LE<sub>1</sub>(上划线)加以控制</p>
+</li>
+<li><p>8位DAC寄存器：用于存放待转换的数字量，由LE<sub>2</sub>(上划线)加以控制</p>
+</li>
+<li><p>8位D/A转换器：输出与数字量成正比的模拟电流</p>
+</li>
+<li><p>输入控制电路：由与门、非与门组成，控制两个寄存器的选通锁或锁存状态</p>
+</li>
+</ul>
+<p>各引脚功能：</p>
+<ul>
+<li><p>DI<sub>0</sub>~DI<sub>7</sub>：数据输入线，其中DI<sub>0</sub>为最低有效位LSB，I<sub>7</sub>为 最高有效位MSB。</p>
+</li>
+<li><p>$$<br>\overline{CS}<br>$$</p>
+<p>片选信号，输入线，低电平有效。</p>
+</li>
+<li><p>$$<br>\overline{WR_1}<br>$$</p>
+<p>写信号1，输入线，低电平有效。</p>
+</li>
+<li><p>ILE</p>
+<p>输入允许锁存信号，输入线，高电平有效。</p>
+<p>当ILE、CS(上划线)和WR<sub>1</sub>(上划线)同时有效，8位输入寄存器端为高电平”1“，此时寄存器的输入端Q跟随输入端D的电平变化；反之，当端为低电平”0“时，原D端输入数据被锁存于Q端，在此期间，D端电平的变化不影响Q端。</p>
+</li>
+<li><p>$$<br>\overline{XFER}<br>$$</p>
+<p>传送控制信号，输入线，低电平有效。</p>
+<p>当WR<sub>2</sub>(上划线)和XFER(上划线)同时有效时，8位DAC寄存器端为高电平”1“，此时DAC寄存器的输入端Q跟随输入端D也就是输入寄存器Q端的电平变化；反之，当端为低电平”0“时，第一级8位输入寄存器Q的状态则锁存到第二级8位DAC寄存器中，以便第三级8位DAC转换器进行D/A转换。</p>
+</li>
+<li><p>I<sub>OUT1</sub></p>
+<p>DAC电流输入端1，一般作为运算放大器差动输入信号之一。</p>
+</li>
+<li><p>I<sub>OUT2</sub></p>
+<p>DAC电流输入2，一般作为运算放大器另一个差动输入信号。</p>
+</li>
+<li><p>R<sub>fb</sub></p>
+<p>固化在芯片内的反馈电阻连接端，用于连接运算放大器的输入端</p>
+</li>
+<li><p>V<sub>REF</sub></p>
+<p>基准电压源端，输入线，-10VDC ~ + 10 VDC</p>
+</li>
+<li><p>V<sub>C</sub></p>
+<p>工作电压源端，输入线，+ 5VDC ~ +15VDC</p>
+</li>
+<li><p>AGND和DGND：模拟电路地与数字电路地，一般情况下，这两种地最后总有一点接在一起，以便提高抗干扰能力。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-1-3-12位DAC1210芯片"><a href="#2-1-3-12位DAC1210芯片" class="headerlink" title="2.1.3  12位DAC1210芯片"></a>2.1.3  12位DAC1210芯片</h3><p>为了提高分辨率产生</p>
+<p>是一个12位D/A转换器，电流输出方式，其结构原理与控制信号功能基本类似于DAC0832。由于它比DAC0832多了4条数据输入线，故有24条引脚。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128205015932.png" srcset="/img/loading.gif" lazyload alt="image-20211128205015932"></p>
+<ul>
+<li><p>DAC1210内部有三个寄存器：</p>
+<ul>
+<li>一个位输入寄存器，用于存放12位数字量中的高8位DI<sub>11</sub>~DI<sub>4</sub>，一个4位输入寄存器，用于存放12位数字量中的低4位DI<sub>3</sub>~DI<sub>0</sub></li>
+<li>一个12位DAC寄存器，存放上述两个输入寄存器送来的12位数字量</li>
+<li>12位D/A转换器用于完成12位数字量的转换。</li>
+</ul>
+<p>由与门、非与门组成的输入控制电路来控制3个寄存器的选通或锁存状态。其中引脚（片选信号、低电平有效）、（写信号、低电平有效）和BYTE1/BYTE2(上划线)（字节控制信号）的组合，用来控制8位输入寄存器和4位输入寄存器。</p>
+</li>
+<li><p>当CS(上划线)、WR<sub>1</sub>(上划线)为低电平”0“，BYTE1/BYTE2(上划线)为高电平”1“时，与门的输出LE<sub>1</sub>(上划线)、LE<sub>2</sub>(上划线)为”1“，选通8位和4位两个输入寄存器，将要转换的12位数据全部送入寄存器</p>
+<p>当BYTE1/BYTE2(上划线)为低电平”0”时，LE<sub>1</sub>为”0”，8位输入寄存器锁存刚传送的8位数据，而LE<sub>2</sub>仍为”1“，4位输入寄存器仍为选通，新的低4位数据将刷新刚传送的4位数据。</p>
+<p><strong>因此，在与计算机接口电路中，计算机必须先送高8位后送低4位！！！</strong></p>
+<p>XFER(上划线)（传送控制信号、低电平有效）和WR<sub>2</sub>(上划线)（写信号、低电平有效）用来控制12位DAC寄存器，当它们都为低电平”0“时，与门输出LE<sub>3</sub>为”1”，12位数据全部送入DAC寄存器；当它们中有一个为高电平”1“时，与门输出LE<sub>3</sub>即为”0“，则12位DAC寄存器锁存住数据，使12位D/A转换器开始数模转换。</p>
+</li>
+</ul>
+<h2 id="2-2-接口电路"><a href="#2-2-接口电路" class="headerlink" title="2.2 接口电路"></a>2.2 接口电路</h2><p>为使主机能向D/A转换器传输数据，必须在两者之间设置接口电路。</p>
+<p>接口电路功能：进行地址译码、产生片选信号或写信号。</p>
+<h3 id="2-2-1-DAC0832接口电路"><a href="#2-2-1-DAC0832接口电路" class="headerlink" title="2.2.1 DAC0832接口电路"></a>2.2.1 DAC0832接口电路</h3><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211128211738733.png" srcset="/img/loading.gif" lazyload alt="image-20211128211738733"></p>
+<p>由于DAC0832内部有输入寄存器，所以它的数据总线可直接与主机的数据总线相连，所以它的数据总线可直接与主机的数据总线相连。</p>
+<p>图为DAC0832与PC总线的单缓冲接口电路，它是由DAC0832转换芯片、运算放大器以及74LS138译码器和门电路构成的地址译码电路组成。</p>
+<p>图中DAC0832内的DAC寄存器控制端的WR<sub>2</sub>(上划线)和XFER(上划线)直接接地，使DAC寄存器的输入到输出始终直通；而输入寄存器的控制端分别受地址译码器信号与输入输出指令控制，即PC的地址线A9~A0经138译码器和门电路产生接口地址信号作为DAC0832的片选信号，输入输出写信号IOW(上划线)作为DAC0832的写信号WR<sub>1</sub>(上划线)。</p>
+<p>当需要进行D/A转换时，把被转换的数据如DATA送进累加器AL，入口地址如220H送入DX，然后执行一条OUT输出指令，则CS(上划线)和WR<sub>1</sub>(上划线)（IOW(上划线)）同为低电平，则LE<sub>1</sub>为”1“，此时主机输出的数据写入DAC0832内的8位输入寄存器，再直通送入D/A转换器进行转换，当IOW(上划线)恢复为高电平时，使D/A转换的输出也保持不变。</p>
+<p>程序接口：</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-keyword">MOV</span> <span class="hljs-built_in">DX</span>,<span class="hljs-number">220H</span><br><span class="hljs-keyword">MOV</span> <span class="hljs-built_in">AL</span>,[DATA]<br><span class="hljs-keyword">OUT</span> <span class="hljs-built_in">DX</span>,<span class="hljs-built_in">AL</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-2-DAC1210接口电路"><a href="#2-2-2-DAC1210接口电路" class="headerlink" title="2.2.2 DAC1210接口电路"></a>2.2.2 DAC1210接口电路</h3><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129154607461.png" srcset="/img/loading.gif" lazyload alt="image-20211129154607461"></p>
+<p>DAC内部也有输入寄存器，但用PC中8位数据总线与12位D/A转换器组成接口电路时，需要对数据总线采用复用形式。</p>
+<p>上图是12位D/A转换器DAC1210转换芯片、运算放大器以及地址译码电路组成。与8位DAC0832接口电路不同的是，除了数据总线D<sub>7</sub>~D<sub>0</sub>与DAC高8位DI<sub>11</sub>~DI<sub>4</sub>直接相连以外，D<sub>3</sub>~D<sub>0</sub>还要与DAC1210低4位DI<sub>3</sub>~DI<sub>0</sub>复用，因而控制电路也略为复杂。</p>
+<p>图中，CS(上划线)、WR<sub>1</sub>(上划线)和BYTE1/BYTE2(上划线)组合，用来依次控制8位输入寄存器（LE<sub>1</sub>(上划线)）和4位输入寄存器（LE<sub>2</sub>(上划线)）的选通与锁存；WR<sub>2</sub>(上划线)和XFER(上划线)用来控制DAC寄存器（LE<sub>3</sub>(上划线)）的选通与锁存；IOW(上划线)与WR<sub>1</sub>~WR<sub>2</sub>连接，用来在执行输出指令时获得低电平(有效)，译码器的两条输出线Y<sub>0</sub>(上划线)\、Y<sub>2</sub>(上划线)分别连接到CS(上划线)~XFER(上划线)，一条地址线A<sub>0</sub>连接到BYTE1/BYTE2(上划线)，从而形成三个口地址：低4位输入寄存器为380H；高8位输入寄存器为381H;12位DAC寄存器为384H。</p>
+<p>在软件设计中，为了实现8位数据线D<sub>0</sub>~D<sub>7</sub>传送12位被转换数，主机须分两次传送被转换数。首先将被转换数的高8位传送给8位输入寄存器DI<sub>11</sub>~DI<sub>4</sub>，再将低4位传给4位输入寄存器DI<sub>3</sub>~DI<sub>0</sub>，然后再打开DAC寄存器，把12位数据送到12位D/A转换器去转换。当输出指令执行完成后，DAC寄存器又自动处于锁存状态以保持D/A转换器的输出不变。设12位被转换数的高8位存放在DATA单元中，低4位存放在DATA+1单元中。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-symbol">DAC:</span><span class="hljs-keyword">MOV</span> <span class="hljs-built_in">DX</span>,<span class="hljs-number">0381H</span> # 高<span class="hljs-number">8</span>位<br>	<span class="hljs-keyword">MOV</span> <span class="hljs-built_in">AL</span>,[DATA]<br>	<span class="hljs-keyword">OUT</span> <span class="hljs-built_in">DX</span>,<span class="hljs-built_in">AL</span><br>	<span class="hljs-keyword">MOV</span> <span class="hljs-built_in">DX</span>,[DATA+<span class="hljs-number">1</span>] # 低<span class="hljs-number">4</span>位<br>	<span class="hljs-keyword">OUT</span> <span class="hljs-built_in">DX</span>,<span class="hljs-built_in">AL</span><br>	<span class="hljs-keyword">MOV</span> <span class="hljs-built_in">DX</span>,<span class="hljs-number">0384H</span><br>	<span class="hljs-keyword">OUT</span> <span class="hljs-built_in">DX</span>,<span class="hljs-built_in">AL</span> # 完成<span class="hljs-number">12</span>位数据转换<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-3-输出方式"><a href="#2-3-输出方式" class="headerlink" title="2.3 输出方式"></a>2.3 输出方式</h2><p>多数D/A转换芯片输出的是弱电流信号，要驱动后面的自动化装置，需要在电流输出端外接运算放大器。</p>
+<h3 id="2-3-1-电压输出方式"><a href="#2-3-1-电压输出方式" class="headerlink" title="2.3.1 电压输出方式"></a>2.3.1 电压输出方式</h3><p>由于系统要求不同，电压输出方式又分为单极性输出和双极性输出两种形式。</p>
+<h4 id="DAC单极性输出"><a href="#DAC单极性输出" class="headerlink" title="DAC单极性输出"></a>DAC单极性输出</h4><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129163732367.png" srcset="/img/loading.gif" lazyload alt="image-20211129163732367"></p>
+<h4 id="DAC双极性输出"><a href="#DAC双极性输出" class="headerlink" title="DAC双极性输出"></a>DAC双极性输出</h4><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129164331141.png" srcset="/img/loading.gif" lazyload alt="image-20211129164331141"></p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129164639328.png" srcset="/img/loading.gif" lazyload alt="image-20211129164639328"></p>
+<h3 id="2-3-2-电流输出方式"><a href="#2-3-2-电流输出方式" class="headerlink" title="2.3.2 电流输出方式"></a>2.3.2 电流输出方式</h3><p>因为电流信号易于远距离传送，且不易受干扰，特别是在过程控制系统中，自动化仪表只接收电流信号，所以在微机控制输出通道中常以电流信号来传送信息，这就需要将电压信号再转换成电流信号，完成电流输出方式的电路被称为V/I变换电路。电流输出方式一般有两种形式：</p>
+<ul>
+<li>普通运算V/I变换电路</li>
+<li>集成转换器V/I变换电路（高精度）</li>
+</ul>
+<h4 id="普通运算V-I变换电路"><a href="#普通运算V-I变换电路" class="headerlink" title="普通运算V/I变换电路"></a>普通运算V/I变换电路</h4><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129185616846.png" srcset="/img/loading.gif" lazyload alt="image-20211129185616846"></p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129185755348.png" srcset="/img/loading.gif" lazyload alt="image-20211129185755348"></p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129185927930.png" srcset="/img/loading.gif" lazyload alt="image-20211129185927930"></p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129190219797.png" srcset="/img/loading.gif" lazyload alt="image-20211129190219797"></p>
+<h4 id="集成转换器V-I变换电路"><a href="#集成转换器V-I变换电路" class="headerlink" title="集成转换器V/I变换电路"></a>集成转换器V/I变换电路</h4><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129190649268.png" srcset="/img/loading.gif" lazyload alt="image-20211129190649268"></p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129190702464.png" srcset="/img/loading.gif" lazyload alt="image-20211129190702464"></p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129190822417.png" srcset="/img/loading.gif" lazyload alt="image-20211129190822417"></p>
+<h3 id="2-3-3-自动-手动输出方式"><a href="#2-3-3-自动-手动输出方式" class="headerlink" title="2.3.3 自动/手动输出方式"></a>2.3.3 自动/手动输出方式</h3><p>在计算机过程控制中，除了正常运行的自动控制方式以外，在开、停车或事故情况下还需要进行手动控制方式，在自动/手动控制方式切换的瞬间，必须保持系统输出信号不变，才能对执行器的现有位置不产生扰动，即达到双向切换时平衡对位的无扰动切换。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129191323875.png" srcset="/img/loading.gif" lazyload alt="image-20211129191323875"></p>
+<p>在普通运算放大器V/I变换电路的基础上，增加了自、手动切换开关K1、K2、K3和手动增减电路与输出跟踪电路。</p>
+<ul>
+<li><p>自动/手动状态下的V/I变换</p>
+<ul>
+<li><p>当开关处于自动（A）状态时，运算放大器A2与A1接通，形成一个电压比较型跟随器。当V<sub>f</sub>≠V<sub>i</sub>时，电路能自动地使输出电流增大或减小，最终使V<sub>f</sub>=V<sub>i</sub>，于是有：<br>$$<br>I_L = V_i / (R_9 + R_P)<br>$$<br>可以看出：只要电阻R<sub>9</sub>、R<sub>P</sub>稳定性好，A<sub>1</sub>、A<sub>2</sub>具有较好的增益，该电路就有较高的线性精度。当R<sub>9</sub>+R<sub>P</sub> = 500Ω或250Ω时，输出电流I<sub>L</sub>就以0mA~10mA或4mA~20mA的直流信号线性地对应V<sub>i</sub>的0V~5V或1V~5V的直流电压信号。</p>
+</li>
+<li><p>当开关处于手动（H）状态时，此时运放A<sub>1</sub>与A<sub>2</sub>断开，成为一个保持型反相积分器。当按下“增”按钮时，V<sub>2</sub>以一定的速率上升，从而使I<sub>L</sub>也以同样的速率上升；当按下“减”按钮时，V<sub>2</sub>以一定的速率下降，I<sub>L</sub>也以同样的速率下降。<strong>负载R<sub>L</sub>（一般为电动调节阀）上的电流I<sub>L</sub>的升降速率取决于<em>R</em>6、<em>R</em>7、C和电源电压±E的大小，而手动操作按钮的时间长短决定输出电流I<sub>L</sub>的大小。</strong></p>
+</li>
+</ul>
+</li>
+<li><p>自动/手动双向无扰动切换</p>
+<ul>
+<li><p>自动到手动的切换：当开关S1、S2、S3都从自动（A）切换为手动（H），“增”、“减”两处按钮处于断开状态，运算放大器A<sub>2</sub>为一高输入阻抗保持器，则A<sub>2</sub>的输出V<sub>2</sub>几乎保持不变，从而维持输出电流I<sub>L</sub>恒定。因此，自动到手动的无扰动切换是由手动操作电路的硬件实现的。</p>
+</li>
+<li><p>手动到自动的切换：当开关S1、S2、S3手动（H）切换为自动（A）时，要做到无扰动切换必须使自动输出电路具有跟踪手动输出的功能，即在手动状态下，使来自计算机D/A转换电路的自动输入信号V<sub>i</sub>始终等于反映手动输出的信号V<sub>f</sub>（V<sub>f</sub>和I<sub>L</sub>总是一一对应的）。要达到这个目的，必须有上图所示的硬件电路与相应的跟踪程序配合。</p>
+<p>工作过程：在每个控制周期，计算机首先由数字量输入通道（DI）读入开关S<sub>2</sub>的状态，以判断输出电路是处于手动状态还是自动状态：若是自动状态，则程序执行本回路预先规定的控制运算，输出V<sub>i</sub>并通过V/I变换输出电流I<sub>L</sub>；若为手动状态，则首先由A/D通道读入V<sub>f</sub>并转换为数字信号，然后原封不动地将此数字信号送出，由D/A转换为电压信号送至输出电路的输入端V<sub>i</sub>，这样就使V<sub>i</sub>始终与V<sub>f</sub>相等。当开关S1从手动（H）切换为自动（A）是，由于V<sub>i</sub>≡V<sub>f</sub>，所以V2与I<sub>L</sub>都保持不变，从而实现了手动到自动的无扰动切换。 </p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-4-D-A转换模板"><a href="#2-4-D-A转换模板" class="headerlink" title="2.4 D/A转换模板"></a>2.4 D/A转换模板</h2><p>将上述D/A转换器芯片及其接口以及输出电路组合集成在一块模板上，就构成了计算机控制系统中的D/A转换模板。</p>
+<h3 id="2-4-1-D-A转换模板的通用性"><a href="#2-4-1-D-A转换模板的通用性" class="headerlink" title="2.4.1 D/A转换模板的通用性"></a>2.4.1 D/A转换模板的通用性</h3><ul>
+<li><p>符合总线标准</p>
+<p>指计算机内部的总线结构，D/A转换模板及其他所有电路模板都应符合统一的总线标准。</p>
+</li>
+<li><p>接口地址可选</p>
+<p>一套控制系统往往需要配置多块功能模板，或者同一功能模板可能被组合在不同系统中。因此，每块模板应具有接口地址的可选性。</p>
+<p>一般接口地址可由基址（或称板址）和片址（或称口地址）组成。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129203324913.png" srcset="/img/loading.gif" lazyload alt="image-20211129203324913"></p>
+<p>上图为一种可选的译码电路，8位量值比较器74LS688、地址A3~A7、置位开关S与上拉电阻组成基址译码电路，74LS138译码器、地址A0<del>A2构成片址译码电路。只有当P<sub>i</sub> = Q<sub>i</sub>(i = 1,2,3……7)时，它的输出端P = Q为有效低电位从而使74LS138译码器处于工作状态，产生由相应片址A0\</del>A2确定的片选信号WC0~WC7，该片选信号可分别作为多D/A结构中8个D/A转换器的片选信号CS(下划线)或写信号WR<sub>1</sub>(下划线)。</p>
+<p>而基址A7~A3的确定，完全取决于置位开关S7~S3的通断状态，其基址可在00000xxx~11111xxx范围内任意选定。上图中，S7、S6闭合，S5、S4、S3断开，即确定该板的基址为00111xxx，则该板8个片址最终确定了8个D/A通道的口地址为00111000~00111111，即：38H~3FH</p>
+</li>
+<li><p>输出方式可选</p>
+<p>为了适应不同控制系统对执行器的不同需求，D/A转换模板往往把各种电压输出和电流输出方式组合在一起，<strong>然后通过短接柱来选定某一种输出方式</strong>。</p>
+<p>  一个实际的D/A转换模板，供用户选择的输出范围常常是：0~5V、0~10V、±5V、0~10mA、4~20mA等。 </p>
+</li>
+</ul>
+<h3 id="2-4-2-D-A转换模板的设计举例"><a href="#2-4-2-D-A转换模板的设计举例" class="headerlink" title="2.4.2 D/A转换模板的设计举例"></a>2.4.2 D/A转换模板的设计举例</h3><p>D/A 转换模板设计主要考虑以下几点：</p>
+<ul>
+<li><p>安全可靠</p>
+<p>尽量选用性能好的元器件，并采用光电隔离技术。</p>
+</li>
+<li><p>性能/性价比高</p>
+<p>既要在性能上达到预定的技术指标，又要在技术路线、芯片元件上降低成本。 </p>
+</li>
+<li><p>通用性</p>
+<p>D/A转换模板应符合总线标准，其接口地 址及输出方式应具备可选性。</p>
+</li>
+</ul>
+<p>D/A模板转换设计步骤：</p>
+<ul>
+<li>确定性能指标</li>
+<li>设计电路原理图</li>
+<li>设计和制造印制线路板</li>
+<li>最后焊接和调试电路板</li>
+</ul>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129205912003.png" srcset="/img/loading.gif" lazyload alt="image-20211129205912003"></p>
+<p> 图2-15给出了8路8位D/A转换模板的结构组成框图，它是按照总线接口逻辑、I/O功能逻辑和I/O电气接口等三部分布局电子元器件的。图中，<strong>总线接口逻辑部分主要由数据缓冲与地址译码电路组成，完成8路通道的分别选通与数据传送</strong>（参见图2-14接口地址可选的译码电路）；I/O功能逻辑部分由8片DAC0832组成，<strong>完成数模转换</strong>（参见图2-5DAC0832接口电路）；而<strong>I/O电气接口部分由运算放大器与V/I变换电路组成，实现电压或电流信号的输出</strong>（参见图 2-8的双极性电压输出方式与图2-9的电流输出方式）。</p>
+<img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211129211606136.png" srcset="/img/loading.gif" lazyload alt="image-20211129211606136" style="zoom:80%;" />
+
+<h2 id="考试要求"><a href="#考试要求" class="headerlink" title="考试要求"></a>考试要求</h2><p>掌握DA原理 判断 简答 </p>
+<p>DA转换器的性能指标<br>DA大题 电路分析（8位/12位）地址分析 根据需要设计电路</p>
+<p>输出方式：重点掌握自动手动输出切换</p>
+<p>电路分析不考察</p>
+<h2 id="课后习题"><a href="#课后习题" class="headerlink" title="课后习题"></a>课后习题</h2><p>1、画图说明模拟量输出通道的功能、各组成部分及其作用。</p>
+<p>2、D/A转换器的性能指标有哪些？</p>
+<p><strong>3、结合图2-3，分析说明DAC0832的内部结构组成及其作用。</strong></p>
+<p>4、结合图2-5分析说明由DAC0832组成的单缓冲接口电路的工作过程，编写完成一次D/A转换的接口程序。</p>
+<p>5、结合图2-6分析说明由DAC1210组成的接口电路的工作过程，编写完成一次D/A转换的接口程序。</p>
+<p>6、简单说明D/A转换输出电路有几种输出方式。</p>
+<p><strong>7、结合图2-13分析说明自动/手动双向无扰动切换过程。</strong></p>
+<p>8、结合图2-14分析说明基址与片址的译码过程。</p>
+<p>9、结合图2-15分析说明D/A转换模板的结构组成及各部分逻辑功能。 </p>
+<h1 id="第3章-模拟量输入通道"><a href="#第3章-模拟量输入通道" class="headerlink" title="第3章 模拟量输入通道"></a>第3章 模拟量输入通道</h1><h2 id="引言部分-1"><a href="#引言部分-1" class="headerlink" title="引言部分"></a>引言部分</h2><p>本章要点：</p>
+<p>1．模拟量输入通道的结构组成。</p>
+<p>2．多路开关，前置放大、采样保持等各环节的功能作用。</p>
+<p>3．8位A/D转换器ADC0809芯片及其接口电路。</p>
+<p>4．12位A/D转换器AD574A芯片及其接口电路。</p>
+<p>模拟量输入通道的任务：将被控对象的过程参数如温度、压力、流量、液体、重量等模拟量转换成计算机可以接收的数字量信号。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130151014344.png" srcset="/img/loading.gif" lazyload alt="image-20211130151014344"></p>
+<p>来自于工业现场传感器或变送器的多个模拟信号量首先需要进行信号调理，然后经多路模拟开关，分时切换到后级进行前置放大、采样保持和A/D转换，通过接口电路以数字信号量进入主机系统，从而完成对过程参数的巡回检测任务。</p>
+<p>显然，该通道的核心是A/D转换器，通常把模拟信号量输入通道称为A/D通道或AI通道。</p>
+<h2 id="3-1-信号调理电路-不考大题"><a href="#3-1-信号调理电路-不考大题" class="headerlink" title="3.1 信号调理电路(不考大题)"></a>3.1 信号调理电路(不考大题)</h2><p>在模拟输入通道中，对现场可能引入的各种干扰，必须采取相应的技术措施以保证A/D转换的精度，所以首先要在输入通道之前设置输入信号调理电路。</p>
+<p>根据通道需要，可以采取不同的信号调理技术，如：信号滤波、光电隔离、电平转换、过电压保护、反电压保护、电流/电压变换等。</p>
+<p> 在控制系统中，对被控量的检测往往采用各种类型的测量变送器，当它们的输出信号为0 - 10 mA或4 -20 mA的电流信号时，一般是采<strong>用电阻分压法</strong>把现场传送来的<strong>电流信号转换为电压信号</strong>，以下是两种变换电路：</p>
+<ul>
+<li><p>无源I/V变换</p>
+<p>构成：无源器件电阻＋（RC滤波＋二极管限幅）等保护</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130153113342.png" srcset="/img/loading.gif" lazyload alt="image-20211130153113342"></p>
+<p>取值: </p>
+<ul>
+<li><p>输入0- 10 mA，输出为0 -5 V ，R1=100Ω，R2=500Ω；  </p>
+</li>
+<li><p> 输入4 -20 mA，输出为1 - 5 V，R1=100Ω，R2=250Ω；</p>
+</li>
+</ul>
+</li>
+<li><p>有源I/V变换</p>
+<p>构成：有源器件运算放大器＋电阻、电容组成</p>
+<p>利用<strong>同相放大电路</strong>，把电阻R1上的输入电压变成标准输出电压，该同相放大电路的放大倍数：</p>
+<img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130154747690.png" srcset="/img/loading.gif" lazyload alt="image-20211130154747690" style="zoom:80%;" />
+
+<p>取值：</p>
+<ul>
+<li>R1=200Ω，R3=100kΩ，R4=150kΩ 输入0 ~ 10 mA输出0 ~ 5 V</li>
+<li> R1=200Ω，R3=100kΩ，R4=25kΩ 输入4 ~ 20 mA输出1 ~ 5 V</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-2-多路模拟开关"><a href="#3-2-多路模拟开关" class="headerlink" title="3.2 多路模拟开关"></a>3.2 多路模拟开关</h2><p>由于计算机工作速度远远快于被测参数的变化，因此一台计算机系统可供几十个检测回路使用，但计算机在某一时刻只能接收一个回路信号。因此，必须通过多路模拟开关实现多选1的操作，将多路输入信号依次切换到后级。</p>
+<p>目前计算机控制系统使用的多路开关种类很多，并具有不同的功能和用途。如：集成电路芯片CD4051(双向、单端、8路)、CD4052(单向、双端、4路)、AD7506(单向、单端、16路)等。</p>
+<p>双向：该芯片既可以实现多到一的切换，也可以完成一到多的切换；而单向则只能完成多到一的切换。</p>
+<p>双端：指芯片内的一对开关同时动作，从而完成差动输入信号的切换，以满足抑制共模干扰的需要。</p>
+<h3 id="3-2-1-结构原理"><a href="#3-2-1-结构原理" class="headerlink" title="3.2.1 结构原理"></a>3.2.1 结构原理</h3><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130160155871.png" srcset="/img/loading.gif" lazyload alt="image-20211130160155871"></p>
+<p>8路模拟开关</p>
+<p>构成：电平转换、译码驱动、开关电路</p>
+<p>当禁止端INH(上划线)为“1”时，前后级通道断开，即：S0~S7端不可能接通；当INH(上划线)为“0”时，则通道可以被接通，通过改变控制输入端C、B、A的数值，就可以选通8个通道S0~S7中的一路。比如：当CBA = 000时，通道S0选通；CBA = 001时，通道S1选通；……；当CBA = 111，通道S7选通。</p>
+<p>见书3-1真值表</p>
+<h3 id="3-2-2-扩展电路"><a href="#3-2-2-扩展电路" class="headerlink" title="3.2.2 扩展电路"></a>3.2.2 扩展电路</h3><p>当采样通道多至16路，可直接选用16路模拟开关的芯片，也可以将2个8路CD4051并联起来，组成一个单端16路开关。</p>
+<p>例：试用两个CD4051扩展成一个1x16路的模拟开关。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130161038650.png" srcset="/img/loading.gif" lazyload alt="image-20211130161038650"></p>
+<p>数据总线D3~D0作为通道选择信号，D3用来控制两个多路开关的禁止端INH(下划线)。当D3 = 0时，选中上面的多路开关，当D2、D1、D0从000变为111时，依次选通S0~S7通道；当D3 = 1，经反相器变成低电平，选中下面的多路开关，此时当D2、D1、D0从000变为111，则依次选通S8~S15通道。</p>
+<h2 id="3-3前置放大器"><a href="#3-3前置放大器" class="headerlink" title="3.3前置放大器"></a>3.3前置放大器</h2><h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>前置放大器的任务：将输入模拟小信号放大到A/D转换的量程范围 ，如0-5VDC;</p>
+<p>对于单纯的微弱信号，可以用一个运算放大器进行单端同相放大或单端反向。</p>
+<p>下图(a)，信号源的一端若接放大器的正端，则为同相放大，同相放大倍数G = 1 + R2 / R1。</p>
+<p>下图(b)，信号源的一端接放大器的负端，则为反相放大，反相放大电路的放大倍数G = -R2 / R1</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130162307356.png" srcset="/img/loading.gif" lazyload alt="image-20211130162307356"></p>
+<p>当然，这两种电路都是单端放大，所以信号源的另一端是与放大器的另一个输入端共地。</p>
+<h3 id="3-3-1-测量放大器"><a href="#3-3-1-测量放大器" class="headerlink" title="3.3.1 测量放大器"></a>3.3.1 测量放大器</h3><p>来自生产现场的传感器信号往往带有共模干扰，而单个运算放大器的差动输入端难以起到很好的抑制作用。因此，A/D通道中的前置放大器常采用由一组运算放大器构成的测量放大器，也称仪表放大器，如下图。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130165127045.png" srcset="/img/loading.gif" lazyload alt="image-20211130165127045"></p>
+<p>经典的测量放大器由三个运算放大器组成对称结构，测量放大器的差动输入端V<sub>IN+</sub>和V<sub>IN-</sub>分别是两个运算放大器A1、A2的同相输入端，输入阻抗很高，而且完全对称地直接与被测信号相连，因而有极强的抑制共模干扰能力。</p>
+<p>增益公式：</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130165924767.png" srcset="/img/loading.gif" lazyload alt="image-20211130165924767"></p>
+<h3 id="3-3-2-可变增益放大器"><a href="#3-3-2-可变增益放大器" class="headerlink" title="3.3.2 可变增益放大器"></a>3.3.2 可变增益放大器</h3><p>在A/D转换通道中，多路被测信号经常共用一个测量放大器，而各路的输入信号大小往往不同，但都要放大到A/D转换器的同一量程范围。因此对于不同大小的输入信号，测量放大器的增益也应不相同。具有这种性能的放大器称为可变增益放大器或可编程放大器，如下图。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130170357067.png" srcset="/img/loading.gif" lazyload alt="image-20211130170357067"></p>
+<p>把(a)图中的外接电阻换成一组精密的电阻网络，每个电阻支路上有一个开关，通过支路开关依次通断就可以改变放大器的增益，根据开关支路上的电阻值与增益公式，就可以算得支路开关自上而下闭合时的放大器增益分别为2、4、8、16、32、64、128、256倍。显然这组开关如果用多路模拟开关就可以方便地进行增益可变地计算机数字程序控制，此类集成电路芯片有AD612/AD614等。</p>
+<p>另外，还可以用数字电位器代替增益电阻，同样通过编程控制电位器阻值，使其放大倍数接近连续化。此类集成芯片有X9313、X9511、MAX5161。</p>
+<h2 id="3-4采样保持器"><a href="#3-4采样保持器" class="headerlink" title="3.4采样保持器"></a>3.4采样保持器</h2><p>当某一通道进行A/D转换时，<strong>由于A/D转换需要一定时间，如果输入信号变化较快，就会引起较大的转换误差</strong>。为了保证转换的精度，需要应用采样保持器。</p>
+<h3 id="3-4-1-采样定理"><a href="#3-4-1-采样定理" class="headerlink" title="3.4.1 采样定理"></a>3.4.1 采样定理</h3><p>以一定时间间隔对连续的信号进行采样，使连续信号转换为时间上离散的、幅值上连续的脉冲序列的过程称为采样过程。</p>
+<p>把连续变化的量变成离散量后再进行处理的计算机控制系统，称为采样数据系统或离散系统。</p>
+<ul>
+<li>离散系统的采样形式：<ul>
+<li>周期采样（应用最多）</li>
+<li>多阶采样</li>
+<li>随机采样</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130173017036.png" srcset="/img/loading.gif" lazyload alt="image-20211130173017036"></p>
+<p>采样开关每次闭合的时间称为采样时间或采样宽度，采样开关每次通断的时间间隔称为采样周期T。</p>
+<p>香农定理：为了使采样信号f<sup>*</sup>(t)能完全复现原信号f(t)，采样频率f<sub>s</sub>至少要为原信号最高有效频率f<sub>max</sub>的两倍，即：f<sub>s</sub>≥2f<sub>max</sub></p>
+<p>若选择的频率对连续信号所含的最高频率来说，能做到在其一个周期内采样两次以上，则在采样获得的脉冲序列中将包含连续信号的全部信息。反之，若采样信号次数太少，就做不到无失真地再现原连续信号。</p>
+<p>实际：f<sub>s</sub>≥（5~10）f<sub>max</sub></p>
+<h3 id="3-4-2-零阶采样保持器"><a href="#3-4-2-零阶采样保持器" class="headerlink" title="3.4.2 零阶采样保持器"></a>3.4.2 零阶采样保持器</h3><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130174527339.png" srcset="/img/loading.gif" lazyload alt="image-20211130174527339"></p>
+<p>在两次采样时间间隔内，根据采样信号而复现原信号的装置被称为保持器。当用<strong>常数、线性函数和抛物线函数</strong>去逼近两个相邻采样时间的原信号时，分别称为<strong>零阶、一阶、高阶采样保持器</strong>。</p>
+<p>零阶采样保持器是最常用的一种信号保持器，它在两次采样的间隔时间内，一直保持采样值不变，直到下一个采样时刻，如上图所示，采样保持器由输入/输出缓冲放大器A1、A2和采样开关S、保持电容C<sub>H</sub>等组成。</p>
+<p>采样期间，开关S闭合，输入电压V<sub>IN</sub>通过A1对C<sub>H</sub>快速充电，输出电压V<sub>OUT</sub>跟随V<sub>IN</sub>变化；保持期间，开关S断开，由于A2的输入阻抗很高，理想情况下电容C<sub>H</sub>将保持电压V<sub>C</sub>不变，因而输出电压V<sub>OUT</sub> = V<sub>IN</sub>也保持恒定。</p>
+<p>显然，保持电容C<sub>H</sub>的作用很重要。实际上，保持期间的电容保持电压V<sub>C</sub>在慢慢下降，这是由于保持电容的漏电流所致。保持电压的变化率：<br>$$<br>\frac{dV_C}{dt} = \frac{I_D}{C_H}<br>$$<br>I<sub>D</sub>是保持期间电容总泄漏电流，它包括放大器的输入电流、开关截止时的漏电流等。增大电容C<sub>H</sub>可以减小电压变化率，但同时又会增加充电即采样时间，因此保持电容的容量大小与采样精度成正比而与采样频率成反比。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130194620579.png" srcset="/img/loading.gif" lazyload alt="image-20211130194620579"></p>
+<p>常见的零阶采样保持器有：AD582(图a)、LF198/LF298/LF398(图b)。这里用<strong>TTL逻辑电平</strong>控制采样和保持状态：当LF198/LF298/LF398的引脚8为低电平时，开关S断开，电路进入保持状态。AD582的控制逻辑与之相反。</p>
+<p>在A/D通道中，采样保持器的采样和保持电平与后级的A/D转换相配合，该电平信号既可以由其他控制电路产生，也可以由A/D转换器直接提供。总之采样器在采样期间，不启动A/D转换器，而一旦进入保持期间，则立即启动A/D转换器，从而保证A/D转换时的模拟输入电压恒定，以确保A/D转换的精度。</p>
+<h2 id="3-5-A-D转换器"><a href="#3-5-A-D转换器" class="headerlink" title="3.5 A/D转换器"></a>3.5 A/D转换器</h2><p>A/D转换器能把输入的模拟电压变成与它成正比的数字量，即能把被控对象的各种模拟信息变成计算机可以识别的数字信息。</p>
+<h3 id="3-5-1-工作原理和性能指标"><a href="#3-5-1-工作原理和性能指标" class="headerlink" title="3.5.1 工作原理和性能指标"></a>3.5.1 工作原理和性能指标</h3><ul>
+<li><p>逐位逼近式A/D转换</p>
+<p>速度较快，精度也较高，目前应用最多的一种。</p>
+</li>
+<li><p>双积分式A/D转换</p>
+<p>转换速度慢，但转换精度高，多用于数据采集系统</p>
+</li>
+<li><p>电压/频率式A/D转换</p>
+<p>接口原理简单，转换速度较慢，但精度较高，适合于远距离的数据传送。</p>
+</li>
+</ul>
+<h4 id="逐位逼近式A-D转换原理"><a href="#逐位逼近式A-D转换原理" class="headerlink" title="逐位逼近式A/D转换原理"></a>逐位逼近式A/D转换原理</h4><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130201022203.png" srcset="/img/loading.gif" lazyload alt="image-20211130201022203"></p>
+<p>1个n位A/D转换器是由：逐位逼近寄存器、D/A转换器、比较器、控制时序和逻辑电路、数字量输出锁存器五部分组成。</p>
+<p>现以4位A/D转换器把模拟量9转换为二进制1001为例，说明诸位逼近式A/D转换器工作原理：</p>
+<p>如上图，当启动信号作用后，时钟信号在控制逻辑作用下，首先使逐位逼近寄存器的最高位D<sub>3</sub>，其余为0，此时数字量1000经D/A转换器转换成模拟量即：V<sub>0</sub> = 8，送到比较器的输入端与被转换的模拟量V<sub>IN</sub> = 9进行比较，控制逻辑根据比较器的输出进行判断。若V<sub>IN</sub> ≥V <sub>0</sub>，则保留D<sub>3</sub>；再对下一位D2进行比较，同样先使D<sub>2</sub> = 1，与上一位D<sub>3</sub>一起即1100进入D/A转换器，转换为V<sub>0</sub> = 12再进入比较器，与V<sub>IN</sub>进行比较，因为V<sub>IN</sub> ＜V <sub>0</sub>，所以使D<sub>2</sub> = 0；再下一位D<sub>1</sub>位也是如此，D<sub>1</sub> = 1，经D/A转换为V<sub>0</sub> = 10，因为V<sub>IN</sub> ＜V <sub>0</sub>，所以使D<sub>1</sub> = 0；最后一位D<sub>0</sub> = 1，经D/A转换为V<sub>0</sub> = 9，再与V<sub>IN</sub>进行比较，因为V<sub>IN </sub> ≥ V <sub>0</sub>，故保留D<sub>0</sub> = 1。比较结束，逐位逼近寄存器中的数字量1001极为模拟量9的转换结果，存在数字输出锁存器中等待输出。</p>
+<p>一个n位A/D转换器的A/D转换表达式：<br>$$<br>B = \frac{V_{IN} - V_{R-}}{V_{R+} - {V_{R-}}} × 2^n\<br>B：转换后的输出数字量\<br>V_{IN}：要转换的输入模拟量\<br>V_{R+}、V_{R-}：基准电压源的正、负输入。<br>$$<br>即：当基准电压源确定后，n位A/D转换器的数字输出量B与要转换的输入模拟量V<sub>IN</sub>成正比。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130205208472.png" srcset="/img/loading.gif" lazyload alt="image-20211130205208472"></p>
+<p> 此种A/D转换器的常用品种有普通型8位单路ADC0801～ADC0805、8位8路ADC0808/0809、8位16路ADC0816/0817等，混合集成高速型12位单路AD574A、ADC803等。</p>
+<h4 id="双积分式A-D转换原理"><a href="#双积分式A-D转换原理" class="headerlink" title="双积分式A/D转换原理"></a>双积分式A/D转换原理</h4><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130205331050.png" srcset="/img/loading.gif" lazyload alt="image-20211130205331050"></p>
+<p>上图为原理图，在转换开始信号控制下，开关接通模拟输入端，输入的模拟电压V<sub>IN</sub>在固定时间T内对积分器上的电容C开始充电(正向积分)，时间一到，控制逻辑将开关切换到与V<sub>IN</sub>极性相反的基准电源上，此时电容C开始放电(反向积分)，同时计数器开始计数。当比较器判定电容C放电完毕时输出信号，由控制逻辑停止计数器的计数，并发出转换结束信号。这时计数器所记的脉冲个数正比于放电时间。</p>
+<p>放电时间T1或T2正比于输入电压V<sub>IN</sub>，即输入电压大，则放电时间长，计数器的计数值越大。因此，计数器计数值的大小反映了输入电压V<sub>IN</sub>在固定积分时间T内的平均值。</p>
+<p>此种A/D转换器品种常有输出为3位半BCD码(二进制编码的十进制数)的ICL7107、MC14433、输出为4位半BCD码的ICL7135等。</p>
+<h4 id="电压-频率式A-D转换原理"><a href="#电压-频率式A-D转换原理" class="headerlink" title="电压/频率式A/D转换原理"></a>电压/频率式A/D转换原理</h4><p>电压/频率式A/D转换器简称V/F转换器，是把模拟电压信号转换为频率信号的器件。</p>
+<p>实现V/F转换的方法很多，现以常见的电荷平衡V/F转换法说明其转换原理：</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211130211544566.png" srcset="/img/loading.gif" lazyload alt="image-20211130211544566"></p>
+<p>A1是积分放大器，A2为零电压比较器，恒流源I<sub>R</sub>和开关S构成A<sub>1</sub>的反充电回路，开关S由单稳态定时器触发控制。当积分放大器A1的输出电压V<sub>0</sub>下降到零时，零电压比较器A2输出跳变，触发单稳态定时器，产生暂态时间为T1的定时脉冲，并使开关S闭合；同时又使晶体管VT截止，频率输出端V<sub>fO</sub>输出高电平。<br>在开关S闭合期间，恒流I<sub>R</sub>被接入积分器的“-”输入端。由于电路是按I<sub>R</sub>＞V<sub>Imax</sub> / R<sub>I</sub>设计的，故此时电容C被反向充电，充电电流为I<sub>R</sub>~V<sub>I</sub> / R<sub>I</sub>，则积分器A1输出电压V<sub>O</sub>从零开始线性上升。当定时时间T<sub>1</sub>结束，定时器恢复稳态，使开关S断开，反向充电停止，同时使晶体导管VT导通，V<sub>fO</sub>输出低电平。</p>
+<p>开关S断开后，正输入电压V<sub>1</sub>开始对电容C正向充电，其充电电流为V<sub>I</sub> / R<sub>I</sub>，则积分放大器A1输出电压V<sub>O</sub>开始线性下降。当V<sub>O</sub> = 0时，</p>
+<h2 id="3-6-A-D转换模板"><a href="#3-6-A-D转换模板" class="headerlink" title="3.6 A/D转换模板"></a>3.6 A/D转换模板</h2><h1 id="第4-章-数字量输入-输出通道"><a href="#第4-章-数字量输入-输出通道" class="headerlink" title="第4 章 数字量输入/输出通道"></a>第4 章 数字量输入/输出通道</h1><h1 id="第5章-键盘及其接口技术"><a href="#第5章-键盘及其接口技术" class="headerlink" title="第5章 键盘及其接口技术"></a>第5章 键盘及其接口技术</h1><h1 id="第6章-显示器及其接口技术"><a href="#第6章-显示器及其接口技术" class="headerlink" title="第6章 显示器及其接口技术"></a>第6章 显示器及其接口技术</h1><h1 id="第7章数据处理技术"><a href="#第7章数据处理技术" class="headerlink" title="第7章数据处理技术"></a>第7章数据处理技术</h1><h1 id="第8章-抗干扰技术"><a href="#第8章-抗干扰技术" class="headerlink" title="第8章 抗干扰技术"></a>第8章 抗干扰技术</h1><h1 id="第9章-数字控制器"><a href="#第9章-数字控制器" class="headerlink" title="第9章 数字控制器"></a>第9章 数字控制器</h1><h1 id="第10章-控制网络技术"><a href="#第10章-控制网络技术" class="headerlink" title="第10章 控制网络技术"></a>第10章 控制网络技术</h1><h1 id="第-11-14-章-略"><a href="#第-11-14-章-略" class="headerlink" title="第 11 - 14 章 略"></a>第 11 - 14 章 略</h1><h1 id="补充-Z变换（重点）"><a href="#补充-Z变换（重点）" class="headerlink" title="补充 Z变换（重点）"></a>补充 Z变换（重点）</h1>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%80%83%E8%AF%95/">考试</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    灯火阑珊
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/">
+                        <span class="hidden-mobile">pytorch深度学习框架</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark-orange';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhangjialin996/comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" lazyload class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-love" style="color: #8080ff"></i> <i class="iconfont icon-love" style="color: red"></i> <i class="iconfont icon-love" style="color: #8080ff"></i> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e71cddb60357a788e6ed79bca37db76d";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

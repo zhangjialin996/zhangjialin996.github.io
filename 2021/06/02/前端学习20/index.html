@@ -1,0 +1,662 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
+  <link rel="icon" href="/img/insert2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="我的博客">
+  <meta name="description" content="看了一会，去搜才发现，没必要学jQuery的，现在都是A、V、R三选一&#x2F;二了，大人，时代变了，嘤嘤嘤 第18章 jQuery选择器和DOM操作课程提要  jQuery简介  jQuery选择器  jQueryDOM操作  18.1 JQuery简介随着互联网的迅速发展，web页面的广泛应用，人们的需求不仅限于页面的功能，而更多地注重页面展示形式 和用户体验度。JavaScript语言可以很好地满足">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery选择器和DOM操作">
+<meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/2021/06/02/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A020/index.html">
+<meta property="og:site_name" content="Mike Taylor">
+<meta property="og:description" content="看了一会，去搜才发现，没必要学jQuery的，现在都是A、V、R三选一&#x2F;二了，大人，时代变了，嘤嘤嘤 第18章 jQuery选择器和DOM操作课程提要  jQuery简介  jQuery选择器  jQueryDOM操作  18.1 JQuery简介随着互联网的迅速发展，web页面的广泛应用，人们的需求不仅限于页面的功能，而更多地注重页面展示形式 和用户体验度。JavaScript语言可以很好地满足">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/02/2l9cwV.png">
+<meta property="article:published_time" content="2021-06-02T11:30:08.000Z">
+<meta property="article:modified_time" content="2021-06-02T12:54:08.365Z">
+<meta property="article:author" content="Mike Taylor">
+<meta property="article:tag" content="jQuery">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://z3.ax1x.com/2021/06/02/2l9cwV.png">
+  
+  <title>jQuery选择器和DOM操作 - Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":100,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e71cddb60357a788e6ed79bca37db76d","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mike Taylor&#39;s</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/p12.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="jQuery选择器和DOM操作">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-02 19:30" pubdate>
+        2021年6月2日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">jQuery选择器和DOM操作</h1>
+            
+            <div class="markdown-body">
+              <p>看了一会，去搜才发现，没必要学jQuery的，现在都是A、V、R三选一/二了，大人，时代变了，嘤嘤嘤</p>
+<h1 id="第18章-jQuery选择器和DOM操作"><a href="#第18章-jQuery选择器和DOM操作" class="headerlink" title="第18章 jQuery选择器和DOM操作"></a>第18章 jQuery选择器和DOM操作</h1><p><strong>课程提要</strong></p>
+<ul>
+<li>jQuery简介 </li>
+<li>jQuery选择器 </li>
+<li>jQueryDOM操作</li>
+</ul>
+<h2 id="18-1-JQuery简介"><a href="#18-1-JQuery简介" class="headerlink" title="18.1 JQuery简介"></a>18.1 JQuery简介</h2><p>随着互联网的迅速发展，web页面的广泛应用，人们的需求不仅限于页面的功能，而更多地注重页面展示形式 和用户体验度。JavaScript语言可以很好地满足程序开发者的需求， 开发出用户体验度很高的页面，因而越来越受 到广大程序员的关注；但是其代码的开发量是比较大的，jQuery 是 JavaScript 库中的相对优秀的。近年来，随着 它的代码高效、兼容性强而风靡全球，越来越多的开发者痴迷其中；宗旨是用尽可能少的代码实现更多的功能。</p>
+<h3 id="18-1-1-jQuery是什么"><a href="#18-1-1-jQuery是什么" class="headerlink" title="18.1.1 jQuery是什么"></a>18.1.1 jQuery是什么</h3><p> jQuery 是由美国人 JohResig 于 2006 年创建的一个开源项目，随着被人们的熟知，越来越多的程序高手加入 其中，完善和壮大其项目内容；如今已发展成为<strong>集 JavaScript、CSS、DOM、Ajax 于一体的强大框架体系</strong>，它的主 旨是 ：write lss,do more!</p>
+<p>一般一个项目只使用一个框架。</p>
+<h3 id="18-1-2-jQuery的基本功能"><a href="#18-1-2-jQuery的基本功能" class="headerlink" title="18.1.2 jQuery的基本功能"></a>18.1.2 jQuery的基本功能</h3><p><strong>访问和操作 DOM 元素</strong></p>
+<p>使用 jQuery 库，可以很方便地获取和修改页面中的某元素，无论是删除、移动、复制某元素，jQuery 都提供了一整套方便、快捷的方法，既减少了代码的编写，又大大提高了用户对页面的体验度。具体示例我们将在后面的 章节中陆续展示。</p>
+<p><strong>控制页面样式</strong></p>
+<p>通过引入 jQuery，程序开发人员可以很便捷地控制页面的 CSS 文件。浏览器对页面文件的兼容性一直以来都是页面开发者最为头痛的事，而使用 jQuery 操作页面的样式，却可以很好地兼容各种浏览器。</p>
+<p><strong>对页面事件的处理</strong></p>
+<p>引入 jQuery 库后，使页面的表现层与功能开发分离，开发者可以更多地专注于程序的逻辑与功效 ；页面设计者侧重于页面的优化与用户体验，通过事件绑定机制，可以很轻松地实现二者的结合。</p>
+<p><strong>大量插件在页面中的运用</strong></p>
+<p>在引入 jQuery 库后，还可以使用大量的插件来完善页面的功能和效果，如表单插件、UI 插件，这些插件的使用，极大丰富了页的展示效果，原来使用 JavaScript 代码遥不可及的功能，通过插件的引入都可以轻松实现。</p>
+<p><strong>与 Ajax 技术的完美结合</strong></p>
+<p>Ajax 的异步读取服务器数据的方法，极大方便了程序的开发，加深了用户的页面体验度；而引入 jQuery 库后，不仅完善了原有的功能，而且减少了代码的书写，利用其内部对象或函数，加上几行代码就可以实现复杂的功能。</p>
+<p>提供了大量的动画处理</p>
+<h3 id="18-1-3-搭建jQuery开发环境"><a href="#18-1-3-搭建jQuery开发环境" class="headerlink" title="18.1.3 搭建jQuery开发环境"></a>18.1.3 搭建jQuery开发环境</h3><h4 id="18-1-3-1-本地引入jQuery"><a href="#18-1-3-1-本地引入jQuery" class="headerlink" title="18.1.3.1 本地引入jQuery"></a>18.1.3.1 本地引入jQuery</h4><p>由于 jQuery 是一个完整的 JavaScript 文件库， 因此， 搭建 jQuery 开发环境十分简单， 无须安装任何文件，只需要先在 jQuery 官方网站下载最新的文件库，然后将该文件库引入页面中的&lt;head&gt;元素间即可。</p>
+<p><strong>下载 jQuery 文件库</strong></p>
+<p>在 jQuery 的官方网站（http:// jquery.com）下载最新版本的 jQuery 文件库，其网站页面如图 18-1 所示。在网站中，选择大小为 101KB 的压缩包，单击下载按钮，便可以将最新版的 jQuery 框架下载到本地。</p>
+<p><strong>引入 jQuery 文件库</strong></p>
+<p>下载完 jQuery 框架文件后，并不需要任何的安装，仅需要使用 &lt;script&gt; 文件导入标记， 将 jQuery 框架文件<strong>jquery-3.3.1.min.js</strong> 导入页面中即可。假设该文件下载后保存在项目文件夹 Jscript 中，那么，在页面的&lt;head&gt;<br>&lt;/head&gt; 中加入如下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;script language=<span class="hljs-string">&quot;javascript&quot;</span> type=<span class="hljs-string">&quot;text/javascript&quot;</span> src=<span class="hljs-string">&quot;Jscript/jquery-3.3.1.min.js&quot;</span>&gt;<br>&lt;/script&gt;<br>&lt;script&gt;<br>    <span class="hljs-built_in">console</span>.dir($);<span class="hljs-comment">//查看引入jQuery成功与否</span><br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p>在页面的头部分加入上述代码后，便完成了 jQuery 框架的引入，现在可以开始我们的jQuery 之旅了。</p>
+<h4 id="18-1-3-2-CDN引入"><a href="#18-1-3-2-CDN引入" class="headerlink" title="18.1.3.2 CDN引入"></a>18.1.3.2 CDN引入</h4><p>注意jQuery必须先引入，然后才能调用API，可以在head引入，也可以在最后引入。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;script language=<span class="hljs-string">&quot;javascript&quot;</span> type=<span class="hljs-string">&quot;text/javascript&quot;</span> src=<span class="hljs-string">&quot;https://code.jquery.com/jquery-3.6.0.min.js&quot;</span>&gt;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="18-1-3-3-编写第一个简单的-jQuery-程序"><a href="#18-1-3-3-编写第一个简单的-jQuery-程序" class="headerlink" title="18.1.3.3 编写第一个简单的 jQuery 程序"></a>18.1.3.3 编写第一个简单的 jQuery 程序</h4><p>首先，我们来编写一个简单的程序。</p>
+<p><strong>功能描述</strong></p>
+<p>当页面加载时，以居中的方式在页面中显示“您好！欢迎来到jQuery 的精彩世界。”字样。</p>
+<p><strong>代码</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>第一个简单的jQuery程序<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><br><span class="css">       <span class="hljs-selector-tag">div</span>&#123; <span class="hljs-attribute">padding</span>:<span class="hljs-number">8px</span> <span class="hljs-number">0px</span>;<span class="hljs-attribute">font-size</span>:<span class="hljs-number">12px</span>;</span><br><span class="css">           <span class="hljs-attribute">text-align</span>:center;<span class="hljs-attribute">border</span>:solid <span class="hljs-number">1px</span> <span class="hljs-number">#888</span>;&#125;</span><br>   <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/jquery-3.3.1.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="javascript">       $(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">           $(<span class="hljs-string">&quot;div&quot;</span>).html(<span class="hljs-string">&quot;您好！欢迎来到jQuery的精彩世界。&quot;</span>);</span><br>       &#125;);<br>   <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>代码分析</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>   $(<span class="hljs-string">&quot;div&quot;</span>).html(<span class="hljs-string">&quot;您好！欢迎来到jQuery的精彩世界。&quot;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>该段代码类似于传统的 JavaScript 代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">window</span>.onload=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br><span class="hljs-comment">// 程序段</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>虽然上述两段代码在功能上可以互换，但它们之间又有许多区别。</p>
+<blockquote>
+<p>执行时间不同 ：$(document).ready 在页面框架下载完毕后就执行 ；而 window.onload 必须在页面全部加 载完毕（包含图片下载）后才能执行。很明显前者的执行效率高于后者。</p>
+</blockquote>
+<blockquote>
+<p>执行数量不同 ：$(document).ready 可以重复写多个， 并且每次执行结果不同 ； 而window.onload 尽管可 以执行多个，<strong>但仅输出最后一个执行结果，无法完成多个结果的输出</strong>。</p>
+</blockquote>
+<p> $(document).ready(function(){}) 可以简写成 $(function(){})，因此下面的代码是等价的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js">$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br> <span class="hljs-comment">// 程序段</span><br>&#125;)<br><span class="hljs-comment">// 等价于</span><br>$(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br><span class="hljs-comment">// 程序段</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h4 id="18-1-1-4-学习文档"><a href="#18-1-1-4-学习文档" class="headerlink" title="18.1.1.4 学习文档"></a>18.1.1.4 学习文档</h4><p><a href="https://www.jquery123.com/">中文文档</a></p>
+<p><a href="https://jquery.cuishifeng.cn/">jQuery API 中文文档</a></p>
+<h2 id="18-2-jQuery选择器"><a href="#18-2-jQuery选择器" class="headerlink" title="18.2 jQuery选择器"></a>18.2 jQuery选择器</h2><p> 根据所获取页面中元素的不同，可以将 jQuery 选择器分为四大类：基本选择器、层次选择器、过滤选择器、 表单选择器。其中，在过滤选择器中又可分为 ：简单过滤选择器、内容过滤选择器、可见性过滤选择器、属性过滤 选择器、子元素过滤选择器、表单对象属性过滤选择器。</p>
+<p><a href="https://imgtu.com/i/2l9cwV"><img src="https://z3.ax1x.com/2021/06/02/2l9cwV.png" srcset="/img/loading.gif" lazyload alt="2l9cwV.png"></a></p>
+<h3 id="18-2-1-基本选择器"><a href="#18-2-1-基本选择器" class="headerlink" title="18.2.1 基本选择器"></a>18.2.1 基本选择器</h3><p> 基本选择器是 jQuery 中使用最频繁的选择器，它由元素 ID、Class、元素名、多个选择符组成，通过基本选 择器可以实现大多数页面元素的查找。</p>
+<h4 id="基本语法表"><a href="#基本语法表" class="headerlink" title="基本语法表"></a>基本语法表</h4><table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>功能</th>
+<th>返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>#id</td>
+<td>根据给定的ID匹配一个元素</td>
+<td>单个元素</td>
+</tr>
+<tr>
+<td>element</td>
+<td>根据给定的元素名匹配所有元素</td>
+<td>元素集合</td>
+</tr>
+<tr>
+<td>.class</td>
+<td>根据给定的类匹配元素</td>
+<td>元素集合</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配所有元素</td>
+<td>元素集合</td>
+</tr>
+<tr>
+<td>selector1,selectorN</td>
+<td>将每一个选择器匹配到的元素合并后一起返回</td>
+<td>元素集合</td>
+</tr>
+</tbody></table>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/jQuery/">jQuery</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    灯火阑珊
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/14/%E8%A1%A5%E4%B9%A0C%E8%AF%AD%E8%A8%80/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">补习C语言</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/31/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A019/">
+                        <span class="hidden-mobile">JavaScript高级-JSON和DOM操作</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark-orange';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhangjialin996/comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" lazyload class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-love" style="color: #8080ff"></i> <i class="iconfont icon-love" style="color: red"></i> <i class="iconfont icon-love" style="color: #8080ff"></i> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e71cddb60357a788e6ed79bca37db76d";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

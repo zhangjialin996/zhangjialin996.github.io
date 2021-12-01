@@ -1,0 +1,960 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
+  <link rel="icon" href="/img/insert2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="我的博客">
+  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mike Taylor">
+<meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/page/3/index.html">
+<meta property="og:site_name" content="Mike Taylor">
+<meta property="og:description" content="无聊的人生只剩下无尽的空虚。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mike Taylor">
+<meta property="article:tag" content="我的博客">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":100,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e71cddb60357a788e6ed79bca37db76d","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+</head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mike Taylor&#39;s</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/p9.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="众里寻她千百度">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/22/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A017/" target="_self">
+          JS正则表达式
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/22/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A017/" target="_self">
+          
+          
+            
+          
+          后盾人的文档
+JS中的正则表达式基础知识正则表达式是用于匹配字符串中字符组合的模式，在 JavaScript中，正则表达式也是对象。
+
+正则表达式是在宿主环境下运行的，如js/php/node.js 等
+
+本章讲解的知识在其他语言中知识也是可用的，会有些函数使用上的区别
+
+
+对比分析与普通函数操作字符串来比较，正则表达式可以写出更简洁、功能强大的代码。
+下面使用获取字符串中的所有数字来比较函数与正
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-22 15:15" pubdate>
+              2021-05-22
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JS/">JS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/21/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A014/" target="_self">
+          项目实战—纽曼官网实现
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/21/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A014/" target="_self">
+          
+          
+            
+          
+          代码格式化：Ctrl +Alt+L
+文件格式化：Ctrl +Alt+Shift+L
+行级标签里不能加块级标签。
+&gt;：只作用于某标签的儿子，孙子中有满足的标签会被忽略
+1234567.welcome&gt;p&#123;  font-size: 14px;  color: #666;  padding: 0 85px 0 80px;  line-height: 24px;  text-alig
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-21 13:42" pubdate>
+              2021-05-21
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AE%9E%E6%88%98/">前端实战</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/10/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A013/" target="_self">
+          PhotoShop基础
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/10/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A013/" target="_self">
+          
+          
+            
+          
+          第十章 PhotoShop基础课程提要
+
+认识PhotoShop图像基础
+工具使用与快捷操作
+图片优化
+精灵图
+
+安装PS和cutterman插件。
+10.1 基本概念
+PS由美国Adobe公司开发的一款用来处理图像的软件。Adobe开发了另外一款软件Illustrator(AI)，它用来作图，主要跟加拿大开发的CorelDRAW抢占市场。
+PS用来处理位图的，AI用来处理矢量图。
+
+位图是由像素
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-10 12:46" pubdate>
+              2021-05-10
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/PthotoShop/">PthotoShop</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/05/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A011/" target="_self">
+          CSS属性-动画
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/05/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A011/" target="_self">
+          
+          
+            
+          
+          第八章 CSS3属性-动画课程提要
+
+盒子的变形
+CSS3过渡
+CSS3动画
+
+8.1盒子的变形transform属性向元素应用2D或者3D转换。该属性允许我们对元素进行旋转、缩放、移动或者倾斜。
+8.1.1 CSS3 2D变形2D Transform方法
+
+
+函数
+描述
+
+
+
+matrix(n,n,n,n,n,n)
+定义2D转换，使用六个值得矩阵。
+
+
+translate(x,y)
+定义2D转换
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-05 23:25" pubdate>
+              2021-05-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/CSS/">CSS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/05/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A012/" target="_self">
+          CSS属性-动画
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/05/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A012/" target="_self">
+          
+          
+            
+          
+          第九章 基础属性-布局课程提要
+
+多列布局
+box布局
+flex布局
+响应式布局
+媒体查询
+Web字体
+
+9.1 多列（分栏）尽管当前计算机的屏幕已经变得很宽了，研究表明，人们在阅读长文本时会感到困难（通常认为每行大概65~75个字符为最适合阅读的长度）。文本行长度的习惯导致了我们设计布局时存在一些限制，也导致网站无法充分利用宽屏所赋予的机会。多年来，杂志和报纸已经在使用多列布局使内容流动起来，这
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-05 23:25" pubdate>
+              2021-05-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/CSS/">CSS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/19/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F2-4%E7%AB%A0/" target="_self">
+          操作系统2-4章部分笔记
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/19/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F2-4%E7%AB%A0/" target="_self">
+          
+          
+            
+          
+          教材：《计算机操作系统》（第四版） 汤子丹等
+Linux进程控制进程创建UNIX/Linux中创建进程的方式：
+①在shell中执行命令或可执行文件
+
+由shell进程调用fork函数创建子进程
+
+②在代码中（已经存在的进程中）调用fork 函数创建子进程
+
+fork创建的进程为子进程
+原进程为父进程
+
+拓展：Linux 操作系统下的进程与线程相同点是都有进程控制块(Process Control
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-19 10:01" pubdate>
+              2021-04-19
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%80%83%E8%AF%95/">考试</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/17/Java/" target="_self">
+          JAVA基础到面向对象
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/17/Java/" target="_self">
+          
+          
+            
+          
+          Java基础语法和Java面向对象第2章 导学2.1 编程语言介绍常用语言对比：
+
+C语言：执行效率比较高，一般用来做底层驱动或者操作系统。
+C++：游戏内核，应用程序。
+C#：微软、支持的平台是windows，基于.netframework的。
+Java：世界第一，toibe排行榜。
+Python：脚本语言，灵活性极高。
+html：静态网页，网站
+CSS：美化网页
+JS：动态网页
+go语言：谷歌
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-17 15:31" pubdate>
+              2021-04-17
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">Java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/16/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" target="_self">
+          机器学习概述
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/16/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" target="_self">
+          
+          
+            
+          
+          一、朴素贝叶斯分类器（略）二、监督学习(supervised learning)机器学习分为：监督学习、无监督学习、半监督学习
+第一部分 监督学习从给定的训练集中学习出一个函数（模型参数），当新的数据到来时，可以根据这个函数预测结果。监督学习的训练集要求包括：输入、输出，也可以说是特征和目标。训练集中的目标由人标注。监督学习最常见的分类（注意和聚类区分）问题，通过已有的训练样本（已知数据以及对应的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-16 14:43" pubdate>
+              2021-04-16
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%9C%E4%B8%9A2/" target="_self">
+          数据库第四章实践作业
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/12/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%9C%E4%B8%9A2/" target="_self">
+          
+          
+            
+          
+          教材：《数据库系统原理、设计与编程》陆鑫 张凤荔 陈安龙/编著
+第四章 数据库设计与实现实践作业张加林2019091202010
+作业内容：
+针对房屋租赁管理系统开发，设计该系统数据库，并在PostgreSQL数据库服务器中实现该数据库。
+1）分析房屋租赁管理系统业务的基本数据需求，使用Power Designer建模工具，建立房屋租赁管理系统概念数据模型。
+2）针对关系数据库设计，在Power 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-12 20:18" pubdate>
+              2021-04-12
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AD%94%E6%A1%88/">答案</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/07/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A09/" target="_self">
+          HTML5新特性
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/07/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A09/" target="_self">
+          
+          
+            
+          
+          HTML5新特性课程提要
+
+HTML5介绍
+HTML5网页标准结构
+HTML5多媒体标签
+HTML5新增常用属性
+HTML5新表单操作
+HTML5代码规范
+
+6.1 HTML5介绍HTML5成为HTML、XHTML以及HTML DOM的新标准。
+HTML5是W3C和WHATWG合作研发的结果，于2014年正式发布。
+HTML5成为了新一代网页开发的标准。
+HTML5主要新功能：
+
+音频视频播放：视
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-07 21:11" pubdate>
+              2021-04-07
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/HTML/">HTML</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><a class="extend next" rel="next" href="/page/4/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-love" style="color: #8080ff"></i> <i class="iconfont icon-love" style="color: red"></i> <i class="iconfont icon-love" style="color: #8080ff"></i> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      jQuery.ajax({
+        type: 'GET',
+        url: '',
+        headers: {},
+        dataType: 'json',
+        success: function (result) {
+          var text;
+          if (result) {
+            var keys = ''.split('.')
+            if (result instanceof Array) {
+              result = result[0]
+            }
+            for (const k of keys) {
+              var value = result[k]
+              if (typeof value === 'string') {
+                text = value
+                break
+              } else if (value instanceof Object) {
+                result = value
+              }
+            }
+          }
+          text ? typing(text) : typing(title);
+        },
+        error: function () {
+          typing(title)
+        }
+      })
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e71cddb60357a788e6ed79bca37db76d";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

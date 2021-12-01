@@ -1,0 +1,705 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
+  <link rel="icon" href="/img/insert2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="我的博客">
+  <meta name="description" content="XML 概念：Extersible Markup Language，可扩展标记语言。  可扩展：标签都是自定义的。  功能：存储数据  作为配置文件 在网络中传输  XML与HTML区别： ​    XML标签都是自定义的，HTML标签都是预定义的。 ​    XML语法严格，HTML语法松散。 ​    XML用于存储数据，XML用于展示数据。  W3C：万维网联盟 properties：配置文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XML">
+<meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/2021/07/21/XML/index.html">
+<meta property="og:site_name" content="Mike Taylor">
+<meta property="og:description" content="XML 概念：Extersible Markup Language，可扩展标记语言。  可扩展：标签都是自定义的。  功能：存储数据  作为配置文件 在网络中传输  XML与HTML区别： ​    XML标签都是自定义的，HTML标签都是预定义的。 ​    XML语法严格，HTML语法松散。 ​    XML用于存储数据，XML用于展示数据。  W3C：万维网联盟 properties：配置文">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-21T13:36:51.000Z">
+<meta property="article:modified_time" content="2021-07-22T01:07:45.158Z">
+<meta property="article:author" content="Mike Taylor">
+<meta property="article:tag" content="XML">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>XML - Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":100,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e71cddb60357a788e6ed79bca37db76d","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mike Taylor&#39;s</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/p12.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="XML">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-21 21:36" pubdate>
+        2021年7月21日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">XML</h1>
+            
+            <div class="markdown-body">
+              <h1 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h1><ul>
+<li><p>概念：Extersible Markup Language，可扩展标记语言。</p>
+<ul>
+<li><p>可扩展：标签都是自定义的。</p>
+</li>
+<li><p>功能：存储数据</p>
+<ul>
+<li>作为配置文件</li>
+<li>在网络中传输</li>
+</ul>
+<p>XML与HTML区别：</p>
+<p>​    XML标签都是自定义的，HTML标签都是预定义的。</p>
+<p>​    XML语法严格，HTML语法松散。</p>
+<p>​    XML用于存储数据，XML用于展示数据。</p>
+<ul>
+<li>W3C：万维网联盟</li>
+<li>properties：配置文件，数据存储文件。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">users</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">user</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>张加林<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">age</span>&gt;</span>18<span class="hljs-tag">&lt;/<span class="hljs-name">age</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">gender</span>&gt;</span>男<span class="hljs-tag">&lt;/<span class="hljs-name">gender</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">user</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">user</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;2&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>张加林<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">age</span>&gt;</span>18<span class="hljs-tag">&lt;/<span class="hljs-name">age</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">gender</span>&gt;</span>男<span class="hljs-tag">&lt;/<span class="hljs-name">gender</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">user</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">user</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>张加林<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">age</span>&gt;</span>18<span class="hljs-tag">&lt;/<span class="hljs-name">age</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">gender</span>&gt;</span>男<span class="hljs-tag">&lt;/<span class="hljs-name">gender</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">user</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">user</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;3&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>张加林<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">age</span>&gt;</span>18<span class="hljs-tag">&lt;/<span class="hljs-name">age</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">gender</span>&gt;</span>男<span class="hljs-tag">&lt;/<span class="hljs-name">gender</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">user</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">users</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>?xml文档声明必须在第一行</strong></p>
+<p><strong>有且仅有一个根标签</strong>，属性值必须使用引号引起来（单双都可以）</p>
+<p>标签必须正确关闭</p>
+<p><strong>xml标签区分大小写</strong></p>
+<p>xml组成部分：</p>
+<p>​    文档声明</p>
+<p>​        1.格式：&lt;?xml 属性列表 ?&gt;</p>
+<p>​        2.属性列表：</p>
+<p>​                version：版本号，必须的属性。</p>
+<p>​                encoding：：编码方式，告知解析引擎当前文档使用的编码方式，默认为ISO-8859-1。</p>
+<p>​                standalone：是否独立，取值[yes|no]：是否依赖其他文件。</p>
+<p>​    指令</p>
+<p>​                结合CSS</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&#x27;1.0&#x27; encoding=&#x27;utf-8&#x27; standalone=&#x27;no&#x27; ?&gt;</span><br><span class="hljs-meta">&lt;?xml-stylesheet type=&#x27;text/css&#x27; hredf=&#x27;a.css&#x27;&gt;</span><br><span class="hljs-meta">&lt;users&gt;</span><br><span class="hljs-meta">	&lt;user&gt;</span><br><span class="hljs-meta">		&lt;name&gt;张加林&lt;name/&gt;</span><br><span class="hljs-meta">		&lt;age&gt;20&lt;age&gt;</span><br><span class="hljs-meta">	&lt;user&gt;</span><br><span class="hljs-meta">&lt;users/&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>​    标签：标签名自定义。</p>
+</li>
+</ul>
+<ul>
+<li><p>名称可以包含字母、数字以及其他的字符</p>
+</li>
+<li><p>名称不能以数字或者标点符号开始</p>
+</li>
+<li><p>名称不能以字母 xml（或者 XML、Xml 等等）开始</p>
+</li>
+<li><p>名称不能包含空格</p>
+<p>属性：id值唯一</p>
+<p>文本：特殊字符需要使用转义</p>
+<p>​    CDATA区：在该区域的数据会被原样展示。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">test</span>&gt;</span><br>       &lt;![CDATA[<br>           if(a&lt;b &amp;&amp; a&gt;c)&#123;&#125;<br>       ]]&gt;<br><span class="hljs-tag">&lt;/<span class="hljs-name">test</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><p>编写XML：用户，软件使用者</p>
+<p>解析XML：软件（半成品软件，如：框架），一般软件会有XML文档书写的说明规则（约束文档）。</p>
+<p>用户和软件之间可以通过XML文档进行交互。</p>
+<ul>
+<li><p>约束：规定XML文档的书写规则</p>
+<ul>
+<li>能够在XML中引入约束文档</li>
+<li>能够简单的读懂约束文档</li>
+</ul>
+</li>
+<li><p>分类：</p>
+<ul>
+<li><p>DTD：一种简单的约束技术</p>
+<ul>
+<li><p>引入DTD文档到XML文档中</p>
+<p>内部DTD：将约束规则定义在xml文档中</p>
+<p>外部DTD：将约束规则定义于外部的DTD文件中</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">本地引入：&lt;!DOCTYPE 根标签名 SYSTEM &quot;DTD文件的位置&quot;&gt;<br>网络引入：&lt;!DOCTYPE 根标签名 PUBLIC &quot;DTD文件的名字&quot; &quot;DTD文件的位置URL&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!ELEMENT students (student+)&gt;<br>&lt;!ELEMENT student (name,age,gender)&gt;<br>&lt;!ELEMENT name (#PCDATA)&gt;<br>&lt;!ELEMENT age (#PCDATA)&gt;<br>&lt;!ELEMENT gender (#PCDATA)&gt;<br>&lt;!ATTLIST student number ID #REQUIRED&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">students</span> <span class="hljs-meta-keyword">SYSTEM</span> <span class="hljs-meta-string">&quot;student.dtd&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">students</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">student</span> <span class="hljs-attr">number</span>=<span class="hljs-string">&quot;s001&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>张加林<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">age</span>&gt;</span>20<span class="hljs-tag">&lt;/<span class="hljs-name">age</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">gender</span>&gt;</span>男<span class="hljs-tag">&lt;/<span class="hljs-name">gender</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">student</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">student</span> <span class="hljs-attr">number</span>=<span class="hljs-string">&quot;s002&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>张加林<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">age</span>&gt;</span>20<span class="hljs-tag">&lt;/<span class="hljs-name">age</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">gender</span>&gt;</span>男<span class="hljs-tag">&lt;/<span class="hljs-name">gender</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">student</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">students</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="hljs-comment">&lt;!--直接引入--&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">students</span> <span class="hljs-meta-keyword">SYSTEM</span> [</span><br><span class="hljs-meta"></span><br><span class="hljs-meta"><span class="hljs-meta">&lt;!ELEMENT <span class="hljs-meta-keyword">students</span> (<span class="hljs-meta-keyword">student</span>+)&gt;</span></span><br><span class="hljs-meta"><span class="hljs-meta">&lt;!ELEMENT <span class="hljs-meta-keyword">student</span> (<span class="hljs-meta-keyword">name</span>,<span class="hljs-meta-keyword">age</span>,<span class="hljs-meta-keyword">gender</span>)&gt;</span></span><br><span class="hljs-meta"><span class="hljs-meta">&lt;!ELEMENT <span class="hljs-meta-keyword">name</span> (<span class="hljs-meta-keyword">#PCDATA</span>)&gt;</span></span><br><span class="hljs-meta"><span class="hljs-meta">&lt;!ELEMENT <span class="hljs-meta-keyword">age</span> (<span class="hljs-meta-keyword">#PCDATA</span>)&gt;</span></span><br><span class="hljs-meta"><span class="hljs-meta">&lt;!ELEMENT <span class="hljs-meta-keyword">gender</span> (<span class="hljs-meta-keyword">#PCDATA</span>)&gt;</span></span><br><span class="hljs-meta"><span class="hljs-meta">&lt;!ATTLIST <span class="hljs-meta-keyword">student</span> <span class="hljs-meta-keyword">number</span> <span class="hljs-meta-keyword">ID</span> <span class="hljs-meta-keyword">#REQUIRED</span>&gt;</span></span><br><span class="hljs-meta"></span><br><span class="hljs-meta">]&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Schema：复杂的约束技术，可以限定内容</p>
+<figure class="highlight xsd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs xsd"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot; ?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">xs:schema</span> <span class="hljs-attr">xmlns:xs</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;shiporder&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;orderperson&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;shipto&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;address&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;city&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;country&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>          <span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">xs:element</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;item&quot;</span> <span class="hljs-attr">maxOccurs</span>=<span class="hljs-string">&quot;unbounded&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span>&gt;</span><br>          <span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;title&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;note&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span>/&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;quantity&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:positiveInteger&quot;</span>/&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;price&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:decimal&quot;</span>/&gt;</span><br>          <span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">xs:element</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">xs:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;orderid&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;required&quot;</span>/&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">xs:element</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">xs:schema</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml">&lt;a:根标签名 xmlns:itcast=&quot;xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;<br>								 xsi:schemaLocation=&quot;http://www.itcast.cn/xml student.xsd<br>								 	http://www.itcast.cn/xml2 student2.xsd&quot;<br>                                    xmlns:a=&quot;http://www.itcast.cn/xml&quot;<br>                                    xmlns:b=&quot;http://www.itcast.cn/xml2&quot;&gt;<br><span class="hljs-tag">&lt;<span class="hljs-name">a:students</span> &gt;</span><br><span class="hljs-comment">&lt;!--所有标签前面必须加a:(别名)--&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>填写xml文档的根元素</li>
+<li>引入xml前缀，xmlns:xsi=”<a href="http://www.w3.org/2001/XMLschema-instance&quot;">http://www.w3.org/2001/XMLschema-instance&quot;</a></li>
+<li>引入xsd文件命名空间    xsi:a=”<a href="http://www.itcast.cn/xml">http://www.itcast.cn/xml</a> 文件名.xsd”</li>
+<li>为每一个xsd约束声明一个前缀，作为标识，xmlns=”<a href="http://www.itcast/xml&quot;">http://www.itcast/xml&quot;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>解析：操作xml文档，将文档中的数据读取到内存中。</p>
+<ul>
+<li>操作xml文档<ul>
+<li>解析(读取)：将文档中的数据读取到内存中</li>
+<li>写入：将内存中的数据保存到xml文档中。持久化存储。</li>
+</ul>
+</li>
+<li>解析xml的方式<ul>
+<li>DOM：将标记语言文档一次性加载进内存，在内存中会形成一颗内存树<ul>
+<li>优点：操作方便，可以对文档进行CRUD的所有操作</li>
+<li>缺点：占用内存严重</li>
+</ul>
+</li>
+<li>SAX<ul>
+<li>逐行读取（读一行，内存释放上一行），基于事件驱动的。</li>
+<li>优点：基本不占用内存</li>
+<li>缺点：只能读取，不能增删改</li>
+</ul>
+</li>
+<li>服务器端使用DOM思想，移动端使用SAX思想</li>
+</ul>
+</li>
+<li>常见解析器<ul>
+<li>JAXP：SUN公司提供，支持DOM和SAX两种思想，但是一般不用，因为效果较差。</li>
+<li>DOM4J：一款优秀的解析器</li>
+<li>Jsoup：一款Java的HTML解析器，可直接解析某个URL地址、HTML文本内容。提供了一套非常省力的API，可以通过DOM、CSS以及类似于jQuery的操作方法来取出和操作数据。</li>
+<li>PULL：Android操作系统内置的解析器，SAX方式。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Jsoup"><a href="#Jsoup" class="headerlink" title="Jsoup"></a>Jsoup</h2><ul>
+<li>使用步骤：<ul>
+<li>导入jar包</li>
+<li>获取Document对象</li>
+<li>获取对应的标签Element对象</li>
+<li>获取数据下</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/XML/">XML</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    灯火阑珊
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/22/Mybatis/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Mybatis</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/21/JDBC/">
+                        <span class="hidden-mobile">JDBC核心技术</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark-orange';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhangjialin996/comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" lazyload class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-love" style="color: #8080ff"></i> <i class="iconfont icon-love" style="color: red"></i> <i class="iconfont icon-love" style="color: #8080ff"></i> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e71cddb60357a788e6ed79bca37db76d";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

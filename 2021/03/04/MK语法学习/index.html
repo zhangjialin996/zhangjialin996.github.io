@@ -1,0 +1,763 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
+  <link rel="icon" href="/img/insert2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="我的博客">
+  <meta name="description" content="第一章 起步 1.1 搭建编程环境1.1.1 Python版本每种语言 有些老书 便于学习 千金散尽还复来 终端窗口 嘉宾是非常可爱的^歌手。 比如PHP1 Markdown Extra [2] 是这样的。  第一项 第一项的第一个嵌套元素 第一项的第二个嵌套元素   第二项 第三项  1.第一项2.第二项3.第三项  区块引用浅尝辄止卧薪尝胆   叶公好龙  火烧联营  潜移默化     区块使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MarkDown">
+<meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/2021/03/04/MK%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Mike Taylor">
+<meta property="og:description" content="第一章 起步 1.1 搭建编程环境1.1.1 Python版本每种语言 有些老书 便于学习 千金散尽还复来 终端窗口 嘉宾是非常可爱的^歌手。 比如PHP1 Markdown Extra [2] 是这样的。  第一项 第一项的第一个嵌套元素 第一项的第二个嵌套元素   第二项 第三项  1.第一项2.第二项3.第三项  区块引用浅尝辄止卧薪尝胆   叶公好龙  火烧联营  潜移默化     区块使">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/01/6PK2lV.gif">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/01/6PK2lV.gif">
+<meta property="article:published_time" content="2021-03-04T11:48:46.000Z">
+<meta property="article:modified_time" content="2021-08-26T07:29:46.021Z">
+<meta property="article:author" content="Mike Taylor">
+<meta property="article:tag" content="markdown">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s3.ax1x.com/2021/03/01/6PK2lV.gif">
+  
+  <title>MarkDown - Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":100,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e71cddb60357a788e6ed79bca37db76d","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mike Taylor&#39;s</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/p12.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="MarkDown">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-04 19:48" pubdate>
+        2021年3月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      7 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">MarkDown</h1>
+            
+            <div class="markdown-body">
+              <h1 id="第一章-起步"><a href="#第一章-起步" class="headerlink" title="第一章 起步"></a>第一章 起步</h1><hr>
+<h2 id="1-1-搭建编程环境"><a href="#1-1-搭建编程环境" class="headerlink" title="1.1 搭建编程环境"></a>1.1 搭建编程环境</h2><h3 id="1-1-1-Python版本"><a href="#1-1-1-Python版本" class="headerlink" title="1.1.1 Python版本"></a>1.1.1 Python版本</h3><p><em>每种语言</em></p>
+<p><strong>有些老书</strong></p>
+<p><strong><em>便于学习</em></strong></p>
+<p><del>千金散尽还复来</del></p>
+<p><u>终端窗口</u></p>
+<p>嘉宾是非常可爱的<a href="Selena">^歌手</a>。</p>
+<p>比如PHP<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="脚注1
+"><a href="https://miketaylorjuly123.cn/">1</a></span></a></sup> Markdown Extra <sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="脚注2
+">[2]</span></a></sup> 是这样的。</p>
+<ul>
+<li>第一项<ul>
+<li>第一项的第一个嵌套元素</li>
+<li>第一项的第二个嵌套元素</li>
+</ul>
+</li>
+<li>第二项</li>
+<li>第三项</li>
+</ul>
+<p>1.第一项<br>2.第二项<br>3.第三项</p>
+<blockquote>
+<p>区块引用<br>浅尝辄止<br>卧薪尝胆</p>
+</blockquote>
+<blockquote>
+<p>叶公好龙</p>
+<blockquote>
+<p>火烧联营</p>
+<blockquote>
+<p>潜移默化</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>区块使用列表<br>1.第一项<br>2.第二项</p>
+<ul>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>列表中使用区块</p>
+<ul>
+<li>第一项<br>后来<br>airplanes</li>
+<li>第二项</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>code<blockquote>
+<ul>
+<li>方法一<br>printf()`函数(注意是反引号，shift加~)</li>
+<li>方法二</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<pre><code>&lt;?javascript
+echo &#39;RUNOOB&#39;;
+function test() &#123;
+  echo &#39;test&#39;;
+ &#125;
+</code></pre>
+<p>​        </p>
+<blockquote>
+<blockquote>
+<ul>
+<li>方法三</li>
+</ul>
+</blockquote>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    alert(<span class="hljs-string">&#x27;RUNOOB&#x27;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+
+<blockquote>
+<ul>
+<li>链接设置<blockquote>
+<ul>
+<li>初级<br><a href="https://miketaylorjuly123.cn/">我的博客</a><br>我的博客<a href="https://miketaylorjuly123.cn/">https://miketaylorjuly123.cn</a></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>高级<br><a href="https://miketaylorjuly123.cn/">我的博客</a></li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<ul>
+<li>图片<blockquote>
+<p>*第一种</p>
+<img src="https://s3.ax1x.com/2021/03/01/6PK2lV.gif" srcset="/img/loading.gif" lazyload width="100%" >
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>第二种<br><img src="https://s3.ax1x.com/2021/03/01/6PK2lV.gif" srcset="/img/loading.gif" lazyload></li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>第三种</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>[图片链接][<a href="https://s3.ax1x.com/2021/03/01/6PK2lV.gif]">https://s3.ax1x.com/2021/03/01/6PK2lV.gif]</a></p>
+<blockquote>
+<ul>
+<li>Markdown表格</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">姓名</th>
+<th align="left">寝室</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">张JL</td>
+<td align="left">307</td>
+</tr>
+<tr>
+<td align="center">张L</td>
+<td align="left">307</td>
+</tr>
+<tr>
+<td align="center">朱J</td>
+<td align="left">未知</td>
+</tr>
+<tr>
+<td align="center">NYM</td>
+<td align="left">未知</td>
+</tr>
+<tr>
+<td align="center">黄CK</td>
+<td align="left">301</td>
+</tr>
+</tbody></table>
+<blockquote>
+<ul>
+<li>Makedown高级技巧<blockquote>
+<p>*使用<kbd><strong>ctrl</strong></kbd>+<kbd><strong>Alt</strong></kbd>+<kbd><strong>Del</strong></kbd></p>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>转义</li>
+<li>*文字加粗**<br>如果需要显示特定的符号则需要使用转义字符，Markdown 使用反斜杠转义特殊字符</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>公式<br>$$<br>\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}<br>\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \<br>\frac{\partial X}{\partial u} &amp;  \frac{\partial Y}{\partial u} &amp; 0 \<br>\frac{\partial X}{\partial v} &amp;  \frac{\partial Y}{\partial v} &amp; 0 \<br>\end{vmatrix}<br>${$tep1}{\style{visibility:hidden}{(x+1)(x+1)}}<br>$$</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>typora流程图、时序图（顺序图）、甘特图</li>
+</ul>
+</blockquote>
+</blockquote>
+<pre><code class=" mermaid">graph LR
+A[方形] --&gt;B(圆角)
+    B --&gt; C&#123;条件a&#125;
+    C --&gt;|a&#x3D;1| D[结果1]
+    C --&gt;|a&#x3D;2| E[结果2]
+    F[横向流程图]
+</code></pre>
+
+<h3 id="1-1-2-运行Python代码片段"><a href="#1-1-2-运行Python代码片段" class="headerlink" title="1.1.2 运行Python代码片段"></a>1.1.2 运行Python代码片段</h3><h3 id="1-1-3-Sublime-Text简介"><a href="#1-1-3-Sublime-Text简介" class="headerlink" title="1.1.3 Sublime Text简介"></a>1.1.3 Sublime Text简介</h3><hr>
+<h2 id="1-2-在不同的操作系统中搭建Python编程"><a href="#1-2-在不同的操作系统中搭建Python编程" class="headerlink" title="1.2 在不同的操作系统中搭建Python编程"></a>1.2 在不同的操作系统中搭建Python编程</h2><h3 id="1-2-1-在windows系统搭建Python编程环境"><a href="#1-2-1-在windows系统搭建Python编程环境" class="headerlink" title="1.2.1 在windows系统搭建Python编程环境"></a>1.2.1 在windows系统搭建Python编程环境</h3><h3 id="1-2-2-在MacOS系统搭建Python编程环境"><a href="#1-2-2-在MacOS系统搭建Python编程环境" class="headerlink" title="1.2.2 在MacOS系统搭建Python编程环境"></a>1.2.2 在MacOS系统搭建Python编程环境</h3><h3 id="1-2-3-在Linux系统搭建Python编程环境"><a href="#1-2-3-在Linux系统搭建Python编程环境" class="headerlink" title="1.2.3 在Linux系统搭建Python编程环境"></a>1.2.3 在Linux系统搭建Python编程环境</h3><hr>
+<h2 id="1-3-运行Hello-World程序"><a href="#1-3-运行Hello-World程序" class="headerlink" title="1.3 运行Hello World程序"></a>1.3 运行Hello World程序</h2><h3 id="1-3-1-配置Sublime-Text以使用正确的Pyton版本"><a href="#1-3-1-配置Sublime-Text以使用正确的Pyton版本" class="headerlink" title="1.3.1 配置Sublime Text以使用正确的Pyton版本"></a>1.3.1 配置Sublime Text以使用正确的Pyton版本</h3><h3 id="1-3-2-运行hello-world-py"><a href="#1-3-2-运行hello-world-py" class="headerlink" title="1.3.2 运行hello_world.py"></a>1.3.2 运行hello_world.py</h3><hr>
+<h2 id="1-4-解决安装问题"><a href="#1-4-解决安装问题" class="headerlink" title="1.4 解决安装问题"></a>1.4 解决安装问题</h2><hr>
+<h2 id="1-5-在终端运行Python程序"><a href="#1-5-在终端运行Python程序" class="headerlink" title="1.5 在终端运行Python程序"></a>1.5 在终端运行Python程序</h2><h3 id="1-5-1-在windows系统中从终端运行Python程序"><a href="#1-5-1-在windows系统中从终端运行Python程序" class="headerlink" title="1.5.1 在windows系统中从终端运行Python程序"></a>1.5.1 在windows系统中从终端运行Python程序</h3><h3 id="1-5-2-在Linux和macOS系统中从终端运行Python程序"><a href="#1-5-2-在Linux和macOS系统中从终端运行Python程序" class="headerlink" title="1.5.2 在Linux和macOS系统中从终端运行Python程序"></a>1.5.2 在Linux和macOS系统中从终端运行Python程序</h3><hr>
+<h2 id="1-6-小结"><a href="#1-6-小结" class="headerlink" title="1.6 小结"></a>1.6 小结</h2><p>—<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>脚注1<br><a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>脚注2<br><a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/markdown/">markdown</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    灯火阑珊
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/03/07/HTML_CSS%E7%9F%A5%E8%AF%86%E7%82%B9/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">前端HTML/CSS</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/04/%E7%BC%96%E8%BE%91%E5%99%A8/">
+                        <span class="hidden-mobile">VSCode</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark-orange';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhangjialin996/comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" lazyload class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-love" style="color: #8080ff"></i> <i class="iconfont icon-love" style="color: red"></i> <i class="iconfont icon-love" style="color: #8080ff"></i> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e71cddb60357a788e6ed79bca37db76d";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

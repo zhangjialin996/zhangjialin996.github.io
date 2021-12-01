@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
+  <link rel="icon" href="/img/insert2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="我的博客">
+  <meta name="description" content="教材：《数据库系统原理、设计与编程》陆鑫 张凤荔 陈安龙&#x2F;编著 第三章 数据库操作语言SQL 课后习题五、实践操作题 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库第三章实践作业">
+<meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/2021/03/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%9C%E4%B8%9A1/index.html">
+<meta property="og:site_name" content="Mike Taylor">
+<meta property="og:description" content="教材：《数据库系统原理、设计与编程》陆鑫 张凤荔 陈安龙&#x2F;编著 第三章 数据库操作语言SQL 课后习题五、实践操作题 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-27T13:08:49.000Z">
+<meta property="article:modified_time" content="2021-05-28T09:20:02.664Z">
+<meta property="article:author" content="Mike Taylor">
+<meta property="article:tag" content="答案">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>数据库第三章实践作业 - Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":100,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e71cddb60357a788e6ed79bca37db76d","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mike Taylor&#39;s</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/p12.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="数据库第三章实践作业">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-27 21:08" pubdate>
+        2021年3月27日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      15k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      74 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">数据库第三章实践作业</h1>
+            
+            <div class="markdown-body">
+              <p>教材：《数据库系统原理、设计与编程》陆鑫 张凤荔 陈安龙/编著</p>
+<h1 id="第三章-数据库操作语言SQL-课后习题"><a href="#第三章-数据库操作语言SQL-课后习题" class="headerlink" title="第三章 数据库操作语言SQL 课后习题"></a>第三章 数据库操作语言SQL 课后习题</h1><p>五、实践操作题</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br></pre></td><td class="code"><pre><code class="hljs sql">作业<br><span class="hljs-comment">--创建三张表</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> &quot;Owner&quot;<br>(&quot;PersonID&quot; <span class="hljs-type">char</span>(<span class="hljs-number">18</span>) <span class="hljs-keyword">PRIMARY</span> KEY,<br> &quot;Name&quot; <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;Gender&quot; <span class="hljs-type">char</span>(<span class="hljs-number">2</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;Occupation&quot; <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;Addr&quot; <span class="hljs-type">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;Tel&quot; <span class="hljs-type">varchar</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span><br>);<br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> &quot;Estate&quot;<br>(&quot;EstateID&quot; <span class="hljs-type">char</span>(<span class="hljs-number">15</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">PRIMARY</span> KEY,<br> &quot;EstateName&quot; <span class="hljs-type">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;EstateBuildName&quot; <span class="hljs-type">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;EstateAddr&quot; <span class="hljs-type">varchar</span>(<span class="hljs-number">60</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;EstateCity&quot; <span class="hljs-type">varchar</span>(<span class="hljs-number">60</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;EstateType&quot; <span class="hljs-type">char</span>(<span class="hljs-number">4</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">CHECK</span>(&quot;EstateType&quot; <span class="hljs-keyword">IN</span>(<span class="hljs-string">&#x27;住宅&#x27;</span>,<span class="hljs-string">&#x27;商铺&#x27;</span>,<span class="hljs-string">&#x27;车位&#x27;</span>,<span class="hljs-string">&#x27;别墅&#x27;</span>)),<br> &quot;ProPertyArea&quot; <span class="hljs-type">numeric</span>(<span class="hljs-number">5</span>,<span class="hljs-number">2</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;UsableArea&quot; <span class="hljs-type">numeric</span>(<span class="hljs-number">5</span>,<span class="hljs-number">2</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;CompletedDate&quot; <span class="hljs-type">date</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;YearLength&quot; <span class="hljs-type">int</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">70</span>,<br> &quot;Remark&quot; <span class="hljs-type">varchar</span>(<span class="hljs-number">100</span>) <span class="hljs-keyword">NULL</span><br>);<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> &quot;Registration&quot;<br>(&quot;RegisterID&quot; <span class="hljs-type">int</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">PRIMARY</span> KEY,<br> &quot;PersonID&quot; <span class="hljs-type">char</span>(<span class="hljs-number">18</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;EstateID&quot; <span class="hljs-type">char</span>(<span class="hljs-number">15</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;Price&quot; money <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;PurchasedDate&quot; <span class="hljs-type">date</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> &quot;DeliverDate&quot; <span class="hljs-type">date</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br> <span class="hljs-keyword">CONSTRAINT</span> PersonID_FK <span class="hljs-keyword">FOREIGN</span> KEY(&quot;PersonID&quot;)<br> <span class="hljs-keyword">REFERENCES</span> &quot;Owner&quot;(&quot;PersonID&quot;) <span class="hljs-keyword">ON</span> <span class="hljs-keyword">DELETE</span> CASCADE,<br> <span class="hljs-keyword">constraint</span> EstateID_FK <span class="hljs-keyword">FOREIGN</span> KEY(&quot;EstateID&quot;)<br> <span class="hljs-keyword">REFERENCES</span> &quot;Estate&quot;(&quot;EstateID&quot;) <span class="hljs-keyword">ON</span> <span class="hljs-keyword">DELETE</span> CASCADE<br>)<br><br><span class="hljs-comment">--数据库修改测试：</span><br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> &quot;Owner&quot; <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">COLUMN</span> &quot;Tel&quot;;<br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> &quot;Owner&quot; <span class="hljs-keyword">ADD</span> &quot;Tel&quot; <span class="hljs-type">varchar</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>;<br><br><span class="hljs-comment">--插入数据</span><br><span class="hljs-comment">--完善Owner表：</span><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Owner&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;510722200011268436&#x27;</span>,<span class="hljs-string">&#x27;诸慧&#x27;</span>,<span class="hljs-string">&#x27;女&#x27;</span>,<span class="hljs-string">&#x27;学生&#x27;</span>,<span class="hljs-string">&#x27;四川绵阳市&#x27;</span>,<span class="hljs-string">&#x27;15596543698&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Owner&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;110221200301012836&#x27;</span>,<span class="hljs-string">&#x27;周共&#x27;</span>,<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-string">&#x27;学生&#x27;</span>,<span class="hljs-string">&#x27;北京市&#x27;</span>,<span class="hljs-string">&#x27;15832956645&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Owner&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;370503198904032299&#x27;</span>,<span class="hljs-string">&#x27;张三&#x27;</span>,<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-string">&#x27;律师&#x27;</span>,<span class="hljs-string">&#x27;山东营口市&#x27;</span>,<span class="hljs-string">&#x27;13945236544&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Owner&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;440402199804078098&#x27;</span>,<span class="hljs-string">&#x27;刘潜&#x27;</span>,<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-string">&#x27;服务员&#x27;</span>,<span class="hljs-string">&#x27;广东珠江市&#x27;</span>,<span class="hljs-string">&#x27;13646986566&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Owner&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;120223199401018302&#x27;</span>,<span class="hljs-string">&#x27;关银屏&#x27;</span>,<span class="hljs-string">&#x27;女&#x27;</span>,<span class="hljs-string">&#x27;陆军&#x27;</span>,<span class="hljs-string">&#x27;天津市&#x27;</span>,<span class="hljs-string">&#x27;15932656565&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Owner&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;110221200301012617&#x27;</span>,<span class="hljs-string">&#x27;曹笑&#x27;</span>,<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-string">&#x27;程序猿&#x27;</span>,<span class="hljs-string">&#x27;四川成都市&#x27;</span>,<span class="hljs-string">&#x27;15732696565&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Owner&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;360103199103012782&#x27;</span>,<span class="hljs-string">&#x27;郭灵&#x27;</span>,<span class="hljs-string">&#x27;女&#x27;</span>,<span class="hljs-string">&#x27;教师&#x27;</span>,<span class="hljs-string">&#x27;江西南昌市&#x27;</span>,<span class="hljs-string">&#x27;15963556552&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Owner&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;320582199905175153&#x27;</span>,<span class="hljs-string">&#x27;孙云&#x27;</span>,<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-string">&#x27;医生&#x27;</span>,<span class="hljs-string">&#x27;江苏张家港市&#x27;</span>,<span class="hljs-string">&#x27;13665623233&#x27;</span>);<br><span class="hljs-comment">--完善Estate表：</span><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;A&#x27;</span>,<span class="hljs-string">&#x27;承泰国际&#x27;</span>,<span class="hljs-string">&#x27;三里花城新蕊公馆&#x27;</span>,<span class="hljs-string">&#x27;绵阳&#x27;</span>,<span class="hljs-string">&#x27;绵阳&#x27;</span>,<span class="hljs-string">&#x27;住宅&#x27;</span>,<span class="hljs-string">&#x27;120&#x27;</span>,<span class="hljs-string">&#x27;110&#x27;</span>,<span class="hljs-string">&#x27;2020/1/1&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;B&#x27;</span>,<span class="hljs-string">&#x27;万达国际&#x27;</span>,<span class="hljs-string">&#x27;德商天骄城学府&#x27;</span>,<span class="hljs-string">&#x27;北京&#x27;</span>,<span class="hljs-string">&#x27;北京&#x27;</span>,<span class="hljs-string">&#x27;别墅&#x27;</span>,<span class="hljs-string">&#x27;700&#x27;</span>,<span class="hljs-string">&#x27;653&#x27;</span>,<span class="hljs-string">&#x27;2017/3/29&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;C&#x27;</span>,<span class="hljs-string">&#x27;东山府第&#x27;</span>,<span class="hljs-string">&#x27;未来之城&#x27;</span>,<span class="hljs-string">&#x27;营口&#x27;</span>,<span class="hljs-string">&#x27;营口&#x27;</span>,<span class="hljs-string">&#x27;住宅&#x27;</span>,<span class="hljs-string">&#x27;120&#x27;</span>,<span class="hljs-string">&#x27;113&#x27;</span>,<span class="hljs-string">&#x27;2009/6/6&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;D&#x27;</span>,<span class="hljs-string">&#x27;浩华地产&#x27;</span>,<span class="hljs-string">&#x27;雅居乐锦尚雅宸&#x27;</span>,<span class="hljs-string">&#x27;深圳&#x27;</span>,<span class="hljs-string">&#x27;深圳&#x27;</span>,<span class="hljs-string">&#x27;别墅&#x27;</span>,<span class="hljs-string">&#x27;450&#x27;</span>,<span class="hljs-string">&#x27;423&#x27;</span>,<span class="hljs-string">&#x27;2019/11/2&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;E&#x27;</span>,<span class="hljs-string">&#x27;承泰国际&#x27;</span>,<span class="hljs-string">&#x27;蓝光未来&#x27;</span>,<span class="hljs-string">&#x27;成都&#x27;</span>,<span class="hljs-string">&#x27;成都&#x27;</span>,<span class="hljs-string">&#x27;车位&#x27;</span>,<span class="hljs-string">&#x27;20&#x27;</span>,<span class="hljs-string">&#x27;15&#x27;</span>,<span class="hljs-string">&#x27;2016/1/24&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;F&#x27;</span>,<span class="hljs-string">&#x27;浩华地产&#x27;</span>,<span class="hljs-string">&#x27;人居柏云庭&#x27;</span>,<span class="hljs-string">&#x27;成都&#x27;</span>,<span class="hljs-string">&#x27;成都&#x27;</span>,<span class="hljs-string">&#x27;住宅&#x27;</span>,<span class="hljs-string">&#x27;260&#x27;</span>,<span class="hljs-string">&#x27;232&#x27;</span>,<span class="hljs-string">&#x27;2020/6/11&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;G&#x27;</span>,<span class="hljs-string">&#x27;万达国际&#x27;</span>,<span class="hljs-string">&#x27;荣海乐府&#x27;</span>,<span class="hljs-string">&#x27;南昌&#x27;</span>,<span class="hljs-string">&#x27;南昌&#x27;</span>,<span class="hljs-string">&#x27;商铺&#x27;</span>,<span class="hljs-string">&#x27;190&#x27;</span>,<span class="hljs-string">&#x27;172&#x27;</span>,<span class="hljs-string">&#x27;2020/3/23&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;H&#x27;</span>,<span class="hljs-string">&#x27;东山府第&#x27;</span>,<span class="hljs-string">&#x27;朗诗·峰境&#x27;</span>,<span class="hljs-string">&#x27;苏州&#x27;</span>,<span class="hljs-string">&#x27;苏州&#x27;</span>,<span class="hljs-string">&#x27;商铺&#x27;</span>,<span class="hljs-string">&#x27;200&#x27;</span>,<span class="hljs-string">&#x27;183&#x27;</span>,<span class="hljs-string">&#x27;2017/6/13&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;I&#x27;</span>,<span class="hljs-string">&#x27;承泰国际&#x27;</span>,<span class="hljs-string">&#x27;皇都花圃&#x27;</span>,<span class="hljs-string">&#x27;北京&#x27;</span>,<span class="hljs-string">&#x27;北京&#x27;</span>,<span class="hljs-string">&#x27;住宅&#x27;</span>,<span class="hljs-string">&#x27;360&#x27;</span>,<span class="hljs-string">&#x27;300&#x27;</span>,<span class="hljs-string">&#x27;2000/10/16&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;J&#x27;</span>,<span class="hljs-string">&#x27;东山府第&#x27;</span>,<span class="hljs-string">&#x27;红叶别墅&#x27;</span>,<span class="hljs-string">&#x27;广州&#x27;</span>,<span class="hljs-string">&#x27;广州&#x27;</span>,<span class="hljs-string">&#x27;住宅&#x27;</span>,<span class="hljs-string">&#x27;150&#x27;</span>,<span class="hljs-string">&#x27;130&#x27;</span>,<span class="hljs-string">&#x27;2003/3/16&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;K&#x27;</span>,<span class="hljs-string">&#x27;浩华地产&#x27;</span>,<span class="hljs-string">&#x27;锦灏佳园&#x27;</span>,<span class="hljs-string">&#x27;杭州&#x27;</span>,<span class="hljs-string">&#x27;杭州&#x27;</span>,<span class="hljs-string">&#x27;住宅&#x27;</span>,<span class="hljs-string">&#x27;162&#x27;</span>,<span class="hljs-string">&#x27;131&#x27;</span>,<span class="hljs-string">&#x27;2008/2/13&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;L&#x27;</span>,<span class="hljs-string">&#x27;东山府第&#x27;</span>,<span class="hljs-string">&#x27;云间水庄二期&#x27;</span>,<span class="hljs-string">&#x27;上海&#x27;</span>,<span class="hljs-string">&#x27;上海&#x27;</span>,<span class="hljs-string">&#x27;别墅&#x27;</span>,<span class="hljs-string">&#x27;500&#x27;</span>,<span class="hljs-string">&#x27;450&#x27;</span>,<span class="hljs-string">&#x27;2019/3/18&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;M&#x27;</span>,<span class="hljs-string">&#x27;承泰国际&#x27;</span>,<span class="hljs-string">&#x27; 静安雅筑&#x27;</span>,<span class="hljs-string">&#x27;北京&#x27;</span>,<span class="hljs-string">&#x27;北京&#x27;</span>,<span class="hljs-string">&#x27;商铺&#x27;</span>,<span class="hljs-string">&#x27;200&#x27;</span>,<span class="hljs-string">&#x27;150&#x27;</span>,<span class="hljs-string">&#x27;2018/1/26&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;N&#x27;</span>,<span class="hljs-string">&#x27;万达国际&#x27;</span>,<span class="hljs-string">&#x27; 学苑风仪&#x27;</span>,<span class="hljs-string">&#x27;深圳&#x27;</span>,<span class="hljs-string">&#x27;深圳&#x27;</span>,<span class="hljs-string">&#x27;商铺&#x27;</span>,<span class="hljs-string">&#x27;200&#x27;</span>,<span class="hljs-string">&#x27;170&#x27;</span>,<span class="hljs-string">&#x27;2016/11/3&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;浩华地产&#x27;</span>,<span class="hljs-string">&#x27;九歌花圃&#x27;</span>,<span class="hljs-string">&#x27;德阳&#x27;</span>,<span class="hljs-string">&#x27;德阳&#x27;</span>,<span class="hljs-string">&#x27;住宅&#x27;</span>,<span class="hljs-string">&#x27;136&#x27;</span>,<span class="hljs-string">&#x27;120&#x27;</span>,<span class="hljs-string">&#x27;2017/2/26&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Estate&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;P&#x27;</span>,<span class="hljs-string">&#x27;承泰国际&#x27;</span>,<span class="hljs-string">&#x27;公寓枫情&#x27;</span>,<span class="hljs-string">&#x27;天津&#x27;</span>,<span class="hljs-string">&#x27;天津&#x27;</span>,<span class="hljs-string">&#x27;商铺&#x27;</span>,<span class="hljs-string">&#x27;200&#x27;</span>,<span class="hljs-string">&#x27;190&#x27;</span>,<span class="hljs-string">&#x27;2017/1/7&#x27;</span>,<span class="hljs-string">&#x27;70&#x27;</span>,<span class="hljs-keyword">NULL</span>);<br><span class="hljs-comment">--完善Register表：</span><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;1&#x27;</span>,<span class="hljs-string">&#x27;510722200011268436&#x27;</span>,<span class="hljs-string">&#x27;A&#x27;</span>,<span class="hljs-string">&#x27;1325232&#x27;</span>,<span class="hljs-string">&#x27;2019/6/12&#x27;</span>,<span class="hljs-string">&#x27;2020/1/12&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;2&#x27;</span>,<span class="hljs-string">&#x27;110221200301012836&#x27;</span>,<span class="hljs-string">&#x27;B&#x27;</span>,<span class="hljs-string">&#x27;122136987&#x27;</span>,<span class="hljs-string">&#x27;2016/11/30&#x27;</span>,<span class="hljs-string">&#x27;2017/6/19&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;3&#x27;</span>,<span class="hljs-string">&#x27;370503198904032299&#x27;</span>,<span class="hljs-string">&#x27;C&#x27;</span>,<span class="hljs-string">&#x27;3266954&#x27;</span>,<span class="hljs-string">&#x27;2009/1/23&#x27;</span>,<span class="hljs-string">&#x27;2010/3/6&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;4&#x27;</span>,<span class="hljs-string">&#x27;440402199804078098&#x27;</span>,<span class="hljs-string">&#x27;D&#x27;</span>,<span class="hljs-string">&#x27;31146252&#x27;</span>,<span class="hljs-string">&#x27;2019/1/20&#x27;</span>,<span class="hljs-string">&#x27;2019/12/12&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;5&#x27;</span>,<span class="hljs-string">&#x27;120223199401018302&#x27;</span>,<span class="hljs-string">&#x27;E&#x27;</span>,<span class="hljs-string">&#x27;126952&#x27;</span>,<span class="hljs-string">&#x27;2016/2/24&#x27;</span>,<span class="hljs-string">&#x27;2016/4/15&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;6&#x27;</span>,<span class="hljs-string">&#x27;110221200301012617&#x27;</span>,<span class="hljs-string">&#x27;F&#x27;</span>,<span class="hljs-string">&#x27;3632542&#x27;</span>,<span class="hljs-string">&#x27;2020/12/18&#x27;</span>,<span class="hljs-string">&#x27;2021/3/16&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;7&#x27;</span>,<span class="hljs-string">&#x27;360103199103012782&#x27;</span>,<span class="hljs-string">&#x27;G&#x27;</span>,<span class="hljs-string">&#x27;1236024&#x27;</span>,<span class="hljs-string">&#x27;2019/9/12&#x27;</span>,<span class="hljs-string">&#x27;2020/6/12&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;8&#x27;</span>,<span class="hljs-string">&#x27;320582199905175153&#x27;</span>,<span class="hljs-string">&#x27;H&#x27;</span>,<span class="hljs-string">&#x27;2999634&#x27;</span>,<span class="hljs-string">&#x27;2017/8/17&#x27;</span>,<span class="hljs-string">&#x27;2017/12/13&#x27;</span>);<br><br><span class="hljs-comment">--选择商铺项</span><br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">FROM</span> &quot;Estate&quot;<br><span class="hljs-keyword">WHERE</span> &quot;EstateType&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;商铺&#x27;</span>;<br><br><span class="hljs-comment">--竣工日期2018/12/1之后，产权面积大于90平方米的住宅的房产信息</span><br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">FROM</span> &quot;Estate&quot;<br><span class="hljs-keyword">WHERE</span> &quot;CompletedDate&quot;<span class="hljs-operator">&gt;=</span><span class="hljs-string">&#x27;2018/12/1&#x27;</span> <span class="hljs-keyword">AND</span> &quot;ProPertyArea&quot;<span class="hljs-operator">&gt;</span><span class="hljs-string">&#x27;90&#x27;</span> <span class="hljs-keyword">AND</span> &quot;EstateType&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;住宅&#x27;</span>;<br><br><span class="hljs-comment">--为了体现一人多套房产，我们对表Registration添加如下内容</span><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;9&#x27;</span>,<span class="hljs-string">&#x27;510722200011268436&#x27;</span>,<span class="hljs-string">&#x27;I&#x27;</span>,<span class="hljs-string">&#x27;97523621&#x27;</span>,<span class="hljs-string">&#x27;2000/12/12&#x27;</span>,<span class="hljs-string">&#x27;2001/9/13&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;10&#x27;</span>,<span class="hljs-string">&#x27;120223199401018302&#x27;</span>,<span class="hljs-string">&#x27;J&#x27;</span>,<span class="hljs-string">&#x27;3256564&#x27;</span>,<span class="hljs-string">&#x27;2001/12/25&#x27;</span>,<span class="hljs-string">&#x27;2003/11/26&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;11&#x27;</span>,<span class="hljs-string">&#x27;510722200011268436&#x27;</span>,<span class="hljs-string">&#x27;K&#x27;</span>,<span class="hljs-string">&#x27;3565346&#x27;</span>,<span class="hljs-string">&#x27;2007/9/30&#x27;</span>,<span class="hljs-string">&#x27;2008/12/3&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;12&#x27;</span>,<span class="hljs-string">&#x27;440402199804078098&#x27;</span>,<span class="hljs-string">&#x27;L&#x27;</span>,<span class="hljs-string">&#x27;96236565&#x27;</span>,<span class="hljs-string">&#x27;2016/6/30&#x27;</span>,<span class="hljs-string">&#x27;2019/9/8&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;13&#x27;</span>,<span class="hljs-string">&#x27;440402199804078098&#x27;</span>,<span class="hljs-string">&#x27;M&#x27;</span>,<span class="hljs-string">&#x27;22132321&#x27;</span>,<span class="hljs-string">&#x27;2018/9/17&#x27;</span>,<span class="hljs-string">&#x27;2018/11/4&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;14&#x27;</span>,<span class="hljs-string">&#x27;440402199804078098&#x27;</span>,<span class="hljs-string">&#x27;N&#x27;</span>,<span class="hljs-string">&#x27;13326465&#x27;</span>,<span class="hljs-string">&#x27;2014/1/1&#x27;</span>,<span class="hljs-string">&#x27;2016/12/30&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;15&#x27;</span>,<span class="hljs-string">&#x27;440402199804078098&#x27;</span>,<span class="hljs-string">&#x27;O&#x27;</span>,<span class="hljs-string">&#x27;1296357&#x27;</span>,<span class="hljs-string">&#x27;2016/1/3&#x27;</span>,<span class="hljs-string">&#x27;2017/6/8&#x27;</span>);<br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> &quot;Registration&quot; <span class="hljs-keyword">VALUES</span>(<span class="hljs-string">&#x27;16&#x27;</span>,<span class="hljs-string">&#x27;370503198904032299&#x27;</span>,<span class="hljs-string">&#x27;P&#x27;</span>,<span class="hljs-string">&#x27;9615362&#x27;</span>,<span class="hljs-string">&#x27;2016/9/16&#x27;</span>,<span class="hljs-string">&#x27;2017/8/19&#x27;</span>);<br><br><span class="hljs-comment">--查询个人在各地购买住宅两套以上的业主信息。</span><br><span class="hljs-keyword">SELECT</span> A.&quot;PersonID&quot; <span class="hljs-keyword">AS</span> 身份证号,A.&quot;Name&quot; <span class="hljs-keyword">AS</span> 名字,A.&quot;Gender&quot; <span class="hljs-keyword">AS</span> 性别,A.&quot;Occupation&quot; <span class="hljs-keyword">AS</span> 职业,A.&quot;Addr&quot; <span class="hljs-keyword">AS</span> 住址,A.&quot;Tel&quot; <span class="hljs-keyword">AS</span> 电话,<span class="hljs-built_in">COUNT</span>(A.&quot;PersonID&quot;) <span class="hljs-keyword">AS</span> 总套数<br><span class="hljs-keyword">FROM</span> &quot;Owner&quot; <span class="hljs-keyword">AS</span> A <span class="hljs-keyword">JOIN</span> &quot;Registration&quot; <span class="hljs-keyword">AS</span> B<br><span class="hljs-keyword">ON</span> A.&quot;PersonID&quot;<span class="hljs-operator">=</span>B.&quot;PersonID&quot;<br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> A.&quot;PersonID&quot;<br><span class="hljs-keyword">HAVING</span> <span class="hljs-built_in">COUNT</span>(A.&quot;PersonID&quot;)<span class="hljs-operator">&gt;=</span><span class="hljs-number">2</span>;<br><br><span class="hljs-comment">--查询个人在特定的城市购买住宅两套以上的业主的基本信息</span><br><span class="hljs-comment">--为了效果明显，我们修改数据</span><br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateCity&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;成都&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;C&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateCity&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;成都&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;G&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateCity&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;成都&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;O&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateCity&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;北京&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;D&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateCity&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;北京&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;L&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateCity&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;北京&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;P&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateAddr&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;成都&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;C&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateAddr&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;成都&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;G&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateAddr&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;成都&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;O&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateAddr&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;北京&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;D&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateAddr&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;北京&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;L&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateAddr&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;北京&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;P&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateCity&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;绵阳&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;K&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateAddr&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;绵阳&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;K&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateType&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;住宅&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;L&#x27;</span>;<br>UPDATE &quot;Estate&quot;<br><span class="hljs-keyword">SET</span> &quot;EstateType&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;住宅&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;M&#x27;</span>;<br><span class="hljs-comment">--查询</span><br><span class="hljs-keyword">SELECT</span> A.&quot;PersonID&quot; <span class="hljs-keyword">AS</span> 身份证号,A.&quot;Name&quot; <span class="hljs-keyword">AS</span> 名字,A.&quot;Gender&quot; <span class="hljs-keyword">AS</span> 性别,A.&quot;Occupation&quot; <span class="hljs-keyword">AS</span> 职业,A.&quot;Addr&quot; <span class="hljs-keyword">AS</span> 住址,A.&quot;Tel&quot; <span class="hljs-keyword">AS</span> 电话,<span class="hljs-built_in">COUNT</span>(A.&quot;PersonID&quot;) <span class="hljs-keyword">AS</span> 总套数<br><span class="hljs-keyword">FROM</span> &quot;Owner&quot; <span class="hljs-keyword">AS</span> A <span class="hljs-keyword">JOIN</span> &quot;Registration&quot; <span class="hljs-keyword">AS</span> B<br><span class="hljs-keyword">ON</span> A.&quot;PersonID&quot;<span class="hljs-operator">=</span>B.&quot;PersonID&quot; <br><span class="hljs-keyword">JOIN</span> &quot;Estate&quot; <span class="hljs-keyword">AS</span> C <span class="hljs-keyword">ON</span> B.&quot;EstateID&quot;<span class="hljs-operator">=</span>C.&quot;EstateID&quot;<br><span class="hljs-keyword">WHERE</span> C.&quot;EstateType&quot;<span class="hljs-operator">=</span><span class="hljs-string">&#x27;住宅&#x27;</span><br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> C.&quot;EstateCity&quot;,A.&quot;PersonID&quot;<br><span class="hljs-keyword">HAVING</span> <span class="hljs-built_in">COUNT</span>(A.&quot;PersonID&quot;)<span class="hljs-operator">&gt;=</span><span class="hljs-number">2</span>;<br><br><span class="hljs-comment">--统计2018年度某城市各类房产销售面积</span><br><span class="hljs-comment">--为了效果明显，我们改一些购买日期</span><br>UPDATE &quot;Registration&quot;<br><span class="hljs-keyword">SET</span> &quot;PurchasedDate&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;2018/7/03&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;B&#x27;</span>;<br>UPDATE &quot;Registration&quot;<br><span class="hljs-keyword">SET</span> &quot;PurchasedDate&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;2018/6/13&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;D&#x27;</span>;<br>UPDATE &quot;Registration&quot;<br><span class="hljs-keyword">SET</span> &quot;PurchasedDate&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;2018/4/06&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;G&#x27;</span>;<br>UPDATE &quot;Registration&quot;<br><span class="hljs-keyword">SET</span> &quot;PurchasedDate&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;2018/3/30&#x27;</span><br><span class="hljs-keyword">WHERE</span> &quot;EstateID&quot; <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;P&#x27;</span>;<br><span class="hljs-keyword">SELECT</span> &quot;EstateType&quot; <span class="hljs-keyword">AS</span> 房产类型,<span class="hljs-built_in">SUM</span>(&quot;ProPertyArea&quot;) <span class="hljs-keyword">AS</span> 销售面积之和<br><span class="hljs-keyword">FROM</span> &quot;Estate&quot; <span class="hljs-keyword">AS</span> A <span class="hljs-keyword">JOIN</span> &quot;Registration&quot; <span class="hljs-keyword">AS</span> B<br><span class="hljs-keyword">ON</span> A.&quot;EstateID&quot;<span class="hljs-operator">=</span>B.&quot;EstateID&quot;<br><span class="hljs-keyword">WHERE</span> B.&quot;PurchasedDate&quot; <span class="hljs-keyword">BETWEEN</span> <span class="hljs-string">&#x27;2018/01/01&#x27;</span> <span class="hljs-keyword">AND</span> <span class="hljs-string">&#x27;2018/12/30&#x27;</span><br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> &quot;EstateType&quot;;<br><br><span class="hljs-comment">--统计2018年度某城市各类房产销售金额</span><br><span class="hljs-comment">--方案一：</span><br><span class="hljs-keyword">SELECT</span> &quot;EstateType&quot; <span class="hljs-keyword">AS</span> 房产类型,<span class="hljs-built_in">SUM</span>(&quot;Price&quot;) <span class="hljs-keyword">AS</span> 销售金额之和<br><span class="hljs-keyword">FROM</span> &quot;Estate&quot;,&quot;Registration&quot;<br><span class="hljs-keyword">WHERE</span> &quot;Estate&quot;.&quot;EstateID&quot;<span class="hljs-operator">=</span>&quot;Registration&quot;.&quot;EstateID&quot;  <span class="hljs-keyword">AND</span>  &quot;Registration&quot;.&quot;PurchasedDate&quot; <span class="hljs-keyword">BETWEEN</span> <span class="hljs-string">&#x27;2018/01/01&#x27;</span> <span class="hljs-keyword">AND</span> <span class="hljs-string">&#x27;2018/12/30&#x27;</span><br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> &quot;EstateType&quot;;<br><span class="hljs-comment">--方案二：</span><br><span class="hljs-keyword">SELECT</span> &quot;EstateType&quot; <span class="hljs-keyword">AS</span> 房产类型,<span class="hljs-built_in">SUM</span>(&quot;Price&quot;) <span class="hljs-keyword">AS</span> 销售金额之和<br><span class="hljs-keyword">FROM</span> &quot;Estate&quot; <span class="hljs-keyword">AS</span> A <span class="hljs-keyword">JOIN</span> &quot;Registration&quot; <span class="hljs-keyword">AS</span> B<br><span class="hljs-keyword">ON</span> A.&quot;EstateID&quot;<span class="hljs-operator">=</span>B.&quot;EstateID&quot;<br><span class="hljs-keyword">WHERE</span> B.&quot;PurchasedDate&quot; <span class="hljs-keyword">BETWEEN</span> <span class="hljs-string">&#x27;2018/01/01&#x27;</span> <span class="hljs-keyword">AND</span> <span class="hljs-string">&#x27;2018/12/30&#x27;</span><br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> &quot;EstateType&quot;;<br><br><span class="hljs-comment">--视图一</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">VIEW</span> &quot;View_One&quot; <span class="hljs-keyword">AS</span><br><span class="hljs-keyword">SELECT</span> A.&quot;PersonID&quot; <span class="hljs-keyword">AS</span> &quot;身份证号&quot;,A.&quot;EstateID&quot; <span class="hljs-keyword">AS</span> &quot;房产编号&quot;,A.&quot;EstateName&quot; <span class="hljs-keyword">AS</span> &quot;房产名称&quot;,A.&quot;EstateType&quot; <span class="hljs-keyword">AS</span> &quot;房产类型&quot;,A.&quot;ProPertyArea&quot; <span class="hljs-keyword">AS</span> &quot;产权面积&quot;,B.&quot;Price&quot; <span class="hljs-keyword">AS</span> &quot;购买金额&quot;,B.&quot;PurchasedDate&quot; <span class="hljs-keyword">AS</span> &quot;购买日期&quot;,&quot;EstateBuildName&quot; <span class="hljs-keyword">AS</span> &quot;房产楼盘&quot;,&quot;EstateAddr&quot; <span class="hljs-keyword">AS</span> &quot;房产城市&quot;<br><span class="hljs-keyword">FROM</span> &quot;Estate&quot; <span class="hljs-keyword">AS</span> A <span class="hljs-keyword">JOIN</span>&quot;Registration&quot; <span class="hljs-keyword">AS</span> B <br><span class="hljs-keyword">ON</span> A.&quot;EstateID&quot;<span class="hljs-operator">=</span>B.&quot;EstateID&quot;;<br><br><span class="hljs-keyword">SELECT</span> &quot;房产编号&quot;,&quot;房产名称&quot;,&quot;房产类型&quot;,&quot;产权面积&quot;,&quot;购买金额&quot;,&quot;购买日期&quot;,&quot;房产楼盘&quot;,&quot;房产城市&quot;<br><span class="hljs-keyword">FROM</span> &quot;View_One&quot;<br><span class="hljs-keyword">WHERE</span> 身份证号 <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;510722200011268436&#x27;</span><br><span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> 购买日期 <span class="hljs-keyword">DESC</span>;<br><br><span class="hljs-comment">--统计2018年各个城市销售总套数/总金额</span><br><span class="hljs-comment">--统计</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">VIEW</span> &quot;View_Two&quot; <span class="hljs-keyword">AS</span><br><span class="hljs-keyword">SELECT</span> A.&quot;EstateCity&quot; <span class="hljs-keyword">AS</span> 城市,<span class="hljs-built_in">SUM</span>(B.&quot;Price&quot;) <span class="hljs-keyword">AS</span> 总金额,<span class="hljs-built_in">COUNT</span>(A.&quot;EstateCity&quot;) <span class="hljs-keyword">AS</span> 总套数<br><span class="hljs-keyword">FROM</span> &quot;Estate&quot; <span class="hljs-keyword">AS</span> A <span class="hljs-keyword">JOIN</span> &quot;Registration&quot; <span class="hljs-keyword">AS</span> B<br><span class="hljs-keyword">ON</span> A.&quot;EstateID&quot;<span class="hljs-operator">=</span>B.&quot;EstateID&quot;<br><span class="hljs-keyword">WHERE</span> B.&quot;PurchasedDate&quot; <span class="hljs-keyword">BETWEEN</span> <span class="hljs-string">&#x27;2018/01/01&#x27;</span> <span class="hljs-keyword">AND</span> <span class="hljs-string">&#x27;2018/12/30&#x27;</span><br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> A.&quot;EstateCity&quot;<br></code></pre></td></tr></table></figure>
+
+<p><strong>注意：本人认真写的数据库作业，但是我其实也不确定有没有错的，看的人参考就好，哈哈。</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%AD%94%E6%A1%88/">答案</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    灯火阑珊
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/02/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A08/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CSS布局定位</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0/">
+                        <span class="hidden-mobile">数据库笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark-orange';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhangjialin996/comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" lazyload class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-love" style="color: #8080ff"></i> <i class="iconfont icon-love" style="color: red"></i> <i class="iconfont icon-love" style="color: #8080ff"></i> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e71cddb60357a788e6ed79bca37db76d";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

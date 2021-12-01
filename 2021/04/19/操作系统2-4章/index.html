@@ -1,0 +1,2905 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
+  <link rel="icon" href="/img/insert2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="我的博客">
+  <meta name="description" content="教材：《计算机操作系统》（第四版） 汤子丹等 Linux进程控制进程创建UNIX&#x2F;Linux中创建进程的方式： ①在shell中执行命令或可执行文件  由shell进程调用fork函数创建子进程  ②在代码中（已经存在的进程中）调用fork 函数创建子进程  fork创建的进程为子进程 原进程为父进程  拓展：Linux 操作系统下的进程与线程相同点是都有进程控制块(Process Control">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统2-4章部分笔记">
+<meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/2021/04/19/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F2-4%E7%AB%A0/index.html">
+<meta property="og:site_name" content="Mike Taylor">
+<meta property="og:description" content="教材：《计算机操作系统》（第四版） 汤子丹等 Linux进程控制进程创建UNIX&#x2F;Linux中创建进程的方式： ①在shell中执行命令或可执行文件  由shell进程调用fork函数创建子进程  ②在代码中（已经存在的进程中）调用fork 函数创建子进程  fork创建的进程为子进程 原进程为父进程  拓展：Linux 操作系统下的进程与线程相同点是都有进程控制块(Process Control">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/17/c5u0zT.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/18/cI8QIg.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/18/cIJJbV.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/coVqHA.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/coZJC6.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/coQT0S.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/coKgBD.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/coKj4s.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/coMt2t.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/coMgx0.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/coQnij.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/cojjTe.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/cT99qx.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/cTFiXd.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/cTFP6H.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/cTUVQe.jpg">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/cTarNt.jpg">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/19/cTwrSf.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/20/cHMcXq.jpg">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/20/cHR9Re.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/20/cHfcxe.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/20/cHf2KH.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/20/cHfy8O.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/20/cHfsPK.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/21/cHhlsH.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/21/cH4X40.jpg">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/21/cH4vCV.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/21/cbmHED.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/21/cbmbUe.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/21/cbR0ud.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/21/cbWJqs.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/21/cbfLnJ.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/21/cbT5N9.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/21/cb7BDO.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/04/27/gCf0HI.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RMwS9H.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RMwIVf.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RMfBSx.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RMT3lR.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RMTb7T.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RMH0sI.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RMbt00.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RMqegJ.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RMOdtf.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RMOHBR.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RMXRrd.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RMjj6e.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RMxxII.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQSPt1.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQnJTx.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQnHA0.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQKOOJ.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQMuff.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQ1PpV.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQ1Q1K.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQGkX8.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQYgSI.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQtPpR.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQtbUe.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQNPUg.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQNtr6.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQNHs0.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQauh4.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQdQIS.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQdaZV.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQdLeP.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQdbLt.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQwPLq.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQwOXR.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQ0i1H.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQBwIf.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQDMOs.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQD6fO.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQDytK.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQrybn.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQsXoq.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQsOwn.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQy3TI.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQWnpt.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQf02t.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQhNLT.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/24/RQhtyV.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/25/Rl2AOS.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/25/Rl2qts.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/25/RlRnBD.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/25/RlRmnO.png">
+<meta property="article:published_time" content="2021-04-19T02:01:39.000Z">
+<meta property="article:modified_time" content="2021-11-22T07:45:19.296Z">
+<meta property="article:author" content="Mike Taylor">
+<meta property="article:tag" content="考试">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://z3.ax1x.com/2021/04/17/c5u0zT.png">
+  
+  <title>操作系统2-4章部分笔记 - Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":100,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e71cddb60357a788e6ed79bca37db76d","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mike Taylor&#39;s</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/p12.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="操作系统2-4章部分笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-19 10:01" pubdate>
+        2021年4月19日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      56k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      282 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">操作系统2-4章部分笔记</h1>
+            
+            <div class="markdown-body">
+              <p>教材：《计算机操作系统》（第四版） 汤子丹等</p>
+<h2 id="Linux进程控制"><a href="#Linux进程控制" class="headerlink" title="Linux进程控制"></a>Linux进程控制</h2><h3 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h3><p>UNIX/Linux中创建进程的方式：</p>
+<p>①在shell中执行命令或可执行文件</p>
+<ul>
+<li>由shell进程调用fork函数创建子进程</li>
+</ul>
+<p>②在代码中（已经存在的进程中）调用fork 函数创建子进程</p>
+<ul>
+<li>fork创建的进程为子进程</li>
+<li>原进程为父进程</li>
+</ul>
+<p>拓展：Linux 操作系统下的进程与线程相同点是都有进程控制块(Process Control Block，PCB)， 具体的类是 task_struct，区别在于一个是独立的进程资源，一个是共享的进程资源。内核线 程完全没有用户空间，进程资源包括进程的 PCB、线程的系统堆栈、进程的用户空间、进程 打开的设备(文件描述符表)等。<br>Linux 用户进程不能直接被创建，因为不存在这样的 API，它只能从某个进程中复制，有 的需要通过 exec 这样的 API 来切换到实际想要运行的程序文件。<br>复制 API 包括 3 种:fork、clone、vfork。<br>在 Linux 源代码中，这 3 个函数的执行过程是执行 fork、clone、vfork 时，通过一个系统 调用表映射到sys_fork、sys_clone、sys_vfork，再在这 3 个函数中调用 do_fork 做具体的创建 进程工作。这 3 个 API 的内部实际都是调用一个内核内部函数do_fork，只是填写的参数不 同而已。 </p>
+<ul>
+<li>Linux系统中，进程0（PID=0）是由内核创建，其他所有进程都是由父进程调用fork函数创建的。</li>
+<li>Linux系统中进程0在创建子进程（PID=1，init进程）后，进程0就转为交换进程，或者空闲状态。</li>
+<li>进程1（init进程）是系统中其他所有进程的共同祖先。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">user</span>@<span class="hljs-keyword">user</span>-virtual-machine:~$ pstree<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><code class="hljs linux">systemd─┬─ManagementAgent───6*[&#123;ManagementAgent&#125;]<br>        ├─ModemManager───2*[&#123;ModemManager&#125;]<br>        ├─NetworkManager─┬─dhclient<br>        │                └─2*[&#123;NetworkManager&#125;]<br>        ├─VGAuthService<br>        ├─accounts-daemon───2*[&#123;accounts-daemon&#125;]<br>        ├─acpid<br>        ├─avahi-daemon───avahi-daemon<br>        ├─boltd───2*[&#123;boltd&#125;]<br>        ├─colord───2*[&#123;colord&#125;]<br>        ├─cron<br>        ├─cups-browsed───2*[&#123;cups-browsed&#125;]<br>        ├─cupsd<br>        ├─dbus-daemon<br>        ├─fwupd───4*[&#123;fwupd&#125;]<br>        ├─gdm3─┬─gdm-session-wor─┬─gdm-wayland-ses─┬─gnome-session-b─┬─gnome-sh+<br>        │      │                 │                 │                 ├─gsd-a11y+<br>        │      │                 │                 │                 ├─gsd-clip+<br>        │      │                 │                 │                 ├─gsd-colo+<br>        │      │                 │                 │                 ├─gsd-date+<br>        │      │                 │                 │                 ├─gsd-hous+<br>        │      │                 │                 │                 ├─gsd-keyb+<br>        │      │                 │                 │                 ├─gsd-medi+<br>        │      │                 │                 │                 ├─gsd-mous+<br>        │      │                 │                 │                 ├─gsd-powe+<br>        │      │                 │                 │                 ├─gsd-prin+<br>        │      │                 │                 │                 ├─gsd-rfki+<br>        │      │                 │                 │                 ├─gsd-scre+<br>        │      │                 │                 │                 ├─gsd-shar+<br>        │      │                 │                 │                 ├─gsd-smar+<br>        │      │                 │                 │                 ├─gsd-soun+<br>        │      │                 │                 │                 ├─gsd-waco+<br>        │      │                 │                 │                 ├─gsd-xset+<br>        │      │                 │                 │                 └─3*[&#123;gnom+<br>        │      │                 │                 └─2*[&#123;gdm-wayland-ses&#125;]<br>        │      │                 └─2*[&#123;gdm-session-wor&#125;]<br>        │      ├─gdm-session-wor─┬─gdm-x-session─┬─Xorg───&#123;Xorg&#125;<br>        │      │                 │               ├─gnome-session-b─┬─deja-dup-m+<br>        │      │                 │               │                 ├─gnome-shel+<br>        │      │                 │               │                 ├─gnome-soft+<br>        │      │                 │               │                 ├─gsd-a11y-s+<br>        │      │                 │               │                 ├─gsd-clipbo+<br>        │      │                 │               │                 ├─gsd-color─+++<br>        │      │                 │               │                 ├─gsd-dateti+<br>        │      │                 │               │                 ├─gsd-disk-u+<br>        │      │                 │               │                 ├─gsd-housek+<br>        │      │                 │               │                 ├─gsd-keyboa+<br>        │      │                 │               │                 ├─gsd-media-+<br>        │      │                 │               │                 ├─gsd-mouse─+++<br>        │      │                 │               │                 ├─gsd-power─+++<br>        │      │                 │               │                 ├─gsd-print-+<br>        │      │                 │               │                 ├─gsd-rfkill+++<br>        │      │                 │               │                 ├─gsd-screen+<br>        │      │                 │               │                 ├─gsd-sharin+<br>        │      │                 │               │                 ├─gsd-smartc+<br>        │      │                 │               │                 ├─gsd-sound─+++<br>        │      │                 │               │                 ├─gsd-wacom─+++<br>        │      │                 │               │                 ├─gsd-xsetti+<br>        │      │                 │               │                 ├─nautilus-d+<br>        │      │                 │               │                 ├─ssh-agent<br>        │      │                 │               │                 ├─update-not+<br>        │      │                 │               │                 └─3*[&#123;gnome-+<br>        │      │                 │               └─2*[&#123;gdm-x-session&#125;]<br>        │      │                 └─2*[&#123;gdm-session-wor&#125;]<br>        │      └─2*[&#123;gdm3&#125;]<br>        ├─gnome-keyring-d───3*[&#123;gnome-keyring-d&#125;]<br>        ├─gsd-printer───2*[&#123;gsd-printer&#125;]<br>        ├─2*[ibus-x11───2*[&#123;ibus-x11&#125;]]<br>        ├─irqbalance───&#123;irqbalance&#125;<br>        ├─2*[kerneloops]<br>        ├─networkd-dispat───&#123;networkd-dispat&#125;<br>        ├─packagekitd───2*[&#123;packagekitd&#125;]<br>        ├─polkitd───2*[&#123;polkitd&#125;]<br>        ├─pulseaudio───2*[&#123;pulseaudio&#125;]<br>        ├─rsyslogd───3*[&#123;rsyslogd&#125;]<br>        ├─rtkit-daemon───2*[&#123;rtkit-daemon&#125;]<br>        ├─snapd───18*[&#123;snapd&#125;]<br>        ├─systemd─┬─(sd-pam)<br>        │         ├─at-spi-bus-laun─┬─dbus-daemon<br>        │         │                 └─3*[&#123;at-spi-bus-laun&#125;]<br>        │         ├─at-spi2-registr───2*[&#123;at-spi2-registr&#125;]<br>        │         ├─dbus-daemon<br>        │         ├─ibus-portal───2*[&#123;ibus-portal&#125;]<br>        │         ├─pulseaudio───2*[&#123;pulseaudio&#125;]<br>        │         └─xdg-permission-───2*[&#123;xdg-permission-&#125;]<br>        ├─systemd─┬─(sd-pam)<br>        │         ├─at-spi-bus-laun─┬─dbus-daemon<br>        │         │                 └─3*[&#123;at-spi-bus-laun&#125;]<br>        │         ├─at-spi2-registr───2*[&#123;at-spi2-registr&#125;]<br>        │         ├─dbus-daemon<br>        │         ├─dconf-service───2*[&#123;dconf-service&#125;]<br>        │         ├─evolution-addre─┬─evolution-addre───5*[&#123;evolution-addre&#125;]<br>        │         │                 └─4*[&#123;evolution-addre&#125;]<br>        │         ├─evolution-calen─┬─evolution-calen───8*[&#123;evolution-calen&#125;]<br>        │         │                 └─4*[&#123;evolution-calen&#125;]<br>        │         ├─evolution-sourc───3*[&#123;evolution-sourc&#125;]<br>        │         ├─gnome-shell-cal───5*[&#123;gnome-shell-cal&#125;]<br>        │         ├─gnome-terminal-─┬─bash───pstree<br>        │         │                 └─3*[&#123;gnome-terminal-&#125;]<br>        │         ├─goa-daemon───3*[&#123;goa-daemon&#125;]<br>        │         ├─goa-identity-se───3*[&#123;goa-identity-se&#125;]<br>        │         ├─gvfs-afc-volume───3*[&#123;gvfs-afc-volume&#125;]<br>        │         ├─gvfs-goa-volume───2*[&#123;gvfs-goa-volume&#125;]<br>        │         ├─gvfs-gphoto2-vo───2*[&#123;gvfs-gphoto2-vo&#125;]<br>        │         ├─gvfs-mtp-volume───2*[&#123;gvfs-mtp-volume&#125;]<br>        │         ├─gvfs-udisks2-vo───2*[&#123;gvfs-udisks2-vo&#125;]<br>        │         ├─gvfsd─┬─gvfsd-trash───2*[&#123;gvfsd-trash&#125;]<br>        │         │       └─2*[&#123;gvfsd&#125;]<br>        │         ├─gvfsd-fuse───5*[&#123;gvfsd-fuse&#125;]<br>        │         ├─gvfsd-metadata───2*[&#123;gvfsd-metadata&#125;]<br>        │         ├─ibus-portal───2*[&#123;ibus-portal&#125;]<br>        │         └─xdg-permission-───2*[&#123;xdg-permission-&#125;]<br>        ├─systemd-journal<br>        ├─systemd-logind<br>        ├─systemd-resolve<br>        ├─systemd-timesyn───&#123;systemd-timesyn&#125;<br>        ├─systemd-udevd<br>        ├─udisksd───4*[&#123;udisksd&#125;]<br>        ├─unattended-upgr───&#123;unattended-upgr&#125;<br>        ├─upowerd───2*[&#123;upowerd&#125;]<br>        ├─2*[vmtoolsd───&#123;vmtoolsd&#125;]<br>        ├─vmware-vmblock-───2*[&#123;vmware-vmblock-&#125;]<br>        ├─whoopsie───2*[&#123;whoopsie&#125;]<br>        └─wpa_supplicant<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="fork函数"><a href="#fork函数" class="headerlink" title="fork函数"></a>fork函数</h4><ul>
+<li>函数原型<ul>
+<li>头文件：unistd.h</li>
+<li>pid_t fork(void);</li>
+</ul>
+</li>
+<li>返回值<ul>
+<li>fork函数被正确调用后，将<strong>会在子进程和父进程中分别返回</strong><ul>
+<li><strong>子进程中返回值为0</strong>（不合法的PID，提示当前运行在子进程中）</li>
+<li><strong>父进程中返回值为子进程ID</strong>（让父进程掌握所创建子进程的ID号）</li>
+</ul>
+</li>
+<li>出错返回-1</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">user</span>@<span class="hljs-keyword">user</span>-virtual-machine:~/桌面$ vim create_process<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;pthread.h&gt;</span></span><br> <br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">pid_t</span> pid;<br>    pid=fork();<br>    <span class="hljs-keyword">if</span>(pid==<span class="hljs-number">-1</span>)<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;fork error\n&quot;</span>);<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(pid==<span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;The return value is %d\n&quot;</span>,pid);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;In child process!\n&quot;</span>);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;My pid is %d\n&quot;</span>,getpid());<br>     &#125;<br>    <span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;The return value is %d\n&quot;</span>,pid);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;In father process!\n&quot;</span>);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;My PID is %d\n&quot;</span>,getpid());<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">gcc create_process.<span class="hljs-keyword">c</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">./a.<span class="hljs-keyword">out</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">The <span class="hljs-keyword">return</span> value <span class="hljs-keyword">is</span> <span class="hljs-number">4948</span><br>In father process!<br>My PID <span class="hljs-keyword">is</span> <span class="hljs-number">4947</span><br>The <span class="hljs-keyword">return</span> value <span class="hljs-keyword">is</span> <span class="hljs-number">0</span><br>In child process!<br>My pid <span class="hljs-keyword">is</span> <span class="hljs-number">4948</span><br></code></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ul>
+<li><p>get_pid函数的意图很明显，就是找到一个pid分配给进程</p>
+</li>
+<li><p><strong>调用 fork的目的是复制自身，从而父、子进程能同时执行不同段的代码</strong></p>
+</li>
+<li><p>由于在复制时复制了父进程的堆栈段，所以两个进程都停留在fork函数中，等待返回。 <strong>因此fork函数会返回两次，一次是在父进程中返回，另一次是在子进程中返回，这两次的返回值是不一样的。</strong>(<strong>其实就相当于链表，进程形成了链表，父进程的fork函数返回的值指向子进程的进程id, 因为子进程没有子进程，所以其fork函数返回的值为0</strong> )</p>
+<ul>
+<li><a href="https://blog.csdn.net/wangww631/article/details/78413815?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161865084916780357262308%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=161865084916780357262308&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-1-78413815.first_rank_v2_pc_rank_v29&utm_term=fork%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E4%B8%A4%E6%AC%A1">参考</a></li>
+</ul>
+</li>
+<li><p><strong>fork只拷贝下一个要执行的代码到新的进程</strong></p>
+</li>
+</ul>
+<p>下面再来一段代码帮助理解</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">vim fork_process.<span class="hljs-keyword">c</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;errno.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;sys/types.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">int</span> a=<span class="hljs-number">5</span>,b=<span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">pid_t</span> pid;<br>    pid=fork();<br>    <span class="hljs-keyword">if</span>(pid==<span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-comment">// 如果返回的pid为0，在子进程中</span><br>        a=a<span class="hljs-number">-4</span>;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;In child process \nPID=[%d]\n&quot;</span>,pid);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Value of a:%d\nValue od b:%d\n&quot;</span>,a,b);<br>    &#125;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(pid&lt;<span class="hljs-number">0</span>)&#123;<br>        perror(<span class="hljs-string">&quot;fork&quot;</span>);<br>    &#125; <br>    <span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-comment">//父进程中获得子进程pid，大于0</span><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;In parent proccess\nPID=[%d]\n&quot;</span>,pid);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Value of a:%d\nValue of b:%d\n&quot;</span>,a,b);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">gcc fork_process.c<br>./<span class="hljs-selector-tag">a</span>.out<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">In</span> parent proccess<br><span class="hljs-attribute">PID</span>=[<span class="hljs-number">5479</span>]<br><span class="hljs-attribute">Value</span> of a:<span class="hljs-number">5</span><br><span class="hljs-attribute">Value</span> of b:<span class="hljs-number">2</span><br><span class="hljs-attribute">In</span> child process <br><span class="hljs-attribute">PID</span>=[<span class="hljs-number">0</span>]<br><span class="hljs-attribute">Value</span> of a:<span class="hljs-number">1</span><br><span class="hljs-attribute">Value</span> od b:<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="相关变量类型"><a href="#相关变量类型" class="headerlink" title="相关变量类型"></a>相关变量类型</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>数据类型</th>
+<th>函数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>信号量</td>
+<td>sem_t</td>
+<td>sem_init信号量初始化）、sem_wait（信号量值减一）、sem_post（信号量值加一）</td>
+</tr>
+<tr>
+<td>互斥量（线程）</td>
+<td>pthread_mutex_t</td>
+<td>pthread_mutex_init（互斥量初始化）<br />pthread_mutex_lock（互斥量加锁）<br />Pthread_mutex_trylock（尝试互斥量加锁）<br />pthread_mutex_unlock（互斥量解锁）</td>
+</tr>
+<tr>
+<td>线程和进程</td>
+<td>pthread_t（线程）pid_t（进程）</td>
+<td>pthread_create（创建线程）<br />fork（创建进程）<br />pthread_join（等待线程结束）<br />waitpid（停止目前进程的执行，直到有信号来到或子进程结束）</td>
+</tr>
+</tbody></table>
+<h3 id="进程的退出"><a href="#进程的退出" class="headerlink" title="进程的退出"></a>进程的退出</h3><p>Linux的退出方式分为正常退出和异常退出两种</p>
+<ul>
+<li>正常退出<ul>
+<li>在main函数里面执行return</li>
+<li>调用exit函数</li>
+<li>调用_exit函数，执行后立即将控制权交给内核</li>
+</ul>
+</li>
+<li>异常退出<ul>
+<li>调用abort函数</li>
+<li>进程收到某个信号，而该信号使程序终止</li>
+</ul>
+</li>
+<li>无论那种退出方式，系统最终都会执行内核中的同一代码。这段代码用来关闭进程所有已经打开的文件描述符，释放它所占用的内存和其他资源</li>
+</ul>
+<p>几种方式的区别：</p>
+<ul>
+<li>exit是一个函数，执行完后将控制权交给系统</li>
+<li>return是函数执行完后的返回。return执行完后把控制权交给调用函数</li>
+<li>exit是正常终止进程；abort是异常终止进程</li>
+<li>_exit执行后立即将控制权返回给内核；exit执行后要先执行一些清除操作，然后才将控制权交给内核<ul>
+<li>exit函数在调用exit系统前要检查文件打开情况，把文件缓冲区的内容写回文件</li>
+<li>由于 Linux 的标准函数库中有一种被称作“缓冲 I/O” 的操作，其特征就是<strong>对应每一个打开的文件，在内存中都有一片缓冲区</strong>。<strong>每次读文件时，会 连续地读取若干条记录，这样在下次读取文件时就可以直接从内存的缓冲区读取;同样，每 次写文件的时候也仅仅是写入内存的缓冲区，等满足了一定的条件(如达到一定数量或遇到 特定字符等)，再将缓冲区中的内容一次性写入文件</strong>。这种技术大大增加了文件读/写的速度， 但也给编程带来了一点麻烦。比如有一些数据，我们认为已经写入了文件，实际上因为没有 满足特定的条件，它们还是保存在缓冲区内，这时用_exit 函数直接将进程关闭，缓冲区的数 据就会丢失。因此，<strong>要想保证数据的完整性，就一定要使用 exit 函数</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="进程等待与睡眠"><a href="#进程等待与睡眠" class="headerlink" title="进程等待与睡眠"></a>进程等待与睡眠</h3><ul>
+<li><p>孤儿进程</p>
+</li>
+<li><p>僵尸进程</p>
+</li>
+<li><p>进程在退出之前会释放进程用户空间的所有资源，但PCB等内核空间资源不会被释放。对于已经终止但父进程尚未对其调用wait或waitpid函数的进程（TASK_ZOMBIE状态），称为僵尸进程。</p>
+</li>
+<li><p>wait函数：父进程一旦调用了wait就立即阻塞自己，由wait<strong>自动分析当前进程的某个子进程是否已经退出</strong>。如果让它找到了这样一个已经变成僵尸的子进程，wait就会收集这个子进程的信息，并把它彻底销毁后返回;如果没有找到这样一个子进程，wait就会一直阻塞在这里，直到有一个子进程出现为止。</p>
+</li>
+<li><p>wait函数：</p>
+<p>waitpid和wait函数的作用是完全相同的，但waitpid函数多出了两个可由用户控制的参数pid和options<br>waitpid函数可等待一个特定的进程，而wait函数则返回任意一个终止子进程的状态。<br>waitpid函数提供了一个wait函数的未阻塞版本。当用户希望取得一个子进程的状态，但不想阻塞时，可使用 waitpid 函数。</p>
+</li>
+</ul>
+<p>代码实践</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran">vim <span class="hljs-keyword">wait</span>.c<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran">gcc <span class="hljs-keyword">wait</span>.c<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">./a.<span class="hljs-keyword">out</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;sys/wait.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;sys/types.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">pid_t</span> pc,pr;<br>    pc=fork();<br><br>    <span class="hljs-keyword">if</span>(pc&lt;<span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Erroroccured on forking.\n&quot;</span>);<span class="hljs-comment">//fork出错</span><br>    &#125;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(pc==<span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-comment">//子进程</span><br>        sleep(<span class="hljs-number">10</span>);<span class="hljs-comment">//睡眠10s</span><br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<br>    <span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">do</span>&#123;<br>            pr=waitpid(pc,<span class="hljs-literal">NULL</span>,WNOHANG);<span class="hljs-comment">//使用WNOHANG参数，waitpid不会在这里等待；WNOHANG：如果没有任何已经终止的子进程则马上返回, 函数不等待，此时返回值为0</span><br>            <span class="hljs-keyword">if</span>(pr==<span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Nochild exited!\n&quot;</span>);<br>                sleep(<span class="hljs-number">1</span>);<br>            &#125;<br>        &#125;<span class="hljs-keyword">while</span>(pr==<span class="hljs-number">0</span>);<br>        <span class="hljs-keyword">if</span>(pr==pc)&#123;<span class="hljs-comment">//如果是父进程的子进程</span><br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Successfully get child:[%d].\n&quot;</span>,pr);<br>        &#125;<br>        <span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Some errors occured!!!&quot;</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs erlang-repl">输出<br>Nochild exited!<br>Nochild exited!<br>Nochild exited!<br>Nochild exited!<br>Nochild exited!<br>Nochild exited!<br>Nochild exited!<br>Nochild exited!<br>Nochild exited!<br>Nochild exited!<br>Successfully get child:[<span class="hljs-number">8232</span>].<br></code></pre></td></tr></table></figure>
+
+<h3 id="进程执行"><a href="#进程执行" class="headerlink" title="进程执行"></a>进程执行</h3><p>exec函数簇：根据指定的文件名或目录名找到可执行文件，并用它来取代原调用进程的数据段、代码段和堆栈段。（提供了一种在进程中执行另一个程序的方法）</p>
+<p>Linux中使用exec函数簇主要有以下两种情况：</p>
+<ul>
+<li>当进程认为自己不能再为系统和用户做出任何贡献时，可以调用任何exec函数簇让自己重生。</li>
+<li>如果一个进程想执行另一个程序，那就可以调用fork函数创建一个进程，然后调用exec函数使子进程重生。</li>
+</ul>
+<p>函数种类：execl execle execlp execv execve execvp，称为exec系列函数</p>
+<ul>
+<li>l：表示list，每个命令行参数都说明为一个单独的参数</li>
+<li>v：表示vector，每个命令行参数放在数组中</li>
+<li>e：表示由函数调用者提供环境变量表</li>
+<li>p：表示通过环境变量PATH来指定路径，查找可执行文件</li>
+</ul>
+<p>代码实践</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">vim exec.<span class="hljs-keyword">c</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;sys/wait.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;sys/types.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">pid_t</span> pc,pr;<br>    pc=fork();<br><br>    <span class="hljs-keyword">if</span>(pc&lt;<span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Erroroccured on forking.\n&quot;</span>);<span class="hljs-comment">//fork出错</span><br>    &#125;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(pc==<span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-comment">//子进程</span><br>        sleep(<span class="hljs-number">10</span>);<span class="hljs-comment">//睡眠10s</span><br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<br>    <span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">do</span>&#123;<br>            pr=waitpid(pc,<span class="hljs-literal">NULL</span>,WNOHANG);<span class="hljs-comment">//使用WNOHANG参数，waitpid不会在这里等待</span><br>            <span class="hljs-keyword">if</span>(pr==<span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Nochild exited!\n&quot;</span>);<br>                sleep(<span class="hljs-number">1</span>);<br>            &#125;<br>        &#125;<span class="hljs-keyword">while</span>(pr==<span class="hljs-number">0</span>);<br>        <span class="hljs-keyword">if</span>(pr==pc)&#123;<span class="hljs-comment">//如果是父进程的子进程</span><br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Successfully get child:[%d].\n&quot;</span>,pr);<br>        &#125;<br>        <span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Some errors occured!!!&quot;</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">./a.<span class="hljs-keyword">out</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs llvm">Entering main process---<br>-rw------- <span class="hljs-number">1</span> zhangjialin zhangjialin    <span class="hljs-number">1546</span> <span class="hljs-number">4</span>月  <span class="hljs-number">11</span> <span class="hljs-number">10</span>:<span class="hljs-number">09</span> <span class="hljs-number">1</span>.<span class="hljs-keyword">c</span><br>-rw-r--r-- <span class="hljs-number">1</span> zhangjialin zhangjialin    <span class="hljs-number">2460</span> <span class="hljs-number">4</span>月  <span class="hljs-number">11</span> <span class="hljs-number">10</span>:<span class="hljs-number">08</span> <span class="hljs-number">2</span>.<span class="hljs-keyword">c</span><br>drwxrwxr-<span class="hljs-keyword">x</span> <span class="hljs-number">4</span> zhangjialin zhangjialin    <span class="hljs-number">4096</span> <span class="hljs-number">11</span>月 <span class="hljs-number">19</span> <span class="hljs-number">01</span>:<span class="hljs-number">56</span> <span class="hljs-number">79</span>b<span class="hljs-number">321</span><span class="hljs-keyword">c</span><span class="hljs-number">8</span><br>-rwxrw-rw- <span class="hljs-number">1</span> zhangjialin zhangjialin <span class="hljs-number">7775239</span> <span class="hljs-number">11</span>月 <span class="hljs-number">18</span> <span class="hljs-number">23</span>:<span class="hljs-number">55</span> <span class="hljs-number">79</span>b<span class="hljs-number">321</span><span class="hljs-keyword">c</span><span class="hljs-number">8</span>.zip<br>-rwxr-xr-<span class="hljs-keyword">x</span> <span class="hljs-number">1</span> zhangjialin zhangjialin    <span class="hljs-number">8384</span> <span class="hljs-number">4</span>月  <span class="hljs-number">17</span> <span class="hljs-number">19</span>:<span class="hljs-number">46</span> a.out<br>drwxrwxr-<span class="hljs-keyword">x</span> <span class="hljs-number">2</span> zhangjialin zhangjialin    <span class="hljs-number">4096</span> <span class="hljs-number">3</span>月   <span class="hljs-number">3</span>  <span class="hljs-number">2020</span> buzhi<br>-rw-r--r-- <span class="hljs-number">1</span> zhangjialin zhangjialin     <span class="hljs-number">492</span> <span class="hljs-number">4</span>月  <span class="hljs-number">17</span> <span class="hljs-number">16</span>:<span class="hljs-number">07</span> create_process.<span class="hljs-keyword">c</span><br>-rw-r--r-- <span class="hljs-number">1</span> zhangjialin zhangjialin     <span class="hljs-number">321</span> <span class="hljs-number">4</span>月  <span class="hljs-number">17</span> <span class="hljs-number">19</span>:<span class="hljs-number">46</span> exec.<span class="hljs-keyword">c</span><br>-rw-r--r-- <span class="hljs-number">1</span> zhangjialin zhangjialin     <span class="hljs-number">576</span> <span class="hljs-number">4</span>月  <span class="hljs-number">17</span> <span class="hljs-number">16</span>:<span class="hljs-number">40</span> fork_process.<span class="hljs-keyword">c</span><br>-rwxr-xr-<span class="hljs-keyword">x</span> <span class="hljs-number">1</span> zhangjialin zhangjialin   <span class="hljs-number">12904</span> <span class="hljs-number">4</span>月  <span class="hljs-number">11</span> <span class="hljs-number">09</span>:<span class="hljs-number">36</span> test<br>-rwxr-xr-<span class="hljs-keyword">x</span> <span class="hljs-number">1</span> zhangjialin zhangjialin   <span class="hljs-number">13328</span> <span class="hljs-number">4</span>月  <span class="hljs-number">11</span> <span class="hljs-number">09</span>:<span class="hljs-number">59</span> test<span class="hljs-number">2</span><br>-rw-r--r-- <span class="hljs-number">1</span> zhangjialin zhangjialin     <span class="hljs-number">773</span> <span class="hljs-number">4</span>月  <span class="hljs-number">17</span> <span class="hljs-number">19</span>:<span class="hljs-number">26</span> wait.<span class="hljs-keyword">c</span><br>drwxrwxr-<span class="hljs-keyword">x</span> <span class="hljs-number">2</span> zhangjialin zhangjialin    <span class="hljs-number">4096</span> <span class="hljs-number">3</span>月   <span class="hljs-number">2</span>  <span class="hljs-number">2020</span> z<br></code></pre></td></tr></table></figure>
+
+<h1 id="进程的描述与控制"><a href="#进程的描述与控制" class="headerlink" title="进程的描述与控制"></a>进程的描述与控制</h1><h2 id="2-4-进程同步"><a href="#2-4-进程同步" class="headerlink" title="2.4 进程同步"></a>2.4 进程同步</h2><p>引言：由于进程的异步性，会给系统造成混乱，在OS中引入进程同步机制，包括：硬件同步机制、信号量机制、管程机制，是使并发执行的诸进程之间能有效地共享资源和相互合作，从而使程序的执行具有可再现性。</p>
+<p>同步：并发进程在执行<strong>次序</strong>上的协调，以达到有效的资源共享和相互合作，使程序执行有可再现性。</p>
+<h3 id="2-4-1-进程同步基本概念"><a href="#2-4-1-进程同步基本概念" class="headerlink" title="2.4.1 进程同步基本概念"></a>2.4.1 进程同步基本概念</h3><h4 id="1-两种形式的制约关系"><a href="#1-两种形式的制约关系" class="headerlink" title="1.两种形式的制约关系"></a>1.两种形式的制约关系</h4><ul>
+<li>间接相互制约关系。由于资源共享。<ul>
+<li>如CPU、I/O设备等，对于这类资源，必须由系统实施统一分配，即用户在要用之前，应该先提出申请，而不允许用户进程直接使用。</li>
+</ul>
+</li>
+<li>直接相互制约关系。由于进程间的合作关系。<ul>
+<li>例如：某些应用程序，为了完成某任务而建立了两个或者多个进程。这些进程将为完成同一件任务而相互合作。输入进程A和计算进程B，以及缓冲区。</li>
+</ul>
+</li>
+</ul>
+<p><strong>异步性</strong>：进程在运行过程中是否能获得处理机、以怎么样的速度运行，并不由自身所控制。由此会产生对共享的变量或数据结构资源不正确的访问次序，从而造成每次执行结果不一致。这种差错往往与时间有关，故称为“与时间有关的错误”。</p>
+<h4 id="2-临界资源（Critical-Resource）"><a href="#2-临界资源（Critical-Resource）" class="headerlink" title="2.临界资源（Critical Resource）"></a>2.临界资源（Critical Resource）</h4><p><strong>一次仅允许一个进程访问的资源为临界资源</strong>（生产者-消费者问题）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">int</span> in=<span class="hljs-number">0</span>,out=<span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> count=<span class="hljs-number">0</span>;<br>item buffer[n];<br></code></pre></td></tr></table></figure>
+
+<p><a href="https://imgtu.com/i/c5u0zT"><img src="https://z3.ax1x.com/2021/04/17/c5u0zT.png" srcset="/img/loading.gif" lazyload alt="c5u0zT.png"></a></p>
+<p>伪代码：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-type">void</span> producer&#123;<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>……<br>produce an item <span class="hljs-keyword">in</span> nextp;<br>……<br><span class="hljs-keyword">while</span>(count==n)&#123;<br>&#125;<span class="hljs-comment">//do no-op</span><br><span class="hljs-keyword">buffer</span>[<span class="hljs-keyword">in</span>]=nextp;<br><span class="hljs-keyword">in</span> = (<span class="hljs-keyword">in</span>+<span class="hljs-number">1</span>)%n;<br>counter=counter+<span class="hljs-number">1</span>;<br>&#125;<br>&#125;<br><br><span class="hljs-type">void</span> consumer&#123;<br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>	<span class="hljs-keyword">while</span>(counter==<span class="hljs-number">0</span>)&#123;<br>	&#125;<span class="hljs-comment">//do no-op</span><br>	nextc = <span class="hljs-keyword">buffer</span>[<span class="hljs-keyword">out</span>];<br>	<span class="hljs-keyword">out</span>=(<span class="hljs-keyword">out</span>+<span class="hljs-number">1</span>)%n;<br>	counter=counter<span class="hljs-number">-1</span>;<br>	consume the item <span class="hljs-keyword">in</span> nextc;<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>引例：</p>
+<ul>
+<li><p>设counter的初值为5</p>
+<p>register1 = counter;       register2 = counter;</p>
+<p>register1 = register1+1;    register2 = register2-1;</p>
+<p>counter = register1;       counter = register2;</p>
+</li>
+<li><p>Register1 = counter;        (register1=5)</p>
+<p>Register1 = register1+1;    (register1=6)</p>
+<p>Register2 = counter;        (register2=5)</p>
+<p>Register2 = register2-1;    (register2=4)</p>
+<p>counter = register1; (counter=6)</p>
+<p>counter = register2;  (counter=4)</p>
+</li>
+</ul>
+<h4 id="3-临界区（Critical-section）"><a href="#3-临界区（Critical-section）" class="headerlink" title="3.临界区（Critical section）"></a>3.临界区（Critical section）</h4><ul>
+<li><p>临界区定义：把在每个进程中访问临界资源的那段<strong>代码</strong>称为临界区。</p>
+<p>若能保证诸进程互斥的进入自己的临界区，便可以实现诸进程对资源的互斥访问。为此，每个进程在进入临界区之前，应对欲访问的临界资源进行检查，看他是否正在被访问。</p>
+</li>
+<li><p>进入区(Entry section)定义：临界区前用于检查临界资源是否正在被访问的<strong>代码</strong>。</p>
+</li>
+<li><p>退出区(Exit section)定义：位于临界区后的代码，用于将临界区正在访问的标志恢复为未被访问标志。</p>
+</li>
+<li><p>剩余区：除去临界区、进入区、退出区之外的其他部分代码。</p>
+</li>
+</ul>
+<p>伪代码：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">while</span><span class="hljs-params">(ture)</span></span>&#123;进入区临界区退出区剩余区&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-进程同步进制应遵循的规则"><a href="#4-进程同步进制应遵循的规则" class="headerlink" title="4.进程同步进制应遵循的规则"></a>4.进程同步进制应遵循的规则</h4><ul>
+<li><strong>空闲让进</strong>：当无进程进入临界区，表明临界资源处于空闲，应允许一个请求进入临界区，以有效利用临界资源</li>
+<li><strong>忙则等待</strong>：当已有进程进入临界区，表明临界资源正在被访问，因而其他试图进入临界区的进程必须等待，以确保对资源的互斥访问。</li>
+<li><strong>有限等待</strong>：对要求访问临界资源的进程，应确保在有限时间内能进入自己的临界区，以免进入“死等”状态。</li>
+<li><strong>让权等待</strong>：当进程不能进入自己的临界区时，应立即释放处理机，以免陷入“忙等”状态。</li>
+</ul>
+<h3 id="2-4-2-硬件同步机制"><a href="#2-4-2-硬件同步机制" class="headerlink" title="2.4.2 硬件同步机制"></a>2.4.2 硬件同步机制</h3><p>引言：利用计算机硬件指令解决临界区问题</p>
+<ul>
+<li>对临界区管理将标识看做一个锁，“锁开”进入，“锁关”等待。</li>
+<li>初始打开，每个进入临界区的进程必须对锁进行测试。</li>
+<li><strong>测试和关锁是原子操作。</strong></li>
+</ul>
+<p>三种方法：</p>
+<ul>
+<li>关中断</li>
+<li>利用Test-and-Set指令实现互斥</li>
+<li>利用Swap指令实现进程互斥</li>
+</ul>
+<h4 id="1-关中断"><a href="#1-关中断" class="headerlink" title="1.关中断"></a>1.关中断</h4><p><strong>进入锁测试前关闭中断，完成锁测试并上锁后打开中断。</strong>进程在临界区时，计算机不响应中断，不会引发进程调度，也就不会发生进程或者线程的切换。由此保证了对锁的测试和关索操作的连续性和完整性，有效保证了互斥。</p>
+<p>缺点：</p>
+<ul>
+<li>滥用关中断会引起严重后果</li>
+<li>关中断时间过长会影响系统效率，限制了处理器交叉执行程序的能力</li>
+<li>不适用于多CPU系统。一个处理器上关中断并不能防止进程在其他处理器上执行相同的临界区代码</li>
+</ul>
+<h4 id="2-利用Test-and-Set指令实现互斥"><a href="#2-利用Test-and-Set指令实现互斥" class="headerlink" title="2.利用Test-and-Set指令实现互斥"></a>2.利用Test-and-Set指令实现互斥</h4><p>硬件指令–“测试并建立”TS</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-function">boolen <span class="hljs-title">TS</span><span class="hljs-params">( boolen *lock)</span></span>&#123;    boolean old;    old = *lock;    *lock =TURE;    <span class="hljs-keyword">return</span> old;&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>函数过程，执行过程不可分割，是一条原语。</li>
+<li><em>lock=FLASE,代表资源空闲；\</em>lock=TRUE代表资源正在被使用</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">do</span>&#123;    …    <span class="hljs-function"><span class="hljs-keyword">while</span> <span class="hljs-title">TS</span><span class="hljs-params">( &amp;lock)</span></span>;    critical section;    *lock=FALSE;    remainder section;&#125;<span class="hljs-keyword">while</span>(TRUE);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>当资源正在被使用，<em>lock=TRUE，while循环一直测试TS(s)，再到\</em>lock为TRUE</li>
+</ul>
+<h4 id="3-利用Swap指令实现进程的互斥"><a href="#3-利用Swap指令实现进程的互斥" class="headerlink" title="3.利用Swap指令实现进程的互斥"></a>3.利用Swap指令实现进程的互斥</h4><p>Swap–对换指令，相当于80x86中的XCHG指令，<strong>用于交换两个字的内容。</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">( boolen *a, boolen *b)</span></span>&#123;    boolean temp;    temp = *a;    *a =*b;    *b=temp;&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">do</span>&#123;    key=TRUE;    <span class="hljs-keyword">do</span>&#123;        swap(&amp;lock,&amp;key);    &#125;<span class="hljs-keyword">while</span>(key!=FALSE);    临界区操作;    lock = FALSE;   …&#125;<span class="hljs-keyword">while</span>(TRUE);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>每个临界资源都设置有一个全局的布尔变量lock，其初始值为FALSE，在每个进程中，再利用一个局部布尔变量key。</li>
+<li>缺点：当临界资源忙碌，其他访问进程不断进行测试，处于一种“忙等”状态，<strong>不符合“让权等待”原则</strong>，造成了处理机时间的浪费，也很难用于解决复杂的进程同步问题。</li>
+</ul>
+<h3 id="2-4-3-信号量-Semaphores-机制"><a href="#2-4-3-信号量-Semaphores-机制" class="headerlink" title="2.4.3 信号量(Semaphores)机制"></a>2.4.3 信号量(Semaphores)机制</h3><p>一种卓有成效的进程同步工具，广泛用于单处理机和多处理机以及计算机网络。分为：</p>
+<ul>
+<li>整型信号量</li>
+<li>记录型信号量</li>
+<li>AND型信号量</li>
+<li>信号量集</li>
+</ul>
+<h4 id="1-整型信号量"><a href="#1-整型信号量" class="headerlink" title="1.整型信号量"></a>1.整型信号量</h4><ul>
+<li><p>定义为一个用于表示<strong>资源数量的整型量S</strong></p>
+</li>
+<li><p>除初始化外，仅能通过两个标准<strong>原子操作</strong>(Atomic Operation):wait(S)、signal(S)来访问。这两个操作一直被称为<strong>P、V操作</strong></p>
+</li>
+<li><p>执行不可中断（原子操作），同时只允许一个进程修改信号量</p>
+</li>
+</ul>
+<p>代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">wait(S)&#123;	<span class="hljs-keyword">while</span>(S&lt;=<span class="hljs-number">0</span>);<span class="hljs-comment">//do no-op	S--;&#125;signal&#123;    S++;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>由于while会不断的测试是否可以得到临界资源，所以不符合“让权等待”</li>
+</ul>
+<h4 id="2-记录型信号量"><a href="#2-记录型信号量" class="headerlink" title="2.记录型信号量"></a>2.记录型信号量</h4><ul>
+<li>与整型信号量不同，不存在“忙等”现象，采用“让权等待”。</li>
+<li>除了需要一个用于代表资源数目的整型变量value外，还应该增加一个进程链表指针list，用于链接上述所有等待进程。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span>&#123;	<span class="hljs-keyword">int</span> value;	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">process_control_block</span> *<span class="hljs-title">list</span>;</span>&#125;semaphore;<br></code></pre></td></tr></table></figure>
+
+<p>wait(S)与signal(S)：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">wait(semaphore *S)&#123;	S-&gt;value--;	<span class="hljs-keyword">if</span>(S-&gt;value&lt;<span class="hljs-number">0</span>)		block(S-&gt;<span class="hljs-built_in">list</span>);&#125;signal(semaphore *S)&#123;	S-&gt;value++;	<span class="hljs-keyword">if</span>(S-&gt;value&lt;=<span class="hljs-number">0</span>)		wakeup(S-&gt;<span class="hljs-built_in">list</span>);&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>解析：<ul>
+<li>S-&gt;value：初值表示系统某类资源的数目，因而被称为资源信号量。</li>
+<li>S-&gt;value&lt;0，表示该类资源已经分配完毕，因此进程应该调用block原语进行自我阻塞，放弃处理机，并插入到信号量链表S-&gt;list中。</li>
+</ul>
+</li>
+<li>可见信号量机制遵循“让权等待”机制。</li>
+<li>注意，如果某次signal完成后，**S-&gt;value&lt;=0(千万注意一定是小于等于)**，那么就还有进程因为等待资源被阻塞，需要使用wakeup原语将之唤醒。</li>
+</ul>
+<p><strong>引申问题</strong>：整形型信号量与记录型信号量的问题是针对各进程之间只共享一个临界资源而言的。在有些应用场合，是一个进程需要先获得两个或更多的共享资源后方能执行其任务。</p>
+<p>例：多个临界资源情况：访问共享数据D、E</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">process A:wait(Dmutex);wait(Emutex);process B:wait(Dmutex);wait(Emutex);<br></code></pre></td></tr></table></figure>
+
+<p>次序：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">processA：wait(Dmutex);    <span class="hljs-comment">//Dmutex=0   processB：wait(Emutex);    //Emutex=0   processA：wait(Emutex);    //Emutex=-1，A阻塞   processB：wait(Dmutex);    //Dmutex=-1，B阻塞</span><br></code></pre></td></tr></table></figure>
+
+<p>进程A和B处于僵持状态。在无外力作用下，两者都将无法从僵持状态中解脱出来。我们称此时的进程A和B已进入<strong>死锁状态</strong>。显然，当进程同时要求的共享资源愈多时，发生进程死锁的可能性也就愈大。</p>
+<h4 id="3-AND型信号量"><a href="#3-AND型信号量" class="headerlink" title="3.AND型信号量"></a>3.AND型信号量</h4><ul>
+<li>AND同步机制的基本思想：将进程在整个运行过程中需要的全部资源，<strong>一次性</strong>分配给进程，待进程使用完后一起释放。只要尚有一个资源未分配给进程，其他所有可能为之分配的资源，也不分配给它。</li>
+<li><strong>分配采取原子操作</strong>：要么全部分配到进程，要么一个也不分配。</li>
+<li>在wait操作中增加了一个“AND”条件，故称为AND同步，或称为同时wait操作，即Swait（simultaneous wait）。</li>
+</ul>
+<p>定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">Swait(S1,S2,……,Sn)&#123;	<span class="hljs-keyword">while</span>(TRUE)&#123;		<span class="hljs-keyword">if</span>(S1≥<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> S2≥<span class="hljs-number">1</span>……Sn≥<span class="hljs-number">1</span>)&#123;			<span class="hljs-keyword">for</span>(i=<span class="hljs-number">1</span>,i&lt;n,i++)&#123;				Si--;			&#125;			<span class="hljs-keyword">break</span>;<span class="hljs-comment">//分配成功后，跳出循环		&#125;		else&#123;//分配失败，插入第一个不满足资源的阻塞队列		place  the process  in  the waiting  queue  			associated  with  the  first  Si  found  with  Si＜		  1,  and  set  the program  count  of  this  process  		   to  the  beginning  of  Swait  operation		&#125;	&#125;&#125;Ssignal(S1,S2,……,Sn)&#123;    for(i=1;i&lt;=n;i++)&#123;        Si++;        Remove  all  the  process  waiting  in  the  queue  		associated  with  Si  into  the  ready  queue.(一定		 是所有)    &#125;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="4-信号量集"><a href="#4-信号量集" class="headerlink" title="4.信号量集"></a>4.信号量集</h4><p>在记录型信号量机制中，wait(S)或signal(S)操作仅能对信号量施以加1 或减1 操作，意味着每次只能获得或释放一个单位的临界资源。而当一次需要N 个某类临界资源时，便要进行N 次wait(S)操作，显然这是低效的。此外，在有些情况下，当资源数量低于某一下限值时，便不予以分配。因而，在每次分配之前，都必须测试该资源的数量，看其是否大于其下限值。基于上述两点，可以对AND 信号量机制加以扩充，形成一般化的“信号量集”机制。</p>
+<ul>
+<li><p>变量含义</p>
+<ul>
+<li>t<sub>i</sub>：资源分配下限，要求S<sub>i</sub>&gt;=t<sub>i</sub>，否则不予分配</li>
+<li>d<sub>i</sub>：资源需求量，分配后进行操作：<strong>S<sub>i</sub>=S<sub>i</sub>-d<sub>i</sub></strong></li>
+</ul>
+</li>
+<li><p>Swait和Ssignal格式：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">Swait(S1,t1,d1,……,Sn,tn,dn);Ssignal(S1,d1,……,Sn,dn);<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>完整代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">Swait(S1,t1,d1,……,Sn,tn,dn)&#123;	<span class="hljs-keyword">if</span>(S1&gt;=t1&amp;……Sn&gt;=tn)&#123;		<span class="hljs-keyword">for</span>(i=<span class="hljs-number">1</span>;i&lt;=n;i++)&#123;			Si=Si-di;		&#125;	&#125;	<span class="hljs-keyword">else</span>&#123;		Place the executing process in the waiting <span class="hljs-built_in">queue</span> of 		the first Si with Si＜ti <span class="hljs-keyword">and</span> <span class="hljs-built_in">set</span> its program 			counter to 		the beginning of the Swait 				operation.	&#125;&#125;Ssignal(S1,d1,……,Sn,dn)&#123;    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">1</span>;i&lt;=n;i++)&#123;        Si=Si+di;        Remove  all  the  process  waiting          in  the  <span class="hljs-built_in">queue</span>  associated  with  Si          into  the  ready  <span class="hljs-built_in">queue</span>.(一定是ALL)    &#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>三种特例</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-constructor">Swait(S,<span class="hljs-params">d</span>,<span class="hljs-params">d</span>)</span>：允许每次申请d个资源。当资源少于d时，不予分配。<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Swait</span>(S,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)：S&gt;<span class="hljs-number">1</span>，记录型信号量			  S=<span class="hljs-number">1</span>，互斥型信号量<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Swait</span>(S,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)：相当于一个可控开关。当S&gt;=<span class="hljs-number">1</span>，允许进入；S&lt;<span class="hljs-number">1</span>时，将阻止任何进程进入特定区。<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-4-4-信号量的应用"><a href="#2-4-4-信号量的应用" class="headerlink" title="2.4.4 信号量的应用"></a>2.4.4 信号量的应用</h3><h4 id="1-利用信号量实现进程互斥"><a href="#1-利用信号量实现进程互斥" class="headerlink" title="1.利用信号量实现进程互斥"></a>1.利用信号量实现进程互斥</h4><p>为使多个进程能互斥访问某个临界资源，只必须为该资源设置一互斥型信号量mutex，并设置其初始值为1，然后将各进程访问该资源的临界区CS置于wait(mutex)和signal(mutex)操作之间即可。</p>
+<p>具体描述：</p>
+<ul>
+<li><p>mutex取值范围(-1,0,1)</p>
+<ul>
+<li>当mutex=1，表示两个进程都未进入临界区；</li>
+<li>当mutex=0表示有一个进程进入临界区运行，另一个必须等待，挂入阻塞队列；</li>
+<li>当mutex=-1，表示有一个进程正在临界区运行，另一个进程因等待而阻塞在信号量队列里，需要被当前已在临界区运行的进程退出时唤醒。</li>
+</ul>
+</li>
+<li><p>伪代码</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">semaphore</span> <span class="hljs-variable">mutex</span>=<span class="hljs-number">1</span>;<span class="hljs-function"><span class="hljs-title">PA</span>()&#123;	<span class="hljs-title">while</span>(<span class="hljs-number">1</span>)&#123;		<span class="hljs-title">wait</span>(<span class="hljs-variable">mutex</span>);		临界区;		<span class="hljs-title">signal</span>(<span class="hljs-variable">mutex</span>);		剩余区;	&#125;&#125;<span class="hljs-title">PB</span>()&#123;	<span class="hljs-title">while</span>(<span class="hljs-number">1</span>)&#123;		<span class="hljs-title">wait</span>(<span class="hljs-variable">mutex</span>);		临界区;		<span class="hljs-title">signal</span>(<span class="hljs-variable">mutex</span>);		剩余区;	&#125;&#125;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>注意：wait(mutex)和signal(mutex)必须成对出现。</p>
+<ul>
+<li>缺少wait(mutex)会导致系统混乱，不能保证对临界资源的互斥访问</li>
+<li>缺少signal(mutex)会使临界资源永远得不到释放，等待资源的进程不能被唤醒</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-利用信号量实现前驱关系"><a href="#2-利用信号量实现前驱关系" class="headerlink" title="2.利用信号量实现前驱关系"></a>2.利用信号量实现前驱关系</h4><p><a href="https://imgtu.com/i/cI8QIg"><img src="https://z3.ax1x.com/2021/04/18/cI8QIg.png" srcset="/img/loading.gif" lazyload alt="cI8QIg.png"></a></p>
+<p>注意：</p>
+<ul>
+<li>有多少个前驱关系就要设置多少个<strong>初始值为“0”</strong>信号量。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">p1()&#123;S1;signal(a);signal(b)&#125;p2()&#123;wait(a);S2;signal(s);signal(d)&#125;p3()&#123;wait(b);S3;signal(e)&#125;p4()&#123;wait(c);S4;signal(f)&#125;p5()&#123;wait(d);S5;signal(g)&#125;p6()&#123;wait(e);wait(f);wait(g);S6&#125;<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;	semaphore a,b,c,d,e,f,g;	a.value=<span class="hljs-number">0</span>;b.value=<span class="hljs-number">0</span>;	c.value=<span class="hljs-number">0</span>;d.value=<span class="hljs-number">0</span>;	e.value=<span class="hljs-number">0</span>;f.value=<span class="hljs-number">0</span>;	g.value=<span class="hljs-number">0</span>;	<span class="hljs-function">cobegin		<span class="hljs-title">p1</span><span class="hljs-params">()</span></span>;p2();p3();p4();p5();p6();	coend&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-4-5-管程机制"><a href="#2-4-5-管程机制" class="headerlink" title="2.4.5 管程机制"></a>2.4.5 管程机制</h3><p>产生原因：虽然信号量机制是一种既方便、又有效的进程同步机制，但每个要访问临界资源的进程都必须自备同步操作wait（S）和signal（S）。这就使大量的同步操作<strong>分散</strong>在各个进程中。这不仅给系统的<strong>管理</strong>带来了麻烦，而且还会因同步操作的使用不当而导致系统<strong>死锁</strong>。这样，在解决上述问题的过程中，便产生了一种新的进程同步工具——管程 。</p>
+<ul>
+<li>当共享资源使用共享数据结构表示，资源管理程序可用对该数据结构进行操作的一组过程来表示（例如，资源的请求和释放过程request和release），我们把这样一组相关<strong>数据结构和过程</strong>一并称为管程。</li>
+<li>Hansan为管程所下的定义：“<strong>一个管程定义了一个数据结构和能为并发进程所执行（在该数据结构上）的一组操作，这组操作能同步进程和改变管程中的数据</strong>”。</li>
+<li>管程由四部分组成：<ul>
+<li>管程名称</li>
+<li>局部于管程的共享数据结构说明</li>
+<li>对该数据结构进行操作的一组过程</li>
+<li>对局部于管程的数据设置初始值的语句</li>
+</ul>
+</li>
+<li>包含了面向对象的思想</li>
+</ul>
+<p>管程示意图</p>
+<p><a href="https://imgtu.com/i/cIJJbV"><img src="https://z3.ax1x.com/2021/04/18/cIJJbV.png" srcset="/img/loading.gif" lazyload alt="cIJJbV.png"></a></p>
+<ul>
+<li>管程特性：<ul>
+<li>模块化：管程是一个基本程序单位，可以单独编译</li>
+<li>抽象数据类型：管程中不仅有数据，而且有对数据的操作</li>
+<li>信息屏蔽：管程中的数据结构只能被管程中的过程访问，这些过程也是管程内部定义，供管程外的进程调用，而管程中的数据结构以及过程过程（函数）的具体实现外部不可见</li>
+</ul>
+</li>
+<li>管程与进程的<strong>区别</strong>：<ul>
+<li>虽然二者都定义了数据结构，但进程定义的是<strong>私有</strong>数据结构PCB；而管程定义的是<strong>公共</strong>数据结构，如消息队列等。</li>
+<li>二者都存在对各自数据结构上的操作，但进程是由顺序程序执行的有关操作；而管程主要是进行与同步操作和初始化操作。</li>
+<li>设置进程的目的在于实现系统的并发性；管程设置的目的在于解决共享资源互斥使用问题。</li>
+<li>进程通过调用管程中的过程对共享数据对共享数据结构实行操作，该过程就像通常的子程序被调用，因而：<strong>管程是被动工作方式，进程则是主动工作方式</strong>。</li>
+<li>进程之间可以并发执行，而管程则不能与其调用者并发。</li>
+<li>进程具有动态性，有“创建”而诞生，由“撤销”而消亡，而管程是操作系统中的一个资源管理模块，供进程调用。</li>
+</ul>
+</li>
+<li>管程主要特点：<ul>
+<li>局部数据变量只能被管程的过程访问，任何外部过程都不能访问。</li>
+<li>一个进程通过调用管程的一个过程进入管程。</li>
+<li>在任何时候，只能有一个进程在管程中执行，调用管程的任何其他进程都被挂起，以等待管程变成可用的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-5-经典进程同步问题"><a href="#2-5-经典进程同步问题" class="headerlink" title="2.5 经典进程同步问题"></a>2.5 经典进程同步问题</h2><ul>
+<li>“生产者–消费者”问题</li>
+<li>“读者–写者”问题</li>
+<li>“哲学家进餐问题”</li>
+</ul>
+<h2 id="2-6-进程通信"><a href="#2-6-进程通信" class="headerlink" title="2.6 进程通信"></a>2.6 进程通信</h2><p>进程通信：进程之间的信息交换</p>
+<p>两类进程通信：</p>
+<ul>
+<li>低级通信（如信号量机制）–缺点<ul>
+<li>效率低，即交换信息量少。在”生产者–消费者“问题中，生产者每次只能向缓冲池投放一个产品（消息），消费者每次只能从缓冲区获得一个产品。</li>
+<li>通信对用户不透明。OS只为进程之间的通信提供了共享存储器，而关于进程之间通信所需的共享数据结构的设置、数据的传送、进程的互斥与同步，都必须由程序员去实现。</li>
+</ul>
+</li>
+<li>高级通信：用户直接利用OS提供的一组通信命令，高效地传送大量数据地一种通信方式。<ul>
+<li>使用方便。通信过程透明，隐藏了实现进程通信的具体细节。</li>
+<li>高效地传送大量数据。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-6-1进程通信的类型"><a href="#2-6-1进程通信的类型" class="headerlink" title="2.6.1进程通信的类型"></a>2.6.1进程通信的类型</h3><p>高级通信机制分类：</p>
+<ul>
+<li>共享存储器系统</li>
+<li>管道系统</li>
+<li>消息传递系统</li>
+<li>客户—服务器系统</li>
+</ul>
+<h4 id="1-共享存储器系统（Shared-Memory-System）"><a href="#1-共享存储器系统（Shared-Memory-System）" class="headerlink" title="1.共享存储器系统（Shared-Memory System）"></a>1.共享存储器系统（Shared-Memory System）</h4><p>相互通信的进程共享某些数据结构或者共享存储区，进程之间能通过这些空间进行通信。</p>
+<ul>
+<li>基于<strong>共享数据结构</strong>的通信方式（低级通信）<ul>
+<li>要求诸进程公用某些数据结构，借以实现诸进程的信息交换。</li>
+<li>OS仅提供共享存储器，由程序员负责对公用数据结构的设置以及对进程间的同步处理。</li>
+</ul>
+</li>
+<li>基于<strong>共享存储区</strong>的通信方式（高级通信）<ul>
+<li>为传输大量数据，在存储区划出一块共享存储区，诸进程可以通过对共享存储区中的数据的读/写实现通信。</li>
+<li>进程在通信前，先向系统申请获得共享存储区中的一个分区，并指定该分区的关键字；若系统已经给其他进程分配了这样的分区，则将该分区的描述符返回给申请者，继之，由申请者把获得的共享存储分区连接到本进程上（附加到自己的地址空间）；此后，便可像读、写普通存储器一样地读、写该公用存储分区。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-管道（pipe）通信系统"><a href="#2-管道（pipe）通信系统" class="headerlink" title="2.管道（pipe）通信系统"></a>2.管道（pipe）通信系统</h4><ul>
+<li>管道：<strong>连接一个读进程和一个写进程以实现它们之间通信的共享文件</strong>，又名pipe文件。</li>
+<li>向管道（共享文件）提供输入的发送进程（写进程）以字符流形式将大量的数据送入管道；接受管道输出的接受进程（读进程）则从管道中接收数据。由于发送进程和接受进程利用管道进行通信，故称为管道通信。</li>
+<li>管道必须提供以下三方面的协调能力：<ul>
+<li>互斥。当一个进程正在对pipe执行读/写操作时，其他（另一）进程必须等待。</li>
+<li>同步。指当写（输入）进程把一定数量（如4KB）的数据写入pipe，便去睡眠等待，直到读（输入）进程取走数据后再把它唤醒。即使pipe为空也不例外。</li>
+<li>确定对方是否存在，只有确定对方的存在，才能进行通信。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-消息传递系统（Message-passing-system）"><a href="#3-消息传递系统（Message-passing-system）" class="headerlink" title="3.消息传递系统（Message passing system）"></a>3.消息传递系统（Message passing system）</h4><ul>
+<li><p>目前应用最广泛的进程间的通信机制，信息单位：消息（报文）</p>
+</li>
+<li><p>机制：进程不必借助任何共享存储区或数据结构，而是以格式化的消息（message）为单位，将通信的数据封装在消息中，并利用OS提供的一组通信命令（原语），在进程间进行消息传递，完成进程间的数据交换。</p>
+</li>
+<li><p>分类：</p>
+<ul>
+<li><p>直接通信方式：指发送进程利用OS所提供的<strong>发送原语</strong>，直接把消息发送给目标进程。</p>
+<ul>
+<li><p>原语</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-constructor">Send(Receiver,<span class="hljs-params">message</span>)</span>;<span class="hljs-constructor">Receive(Sender,<span class="hljs-params">message</span>)</span>;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>间接通信方式：指发送和接收进程，都通过<strong>共享中间实体（邮箱）</strong>的方式进行消息的发送和接收。<br>利用信箱的通信方式。发送进程发送给目标进程的消息存放信箱；接收进程则从该信箱中，取出对方发送给自己的消息；消息在信箱中可以安全地保存，只允许核准的目标用户<strong>随时读取</strong>。（优点：在读写时间上的<strong>随机性</strong>）<br>系统为信箱通信提供了若干条原语，分别用于信箱的创建、撤消和消息的发送、接收等。 </p>
+<ul>
+<li><p>原语</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">Send (mailbox, <span class="hljs-keyword">message</span>)Receive (mailbox，<span class="hljs-keyword">message</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>信箱分类：</p>
+<ul>
+<li>私用信箱：用户进程可为自己建立一个新信箱，并作为该进程的一部分。</li>
+<li>公用信箱：它由操作系统创建，并提供给系统中的所有核准进程使用。</li>
+<li>共享信箱：信箱的拥有者和共享者，都有权从信箱中取走发送给自己的消息。</li>
+</ul>
+</li>
+<li><p>在利用信箱通信时，在发送进程和接收进程之间，存在以下四种关系。4：</p>
+<ul>
+<li>一对一关系</li>
+<li>多对一关系，客户/服务器交互</li>
+<li>一对多，广播方式</li>
+<li>多对多方式</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-客户机—服务器系统-Client-Server-system"><a href="#4-客户机—服务器系统-Client-Server-system" class="headerlink" title="4.客户机—服务器系统(Client-Server system)"></a>4.客户机—服务器系统(Client-Server system)</h4><p>三种实现方法：</p>
+<ul>
+<li>套接字(Socket)：不仅适用于同一台计算机内部的进程通信，也适用于网络环境中不同计算机间的进程通信。<ul>
+<li>基于文件型</li>
+<li>基于网络型</li>
+</ul>
+</li>
+<li>远程过程调用和远程方法调用</li>
+</ul>
+<h2 id="2-7线程-Threads-的基本概念"><a href="#2-7线程-Threads-的基本概念" class="headerlink" title="2.7线程(Threads)的基本概念"></a>2.7线程(Threads)的基本概念</h2><p>比进程更小的基本单位—线程，用它进一步提高程序并发执行的程度，以进一步改善系统服务质量。</p>
+<h3 id="2-7-1-线程的引入"><a href="#2-7-1-线程的引入" class="headerlink" title="2.7.1 线程的引入"></a>2.7.1 线程的引入</h3><p>引入进程：使多个程序并发执行，以提高资源利用率和系统吞吐量。<br>引入线程：减少程序在并发执行时所付出的时空开销，提高OS并发性能。</p>
+<p>为使程序并发执行，系统必须进行以下系列操作：</p>
+<ul>
+<li>创建进程</li>
+<li>撤销进程</li>
+<li>进程切换</li>
+</ul>
+<p>进程的两个基本属性：</p>
+<ul>
+<li>一个进程是一个可拥有资源的独立单位，一个进程要能独立运行，必须拥有一定资源，包括用于存放程序正文、数据的磁盘和内存地址空间，以及它在运行时所需要的I/O设备、已打开文件、信号量等。</li>
+<li>进程也是一个可独立分派和调度的基本单位。进程是被操作系统调度的实体。</li>
+</ul>
+<p><strong>引入线程，作为调度和分派的基本单元</strong>。</p>
+<p>线程：轻型进程（Light-Weight Process）/进程元</p>
+<p>进程：重型进程（Heavy-Weight Process）</p>
+<p>在引入线程后，通常一个进程都拥有若干各线程，至少也有一个线程。</p>
+<ul>
+<li>对比1：<ul>
+<li>线程的切换只涉及指令的切换</li>
+<li>进程的切换涉及到映射表的切换。映射表代表着进程的内存空间映像。</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/coVqHA"><img src="https://z3.ax1x.com/2021/04/19/coVqHA.png" srcset="/img/loading.gif" lazyload alt="coVqHA.png"></a></p>
+<ul>
+<li><p>对比2：</p>
+<ul>
+<li>当线程并发执行。接收一段数据，切换到显示文本，再切换回接收数据。</li>
+<li>当线程共用进程的同一个内存地址空间，<strong>线程切换时资源不会切换</strong>。</li>
+</ul>
+</li>
+<li><p>对比3：</p>
+<ul>
+<li>进程体现出两个特点：<ul>
+<li>资源（代码和数据空间、打开的文件等）</li>
+<li>调度执行</li>
+</ul>
+</li>
+<li>线程是进程内的独立执行代码的实体和调度单元，也能是能独立运行的基本单位。</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/coZJC6"><img src="https://z3.ax1x.com/2021/04/19/coZJC6.png" srcset="/img/loading.gif" lazyload alt="coZJC6.png"></a></p>
+<p>访问全局变量：</p>
+<p>①将内存单元中的数据读入寄存器</p>
+<p>②对寄存器中的值进行运算</p>
+<p>③将寄存器中的值写回内存单元</p>
+<h4 id="2-7-2-对比进程和线程的对比"><a href="#2-7-2-对比进程和线程的对比" class="headerlink" title="2.7.2 对比进程和线程的对比"></a>2.7.2 对比进程和线程的对比</h4><ul>
+<li><p>调度的基本单位</p>
+<ul>
+<li>在传统的操作系统中，进程作为拥有资源和独立调度、分派的基本单位。<strong>而在引入线程的操作系统中，则把线程作为调度和分派的基本单位，而进程作为资源拥有的基本单位。</strong></li>
+<li><strong>在同一进程中，线程的切换不会引起进程的切换；但从一个进程中的线程切换到另一个进程中的线程时，必然会引起进程的切换。</strong></li>
+</ul>
+</li>
+<li><p>并发性：<strong>在引入线程的操作系统中，不仅进程之间可以并发执行，而且在一个进程中的多个线程之间亦可并发执行。</strong></p>
+<ul>
+<li>引入线程的操作系统中，可以在一个文件服务进程中设置多个服务线程。当第一个线程等待时，文件服务进程中的第二个线程可以继续运行，以提供文件服务；当第二个线程阻塞时，则可由第三个继续执行，提供服务。</li>
+</ul>
+</li>
+<li><p>拥有资源</p>
+<ul>
+<li>一般而言，<strong>线程自己不拥有系统资源</strong>（也有一点必不可少的资源：TCB、局部变量等)，但它可以访问其隶属进程的资源，即一个进程的代码段、数据段及所拥有的系统资源，如已打开的文件、I/O 设备等，可以供该进程中的所有线程所共享。</li>
+</ul>
+</li>
+<li><p>独立性</p>
+<ul>
+<li>同一进程中的不同线程共享进程的内存空间和资源</li>
+<li>同一进程中的不同线程的独立性低于不同进程</li>
+</ul>
+</li>
+<li><p>系统开销</p>
+<ul>
+<li>进程切换、创建、撤销，所需的开销代价远高于线程的切换。</li>
+<li>线程之间的同步和通信也比进程简单。由于一个进程中的多个线程具有相同的地址空间。</li>
+<li><strong>在一些操作系统中，线程的切换、同步和通信都无须操作系统内核的干预。</strong></li>
+</ul>
+</li>
+<li><p>支持多处理机系统(SMP(Symmetrical Multi-Processing))</p>
+<ul>
+<li>一个进程分为多个线程，分配到多个处理机上并行执行，可加速进程的完成。</li>
+</ul>
+</li>
+<li><p>例题</p>
+<ul>
+<li><p>下面关于线程的叙述中，正确的是（  C   ）。</p>
+<p>**A.**不论是系统支持线程还是用户级线程，其切换都需要内核的支持。</p>
+<p>**B.**线程是资源的分配单位，进程是调度和分配的单位。</p>
+<p>**C.**不管系统中是否有线程，进程都是拥有资源的独立单位。</p>
+<p>**D.**在引入线程的系统中，进程仍是资源分配和调度分派的基本单位。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-7-3-线程的属性"><a href="#2-7-3-线程的属性" class="headerlink" title="2.7.3 线程的属性"></a>2.7.3 线程的属性</h4><ul>
+<li>轻型实体</li>
+<li>独立调度和分派的基本单位</li>
+<li>可并发执行</li>
+<li>共享进程资源</li>
+<li>注意：<strong>多线程OS中，进程已经是不可执行的实体。</strong></li>
+</ul>
+<h4 id="2-7-4-线程的状态"><a href="#2-7-4-线程的状态" class="headerlink" title="2.7.4 线程的状态"></a>2.7.4 线程的状态</h4><p>同进程一样，线程之间也存在共享资源、相互合作的制约关系，致使线程在运行时也具有间断性。</p>
+<ul>
+<li><p>线程运行的三种状态：</p>
+<ul>
+<li>执行状态：表示线程正获得CPU而运行</li>
+<li>就绪状态：表示线程已具备了各种运行条件，一旦获得CPU便可以执行。</li>
+<li>阻塞状态：表示线程在运行中因为某事件而受阻，处于暂停执行状态。</li>
+</ul>
+</li>
+<li><p>线程中的挂起操作与进程中的挂起操作是否为同一概念？为什么？</p>
+<ul>
+<li>答：不一样。线程只有CPU资源，不会申请如I/O设备这样的的其他资源，所以挂起线程就是剥夺它的CPU,使其进入阻塞状态。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-7-5-线程控制块TCB"><a href="#2-7-5-线程控制块TCB" class="headerlink" title="2.7.5 线程控制块TCB"></a>2.7.5 线程控制块TCB</h4><ul>
+<li>组成：<ul>
+<li>线程标识符（唯一）</li>
+<li>一组寄存器 ：包括程序计数器、状态寄存器、通用寄存器的内容。</li>
+<li>线程运行状态：用于描述线程正处于何种运行状态。</li>
+<li>优先级：描述线程执行的优先程度</li>
+<li>线程专有存储器</li>
+<li>信号屏蔽：对某些信号加以屏蔽</li>
+<li>两个堆栈指针：用户栈、核心栈</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-8-Linux线程"><a href="#2-8-Linux线程" class="headerlink" title="2.8 Linux线程"></a>2.8 Linux线程</h2><h2 id="2-9-线程的实现"><a href="#2-9-线程的实现" class="headerlink" title="2.9 线程的实现"></a>2.9 线程的实现</h2><h3 id="2-9-1-线程实现方式"><a href="#2-9-1-线程实现方式" class="headerlink" title="2.9.1 线程实现方式"></a>2.9.1 线程实现方式</h3><ul>
+<li><p>内核支持线程（KST—Kernel Supported Threads）</p>
+<ul>
+<li><p>内核支持线程KST在内核支持下运行，它们的创建、阻塞、撤销、切换等，都是在内核空间内实现的。为了对内核线程进行控制和管理，在内核空间为每一个内核进程设置了一个线程控制块，内核根据该控制块而感知某线程的存在并加以控制，当前大多数OS都支持内核支持线程。</p>
+</li>
+<li><p>当进程要创建一个线程时，便为新线程分配一个TCB，将有关信息填入TCB，并为之分配必要的资源。新线程便可立即执行。当进程要撤消一个线程时，也应收回线程的TCB和所有资源。</p>
+</li>
+<li><p>优点：</p>
+<ul>
+<li>SMP中，内核可以同时调度同一进程的多个线程并行执行。</li>
+<li>如果一个进程中的线程被阻塞，内核可以调度该进程中的其他线程占有处理器运行，也可以运行其他进程中的线程。</li>
+<li>内核支持线程具有很小的数据结构和堆栈，线程的切换比较快，切换开销小。</li>
+<li>内核本身可采用多线程技术，可以提高系统并发执行速度和效率。</li>
+</ul>
+</li>
+<li><p>缺点：对于用户的线程切换而言，其切换模式开销较大，在同一个进程中，从一个线程切换到另一个线程时，需要用户从用户态转到核心态进行，这是因为<strong>用户进程的线程在用户态运行，而线程的调度和管理在内核实现</strong>，系统开销较大。</p>
+</li>
+</ul>
+</li>
+<li><p>用户级线程ULT（User Level Threads）</p>
+<ul>
+<li>在用户空间内实现。对线程的创建、撤销、同步与通信等功能，都<strong>无需内核支持，即用户线程与内核无关</strong>。在一个系统中的用户级线程数目可以达到数百、数千个。由于这些线程的任务控制块都是设置在用户空间，而线程所执行的工作也无需内核帮助，因而内核完全不知道用户级线程的存在。</li>
+<li>对于设置了ULT的系统，<strong>其调度仍以进程为单位进行</strong>。</li>
+<li>优点：<ul>
+<li>线程切换不需要转换到内核空间。节省了模式切换开销。</li>
+<li>调度算法可以是进程专用的。在不干扰OS调度的情况下，不同的进程可以根据自身需要选择不同的调度算法，对自己的线程进行管理和调度，而与线程的低级调度算法无关。</li>
+<li>用户线程实现与OS平台无关，因为对于线程的管理代码是属于用户程序的一部分，所有应用程序都可以对之进行共享。因此，用户级线程甚至可以在不支持线程机制的操作系统平台上实现。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>系统调用阻塞问题。在基于进程的OS中，大多数系统调用将使进程阻塞，因此，当线程执行一个系统调用时，不仅该线程被阻塞，而且进程内的所有线程会被阻塞。而在KST方式中，则进程中的其他线程仍然可以运行。</li>
+<li>在单纯的用户级线程实现方式中，多线程应用不能利用SMP进行多重处理的优点，内核每次分配给一个进程仅有的一个CPU，因此，进程中仅有一个线程能执行，在该线程放弃CPU前，其他线程只能等待。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>组合方式（KST/ULT）：内核支持线程的创建、调度、管理；允许用户应用程序创建、调度、管理用户级线程。<br>在同一进程内的多个线程可以同时在多处理器上并行执行，而且阻塞一个线程时并不需要将整个进程阻塞。</p>
+</li>
+<li><p>三种不同的模型：</p>
+<ul>
+<li>多对一：将一个用户线程映射到一个内核控制线程。</li>
+<li>一对多：将每一个用户级线程映射到一个内核支持线程。</li>
+<li>多对多：将多个用户线程映射到相同数量/更少数量的内核线程上。</li>
+</ul>
+<p><a href="https://imgtu.com/i/coQT0S"><img src="https://z3.ax1x.com/2021/04/19/coQT0S.png" srcset="/img/loading.gif" lazyload alt="coQT0S.png"></a></p>
+</li>
+</ul>
+<h3 id="2-9-2-线程的实现"><a href="#2-9-2-线程的实现" class="headerlink" title="2.9.2 线程的实现"></a>2.9.2 线程的实现</h3><p><strong>核心：上下文切换</strong></p>
+<ul>
+<li><p>KST</p>
+<p><a href="https://imgtu.com/i/coKgBD"><img src="https://z3.ax1x.com/2021/04/19/coKgBD.png" srcset="/img/loading.gif" lazyload alt="coKgBD.png"></a></p>
+</li>
+<li><p>ULT</p>
+<p><a href="https://imgtu.com/i/coKj4s"><img src="https://z3.ax1x.com/2021/04/19/coKj4s.png" srcset="/img/loading.gif" lazyload alt="coKj4s.png"></a></p>
+<p>在“Runtime system”中的所有函数都驻留在用户空间，并作为用户级线程与内核之间的接口。</p>
+<p>无论在传统OS还是在多线程OS中，系统资源都是由内核管理的。</p>
+<p><a href="https://imgtu.com/i/coMt2t"><img src="https://z3.ax1x.com/2021/04/19/coMt2t.png" srcset="/img/loading.gif" lazyload alt="coMt2t.png"></a></p>
+<p><a href="https://imgtu.com/i/coMgx0"><img src="https://z3.ax1x.com/2021/04/19/coMgx0.png" srcset="/img/loading.gif" lazyload alt="coMgx0.png"></a></p>
+<ul>
+<li><p>每一个LWP一直捆绑在一个内核级线程上</p>
+</li>
+<li><p>用LWP实现用户级线程和内核级线程的捆绑</p>
+</li>
+<li><p>线程库（用户级）可以控制LWP、并完成捆绑</p>
+</li>
+<li><p><strong>LWP实现了内核与用户级线程之间的隔离，从而使用户级线程与内核无关</strong></p>
+</li>
+<li><p>多个用户级线程多路复用一个LWP，只有当前连接到LWP上的线程才能与内核通信，其余线程或阻塞，或等待LWP。</p>
+</li>
+<li><p>在一个系统中，用户级线程的数量可能很大，为节省系统开销不可能设置太多的LWP，而把这些LWP做成一个缓冲池，用户进程中的任一线程都可连接到LWP池的任一LWP上。</p>
+</li>
+<li><p>每个LWP都要连接到一个内核支持线程上，由此，LWP把用户级线程与内核支持线程连接起来，用户级线程便可访问内核。</p>
+<p><a href="https://imgtu.com/i/coQnij"><img src="https://z3.ax1x.com/2021/04/19/coQnij.png" srcset="/img/loading.gif" lazyload alt="coQnij.png"></a></p>
+</li>
+</ul>
+</li>
+<li><p>采用线程的优点：</p>
+<ul>
+<li>在一个已有进程中创建一个新线程比创建一个全新进程所需的时间少。</li>
+<li>终止一个线程比终止一个进程花费的时间少。</li>
+<li>线程间切换比进程间切换花费的时间少。</li>
+<li>线程提高了不同的执行程序间通信的效率。同一个进程中的线程共享存储空间和文件，它们无需调用内核就可以互相通信。</li>
+</ul>
+</li>
+</ul>
+<h1 id="第三章-处理机调度与死锁"><a href="#第三章-处理机调度与死锁" class="headerlink" title="第三章 处理机调度与死锁"></a>第三章 处理机调度与死锁</h1><p>3.1 处理机调度的层次和调度算法的目标</p>
+<p>3.2 作业和作业调度</p>
+<p>3.3 进程调度 </p>
+<p>3.4 实时调度 </p>
+<p>3.5 死锁概述 </p>
+<p>3.6 预防死锁</p>
+<p>3.7 避免死锁</p>
+<p>3.8 死锁的检测与解除 </p>
+<h2 id="3-1-处理机调度的层次和调度算法的目标"><a href="#3-1-处理机调度的层次和调度算法的目标" class="headerlink" title="3.1 处理机调度的层次和调度算法的目标"></a>3.1 处理机调度的层次和调度算法的目标</h2><p>分配处理机的任务是由处理机调度程序完成。</p>
+<p>处理机调度算法是指根据处理机分配策略所规定的处理机分配算法。</p>
+<p>由于处理机是最重要的计算机资源，提高处理机的利用率及改善系统性能（吞吐量、响应时间），在很大程度上取决于处理机调度性能的好坏。</p>
+<h3 id="3-1-1-处理机调度层次（三级调度）"><a href="#3-1-1-处理机调度层次（三级调度）" class="headerlink" title="3.1.1 处理机调度层次（三级调度）"></a>3.1.1 处理机调度层次（三级调度）</h3><ul>
+<li><p>高级调度（High Level Scheduling）</p>
+<ul>
+<li><p>又称<strong>作业调度、长程调度</strong>（lon=g-term scheduling），调度对象为<strong>作业</strong>。主要功能是根据某种算法，决定将<strong>外存上处于后备队列</strong>中的哪些作业调入内存。它为被调度作业或用户程序创建进程，分配必要的系统资源，并将新创建的进程插入就绪队列，等待短程调度。</p>
+</li>
+<li><p>作业基本概念。</p>
+<ul>
+<li><strong>作业（Job）</strong>是一个比程序更为广泛的概念，它不仅包含了通常的程序和数据，而且还应配有<strong>一份作业说明书</strong>，系统根据该说明书来对程序的运行进行控制。<strong>在批处理系统中，是以作业为基本单位从外存调入内存的。</strong></li>
+<li><strong>作业步(Job Step)**。通常，在作业运行期间，每个作业都必须经过若干个相对独立，又相互关联的顺序加工步骤才能得到结果，我们把其中的每一个</strong>加工步骤**称为一个作业步，各作业步之间存在着相互联系，往往是把上一个作业步的输出作为下一个作业步的输入。一个典型的作业可分为：“编译”工作步，“链接”工作步和“运行”工作步。</li>
+<li><strong>作业流</strong>。若干个作业进入系统后，被依次存放在<strong>外存</strong>上，这便形成了输入的作业流；在操作系统的控制下，逐个作业进行处理，于是便形成了处理作业流。</li>
+<li>每当作业进入系统时，系统便为每个作业建立一个<strong>JCB</strong>，根据作业类型将它插入相应的后备队列中。作业调度程序依据一定的调度算法来调度它们，被调度到的作业将会装入内存。在作业运行期间，系统就按照JCB 中的信息对作业进行控制。当一个作业执行结束进入完成状态时，系统负责回收分配给它的资源，撤消它的作业控制块。</li>
+<li><strong>批处理系统中，作业进入系统后，先驻留在磁盘上，组织成批处理队列，称为<em>后备队列</em>。长程调度从该队列中选择一个或多个作业，为之创建进程。</strong></li>
+</ul>
+</li>
+<li><p><strong>高级调度主要用于多道批处理系统，在分时、实时系统中不设置高级调度。</strong>因为为了做到及时响应，用户通过键盘输入的命令或数据等都被<strong>直接送入内存</strong>，因而无需配置上述作业调度机制，但也需有某种接纳控制措施来限制进入系统的用户数目，实时系统类似。</p>
+</li>
+<li><p><a href="https://imgtu.com/i/cojjTe"><img src="https://z3.ax1x.com/2021/04/19/cojjTe.png" srcset="/img/loading.gif" lazyload alt="cojjTe.png"></a></p>
+</li>
+<li><p>选择多少作业进入内存：<br>作业调度每次要接纳多少个作业进入内存，取决于<strong>多道程序度</strong>(Degree of Multiprogramming)，即<strong>允许多少个作业同时在内存中运行</strong>。当内存中同时运行的作业数目太多时，可能会影响到系统的服务质量，比如，使周转时间太长。但如果在内存中同时运行作业的数量太少时，又会导致系统的资源利用率和系统吞吐量太低，因此，多道程序度的确定应根据系统的规模和运行速度等情况做适当的折衷。</p>
+<p>选择哪些作业进入内存：取决于高级调度算法</p>
+</li>
+</ul>
+</li>
+<li><p>低级调度(Low Level Scheduling)</p>
+<ul>
+<li><p>又称<strong>进程调度或短程调度</strong>(Short-term Scheduling)，调度对象是：<strong>进程（内核级线程）</strong>。</p>
+</li>
+<li><p>低级调度用来决定就绪队列中的哪个进程应获得处理机，然后再由分派程序把处理机分配给该进程的具体操作。</p>
+</li>
+<li><p>功能：</p>
+<ul>
+<li>保存处理机的现场信息。在进程调度进行调度时，首先需要保存当前进程的处理机的现场信息，如程序计数器、多个通用寄存器中的内容等，将它们送入该进程的进程控制块(PCB)中的相应单元。</li>
+<li>按某种算法选取进程。低级调度程序按某种算法如优先法、轮转法等，从就绪队列中选取一个进程，把它的状态改为运行状态，并准备把处理机分配给它。</li>
+<li>把处理器分配给进程。由分派程序(Dispatcher)把处理器分配给进程。此时需为选中的进程恢复处理机现场，即把选中进程的进程控制块内有关处理机现场的信息装入处理器相应的各个寄存器中，把处理器的控制权交给该进程，让它从取出的断点处开始继续运行。</li>
+</ul>
+</li>
+<li><p>进程调度是<strong>最基本</strong>的一种调度，<strong>在多道批处理、分时和实时三种OS中，都必须配置。</strong></p>
+</li>
+<li><p>短程调度运行频率最高。</p>
+</li>
+<li><p>低级调度分类：</p>
+<ul>
+<li><p>非抢占方式</p>
+<ul>
+<li><p>在采用这种调度方式时，一旦把处理机分配给某进程后，便让该进程一直执行，直至该进程完成或发生某事件而被阻塞时，才再把处理机分配给其他进程，<strong>决不允许某进程抢占已经分配出去的处理机</strong>。</p>
+</li>
+<li><p>引起进程调度：</p>
+<p>①正在执行的进程执行完毕，或因发生某事件而不能再继续执行；</p>
+<p> ②执行中的进程因提出I／O请求而暂停执行；</p>
+<p> ③在进程通信或同步过程中执行了某种原语操作，如P操作（wait操作）、Block原语、 Wakeup原语等。</p>
+</li>
+<li><p>优点：实现简单，系统开销小，适合批处理任务。</p>
+</li>
+<li><p>缺点：难以满足实时任务。（硬实时任务）</p>
+</li>
+</ul>
+</li>
+<li><p>抢占方式</p>
+<ul>
+<li>这种调度方式，允许调度程序根据某种原则，去暂停某个正在执行的进程，将已分配给该进程的<strong>处理机重新分配</strong>给另一进程。</li>
+<li>原则：<ul>
+<li><strong>优先权原则</strong>：通常是对一些重要的和紧急的作业赋予较高的优先权。当这种作业到达时，如果其优先权比正在执行进程的优先权高，便停止正在执行(当前)的进程，将处理机分配给优先权高的新到的进程，使之执行；或者说，允许优先权高的新到进程抢占当前进程的处理机。</li>
+<li><strong>短作业优先原则</strong>：当新到达的作业(进程)比正在执行的作业(进程)（<strong>尚需运行时间</strong>）明显的短时，将暂停当前长作业(进程)的执行，将处理机分配给新到的短作业(进程)，使之优先执行；或者说，短作业(进程)可以抢占当前较长作业(进程)的处理机。</li>
+<li><strong>时间片原则</strong>：各进程按时间片轮流运行，当一个时间片用完后，便停止该进程的执行而重新进行调度。这种原则适用于分时系统、大多数的实时系统，以及要求较高的批处理系统。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>中级调度(Medium-term scheduling)</p>
+<ul>
+<li><p>又称<strong>中程调度、内存调度</strong>，引入中级调度的主要目的是为了提高内存利用率和系统吞吐量。 </p>
+</li>
+<li><p>当内存空间非常紧张时，或处理机找不到一个可执行的就绪进程时，需要选择一个进程（阻塞或就绪状态）<strong>换出到外存</strong>，释放出内存空间给别的进程使用；当内存空间较充裕时，从外存选择一个挂起状态的进程调度到内存（<strong>换入</strong>）。</p>
+</li>
+<li><p>中级调度决定把外存上的哪些具备运行条件的就绪进程<strong>，重新调入内存</strong>，并修改其状态为就绪状态，挂在就绪队列上等待调度。</p>
+</li>
+<li><p>实际上是<strong>存储器管理的对换功能</strong>。</p>
+</li>
+<li><p>补充：可用于作业调度</p>
+<p><strong>下面的图很重要！！！</strong></p>
+</li>
+<li><p><a href="https://imgtu.com/i/cT99qx"><img src="https://z3.ax1x.com/2021/04/19/cT99qx.png" srcset="/img/loading.gif" lazyload alt="cT99qx.png"></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-1-2-处理机调度算法的目标和准则"><a href="#3-1-2-处理机调度算法的目标和准则" class="headerlink" title="3.1.2 处理机调度算法的目标和准则"></a>3.1.2 处理机调度算法的目标和准则</h3><p>引言：在一个操作系统的设计中，应如何选择调度方式和算法，<strong>在很大程度上取决于操作系统的类型及其目标</strong>。例如，在批处理系统、分时系统和实时系统中，通常都采用不同的调度方式和算法。选择调度方式和算法的准则，有的是面向用户的，有的是面向系统的。</p>
+<ul>
+<li><p>处理机调度算法的共同目标</p>
+<ul>
+<li><p>资源利用率。为提高系统的资源利用率，应使系统中的处理机和其他所有资源都尽可能地保持忙碌。</p>
+<ul>
+<li><p><strong>计算CPU利用率</strong>：</p>
+<p><strong>CPU利用率 = CPU有效工作时间/（CPU有效工作时间+CPU空闲等待时间）</strong></p>
+</li>
+</ul>
+</li>
+<li><p>公平性。应使诸进程都获得合理的CPU时间，<strong>不会发生饥饿时间</strong>。公平是相对的，对于相同类型的进程应获得相同的服务；但对于不同类型的进程，由于其紧急程度/重要性不同，则应提供不同的服务。</p>
+</li>
+<li><p>平衡性。由于在系统中可能具有多种类型的进程，为了使系统中的CPU和各种外部设备都能经常处于忙碌状态，调度算法应尽可能保持系统资源使用的平衡性。</p>
+</li>
+<li><p>策略强制执行。对所制订的策略其中包括安全策略，只要需要，就必须予以准确地执行，即使会造成某些工作的延迟。</p>
+</li>
+</ul>
+</li>
+<li><p>批处理系统的目标：</p>
+<ul>
+<li><p>平均周转时间短。</p>
+<ul>
+<li><p><strong>所谓周转时间，是指作业从被提交给系统开始，到作业完成为止的这段时间间隔（作业周转时间）</strong></p>
+</li>
+<li><p><strong>周转时间T包括四部分：</strong></p>
+<ul>
+<li><strong>作业在外存后备队列上的等待时间</strong></li>
+<li><strong>进程在就绪队列上等待进程调度的时间</strong></li>
+<li><strong>进程在CPU上执行的时间</strong></li>
+<li><strong>进程等待I/O操作的时间</strong></li>
+</ul>
+<p>后三项在一个作业处理过程中可能发生多次。</p>
+</li>
+<li><p><strong>平均周转时间</strong>：</p>
+<p><a href="https://imgtu.com/i/cTFiXd"><img src="https://z3.ax1x.com/2021/04/19/cTFiXd.png" srcset="/img/loading.gif" lazyload alt="cTFiXd.png"></a></p>
+<p>从系统管理者角度出发，平均周转时间越短越好。</p>
+</li>
+<li><p><strong>带权周转时间：作业的周转时间T</strong> <strong>/</strong> <strong>系统为其提供服务的时间T<sub>s</sub></strong></p>
+<p><strong>W = T/T<sub>s</sub></strong></p>
+<p><a href="https://imgtu.com/i/cTFP6H"><img src="https://z3.ax1x.com/2021/04/19/cTFP6H.png" srcset="/img/loading.gif" lazyload alt="cTFP6H.png"></a></p>
+</li>
+</ul>
+</li>
+<li><p>系统吞吐量高。</p>
+<ul>
+<li><strong>吞吐量：单位时间内系统所完成的作业数</strong>，与处理作业的平均长度有关。</li>
+<li>单纯为了提高吞吐量，就应尽量选择短作业处理。</li>
+</ul>
+</li>
+<li><p>处理机利用率高。</p>
+<ul>
+<li>处理机利用率：衡量系统性能的重要指标。</li>
+<li>单纯为了提高处理机利用率，应尽量选择计算量大的作业进行处理。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>分时系统的目标</p>
+<ul>
+<li>响应时间快。<ul>
+<li><strong>响应时间：是从用户通过键盘提交一个请求开始，直至系统首次产生响应为止的时间。</strong></li>
+<li>响应时间包括三部分：<ul>
+<li><strong>从键盘输入的请求信息传送到处理机的时间</strong></li>
+<li><strong>处理机对请求信息进行处理的时间</strong></li>
+<li><strong>将所形成的响应信息回送到终端显示器的时间</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>均衡性。指系统响应时间快慢应与用户请求的复杂性相适应。</li>
+</ul>
+</li>
+<li><p>实时系统的目标</p>
+<ul>
+<li>截止时间保证。<ul>
+<li><strong>截止时间：指某任务必须开始执行的最迟时间，或必须完成的最迟时间。</strong></li>
+<li>可预测性。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-2-作业和作业调度"><a href="#3-2-作业和作业调度" class="headerlink" title="3.2 作业和作业调度"></a>3.2 作业和作业调度</h2><p>多道批处理系统：</p>
+<ul>
+<li>用户提交作业</li>
+<li>操作员输入作业，存放在外存，作业存放在后备队列</li>
+<li>由作业调度（长程调度）程序调入内存</li>
+</ul>
+<h3 id="3-2-1-批处理系统中的作业"><a href="#3-2-1-批处理系统中的作业" class="headerlink" title="3.2.1 批处理系统中的作业"></a>3.2.1 批处理系统中的作业</h3><p>1.作业和作业步（上面已详细说明）</p>
+<p>2.作业控制块（Job Control Block，JCB）</p>
+<p>JCB包含：作业标识、用户名称、用户账号、作业类型（CPU繁忙型、I/O繁忙型、批量型、终端型）、作业状态、调度信息、资源需求、资源使用情况等。</p>
+<p>每当一个作业进入系统时，便由“作业注册”程序为该作业建立一个作业控制块JCB，再根据作业类型，将它放到相应的作业后备队列中，等待调度。调度程序按一定的调度算法来调度它们，被调度的作业将被装入内存。作业运行期间，系统按照JCB中的信息和作业说明书对作业进行控制。当一个作业执行结束进入完成状态，系统负责回收以已分配给它的资源，撤销该作业控制块。</p>
+<p>3.作业运行的三个阶段和三种状态<br>作业进入系统到运行结束，通常需要经历：<strong>收容、运行、完成</strong>，三个阶段。相应的作业有<strong>“后备状态”、“运行状态”、“完成状态”</strong>。</p>
+<ul>
+<li>收容。操作员把用户提交的作业通过某种方式或SPOOLing系统输入到硬盘上，再为该作业建立JCB并把它放入到后备队列中。相应地，此时地作业的状态为“后备状态”。</li>
+<li>运行。当作业被调度选中后，便为`它分配必要的资源和建立进程，并将它放入就绪队列。<strong>一个作业第一次进入就绪状态，直到它运行结束前，在此期间处于“运行状态”。</strong></li>
+<li>完成阶段。当作业完后、或发生异常情况而提前结束时，作业便进入完成阶段，相应的作业状态为“完成状态”。此时系统中的“终止作业”程序将会回收已经分配给该作业的作业控制块和所有资源，并将作业运行结果信息形成输出文件后输出。</li>
+</ul>
+<h3 id="3-2-2-作业调度的主要任务"><a href="#3-2-2-作业调度的主要任务" class="headerlink" title="3.2.2  作业调度的主要任务"></a>3.2.2  作业调度的主要任务</h3><p><strong>作业调度</strong>（外存到内存）需要做出以下决定：</p>
+<ul>
+<li>接纳多少作业（多道程序度）</li>
+<li>接纳哪些作业（调度算法）</li>
+</ul>
+<p>3.2.3 FCFS和SJF算法</p>
+<h4 id="先来先服务调度算法"><a href="#先来先服务调度算法" class="headerlink" title="先来先服务调度算法"></a>先来先服务调度算法</h4><p><strong>可用于作业调度，也可以用于进程调度</strong>。</p>
+<ul>
+<li><p>当在作业调度中采用该算法时，系统安照作业到到达的先后次序来进行调度。优先考虑在系统中等待时间最长的作业，将他们调入内存、分配资源、创建进程，然后放入就绪队列中。</p>
+<p>如果在进程调度中采用FCFS，每次调度从就绪队列中挑选最先到达的进程分配处理机。</p>
+</li>
+<li><p>FCFS很少作为主调度算法，经常与其他调度算法结合使用，形成一种更为有效的调度算法。</p>
+</li>
+<li><p>FCFS算法比较<strong>有利于长作业（进程）</strong>，而不利于短作业（进程）。</p>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/cTUVQe"><img src="https://z3.ax1x.com/2021/04/19/cTUVQe.jpg" srcset="/img/loading.gif" lazyload alt="cTUVQe.jpg"></a></p>
+<h4 id="短作业优先调度算法（SJF）"><a href="#短作业优先调度算法（SJF）" class="headerlink" title="短作业优先调度算法（SJF）"></a>短作业优先调度算法（SJF）</h4><ul>
+<li>短作业(进程)优先调度算法<strong>SJ(P)F</strong>，是指对短作业或短进程优先调度的算法。<ul>
+<li>短作业优先(SJF)的调度算法是从后备队列中选择一个或若干个估计运行时间最短的作业，将它们<strong>调入内存</strong>运行。</li>
+<li>短进程优先(SPF)调度算法是从就绪队列中选出一个估计运行时间最短的进程，将处理机分配给它，<strong>使它立即执行并一直执行到完成，或发生某事件而被阻塞放弃处理机时再重新调度</strong>。</li>
+<li><a href="https://imgtu.com/i/cTarNt"><img src="https://z3.ax1x.com/2021/04/19/cTarNt.jpg" srcset="/img/loading.gif" lazyload alt="cTarNt.jpg"></a></li>
+</ul>
+</li>
+<li>短作业优先调度算法的缺点：<ul>
+<li>该算法对长作业不利。</li>
+<li>该算法完全未考虑作业的紧迫程度，因而不能保证紧迫性作业（进程）会被及时处理。</li>
+<li>由于作业（进程）的长短只是根据用户所提供的估计执行时间而定的，而用户又可能会估计不准运行时间，致使该算法不一定能真正做到短作业优先调度。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-4-优先级调度算法和高响应比优先调度算法"><a href="#3-2-4-优先级调度算法和高响应比优先调度算法" class="headerlink" title="3.2.4 优先级调度算法和高响应比优先调度算法"></a>3.2.4 优先级调度算法和高响应比优先调度算法</h3><h4 id="优先级调度算法-priority-scheduling-algorithm-PSA"><a href="#优先级调度算法-priority-scheduling-algorithm-PSA" class="headerlink" title="优先级调度算法(priority-scheduling algorithm,PSA)"></a>优先级调度算法(priority-scheduling algorithm,PSA)</h4><ul>
+<li>实际应用中，作业的性质可能是不同，运行的迫切性也有所不同。因此，可以为每个作业定义一个优先级，优先级越高的作业将优先获得调度从后备队列进入内存就绪队列之中。<ul>
+<li>当应用于作业调度时，优先级调度算法是把具有最高优先级的作业调入内存之中。</li>
+<li>当应用于进程调度时，优先级调度算法是调度就绪队列中具有最高优先级的进程获得处理机。</li>
+</ul>
+</li>
+</ul>
+<h4 id="高响应比优先调度算法-Highest-Response-Ratio-Next-HRRN"><a href="#高响应比优先调度算法-Highest-Response-Ratio-Next-HRRN" class="headerlink" title="高响应比优先调度算法(Highest Response Ratio Next,HRRN)"></a>高响应比优先调度算法(Highest Response Ratio Next,HRRN)</h4><ul>
+<li><p><strong>引入动态优先级，随等待时间延长而增加。</strong></p>
+<ul>
+<li><p>响应比R<sub>p</sub> = （等待时间+要求服务时间）/要求服务时间 </p>
+<p>​                = 1 + 等待时间/要求服务时间 </p>
+<p>​                = 响应时间/要求服务时间</p>
+</li>
+<li><p>如果作业的等待时间相同，则要求服务的时间愈短，其优先权愈高，因而该算法有利于短作业。<br>当要求服务的时间相同时，作业的优先权决定于其等待时间，等待时间愈长，其优先权愈高，因而它实现的是先来先服务。<br>对于长作业，作业的优先级可以随等待时间的增加而提高，当其等待时间足够长时，其优先级便可升到很高，从而也可获得处理机。简言之，<strong>该算法既照顾了短作业，又考虑了作业到达的先后次序，不会使长作业长期得不到服务</strong>。因此，该算法实现了一种较好的折衷。当然，在利用该算法时，每要进行调度之前，都须先做响应比的计算，这会<strong>增加系统开销</strong>。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-3-进程调度"><a href="#3-3-进程调度" class="headerlink" title="3.3 进程调度"></a>3.3 进程调度</h2><ul>
+<li><p>进程调度的任务：</p>
+<ul>
+<li>保存处理机现场</li>
+<li>按照某种算法选取进程</li>
+<li>把处理机分配给进程</li>
+</ul>
+</li>
+<li><p>进程调度机制</p>
+<ul>
+<li><p>排队器。为提高进程调度的效率，应事先将系统中的所有就绪进程按照一定策略排成一个或多个队列，以便调度程序能最快找到它。以后每当有一个进程变为就绪状态时，排队器就将它插入到相应的就绪队列。</p>
+</li>
+<li><p>分派器。分派器依据进程调度程序所选的进程，将其从就绪队列中取出，然后进行从分派器到新选出进程间的上下文切换，将处理机分配给新选出的进程。</p>
+</li>
+<li><p>上下文切换器。在对处理机进行切换时，会发生两对上下文切换操作。</p>
+<ul>
+<li>第一对上下文切换时，OS将保存当前进程的上下文，即把当前进程的处理机寄存器内容保存到该进程的PCB的相应单元，再装入分派程序的上下文，以便分派程序运行。</li>
+<li>第二对上下文切换是移出分派程序的上下文，而把新选进程的CPU现场信息装入到处理机各个相应的寄存器中，以便新进程运行。</li>
+<li>进行上下文切换时，需要执行大量的load和store等操作指令，以保存寄存器的内容。</li>
+</ul>
+<p><a href="https://imgtu.com/i/cTwrSf"><img src="https://z3.ax1x.com/2021/04/19/cTwrSf.png" srcset="/img/loading.gif" lazyload alt="cTwrSf.png"></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="进程调度方式"><a href="#进程调度方式" class="headerlink" title="进程调度方式"></a>进程调度方式</h4><p><strong>1.非抢占方式(Nonpreemptive Mode)</strong><br>在这种方式下，系统一旦把处理机分配给就绪队列中优先权最高的进程后，该进程便一直执行下去，直至完成；或因发生某事件使该进程放弃处理机时，系统方可再将处理机重新分配给另一优先权最高的进程。<br>不能用于分时系统和实时系统。</p>
+<p><strong>2.抢占方式(Preeptive Mode)</strong><br>在这种方式下，系统同样是把处理机分配给优先权最高的进程，使之执行。但在其执行期间，只要又出现了另一个其优先权更高的进程，进程调度程序就立即停止当前进程的执行，重新将处理机分配给新到的优先权最高的进程。<br>抢占的原则：<strong>优先权原则、短进程优先原则、时间片原则</strong></p>
+<h3 id="3-3-2-轮转调度算法-Round-Robin-RR"><a href="#3-3-2-轮转调度算法-Round-Robin-RR" class="headerlink" title="3.3.2 轮转调度算法(Round Robin,RR)"></a>3.3.2 轮转调度算法(Round Robin,RR)</h3><ul>
+<li><p>在时间片轮转法中，系统将所有的就绪进程<strong>按先来先服务FCFS的原则</strong>，排成一个队列，每次调度时，把CPU分配给队首进程。并令其执行一个时间片。</p>
+</li>
+<li><p>当执行的时间片用完时，由一个计时器发出时钟<strong>中断请求</strong>，调度程序便据此信号来停止该进程的执行，若程序尚未运行完毕，将它送往就绪队列的末尾；然后，再把处理机分配给就绪队列中新的队首进程（或新到达的紧迫进程），同时也让它执行一个时间片。</p>
+</li>
+<li><p>这样就可以保证就绪队列中的所有进程，在一给定的时间内，均能获得一时间片的处理机执行时间，换言之，系统能在给定的时间内，响应所有用户的请求。</p>
+</li>
+<li><p>进程切换时机：</p>
+<ul>
+<li>若一个时间片尚未用完，正在运行的进程便已经完成，就立即激活调度程序，将它从就绪队列删除，再调度就绪队列中队首进程运行，并启动一个新的时间片。</li>
+<li>在一个时间片用完时，计时器中断处理程序被激活。如果进程尚未运行完毕，调度程序将它送往就绪队列的末尾。</li>
+</ul>
+</li>
+<li><p>进程切换将会增加系统的额外开销。</p>
+<p>时间片设定得太短，进程切换会非常频繁，从而降低处理机的效率；时间片设定得太长，将无法满足交互式用户对响应时间的要求。</p>
+<p>因此，时间片大小的确定应综合考虑系统的最大用户数、响应时间、系统效率等多种因素。 </p>
+<ul>
+<li>例题：</li>
+</ul>
+<p><a href="https://imgtu.com/i/cHMcXq"><img src="https://z3.ax1x.com/2021/04/20/cHMcXq.jpg" srcset="/img/loading.gif" lazyload alt="cHMcXq.jpg"></a></p>
+<p><strong>上图有错！！！</strong></p>
+<p>为了简单，图中忽略了进程切换时的系统开销，而实际操作系统中，这类额外开销是客观存在的。</p>
+<p>采用基于时间片轮转调度法，进程的周转时间和平均周转时间并不比采用FCFS和短进程优先调度算法小。</p>
+<p>加上进程切换所需的系统开销时间，该算法的平均周转时间还会增长。</p>
+</li>
+<li><p>常用于<strong>分时系统及事务处理系统</strong>，合理的时间片大小将带来满意的响应时间。</p>
+<p>通常，合理的时间片指，能让**80%**左右的进程在一个时间片内完成。</p>
+<p>对于短的、计算型的进程较有利。</p>
+<p>不适合于批处理系统的进程调度。</p>
+<p>不利于I/O型的进程。</p>
+<p>改进的方法之一，可以将I/O阻塞事件完成的进程单独组织一个就绪队列，该队列进程的时间片可以设置的小一些，且优先调度</p>
+</li>
+<li><p>短作业优先算法平均周转时间最小</p>
+</li>
+</ul>
+<h3 id="3-3-3-优先级调度算法"><a href="#3-3-3-优先级调度算法" class="headerlink" title="3.3.3 优先级调度算法"></a>3.3.3 优先级调度算法</h3><h4 id="优先调度算法类型"><a href="#优先调度算法类型" class="headerlink" title="优先调度算法类型"></a>优先调度算法类型</h4><p>非抢占式优先级调度算法<br>抢占式优先级调度算法</p>
+<h4 id="优先级的类型"><a href="#优先级的类型" class="headerlink" title="优先级的类型"></a>优先级的类型</h4><p>优先级调度算法的关键：应该如何确定进程的优先级。</p>
+<ul>
+<li>静态优先级<ul>
+<li>静态优先级是在创建进程时确定的，在进程整个运行期间保持不变。</li>
+<li>优先级利用某一范围内的一个整数表示，例如0~255中的某一个整数，把该整数称为<strong>优先数</strong>。</li>
+<li>确定进程优先级的依据：<ul>
+<li>进程类型。系统进程的优先权高于一般用户进程的优先权。</li>
+<li>进程对资源的需求。对要求少的进程应赋予较高的优先权。</li>
+<li>用户要求。根据进程的紧迫程度以及用户所付费用的多少确定优先级。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>动态优先级<ul>
+<li>动态优先级：  动态优先级是指，在创建进程时所赋予的优先权，是可以随进程的推进或随其等待时间的增加而改变的，以便获得更好的调度性能。  <ul>
+<li>例如，可以规定<strong>在就绪队列中的进程随其等待时间增长，使其优先级相应提升</strong>。若所有进程具有相同的优先级初始值，则最先进入就绪队列的进程会因其优先级变得最高，而优先获得处理机，这相当于FCFS算法。若所有的就绪进程具有各自不同的优先级初值，那么对于优先级初值低的进程，在等待了足够时间后，也可以得到处理机。<strong>当采用抢占式调度方式时，若再规定当前进程的优先级随时间的推移而下降，则可以防止一个长作业长期地垄断处理机。</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-3-4-多队列调度算法"><a href="#3-3-4-多队列调度算法" class="headerlink" title="3.3.4 多队列调度算法"></a>3.3.4 多队列调度算法</h3><ul>
+<li><p>将进程的就绪队列拆分为多个</p>
+<p>不同类型或性质的进程固定分配在对应的就绪队列</p>
+<p>不同的就绪队列采用不同的调度算法</p>
+<p>进程可以有不同的优先级、队列也可以有不同的优先级</p>
+<p>一个就绪队列中的进程可以设置不同的优先级，不同的就绪队列本身也可以设置不同的优先级。</p>
+</li>
+</ul>
+<h3 id="3-3-5-多级反馈队列调度算法-multileved-feedback-queue"><a href="#3-3-5-多级反馈队列调度算法-multileved-feedback-queue" class="headerlink" title="3.3.5 多级反馈队列调度算法(multileved feedback queue)"></a>3.3.5 多级反馈队列调度算法(multileved feedback queue)</h3><p>应设置多个就绪队列，并为各个队列赋予不同的优先级。 第一个最高，以后依次降低。</p>
+<p><a href="https://imgtu.com/i/cHR9Re"><img src="https://z3.ax1x.com/2021/04/20/cHR9Re.png" srcset="/img/loading.gif" lazyload alt="cHR9Re.png"></a></p>
+<ul>
+<li><p>当一个新进程进入内存后，首先将它放入第一队列的末尾，按FCFS原则排队等待调度。</p>
+<ul>
+<li>①当轮到该进程执行时，如它能在该时间片内完成，便可准备撤离系统；</li>
+<li>②如果它在一个时间片结束时尚未完成，调度程序便将该进程转入第二队列的末尾，再同样地按FCFS原则等待调度执行；</li>
+<li>③如果它在第二队列中运行一个时间片后仍未完成，再依次将它放入第三队列，……。</li>
+</ul>
+<p>仅当第一队列空闲时，调度程序才调度第二队列中的进程运行。</p>
+</li>
+<li><p>多级反馈队列调度算法具有较好的性能，能较好地满足各种类型用户的需要。</p>
+<ul>
+<li>终端型用户。由终端型用户提交的作业多属于交互型作业，通常较小，系统要使作业能在第一队列所规定的时间片内完成，可使终端型作业用户都感到满意。</li>
+<li>短批处理作业用户。<strong>对该用户更有利</strong>，周转时间较短。</li>
+<li>长批处理作业用户。对于长作业，它将依次在第1，2,…，n个队列中运行，然后再按轮转方式运行，用户不必担心其作业长期得不到处理。</li>
+</ul>
+</li>
+</ul>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul>
+<li>如何选择进程调度算法与系统设计的目标有关。</li>
+<li>交互式多任务系统，主要考虑联机用户对响应时间的要求，一般采用基于时间片轮转调度算法，同时，根据进程的性质设置不同的优先级。</li>
+<li>批处理系统往往以进程（或作业）的平均周转时间来衡量调度性能，常选用基于优先级的短进程（或作业）优先调度算法。 </li>
+</ul>
+<h2 id="3-4-实时调度"><a href="#3-4-实时调度" class="headerlink" title="3.4 实时调度"></a>3.4 实时调度</h2><p>由于在实时系统中都存在着若干个实时进程或任务，它们用来反应或控制某个外部事件，往往带有某种程度的紧迫性，因而对实时系统中的调度提出了某些特殊要求，前面所介绍的多种调度算法，并不能很好地满足实时系统对调度的要求，为此，需要引入一种新的调度，即<strong>实时调度</strong>。</p>
+<h3 id="3-4-1-实现实时调度的基本条件"><a href="#3-4-1-实现实时调度的基本条件" class="headerlink" title="3.4.1 实现实时调度的基本条件"></a>3.4.1 实现实时调度的基本条件</h3><h4 id="提供必要的信息"><a href="#提供必要的信息" class="headerlink" title="提供必要的信息"></a>提供必要的信息</h4><ul>
+<li><p><strong>就绪时间</strong>。这是该任务成为就绪状态的起始时间，在周期任务的情况下，它就是事先预知的一串时间序列；而在非周期任务的情况下，它也可能是预知的。</p>
+</li>
+<li><p><strong>开始截止时间和完成截止时间</strong>。对于典型的实时应用，只须知道开始截止时间，或者知道完成截止时间。</p>
+</li>
+<li><p><strong>处理时间</strong>。这是指一个任务从开始执行直至完成所需的时间。在某些情况下，该时间也是系统提供的。</p>
+</li>
+<li><p><strong>资源要求</strong>。这是指任务执行时所需的一组资源。</p>
+</li>
+<li><p><strong>优先级</strong>。如果某任务的开始截止时间已经错过，就会引起故障，则应为该任务赋予“绝对”优先级；如果开始截止时间的推迟对任务的继续运行无重大影响，则可为该任务赋予“相对”优先级，供调度程序参考。</p>
+</li>
+</ul>
+<h4 id="系统处理能力强"><a href="#系统处理能力强" class="headerlink" title="系统处理能力强"></a>系统处理能力强</h4><p>在实时系统中，通常都有着多个实时任务。若处理机的处理能力不够强，则有可能因处理机忙不过来而使某些实时任务不能得到及时处理。</p>
+<p>解决方法：</p>
+<ul>
+<li>仍是采用单处理机系统，但须增强其处理能力，以显著地减少对每一个任务的处理时间。</li>
+<li>采用多处理机系统。</li>
+</ul>
+<h4 id="采用抢占式调度机制"><a href="#采用抢占式调度机制" class="headerlink" title="采用抢占式调度机制"></a>采用抢占式调度机制</h4><p>在含有硬实时任务的实时系统中，广泛采用抢占机制。当一个优先权更高的任务到达时，允许将当前任务暂时挂起，而令高优先权任务立即投入运行，这样便可满足该硬实时任务对截止时间的要求。</p>
+<h4 id="具有快速切换机制"><a href="#具有快速切换机制" class="headerlink" title="具有快速切换机制"></a>具有快速切换机制</h4><p>为保证要求较高的硬实时任务能及时运行，在实时系统中还应具有快速切换机制，以保证能进行任务的快速切换。该机制应具有如下两方面的能力：</p>
+<ul>
+<li><strong>对外部中断的快速响应能力。</strong>为使在紧迫的外部事件请求中断时系统能及时响应，要求系统具有快速硬件中断机构，还应使禁止中断的时间间隔尽量短，以免耽误时机(其它紧迫任务)。</li>
+<li><strong>快速的任务分派能力。</strong>在完成任务调度后，便应进行任务切换。为了提高分派程序进行任务切换时的速度，应使系统中的每个运行功能单位适当地小，以减少任务切换的时间开销。</li>
+</ul>
+<h3 id="3-4-2-实时调度算法分类"><a href="#3-4-2-实时调度算法分类" class="headerlink" title="3.4.2 实时调度算法分类"></a>3.4.2 实时调度算法分类</h3><p>根据实时任务性质，可将实时调度算法分为：</p>
+<ul>
+<li>硬实时调度算法</li>
+<li>软实时调度算法</li>
+</ul>
+<p>根据调度方式分类：</p>
+<ul>
+<li>抢占式调度算法</li>
+<li>非抢占式调度算法</li>
+</ul>
+<h4 id="非抢占式调度算法"><a href="#非抢占式调度算法" class="headerlink" title="非抢占式调度算法"></a>非抢占式调度算法</h4><ul>
+<li><p><strong>非抢占式轮转调度算法</strong></p>
+<p>调度程序每次选择队列中的第一个任务投入运行。当该任务完成后，便把它挂在轮转队列的末尾，等待下次调度运行。该算法可获得数秒到数十秒的响应时间，可用于要求不太严格的实时控制系统。<br><a href="https://imgtu.com/i/cHfcxe"><img src="https://z3.ax1x.com/2021/04/20/cHfcxe.png" srcset="/img/loading.gif" lazyload alt="cHfcxe.png"></a></p>
+</li>
+<li><p><strong>非抢占式优先调度算法</strong></p>
+<p>如果在系统中存在着实时要求较为严格的任务，则可采用非抢占式优先调度算法，为这些任务赋予较高的优先级。当这些实时任务到达时，把它们安排在就绪队列的队首，等待当前任务自我终止或运行完成后，才能被调度执行。</p>
+<p><a href="https://imgtu.com/i/cHf2KH"><img src="https://z3.ax1x.com/2021/04/20/cHf2KH.png" srcset="/img/loading.gif" lazyload alt="cHf2KH.png"></a></p>
+</li>
+</ul>
+<h4 id="抢占式调度算法"><a href="#抢占式调度算法" class="headerlink" title="抢占式调度算法"></a>抢占式调度算法</h4><ul>
+<li><p><strong>基于时钟中断的抢占式优先权调度算法</strong></p>
+<p>某实时任务到达后，如果该任务的优先级高于当前任务的优先级，这时并不立即抢占当前任务的处理机，而是等到时钟中断到来时，调度程序才剥夺当前任务的执行，将处理机分配给新到的高优先权任务。 </p>
+<p><a href="https://imgtu.com/i/cHfy8O"><img src="https://z3.ax1x.com/2021/04/20/cHfy8O.png" srcset="/img/loading.gif" lazyload alt="cHfy8O.png"></a></p>
+</li>
+<li><p><strong>立即抢占的优先权调度算法</strong></p>
+<p>一旦出现外部中断，只要当前任务未处于临界区，便能立即剥夺当前任务的执行，把处理机分配给请求中断的紧迫任务。 </p>
+<p><a href="https://imgtu.com/i/cHfsPK"><img src="https://z3.ax1x.com/2021/04/20/cHfsPK.png" srcset="/img/loading.gif" lazyload alt="cHfsPK.png"></a></p>
+</li>
+</ul>
+<h3 id="3-4-3-常用的几种实时调度算法"><a href="#3-4-3-常用的几种实时调度算法" class="headerlink" title="3.4.3 常用的几种实时调度算法"></a>3.4.3 常用的几种实时调度算法</h3><h4 id="最早截止时间优先-Earliest-Deadline-First-EDF"><a href="#最早截止时间优先-Earliest-Deadline-First-EDF" class="headerlink" title="最早截止时间优先(Earliest Deadline First)EDF"></a>最早截止时间优先(Earliest Deadline First)EDF</h4><p>该算法要求在系统中保持一个实时任务就绪队列，该队列按各任务截止时间的早晚排序；具有最早截止时间的任务排在队列的最前面。调度程序总是选择就绪队列中的第一个任务，为之分配处理机，使之投入运行。 </p>
+<ul>
+<li><p>EDF算法用于非抢占式调度方式</p>
+<p>四个非周期任务，现后达到</p>
+<p><a href="https://imgtu.com/i/cHhlsH"><img src="https://z3.ax1x.com/2021/04/21/cHhlsH.png" srcset="/img/loading.gif" lazyload alt="cHhlsH.png"></a></p>
+</li>
+<li><p>抢占式调度方式用于周期实时任务</p>
+<p><a href="https://imgtu.com/i/cH4X40"><img src="https://z3.ax1x.com/2021/04/21/cH4X40.jpg" srcset="/img/loading.gif" lazyload alt="cH4X40.jpg"></a></p>
+<p><a href="https://imgtu.com/i/cH4vCV"><img src="https://z3.ax1x.com/2021/04/21/cH4vCV.png" srcset="/img/loading.gif" lazyload alt="cH4vCV.png"></a></p>
+</li>
+</ul>
+<h4 id="最低松弛度优先-Least-Laxity-First"><a href="#最低松弛度优先-Least-Laxity-First" class="headerlink" title="最低松弛度优先(Least Laxity First)"></a>最低松弛度优先(Least Laxity First)</h4><p><strong>松弛度 = 必须完成时间 - 本身运行时间 - 当前时间</strong></p>
+<p>该算法<strong>按松弛度排序实时任务的就绪队列</strong>，松弛度值最小的任务排在队列最前面，调度程序总是选择就绪队列中的队首任务执行。</p>
+<p><a href="https://imgtu.com/i/cbmHED"><img src="https://z3.ax1x.com/2021/04/21/cbmHED.png" srcset="/img/loading.gif" lazyload alt="cbmHED.png"></a></p>
+<p><a href="https://imgtu.com/i/cbmbUe"><img src="https://z3.ax1x.com/2021/04/21/cbmbUe.png" srcset="/img/loading.gif" lazyload alt="cbmbUe.png"></a></p>
+<ul>
+<li><p>在刚开始时(t1 = 0)，A1必须在20 ms 时完成，而它本身运行又需 10 ms，可算出A1的松弛度为10 ms；B1必须在50 ms 时完成，而它本身运行就需25 ms，可算出B1的松弛度为25 ms，故调度程序应先调度A1执行。</p>
+</li>
+<li><p>在<em>t</em>2 = 10 ms 时，A2的松弛度可按下式算出：<br>A2的松弛度 = 必须完成时间 - 其本身的运行时间 - 当前时间</p>
+<pre><code>                 = 40 ms-10 ms-10 ms = 20 ms
+</code></pre>
+<p>类似地，可算出B1的松弛度为15 ms，故调度程序应选择B2运行。</p>
+</li>
+<li><p>在t3 = 30 ms 时，A2的松弛度已减为0(即40 - 10 - 30)，而B1的松弛度为15 ms(即50 - 5 - 30)，于是调度程序应抢占B1的处理机而调度A2运行。</p>
+</li>
+<li><p>。在<em>t</em> 4 = 40 ms时，A3的松弛度为10 ms(即60 - 10 - 40)，而B1的松弛度仅为5 ms(即50 - 5 - 40)，故又应重新调度B1执行。</p>
+</li>
+<li><p>在t5 = 45 ms 时，B1执行完成，而此时A3 的松弛度已减为5 ms(即60 - 10 - 45)，而B2 的松弛度为30 ms(即100 - 25 - 45)，于是又应调度A3执行。</p>
+</li>
+<li><p>在t6 = 55 ms 时，任务A 尚未进入第4 周期，而任务B 已进入第2 周期，故再调度B2执行。</p>
+</li>
+<li><p>在t7 = 70 ms 时，A4的松弛度已减至0 ms(即80 - 10 - 70)，而B2的松弛度为20 ms(即100 - 10 - 70)，故此时调度又应抢占B2的处理机而调度A4 执行。</p>
+</li>
+<li><p>注意：</p>
+<ul>
+<li><p><strong>当等待任务的松弛度值为0时才进行抢占（如20ms时虽然A2的松弛度比B1的松弛度小，但A2并没有抢占B1）。</strong></p>
+</li>
+<li><p>当有任务执行时，只有等待任务的松弛度值为0才会发生任务的调度，其他情况不发生调度。</p>
+</li>
+<li><p><strong>任务执行结束后或无任务执行时，再比较等待任务的松弛度值，较小的先执行。</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-5-产生死锁的原因和条件"><a href="#3-5-产生死锁的原因和条件" class="headerlink" title="3.5 产生死锁的原因和条件"></a>3.5 产生死锁的原因和条件</h2><p>所谓<strong>死锁（Deadlock）</strong>，是指多个进程在运行过程中因争夺资源而造成的一种僵局（<strong>Deadly- Embrace</strong>），当进程处于这种僵持状态时，若无外力作用，它们都将无法再向前推进。</p>
+<h3 id="3-5-1-资源问题"><a href="#3-5-1-资源问题" class="headerlink" title="3.5.1 资源问题"></a>3.5.1 资源问题</h3><ul>
+<li><p><strong>可重用性资源</strong></p>
+<ul>
+<li>每一个可重用资源中的单元只能分配给一个进程使用，不允许多个进程共享</li>
+<li>进程在使用该类资源过程中，须按照下列顺序：请求，使用，释放</li>
+<li>系统中每一类可重用资源中的单元数目是相对固定的，进程在运行期间既不能创建也不能删除它</li>
+</ul>
+</li>
+<li><p><strong>可消耗性资源</strong></p>
+<p>临时性资源，其在进程运行期间，由进程动态地创建和消耗的</p>
+<ul>
+<li>每一类可消耗性资源的单元数目在运行期间是不断变化的</li>
+<li>进程在运行过程中，可以不断地创造可消耗性资源的单元</li>
+<li>进程在运行过程中，可以请求若干个可消耗性资源单元</li>
+<li>典型：消息</li>
+</ul>
+</li>
+<li><p><strong>可抢占性资源</strong></p>
+<ul>
+<li><p>某进程在获得这类资源后，该资源可以再被其他进程或系统剥夺</p>
+</li>
+<li><p>优先权高的进程可以剥夺优先权低的进程的处理机</p>
+</li>
+<li><p>内存区可由存储器管理程序把一个进程从一个存储区移到另一个存储区，此即剥夺了该进程原来占有的存储区。甚至可将一个进程从内存调出到外存上</p>
+</li>
+<li><p>CPU和主存均属于可剥夺性资源</p>
+</li>
+<li><p>多道程序环境下，不会因为竞争可抢占资源而发生死锁。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>不可抢占资源</strong></p>
+<ul>
+<li>当系统把这类资源分配给某进程后，再不能强行收回，只能在进程用完后自行释放</li>
+<li>如磁带机、打印机等</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-5-2-计算机系统中的死锁"><a href="#3-5-2-计算机系统中的死锁" class="headerlink" title="3.5.2 计算机系统中的死锁"></a>3.5.2 计算机系统中的死锁</h3><ul>
+<li>竞争资源。当系统中供多个进程共享的资源如打印机、公用队列等，其数目不足以满足诸进程的需要时，会引起诸进程对资源的竞争而产生死锁。</li>
+<li>进程间推进顺序非法。进程在运行过程中，请求和释放资源的顺序不当，也同样会导致产生进程死锁。</li>
+</ul>
+<h4 id="竞争资源引起的进程死锁"><a href="#竞争资源引起的进程死锁" class="headerlink" title="竞争资源引起的进程死锁"></a>竞争资源引起的进程死锁</h4><ul>
+<li><p>竞争不可抢占性(非剥夺性)资源</p>
+<ul>
+<li><p>在系统中所配置的非剥夺性资源，由于它们的数量不能满足诸进程运行的需要，会使进程在运行过程中，因争夺这些资源而陷入僵局。</p>
+</li>
+<li><p>例如，系统中只有一台打印机R1和一台磁带机R2，可供进程P1和P2共享。处理不好，在P1与P2之间会形成僵局，引起死锁。</p>
+<p>假定P1已占用了打印机R1，P2已占用了磁带机R2。此时，若P2继续要求打印机，P2将阻塞；P1若又要求磁带机，P1也将阻塞。于是，在P1与P2之间便形成了僵局，两个进程都在等待对方释放出自己所需的资源。但它们又都因不能继续获</p>
+<p>得自己所需的资源而不能继续推进，从而也不能释放出自己已占有的资源，以致进入死锁状态。</p>
+<p>为便于说明，我们用方块代表资源，用圆圈代表进程。当箭头从进程指向资源时，表示进程请求资源；当箭头从资源指向进程时，表示该资源已被分配给该进程。从中可以看出，这时在P1、P2及R1和R2之间已经形成了一个环路，说明已进入死锁状态。</p>
+<p><a href="https://imgtu.com/i/cbR0ud"><img src="https://z3.ax1x.com/2021/04/21/cbR0ud.png" srcset="/img/loading.gif" lazyload alt="cbR0ud.png"></a></p>
+</li>
+</ul>
+</li>
+<li><p>竞争可消耗性(临时性)资源</p>
+<ul>
+<li><p>永久性资源：可顺序重复使用型资源称为永久性资源。</p>
+</li>
+<li><p>临时性资源，是指由一个进程产生，被另一进程使用一暂短时间后便无用的资源，故也称之为消耗性资源，它也可能引起死锁。</p>
+</li>
+<li><p>例如：S1、S2和S3是临时性资源，由进程P1、P2和P3产生的消息。如果消息通信处理顺序不当也会发生死锁。</p>
+<p><a href="https://imgtu.com/i/cbWJqs"><img src="https://z3.ax1x.com/2021/04/21/cbWJqs.png" srcset="/img/loading.gif" lazyload alt="cbWJqs.png"></a></p>
+<p>如果消息通信按下述顺序进行：</p>
+<p>P1： …Release(S1)； Reqaest(S3)； …</p>
+<p>P2： …Release(S2)； Request(S1)； …</p>
+<p>P3： …Release(S3)； Request(S2)； …</p>
+<p>并不可能发生死锁，</p>
+<p>P1： …Request(S3)； Release(S1)； …</p>
+<p>P2： …Request(S1)； Release(S2)； …</p>
+<p>P3： …Request(S2)； Release(S3)； …</p>
+<p>则可能发生死锁。</p>
+</li>
+</ul>
+</li>
+<li><p>进程推进顺序不合法引起死锁</p>
+<ul>
+<li><p>进程推进顺序合法</p>
+<p>进程推进顺序是合法不会引起进程死锁的。 </p>
+</li>
+<li><p>进程推进顺序非法 </p>
+<p>若并发进程P1和P2推进顺序不合法，进入不安全状态，于是发生了进程死锁 。</p>
+</li>
+<li><p><a href="https://imgtu.com/i/cbfLnJ"><img src="https://z3.ax1x.com/2021/04/21/cbfLnJ.png" srcset="/img/loading.gif" lazyload alt="cbfLnJ.png"></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-5-3-死锁的必要条件和处理方法"><a href="#3-5-3-死锁的必要条件和处理方法" class="headerlink" title="3.5.3 死锁的必要条件和处理方法"></a>3.5.3 死锁的必要条件和处理方法</h3><p><strong>死锁的定义</strong>：<strong>如果一组进程中的每一个进程都在等待仅由该组进程中的其他进程才能引发的事件</strong>，那么该组的进程是死锁的。(Deadlock)</p>
+<p><strong>死锁的发生必须具备下列四个必要条件：</strong></p>
+<ul>
+<li><p><strong>互斥条件</strong>。指进程对所分配到的资源进行排它性使用。</p>
+</li>
+<li><p><strong>请求和保持条件</strong>。指进程已经保持了至少一个资源，但又提出了新的资源请求 ，而该资源已被其他进程占用，此时进程被阻塞，但对自己获得的资源保持不放。</p>
+</li>
+<li><p><strong>不剥夺条件</strong>。指进程已获得的资源，在未使用完之前，不能被剥夺，只能在使用完时由自己释放。</p>
+</li>
+<li><p><strong>环路等待条件</strong>。在发生死锁时，必然存在一个<strong>进程——资源的环形链</strong> </p>
+</li>
+</ul>
+<h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><ul>
+<li><p><strong>预防死锁</strong>：破坏产生死锁的四个必要条件中的一个或几个条件。</p>
+</li>
+<li><p><strong>避免死锁</strong>：用某种方法去防止系统进入不安全状态。 </p>
+<p>在资源的动态分配过程中进行。</p>
+</li>
+<li><p><strong>检测死锁</strong>：及时地检测出死锁的发生，确定有关的进程和资源。</p>
+</li>
+<li><p><strong>解除死锁</strong>：撤消或挂起一些进程。</p>
+</li>
+</ul>
+<h2 id="3-6-预防死锁"><a href="#3-6-预防死锁" class="headerlink" title="3.6 预防死锁"></a>3.6 预防死锁</h2><p>预防死锁的方法是使四个必要条件中的第2、3、4条件之一不能成立，来避免发生死锁。</p>
+<p>至于必要条件1，因为它是由设备的固有属性所决定的，不仅不能改变，还应加以保证。</p>
+<h3 id="3-6-1-摒弃“请求和保持”条件"><a href="#3-6-1-摒弃“请求和保持”条件" class="headerlink" title="3.6.1 摒弃“请求和保持”条件"></a>3.6.1 摒弃“请求和保持”条件</h3><p>系统规定所有进程在开始运行之前，<strong>都必须一次性地申请其在整个运行过程所需的全部资源</strong>。这样，该进程在整个运行期间：便不会再提出资源要求，从而摒弃了请求和保持条件，从而可以避免发生死锁。</p>
+<p>这种预防死锁的方法的优点：简单、易于实现且很安全。</p>
+<p>缺点：资源被严重浪费，出现饥饿现象，使进程延迟运行。</p>
+<h3 id="3-6-2-摒弃“不剥夺”条件"><a href="#3-6-2-摒弃“不剥夺”条件" class="headerlink" title="3.6.2 摒弃“不剥夺”条件"></a>3.6.2 摒弃“不剥夺”条件</h3><p>进程是逐个地提出对资源的要求的。<strong>当一个已经保持了某些资源的进程，再提出新的资源请求而不能立即得到满足时，必须释放它已经保持了的所有资源。</strong>待以后需要时再重新申请。从而摒弃了“不剥夺”条件。</p>
+<p>这种预防死锁的方法，实现起来比较复杂且要付出很大代价。因为一个资源在使用一段时间后，它的被迫释放可能会造成前段工作的失效。还会使进程前后两次运行的信息不连续 。</p>
+<h3 id="3-6-3-摒弃“环路等待”条件"><a href="#3-6-3-摒弃“环路等待”条件" class="headerlink" title="3.6.3 摒弃“环路等待”条件"></a>3.6.3 摒弃“环路等待”条件</h3><p>这种方法中规定，系统<strong>将所有资源按类型进行线性排队，并赋予不同的序号</strong>。 <strong>所有进程对资源的请求必须严格按照资源序号递增的次序提出</strong>，这样，在所形成的资源分配图中，不可能再出现环路，因而摒弃了“环路等待”条件。</p>
+<ul>
+<li>存在的问题：<ul>
+<li>首先是为系统中各类资源所分配（确定）的序号，必须相对稳定，这就限制了新类型设备的增加</li>
+<li>作业（进程）使用各类资源的顺序，与系统规定的顺序不同，造成对资源的浪费 </li>
+<li>限制用户简单、自主地编程 。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-7-避免死锁"><a href="#3-7-避免死锁" class="headerlink" title="3.7 避免死锁"></a>3.7 避免死锁</h2><h3 id="3-7-1-系统安全状态"><a href="#3-7-1-系统安全状态" class="headerlink" title="3.7.1 系统安全状态"></a>3.7.1 系统安全状态</h3><ul>
+<li><p>定义：所谓安全状态，是指系统能按某种进程顺序（P1，P2，…，Pn），来为每个进程Pi分配其所需资源，直至满足每个进程对资源的最大需求，使每个进程都可顺利地完成，称系统处于<strong>安全状态</strong>，称〈P1，P2，…，Pn〉序列为<strong>安全序列</strong> 。否则<strong>，如果系统无法找到这样一个安全序列，则称系统处于不安全状态</strong>。（找到一个序列即可）</p>
+</li>
+<li><p>安全状态实例</p>
+<p>假定系统中有三个进程P1、P2和P3，共有12台磁带机。进程P1总共要求10台磁带机，P2和P3分别要求4台和9台。假设在T0** 时刻进程P1、P2和P3已分别获得5台、2台和2台磁带机，尚有3台空闲未分配，在T0时刻系统是否安全？</p>
+<p>&lt;P2,P1,P3&gt;,安全。</p>
+</li>
+<li><p><strong>由安全状态向不安全状态的转换</strong></p>
+<p><strong>不按照安全序列分配资源</strong></p>
+</li>
+</ul>
+<h3 id="3-7-2-利用银行家算法避免死锁"><a href="#3-7-2-利用银行家算法避免死锁" class="headerlink" title="3.7.2 利用银行家算法避免死锁"></a>3.7.2 利用银行家算法避免死锁</h3><p>银行家算法（！！！）</p>
+<p>最有代表性的避免死锁的算法，是<strong>Dijkstra 的银行家算法</strong>。这是由于该算法能用于银行系统现金贷款的发放而得名的。为实现银行家算法，系统中必须设置若干数据结构。</p>
+<h4 id="银行家算法中的数据结构"><a href="#银行家算法中的数据结构" class="headerlink" title="银行家算法中的数据结构"></a>银行家算法中的数据结构</h4><ul>
+<li><p><strong>可利用资源向量</strong>Available：这是一个含有m个元素的数组，其中的每一个元素代表一类<strong>可利用的资源数目</strong>。其数值随该类资源的分配和回收而动态地改变。</p>
+</li>
+<li><p><strong>最大需求矩阵</strong>Max：这是一个n×m的矩阵，它定义了系统中n个进程中的每一个进程对m类资源的<strong>最大需求</strong>。如果Max[i,j]=K，则表示进程i需要Rj类资源的最大数目为K。</p>
+</li>
+<li><p><strong>分配矩阵</strong>Allocation：这是一个n×m的矩阵，它定义了系统中每一类资源当前<strong>已分配</strong>给每一进程的资源数。如果Allocation[ i,j ]=K，则表示进程Pi当前已分得Rj类资源的数目为K。</p>
+</li>
+<li><p><strong>需求矩阵</strong>Need：这也是一个n×m的矩阵，用以表示每一个进程<strong>尚需</strong>的各类资源数。如果Need[ i,j ]=K，则表示进程Pi还需要Rj类资源K个，方能完成其任务。</p>
+<p><strong>Need[ i,j ] ＝ Max[ i,j ]  -  Allocation[ i,j ]</strong></p>
+</li>
+</ul>
+<h4 id="银行家算法"><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h4><p>设Requesti，是进程Pi的请求向量，当Pi发出资源请求后，系统按下述步骤进行检查：</p>
+<ul>
+<li><p>如果Requesti[ j ] ≤ Need[ i,j ], 便转向步骤2；否则认为出错，因为它所需要的资源数已超过它所宣布的最大值。</p>
+</li>
+<li><p>如果Requesti[ j ] ≤ Available[ j ]，便转向步骤（3）；否则，表示尚无足够资源，Pi须等待。</p>
+</li>
+<li><p>系统试探着把资源分配给进程Pi，并修改下面数据结构中的数值：</p>
+<p>Available[ j ] = Available[ j ] — Requesti[ j ]；</p>
+<p>Allocation[ i,j ] =  Allocation[ i,j ] + Requesti[ j ];</p>
+<p>​    Need[ i, j ] = Need[ i, j ] - Requesti[ j ]；</p>
+</li>
+<li><p>系统执行安全性算法，检查此次资源分配后，系统是否处于安全状态。若安全，才正式将资源分配给进程Pi，以完成本次分配；否则，将本次的试探分配作废，恢复原来的资源分配状态，让进程Pi等待。</p>
+</li>
+</ul>
+<h4 id="安全性算法"><a href="#安全性算法" class="headerlink" title="安全性算法"></a>安全性算法</h4><p>  （1） 设置两个向量：</p>
+<p>①工作向量Work: <strong>它表示系统可提供给进程继续运行所需的各类资源数目，Work =  Available</strong></p>
+<p>②Finish：开始时先做Finish[i] = false；当有足够资源分配给进程时，再令Finish[i] = true。</p>
+<p>（2）从进程集合中找到一个能满足下述条件的进程：</p>
+<p>   ①Finish[i] = false；</p>
+<p>   ②Need[i,j] ≤ work[j]；</p>
+<p>   找到，执行步骤（3)；否则，执行步骤（4）。</p>
+<p>（3）当进程只获得资源后，可顺利执行，直至完成，并释放出分配给它的资源，故应执行：</p>
+<p>​    Work[ j ] = Work[ i ] + Allocation[ i,j ]；</p>
+<p>​    Finish[ i ] = true; </p>
+<p>​    go to step 2</p>
+<p> （4）如果所有进程的Finish[i]＝true都满足，则表示系统处于安全状态；否则，系统处于不安全状态。</p>
+<h4 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h4><h2 id="3-8-死锁的检测与解除"><a href="#3-8-死锁的检测与解除" class="headerlink" title="3.8 死锁的检测与解除"></a>3.8 死锁的检测与解除</h2><h3 id="3-8-1-死锁的检测"><a href="#3-8-1-死锁的检测" class="headerlink" title="3.8.1 死锁的检测"></a>3.8.1 死锁的检测</h3><p>当系统为进程分配资源时，若未采取任何限制性措施，则系统必须提供检测和解除死锁的手段。</p>
+<h4 id="资源分配图"><a href="#资源分配图" class="headerlink" title="资源分配图"></a>资源分配图</h4><p>该图是由一组结点N和一组边E所组成的一个对偶G＝（N,E）。其中：</p>
+<ul>
+<li><p>把N分为两个互斥的子集，即一组进程结点P={P1,P2，…，Pn）和一组资源结点R={r1, r2, …, rn}，N＝PUR。 </p>
+</li>
+<li><p>凡属于E中的一个边e∈ E都连接着P中的一个结点和R中的一个结点。</p>
+<ul>
+<li><p>e＝{Pi,rj} </p>
+<p>它表示进程pj请求一个单位的rj资源。</p>
+<p>e={rj，Pi}   </p>
+<p>  它表示把一个单位的资源rj分配给进程Pi。 </p>
+</li>
+<li><p><a href="https://imgtu.com/i/cbT5N9"><img src="https://z3.ax1x.com/2021/04/21/cbT5N9.png" srcset="/img/loading.gif" lazyload alt="cbT5N9.png"></a></p>
+<p>我们用圆圈代表一个进程，用方框代表一类资源。由于一种类型的资源可能有多个，我们用方框中的一个点代表一类资源中的一个资源。此时，请求边是由进程指向方框中的rj，而分配边则应始于方框中的一个点。图3-20 示出了一个资源分配图。图中，p1进程已经分得了两个r1资源，并又请求一个r2资源；p2进程分得了一个r1和一个r2资源，并又请求r1资源。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="死锁定理"><a href="#死锁定理" class="headerlink" title="死锁定理"></a>死锁定理</h4><p>S为死锁状态的<strong>充分条件</strong>是：当且仅当S状态的资源分配图是<strong>不可完全简化的</strong>。该充分条件被称为死锁定理。</p>
+<p><a href="https://imgtu.com/i/cb7BDO"><img src="https://z3.ax1x.com/2021/04/21/cb7BDO.png" srcset="/img/loading.gif" lazyload alt="cb7BDO.png"></a></p>
+<ul>
+<li><p>在资源分配图中，找出一个既不阻塞又非独立的进程结点Pi。在顺利的情况下，Pi可获得所需资源而继续运行，直至运行完毕，再释放其所占有的全部资源，这相当于消去pi所求的请求边和分配边，使之成为孤立的结点。在图3-21(a)中，将p1的两个分配边和一个请求边消去，便形成图(b)所示的情况。</p>
+</li>
+<li><p>p1释放资源后，便可使p2获得资源而继续运行，直至p2完成后又释放出它所占有的全部资源，形成图(c)所示的情况。</p>
+</li>
+<li><p>在进行一系列的简化后，若能消去图中所有的边，使所有的进程结点都成为孤立结点，则称该图是可完全简化的；若不能通过任何过程使该图完全简化，则称该图是不可完全简化的。</p>
+</li>
+</ul>
+<p>对于较复杂的资源分配图，可能有多个既未阻塞，又非孤立的进程结点，不同的简化顺序是否会得到不同的简化图？有关文献已经证明，<strong>所有的简化顺序，都将得到相同的不可简化图。</strong>同样可以证明：S为死锁状态的充分条件是：当且仅当S状态的资源分配图是不可完全简化的。该充分条件被称为死锁定理。</p>
+<h4 id="死锁检测中的数据结构"><a href="#死锁检测中的数据结构" class="headerlink" title="死锁检测中的数据结构"></a>死锁检测中的数据结构</h4><p>（1）可利用资源向量Available，它表示了m类资源中每一类资源的可用数目。</p>
+<p>（2）把不占用资源的进程（Allocation：=0）记入L表中，即Li U L</p>
+<p>（3）从进程集合中找到一个Requesti≤work的进程，做如下处理：</p>
+<p>​     ① Work :＝ Work + Allocationi，</p>
+<p>​     ②将它记入L表中。</p>
+<p>（4）<strong>若不能把所有进程都记入L表中，便表明系统状态S的资源分配图是不可完全简化的。</strong>因此，该系统状态将发生死锁。</p>
+<h3 id="3-8-2-解除死锁"><a href="#3-8-2-解除死锁" class="headerlink" title="3.8.2 解除死锁"></a>3.8.2 解除死锁</h3><p>当发现有进程死锁时，常采用的两种方法是解除死锁：</p>
+<ul>
+<li><strong>剥夺资源</strong>。从其它进程剥夺足够数量的资源给死锁进程，以解除死锁状态。</li>
+<li><strong>撤消进程</strong>。最简单的撤消进程的方法，是使全部死锁进程都夭折掉；或者按照某种顺序逐个地撤消进程，直至有足够的资源可用，使死锁状态消除为止。</li>
+</ul>
+<h1 id="第四章-存储器管理"><a href="#第四章-存储器管理" class="headerlink" title="第四章 存储器管理"></a>第四章 存储器管理</h1><p>存储器管理的对象主要是内存，由于对外存的管理与对内存的管理类似，只是用途不同（外存主要用于存放文件），所以我们把对外存的管理放在文件管理中介绍。</p>
+<ul>
+<li><strong>课程提要</strong><ul>
+<li>存储器的层次结构</li>
+<li>程序的装入和链接</li>
+<li>连续分配存储管理方式</li>
+<li>基本分页式存储管理方式</li>
+<li>基于分段式存储管理方式</li>
+<li>虚拟存储器概念</li>
+<li>请求分页存储管理方式</li>
+<li>抖动与工作集</li>
+<li>请求分段存储管理方式</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-1-存储器的层次结构"><a href="#4-1-存储器的层次结构" class="headerlink" title="4.1 存储器的层次结构"></a>4.1 存储器的层次结构</h2><h3 id="4-1-1-多层结构的存储器系统"><a href="#4-1-1-多层结构的存储器系统" class="headerlink" title="4.1.1 多层结构的存储器系统"></a>4.1.1 多层结构的存储器系统</h3><p><a href="https://imgtu.com/i/gCf0HI"><img src="https://z3.ax1x.com/2021/04/27/gCf0HI.png" srcset="/img/loading.gif" lazyload alt="gCf0HI.png"></a></p>
+<p><strong>可执行存储器：寄存器和主存储器</strong></p>
+<p>对于存放于可执行存储器和辅存的信息，计算机所采用的访问机制是不同的，所耗费的时间也是不同的，进程可以在很少的时间周期内使用一条load或store指令对可执行存储器进行访问；但对辅存的访问则需要通过I/O设备实现，访问中涉及到中断、设备驱动程序以及物理设备的运行，所耗费的时间远高于访问可执行存储器的时间，一般相差3个数量级。</p>
+<ul>
+<li><p>主存储器(内存、主存、可执行存储器)</p>
+<p>用于保存进程运行时的程序和数据。CPU的控制部件只能从主存中取得指令和数据到CPU寄存器，同样，CPU寄存器中的数据可存入主存。<br>CPU与外设交换数据必须依托主存。</p>
+<p>由于主存储器访问速度远低于CPU执行指令的速度，为缓和这一矛盾，在计算机系统中引入寄存器和高速缓存。</p>
+<p><strong>用户的程序在运行时应存放在主存中，以便处理机访问</strong></p>
+<p>由于主存容量和速度有限。所以把那些不马上使用的程序、数据放在外部存储器(又称辅存)中。当用到时再把它们读入主存。</p>
+</li>
+<li><p>寄存器</p>
+<p>寄存器具有与处理机相同的速度，故对寄存器的访问速度最快，完全能与CPU协同工作，只是价格高昂。</p>
+</li>
+<li><p>高速缓存</p>
+<p>CPU对高速缓存的访问，其速度比访问主存快，比访问寄存器慢。它介于寄存器和存储器之间，主要用于备份主存中比较常用的数据，用于缓和内存与处理机速度之间的矛盾。</p>
+<p>根据<strong>程序执行的局部性原理</strong>，将主存中一些经常访问的数据存放在高速缓存中，减少访问主存的次数，提高程序的执行速度。</p>
+<p>有些计算机系统设置了两级高速缓存，即，一级高速缓存与二级高速缓存。</p>
+</li>
+<li><p>磁盘缓存</p>
+<p>使用目的：磁盘的I/O速度远低于对主存的访问速度，为缓和二者速度上的不匹配，设置了磁盘缓冲器，主要用于存放频繁使用的一部分磁盘数据和信息，以减少访问磁盘的次数。<br><strong>但与高速缓存不同，磁盘缓存本身不是一种实际存在的存储器，而是利用主存中的部分存储空间暂时存放从磁盘存读出/写入的信息。</strong>（利用主存实现）</p>
+<p>辅存的数据必须复制到主存才能使用，数据也必须先存放于主存，才能输出到外存。</p>
+</li>
+</ul>
+<h3 id="4-1-2-存储器管理的目的和功能"><a href="#4-1-2-存储器管理的目的和功能" class="headerlink" title="4.1.2 存储器管理的目的和功能"></a>4.1.2 存储器管理的目的和功能</h3><p>1.主存储器的分配和管理<br>按用户要求把适当的存储空间分配给相应的作业。一个有效的存储分配机制，应在用户请求时能作出快速的响应，分配相应的存储空间；在用户不再使用它时，应立即回收，以供其他用户使用。</p>
+<p>为此，这个存储分配机制应具有如下3个<strong>功能</strong>：</p>
+<ul>
+<li>记住每个存储区域的状态：哪些是已经分配的，哪些是可以用作分配的。</li>
+<li>实施分配：在系统或用户提出申请时，按所需的量给予分配；修改相应的分配记录表。</li>
+<li>接受系统或用户释放的存储区域：并相应地修改分配记录表。</li>
+</ul>
+<p>为了便于对主存储器进行有效的管理，我们把存储器分成若干个区域。即使在最简单的单用户系统中，至少也要把它分成两个区域：在一个存储区域内存放<strong>系统软件</strong>，如操作系统本身；而另一个存储区域则用于安置<strong>用户作业</strong>。显然，在多用户系统中，为了提高系统的利用率，需要将存储器划分成更多的区域，以便同时存放多个用户作业。这就引起了存储器分配问题及随之产生的其它问题。</p>
+<p>2.提高主存储器的利用率：使多道程序能动态地共享主存，最好能共享主存，最好能共享主存中的信息。</p>
+<p>3.“扩充”主存储器容量：借助于提供虚拟存储器或其他自动覆盖技术来达到、即<strong>为用户提供比主存储器空间还大的地址空间</strong>。</p>
+<p>4.存储保护：确保各道作业都在所分配的存储区域内操作，互不干扰。即要防止一道作业由于发生错误而损害其他作业，特别需要防止破坏其中的系统程序。这个问题不能使用特权指令来加以解决，而必须提供<strong>硬件保护</strong>功能，由<strong>软件配合</strong>实现。</p>
+<h3 id="4-1-3-存储分配的三种方式"><a href="#4-1-3-存储分配的三种方式" class="headerlink" title="4.1.3 存储分配的三种方式"></a>4.1.3 存储分配的三种方式</h3><p>存储分配：解决多道作业之间共享主存的问题。<br>解决的问题：确定什么时候，以什么方式，把一个作业的全部信息/作业运行时首先需要的信息分配到主存，并使这些问题对于用户而言尽可能“透明”。</p>
+<p>解决存储分配的三种方式：<br><strong>1.直接指定方式</strong></p>
+<ul>
+<li>程序员在编程的时候，或编译程序（汇编程序）对源程序进行编译（汇编）时，使用实际存储地址。<ul>
+<li>在多道程序环境下，应保证各作业所用的地址互不重叠。</li>
+</ul>
+</li>
+<li>采用<strong>直接指定方式分配的前提</strong>是：存储器的可用容量（空间）已经给定或者可以指定，这对单用户计算机系统是不成问题的。</li>
+<li>在多道程序发展初期，通常把存储空间划分成若干个固定的不同大小分区，并对不同的作业指定相应的分区。因此，对编程人员或者编译程序而言，存储器的可用空间是可知的。</li>
+<li>这种分配方式的实质：由编程人员在编写程序时，或由编程程序编译源程序时，对一个作业的所有信息确定在主存存储空间中的位置。因此，这种直接指定方式的存储方案，不仅<strong>用户感到不便，而且存储空间的利用也不那么有效</strong>。（缺点）</li>
+</ul>
+<p><strong>2.静态分配方式（Static Allocation）</strong></p>
+<p>用户在编程时，或由编译程序产生的目的程序，均可从其地址空间的零地址开始；当装配程序对其进行链接装入时才确定它们在主存中的相应位置，从而生成可执行程序。也就是说，<strong>存储分配是在装入时实现</strong>的。</p>
+<ul>
+<li>静态分配方式特点：<ul>
+<li>在一个作业装入时必须分配其要求的全部存储量</li>
+<li>如果没有足够的存储空间，就不能装入该作业</li>
+<li>一旦一个作业进入内存后，在其退出系统之前，它一直占用着分配给它的全部存储空间</li>
+<li>作业在整个运行过程中不能在内存中“搬家”、也不能再申请存储空间（<strong>没有扩展性、可移植性</strong>）</li>
+</ul>
+</li>
+</ul>
+<p>静态分配策略的存储管理很简单，但在多道程序系统中不能有效地共享存储器资源。</p>
+<p><strong>3.动态分配方式(Dynamic Allocation)</strong></p>
+<p>一种更加有效的使用主存储器的方法。</p>
+<ul>
+<li><p>动态存储分配方式的特点：</p>
+<ul>
+<li><p>作业在存储空间中的位置，也是在装入时确定的</p>
+</li>
+<li><p>在其执行过程中，可根据需要申请附加的存储空间（可扩展性）</p>
+</li>
+<li><p>一个作业已占用的<strong>部分存储区域不再需要时，可以要求归还给系统</strong></p>
+<p>即：这种存储分配机制能接受不可预测的分配和释放存储区域的请求，实现个别存储区域的分配和回收</p>
+</li>
+<li><p>存储区域的大小是可变的</p>
+</li>
+<li><p>允许作业在内存中“搬家”（可扩展性）</p>
+</li>
+</ul>
+<p>目前，<strong>绝大多数计算机系统都采用静态或动态存储分配方式</strong>，所以，在本章只讨论这两种存储分配的实现技术，重点放在各种动态存储分配技术的实现上。</p>
+</li>
+</ul>
+<h3 id="4-1-4-基本概念"><a href="#4-1-4-基本概念" class="headerlink" title="4.1.4 基本概念"></a>4.1.4 基本概念</h3><ul>
+<li><p>逻辑地址（相对地址、虚地址）</p>
+<p>用户的程序经过汇编或编译后形成目标代码，<strong>目标代码通常采用相对地址的形式</strong>，其<strong>首地址为0，其余指令中的地址都相对于首地址而编址</strong>。</p>
+<p>注意：不能用逻辑地址在内存中读取信息。</p>
+</li>
+<li><p>物理地址（绝对地址、实地址）</p>
+<p>内存中存储单元的地址，可以直接寻址。</p>
+</li>
+<li><p>名空间：一个用高级语言编制的源程序，我们说它存在于由程序员建立的符号名字空间（简称名空间）</p>
+</li>
+<li><p>地址空间：程序用来访问信息所用地址单元的集合，是<strong>逻辑（相对）地址集合</strong>，由<strong>编译程序</strong>生成</p>
+</li>
+<li><p>存储空间：<strong>主存中物理单元的集合</strong>。这些单元的编号称物理地址或绝对地址。存储空间的大小是由主存的实际容量决定的。</p>
+</li>
+</ul>
+<p>在用汇编语言或高级语言编写的程序中，是通过符号名来访问子程序和数据的。把程序中符号名的集合叫做“名字空间”。汇编语言源程序经过汇编，或者高级语言源程序经过编译，得到的目标程序是以0作为参考地址的模块。<strong>然后多个目标模块由连接程序连接成一个具有统一地址的装配模块，以便最后装入内存中执行</strong>。把<strong>目标模块中的地址称为相对地址</strong>，而把相对地址的集合叫做“地址空间”。</p>
+<p><a href="https://imgtu.com/i/RMwS9H"><img src="https://z3.ax1x.com/2021/06/24/RMwS9H.png" srcset="/img/loading.gif" lazyload alt="RMwS9H.png"></a></p>
+<h2 id="4-2-程序的装入和链接"><a href="#4-2-程序的装入和链接" class="headerlink" title="4.2 程序的装入和链接"></a>4.2 程序的装入和链接</h2><p>在多道程序环境下，程序要运行必须为之创建进程，而创建进程的第一件事情就是要把用户编写好的源程序和数据装入内存。如何将一个用户源程序变为一个可在内存中执行的程序，通常要经过下列几步：</p>
+<ul>
+<li>编译：<strong>源程序模块</strong>是用高级语言或汇编语言写的一组程序语句。计算机不能直接执行源语句，它们要首先被编译程序或解释程序翻译成机器级代码。<strong>编译程序</strong>(Compiler)接受完整的源一级的程序，并以类似于成批的方式生成完整的<strong>目标一级的模块</strong>。</li>
+<li> 链接(Linker)：<strong>目标模块</strong>是纯二进制的机器级代码。计算机可以执行目标级代码，但是典型的目标模块是不完备的，它包含对其它目标模块（诸如存取方法或子例程）或库函数的引用。因此，<strong>目标模块通常是不能装入计算机并执行的</strong>。</li>
+<li>装入（loader）：由装入程序将装入模块装入内存并执行。</li>
+</ul>
+<p><a href="https://imgtu.com/i/RMwIVf"><img src="https://z3.ax1x.com/2021/06/24/RMwIVf.png" srcset="/img/loading.gif" lazyload alt="RMwIVf.png"></a></p>
+<h3 id="4-2-1-程序的装入"><a href="#4-2-1-程序的装入" class="headerlink" title="4.2.1 程序的装入"></a>4.2.1 程序的装入</h3><p>根据存储空间的分配方式，将一个装入模块装入内存时，可采用三种方式：</p>
+<ul>
+<li><p>绝对装入方式(Absolute Loading Mode) </p>
+<p>在编译时，如果知道程序将驻留在内存的具体位置，那么编译程序将产生实际存储地址（绝对地址）的目标代码</p>
+</li>
+<li><p>可重定位装入方式(Relocation Loading Mode)</p>
+</li>
+<li><p>动态运行时装入方式(Denamle Run-time Loading)</p>
+</li>
+</ul>
+<h4 id="4-2-1-1-绝对装入方式"><a href="#4-2-1-1-绝对装入方式" class="headerlink" title="4.2.1.1 绝对装入方式"></a>4.2.1.1 绝对装入方式</h4><p>装入程序按照装入模块中的地址，将程序和数据装入内存。装入模块被装入内存后，由于程序中的<strong>逻辑地址与实际存储地址完全相同</strong>，所以<strong>不需要对程序和数据的地址进行修改</strong>。</p>
+<p>程序中所使用的<strong>绝对地址既可以在编译或汇编时给出，也可以由程序员直接赋予</strong>。但是通常在程序中采用<strong>符号地址</strong>，然后在编译或汇编时，再将这些符号地址转换为绝对地址。</p>
+<h4 id="4-2-1-2-可重定位装入方式"><a href="#4-2-1-2-可重定位装入方式" class="headerlink" title="4.2.1.2 可重定位装入方式"></a>4.2.1.2 可重定位装入方式</h4><ul>
+<li><p>重定位（地址映射/地址转换）</p>
+<ul>
+<li><p>经编译得到的目标模块中为相对地址（通常从0开始），即地址都是相对于0开始的。</p>
+</li>
+<li><p><strong>装入模块中的逻辑地址与实际装入内存的物理地址不同</strong></p>
+</li>
+<li><p><strong>装入内存</strong>时，相对地址（数据、指令地址）要作出相应的修改以得到正确的物理地址，这个修改的过程称为<strong>重定位</strong></p>
+<p>重定位就是把程序的逻辑地址空间变换成内存中的实际物理地址空间的过程，也就是说在装入时对目标程序中指令和数据的修改过程。</p>
+</li>
+</ul>
+</li>
+<li><p>根据<strong>地址变换进行的时间</strong>及<strong>采用技术手段</strong>不同：</p>
+<ul>
+<li><p>静态重定位</p>
+<ul>
+<li><p>地址变换是在装入内存时一次完成的，且以后不能移动</p>
+</li>
+<li><p>一般情况下有：</p>
+<p> 物理地址=相对地址 + 内存中的起始地址</p>
+</li>
+<li><p>适用于<strong>多道程序环境</strong>，可将装入模块装入到内存中任何允许的位置</p>
+</li>
+<li><p>数据地址和指令地址都需要做同样的修改</p>
+</li>
+<li><p>优点：不需要硬件支持，可以装入有限多道程序</p>
+<p>缺点：一个程序通常要占用连续的内存空间，<strong>程序装入内存后不能移动，不易实现共享</strong></p>
+</li>
+</ul>
+</li>
+<li><p>动态重定位</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-2-1-3-动态运行时装入方式"><a href="#4-2-1-3-动态运行时装入方式" class="headerlink" title="4.2.1.3 动态运行时装入方式"></a>4.2.1.3 动态运行时装入方式</h4><p>装入程序将装入模块装入内存后，并不立即把装入模块中的相对地址转换为绝对地址，而是把这种<strong>地址转换推迟到程序执行时进行</strong>。在<strong>硬件地址变换机构</strong>的支持下，随着对每条指令或数据的访问<strong>自动</strong>进行地址变换，故称为动态重定位。</p>
+<ul>
+<li><p>最简单的办法是利用一个<strong>重定位寄存器(RR)**。该寄存器的值是</strong>由进程调度程序根据作业分配到的存储空间起始地址来设定**的。</p>
+</li>
+<li><p>在具有这种地址变换机构的计算机系统中，当执行作业时，不是根据CPU给出的有效地址去访问主存，而是将有效地址与重定位寄存器中的内容相加后得到的地址作为访问主存的地址。</p>
+<p>有效地址 = 重定位寄存器内容 + 相对地址</p>
+</li>
+<li><p>由于这种地址变换是在作业执行期间随着每条指令的数据自动地、连续地进行，所以称之为动态重定位。</p>
+</li>
+</ul>
+<p>采用动态重定位技术后，程序中所有指令和数据的实际地址是在运行过程中最后访问的时刻确定的。也就是说<strong>，在作业运行过程中临时申请分配附加的存储区域或释放已占用的部分存储空间是允许的</strong>。</p>
+<ul>
+<li><p>主要优点：</p>
+<p>​    ①主存的使用更加灵活有效。这里，<strong>一个用户的作业不一定要分配在一个连续的存储区</strong>，因而可以使用较小的分配单位。而且，在作业开始之前也不一定把它的地址空间全部装入主存，而<strong>可在作业执行期间响应请求动态地进行分配</strong>。</p>
+<p>​    ②几个作业<strong>共享</strong>一程序段的单个副本比较容易。</p>
+<p>​    ③<strong>有可能向用户提供一个比主存的存储空间大得多的地址空间</strong>。因而无需用户来考虑覆盖结构，而由系统来负责全部的存储管理。</p>
+</li>
+<li><p>主要缺点：</p>
+<p>①需要附加<strong>硬件支持</strong>；</p>
+<p>②实现存储器管理的软件比较<strong>复杂</strong>。</p>
+</li>
+</ul>
+<h3 id="4-2-2-程序的链接"><a href="#4-2-2-程序的链接" class="headerlink" title="4.2.2 程序的链接"></a>4.2.2 程序的链接</h3><p><strong>链接程序的功能：将经过编译后所得到的一组目标模块以及它们所需要的库函数，装配成一个完整的装入模块。</strong></p>
+<p>根据<strong>链接时间</strong>的不同，可把链接分成如下三种：</p>
+<ul>
+<li>静态链接(Static Linking) </li>
+<li>装入时动态链接(Load-Time Dynamic Linking)</li>
+<li>运行时动态链接(Run-Time Dynamic Linking)</li>
+</ul>
+<h4 id="4-2-2-1-静态链接"><a href="#4-2-2-1-静态链接" class="headerlink" title="4.2.2.1 静态链接"></a>4.2.2.1 静态链接</h4><ul>
+<li>说明：将几个目标链接装配成一个装入模块时，需解决以下两个问题：<ul>
+<li>将相对地址进行修改。即将除第一个模块外的相对地址修改成装入模块中的相应的相对地址。</li>
+<li>变换外部调用符号。即将每个模块中所用的外部调用符号，都变换为相对地址。例如将call B变换为JSR “L”</li>
+</ul>
+</li>
+</ul>
+<p>​     <strong>这种先进行链接所形成的一个完整的装入模块，又称为可执行文件</strong>。</p>
+<h4 id="4-2-2-2-装入时动态链接"><a href="#4-2-2-2-装入时动态链接" class="headerlink" title="4.2.2.2 装入时动态链接"></a>4.2.2.2 装入时动态链接</h4><p>用户源程序经编译后所得到的目标模块，是在<strong>装入内存时，边装入边链接的</strong>。<strong>即在装入一个目标模块时，若发生一个外部模块调用，将引起装入程序去找出相应的外部目标模块，并将其装入内存</strong>。</p>
+<ul>
+<li>优点：<ul>
+<li><strong>便于软件版本的修改和更新。</strong>只需修改各个目标模块，不必将装入模块拆开，非常方便。</li>
+<li><strong>便于实现目标模块共享。</strong>即可以<strong>将一个目标模块链接到几个应用模块中</strong>，从而实现多个应用程序对该模块的共享。</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/RMfBSx"><img src="https://z3.ax1x.com/2021/06/24/RMfBSx.png" srcset="/img/loading.gif" lazyload alt="RMfBSx.png"></a></p>
+<h4 id="4-2-2-3-运行时动态链接"><a href="#4-2-2-3-运行时动态链接" class="headerlink" title="4.2.2.3 运行时动态链接"></a>4.2.2.3 运行时动态链接</h4><p>采用装入时动态链接方式，虽然可将一个装入模块装入到内存的任何地方，但装入模块的结构是静态的，表现在：</p>
+<ul>
+<li><p><strong>进程（程序）在整个执行期间，装入模块是不改变的</strong></p>
+</li>
+<li><p><strong>每次运行时的装入模块是相同的</strong></p>
+</li>
+</ul>
+<p>并且事先无法知道本次要运行哪些模块，只能将所有可能要运行的模块在装入时全部链接在一起，而实际上往往有些目标模块根本不会运行。</p>
+<p>采用运行时动态链接可<strong>将某些目标模块的链接推迟到执行时才进行</strong>，即在执行过程中，若发现一个被调用模块尚未装入内存时，由OS去找到该模块，将它装入内存，并链接到调用模块上。</p>
+<ul>
+<li><p>主要优点：</p>
+<p>凡是在执行过程中未被用到的目标模块，都不会被调入内存和被链接到装入模块上，这样不仅可加快程序的装入过程，而且可节省大量的内存空间。</p>
+</li>
+</ul>
+<p><strong>运行时动态链接是目前最常使用的链接方式。</strong></p>
+<h2 id="4-3-连续分配存储管理方式"><a href="#4-3-连续分配存储管理方式" class="headerlink" title="4.3 连续分配存储管理方式"></a>4.3 连续分配存储管理方式</h2><p> 连续分配：为用户程序分配一个连续的内存空间。</p>
+<p>程序空间本类就是连续的。</p>
+<p>用连续的内存装入连续的程序，减少管理工作的难度。</p>
+<ul>
+<li><p>连续分配方式分类：</p>
+<ul>
+<li><p>单一连续分配</p>
+<p>单用户系统在一段时间内，只有一个进程在内存，故内存分配管理十分简单，内存利用率低。<strong>内存分为两个区域，一个供操作系统使用，一个供用户使用</strong>。</p>
+</li>
+<li><p>分区式分配方式</p>
+<p>系统把内存用户区划分为若干分区，<strong>分区大小可以相等，也可以不等</strong>。<strong>一个进程占据一个分区</strong>。这是早期用于多道程序的一种较简单的存储管理方式。它又可以分为：</p>
+<ul>
+<li>固定分区分配</li>
+<li>动态分区分配</li>
+</ul>
+</li>
+<li><p>动态可重定位分区分配</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-3-1-单一连续分配"><a href="#4-3-1-单一连续分配" class="headerlink" title="4.3.1 单一连续分配"></a>4.3.1 单一连续分配</h3><p><strong>内存中仅驻留一道用户程序，整个用户区为一个用户独占</strong>。</p>
+<p>内存分为两个区域：<strong>系统区，用户区</strong>。应用程序装入到用户区，可使用用户区全部空间。</p>
+<p>最简单，适用于单用户、单任务的OS。</p>
+<ul>
+<li><p>优点：易于管理。</p>
+<p>缺点：</p>
+<p>​    对要求内存空间少的程序，造成内存浪费</p>
+<p>​    <strong>程序全部装入，很少使用的程序部分也占用内存</strong></p>
+<p>​    例如：DOS 2.0以下的DOS操作系统采用单一连续区域主存管理方法。</p>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/RMT3lR"><img src="https://z3.ax1x.com/2021/06/24/RMT3lR.png" srcset="/img/loading.gif" lazyload alt="RMT3lR.png"></a></p>
+<p><a href="https://imgtu.com/i/RMTb7T"><img src="https://z3.ax1x.com/2021/06/24/RMTb7T.png" srcset="/img/loading.gif" lazyload alt="RMTb7T.png"></a></p>
+<h3 id="4-3-2-固定分区分配"><a href="#4-3-2-固定分区分配" class="headerlink" title="4.3.2 固定分区分配"></a>4.3.2 固定分区分配</h3><p>固定分区分配思想：将内存用户空间划分为若干个固定大小的区域，每个区域称为一个分区（region），在<strong>每个分区中只装入一道作业 ，从而支持多道程序并发设计</strong>。</p>
+<p>由于这些存储区域是在系统启动时划定的，在用户作业装入及运行过程中，其<strong>区域的大小和边界是不能改变</strong>的。</p>
+<ul>
+<li><p>固定式分区的划分方法有两种：</p>
+<ul>
+<li><p>分区大小相等</p>
+<p>当程序太小时，会造成内存空间的浪费 。当程序太大时，一个分区又不足以装入该程序，致使该程序无法运行。 </p>
+</li>
+<li><p>分区大小不等</p>
+<p>可把内存区划成含有多个较小的分区、适量的中等分区及少量的大分区。 </p>
+</li>
+</ul>
+</li>
+</ul>
+<p>为了实现这种固定分区的分配，系统需要建立一张<strong>分区说明表</strong>。这个分区说明表<strong>指出可用于分配的分区数以及每个区的大小、起始地址及状态</strong>。</p>
+<p><a href="https://imgtu.com/i/RMH0sI"><img src="https://z3.ax1x.com/2021/06/24/RMH0sI.png" srcset="/img/loading.gif" lazyload alt="RMH0sI.png"></a></p>
+<p><strong>内存分配过程？</strong></p>
+<p>当有作业要装入内存时，内存分配程序检索分区说明表，从中找出一个<strong>尚未使用的满足大小要求</strong>的分区分配给该作业，然后修改分区的状态；如果找不到合适的分区就拒绝为该作业分配内存。</p>
+<p><a href="https://imgtu.com/i/RMbt00"><img src="https://z3.ax1x.com/2021/06/24/RMbt00.png" srcset="/img/loading.gif" lazyload alt="RMbt00.png"></a></p>
+<p><strong>内存中已分配给用户但未被利用的区域称为“内零头”（内碎片）</strong></p>
+<p>固定分区分配有内零头产生。</p>
+<p><a href="https://imgtu.com/i/RMqegJ"><img src="https://z3.ax1x.com/2021/06/24/RMqegJ.png" srcset="/img/loading.gif" lazyload alt="RMqegJ.png"></a></p>
+<ul>
+<li><p>优点：易于实现，开销小。</p>
+<p>缺点：</p>
+<p>​    内碎片造成浪费</p>
+<p>​    分区总数固定，限制了并发执行的程序数目。</p>
+<p>​    存储空间的利用率太低，现在的操作系统几乎不用它了。</p>
+</li>
+</ul>
+<p>采用的数据结构：分区表－记录分区的大小和使用情况</p>
+<h3 id="4-3-3-动态分区分配"><a href="#4-3-3-动态分区分配" class="headerlink" title="4.3.3 动态分区分配"></a>4.3.3 动态分区分配</h3><p>为了减少存储区域的内零头，进一步提高主存的利用率，使存储空间的划分更加适应不同的作业组合，设计了动态(可变)式分区方案。</p>
+<p>动态分区分配是指根据进程的实际需要，动态地为之分配连续的内存空间。即<strong>分区的边界可以移动，分区的大小是可变</strong>的。</p>
+<ul>
+<li><p>动态分区又有两种不同选择：</p>
+<ul>
+<li><p>分区的数目固定大小是可变的</p>
+<p>假定系统初始化时规定把存储空间划分为8个分区。在下图(a)中用问号(?)来表示它们。在系统运行一段时间后，已有192K存储空间分配给7个作业，剩下64K还未分配，如下图(b)所示。现在，又有两个作业 P和Q准备调入，它们每个需要32K存储空间。显然，我们有足够的存储空间。却没有足够数的存储区域(目前只有一个可用)。因此，只能允许一个作业(如：P)被调入，如下图(c)所示。</p>
+<p><a href="https://imgtu.com/i/RMOdtf"><img src="https://z3.ax1x.com/2021/06/24/RMOdtf.png" srcset="/img/loading.gif" lazyload alt="RMOdtf.png"></a></p>
+</li>
+<li><p>允许分区的数目和大小都是可变的</p>
+<p>第二种方案(分区数目可变)：最初，没有建立任何分区，整个可用的存储空间用一个问号来表示；之后，发生上述所说在系统运行一段时间后，已有192K存储空间分配给7个作业，剩下64K还未分配的情况，如图(b)；现在，我们在剩下的64K存储空间中，可以创建两个分区，分别装入作业P和Q，如图(c)。显然，此方案比第一个方案更灵活，内存利用率更高。</p>
+<p><a href="https://imgtu.com/i/RMOHBR"><img src="https://z3.ax1x.com/2021/06/24/RMOHBR.png" srcset="/img/loading.gif" lazyload alt="RMOHBR.png"></a></p>
+</li>
+</ul>
+</li>
+<li><p>分区分配中的数据结构</p>
+<ul>
+<li>常用数据结构<ul>
+<li>空闲分区表</li>
+<li>空闲分区链</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/RMXRrd"><img src="https://z3.ax1x.com/2021/06/24/RMXRrd.png" srcset="/img/loading.gif" lazyload alt="RMXRrd.png"></a></p>
+<ul>
+<li><p>分区分配算法</p>
+<p>系统运行一段时间后，在整个存储空间内将出现许多大小不等的区域，有的仍被作业进程占用，有的则因作业已退出系统而成为可用于再分配的区域。现在假设有一个新的作业需调入主存，如何为其选择一个合适的区域？</p>
+<ul>
+<li>基于顺序搜索<ul>
+<li>最佳适应算法(Best Fit)</li>
+<li>最坏适应算法(Worst Fit)</li>
+<li>首次适应算法(First Fit)</li>
+<li>循环首次(下次)适应算法(Next Fit)</li>
+</ul>
+</li>
+<li>基于索引搜索<ul>
+<li>伙伴系统</li>
+<li>快速适应算法(Quick Fit)</li>
+<li>哈希算法</li>
+</ul>
+</li>
+</ul>
+<p>各个算法详解</p>
+<ul>
+<li><p>最佳适应算法(Best Fit:BF)</p>
+<p>就是为一作业选择分区时，总是寻找其大小最接近作业所要求的存储区域。即：把作业放入这样的分区后剩下的零头最小。</p>
+<p>优点：如果存储空间中具有正好是所要求大小的存储空白区，则必然被选中；如果不存在这样的空白区，也只对比要求稍大的空白区进行划分，而绝不会去划分一个更大的空白区。因此，其后遇到大作业到来时，作业要求的存储区域就比较容易得到满足。</p>
+<p>缺点：在每次分配时，总是产生最小的空白区。因此，经过一段时期后，存储空间中可能留许多这样的空白区，由于其太小而无法使用。</p>
+<p>为了改善这种情况，<strong>在该算法中设置一参数G，用它来确定最小分区的大小。当选择一个分区时，如果选中的空白区与要求的大小之差小于G，则不再对它划分，而把整个这个空白区分配给申请的作业。</strong></p>
+<p>为了加快查找速度，应将存储空间中所有的<strong>空白区按其大小递增的顺序链接起来</strong>，组成一<strong>空白区链</strong>(Free List)。</p>
+<p><a href="https://imgtu.com/i/RMjj6e"><img src="https://z3.ax1x.com/2021/06/24/RMjj6e.png" srcset="/img/loading.gif" lazyload alt="RMjj6e.png"></a></p>
+<p>最佳适应算法的另一缺点是：在回收一个分区时，为了把它插入到空白区链中合适的位置上也颇为费时。所以，这种算法乍看起来是最佳的，其实则不然。</p>
+</li>
+<li><p>最坏适应算法(Worst Fit:WF)</p>
+<p>在为作业选择存储区域时，总是寻找最大的空白区。在划分后剩下的空白区也是最大的，因而对以后的分配很可能仍然是有用的，这是该算法的一个优点。但是，由于最大的空白块总是首先被分配而进行划分，当有大的作业时，其存储空间的申请往往得不到满足，这是该算法的一个缺点。 </p>
+<p>为了支持这个算法的实现，空白块应以大小递减的顺序链接起来。</p>
+<p><a href="https://imgtu.com/i/RMxxII"><img src="https://z3.ax1x.com/2021/06/24/RMxxII.png" srcset="/img/loading.gif" lazyload alt="RMxxII.png"></a></p>
+</li>
+<li><p>首次适应算法(First Fit:FF)</p>
+<p>每个<strong>空白区按其在存储空间中地址递增的顺序链在一起</strong>，即每个后继空白区的起始地址总是比前者的大。在为作业分配存储区域时，从这个空白区链的始端开始查找，选择第一个足以满足请求的空白块，而不管它究竟有多大。</p>
+<p>选择的空白区被分成两部分。一部分与请求的大小相等，分配给作业；剩下的部分留在空白区链中。</p>
+<p>显然，这个算法倾向于优先利用存储空间中低址部分的空白区。</p>
+<p><a href="https://imgtu.com/i/RQSPt1"><img src="https://z3.ax1x.com/2021/06/24/RQSPt1.png" srcset="/img/loading.gif" lazyload alt="RQSPt1.png"></a></p>
+<p>优点：算法简单，查找速度快；留在高址部分的大的空白区被划分的机会较少，因而在大作业到来时也比较容易得到满足。</p>
+<p>缺点：这种算法常常利用一个大的空白区适应小作业的请求，从而留下一些较小的无法用的空白区，<strong>存储空间利用率不高</strong>；而且，由于所有的请求都是从空白区链的始端开始查找，因而这些小而无用的空白区集中在这个链的前端，相应地，一些较大空白区在链的尾端才能发现，这种情况将使<strong>找到合适空白区的速度降低</strong>。</p>
+<p><strong>在低地址部分会积累大量外零头。</strong></p>
+</li>
+<li><p>内零头与外零头</p>
+<ul>
+<li><p>内零头</p>
+<p>分配给用户但用户没有使用的空间</p>
+<p>“多分配的空间”</p>
+</li>
+<li><p>外零头</p>
+<p>没有分配但无法分配的空间</p>
+<p>太小而无法分配，“分不出去的空间”</p>
+</li>
+</ul>
+<p>单一连续分配有较大的内零头</p>
+<p>分区分配有小于一个分区的内零头</p>
+</li>
+<li><p>循环首次适应算法(Next Fit:NF)</p>
+<p>首次适应算法的一种变形，故也被称为带旋转指针的首次适应算法</p>
+<p><strong>把存储空间中空白区构成一个循环链</strong>。<strong>每次为存储请求查找合适的分区时，总是从上次查找结束的地方开始，只要找到一个足够大的空白区，就将它划分后分配出去</strong>。</p>
+<p>显然，采用这一策略后，<strong>存储空间的利用更加均衡</strong>，而不至于使小的空白区集中于存储器的一端。但是，在存储器的另一端也不可能保留大的空白块，因此，<strong>当需要获得相当大的空白区时，能满足的可能性减少</strong>了。</p>
+</li>
+<li><p>快速适应算法(Quick Fit:QF)</p>
+<p><strong>将空闲分区根据其容量大小进行分类，对于每一类具有相同容量的所有空闲分区，单独设立一个空闲分区链表。</strong></p>
+<p>这样，系统中<strong>存在多个空闲分区链表</strong>；</p>
+<p>同时，在内存中设立一张管理分区类型，并记录了该类型空闲分区链表表头的索引表，该表的每一个表项记录了对应类型空闲分区链表表头的指针。</p>
+<p>分配过程：<strong>根据进程的长度，寻找到能容纳它的最小空闲分区链表，并取下第一块进行分配</strong>即可。</p>
+<p>优点：</p>
+<ul>
+<li>查找效率高。</li>
+<li>该算法在进行空闲分区分配时，不会对任何分区产生分割，所以能保留大的分区，满足对大空间的需求，也<strong>不会产生内存碎片</strong>。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>在分区<strong>归还</strong>主存时算法复杂，系统开销较大。</li>
+<li>该算法在分配空闲分区时是以进程为单位，一个分区只属于一个进程，因此在为进程所分配的一个分区中，或多或少地存在一定的浪费。空闲分区划分越细，浪费则越严重。</li>
+<li>以空间换时间。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>涉及动态分区的主要操作有<strong>分配内存和回收内存</strong>。这些操作是在程序接口中通过系统调用发出的。</p>
+<p><strong>1.分配内存</strong>：向操作系统提出一特定存储量的请求。通常，它并不要求这个分配的存储区域限于特定的位置，但是，这个区域必须是连续的。</p>
+<p>系统利用某种分配算法，从空闲分区链(表)中找到所需大小的分区。</p>
+<p>请求的分区大小为u.size</p>
+<p>表中每个空闲分区的大小为m.size</p>
+<p>size是事先规定的不再切割的剩余分区的大小</p>
+<p><a href="https://imgtu.com/i/RQnJTx"><img src="https://z3.ax1x.com/2021/06/24/RQnJTx.png" srcset="/img/loading.gif" lazyload alt="RQnJTx.png"></a></p>
+<p><strong>2.回收内存</strong>：</p>
+<p>进程用于归还一个不再需用的存储区域。</p>
+<p>当进程运行完毕释放内存时，系统根据回收区的首址，从空闲区链(表)中找到相应的插入点。</p>
+<p>在回收一个分区时，一个回收的分区与空白区邻接的情况有四种，对这四种情况分别作如下处理：</p>
+<p><a href="https://imgtu.com/i/RQnHA0"><img src="https://z3.ax1x.com/2021/06/24/RQnHA0.png" srcset="/img/loading.gif" lazyload alt="RQnHA0.png"></a></p>
+<ul>
+<li><p>回收区与插入点的前一个空闲分区F1相邻接。此时应将回收区与插入点的前一分区合并，不必为回收分区分配新表项，而只需<strong>修改其前一分区F1的大小</strong>。</p>
+</li>
+<li><p>回收区仅与下面的空白区邻接，合并后仍为空白区F2，但其<strong>起始地址和大小均需改变</strong>。用回收区的首址作为新空闲区的首址，大小为两者之和。</p>
+</li>
+<li><p>回收区与上、下面的空白区邻接，此时将三个分区合并，<strong>使用F1的表项和F1的首址，取消F2的表项，大小为三者之和</strong>。</p>
+</li>
+<li><p>回收区与上、下面的空白区均不邻接，在这种情况下，应为回收区单独<strong>建立一新表项</strong>，填写回收区的首址和大小，并<strong>根据首地址插入到空闲链中的适当位置</strong>。</p>
+</li>
+</ul>
+<h3 id="4-3-4-伙伴系统"><a href="#4-3-4-伙伴系统" class="headerlink" title="4.3.4 伙伴系统"></a>4.3.4 伙伴系统</h3><ul>
+<li><p>固定分区与动态分区方案存在的问题：</p>
+<ul>
+<li><strong>算法复杂，回收分区时系统开销大</strong></li>
+<li>并发执行的进程数量受到限制</li>
+<li>内部碎片影响内存利用率</li>
+</ul>
+</li>
+<li><p>伙伴系统——一种折中方案</p>
+</li>
+<li><p>在伙伴系统中，可用内存块大小为2 <sup>k</sup>(1≤k≤m)</p>
+<p>2<sup>1</sup>表示分配的最小块的尺寸</p>
+<p>2<sup>m</sup>表示分配的最大块的尺寸，<strong>通常是可供分配的整个内存空间的大小</strong></p>
+</li>
+<li><p>对空闲区按照大小分类，相同大小的分区链接为一个双向空闲链表；最多可形成k(0 ≤k≤m)个链表。</p>
+</li>
+<li><p>工作流程</p>
+<p>进程请求大小为n的存储空间时，</p>
+<p>首先计算一个 i 值，使2<sup>i-1</sup> &lt; n ≤ 2<sup>i</sup>；</p>
+<p>在空闲分区大小为2<sup>i</sup>的空闲分区链表中查找。</p>
+<p>if 找到，即把该空闲分区分配给进程。</p>
+<p> else 在分区大小为的空闲分区链表中寻找;</p>
+<p>​                //表明长度为2<sup>i</sup>的空闲分区已经耗尽</p>
+<p>if 找到大小2<sup>i+1</sup>的空闲分区</p>
+<p>   把该空闲分区分为相等的两个分区（一对伙伴），其中一个用于分配，另一个加入分区大小为2<sup>i</sup> 的空闲分区链表中。</p>
+<p>else 查找大小为2<sup>i+2</sup> 的空闲分区…</p>
+<p><a href="https://imgtu.com/i/RQKOOJ"><img src="https://z3.ax1x.com/2021/06/24/RQKOOJ.png" srcset="/img/loading.gif" lazyload alt="RQKOOJ.png"></a></p>
+<p><a href="https://imgtu.com/i/RQMuff"><img src="https://z3.ax1x.com/2021/06/24/RQMuff.png" srcset="/img/loading.gif" lazyload alt="RQMuff.png"></a></p>
+</li>
+</ul>
+<h3 id="4-3-5-哈希算法"><a href="#4-3-5-哈希算法" class="headerlink" title="4.3.5 哈希算法"></a>4.3.5 哈希算法</h3><p>利用哈希快速查找的优点，以及空闲分区在可利用空间表中的分布规律，建立哈希函数，构造一张哈希表，以<strong>空闲分区大小为关键字</strong>，<strong>每一个表项记录了一个对应的空闲分区链表表头指针</strong>。</p>
+<p>当进行空闲分区分配时，根据所需空闲分区大小，通过<strong>哈希函数计算</strong>，即得到在<strong>哈希表中的位置</strong>，从中得到相应的空闲分区链表，实现最佳分配策略。</p>
+<h3 id="4-3-6-可重定向分区分配"><a href="#4-3-6-可重定向分区分配" class="headerlink" title="4.3.6 可重定向分区分配"></a>4.3.6 可重定向分区分配</h3><ul>
+<li><p>紧凑</p>
+<p>可变式分区分配策略是在装入作业时根据其要求量为其划定相应的区域。这种分配策略，消除了固定式分区分配造成的“内零头”，但不可避免地在存储空间中造成“外零头”，为了进一步提高存储器的利用率，必须设法<strong>减少由于外零头造成的浪费</strong>。</p>
+<p> 一个最简单而直观的解决零头问题的办法是，定时地或者在内存紧张时，把存储空间中的空白区合并为一个大的连续区。</p>
+<p>实现方法：<strong>将内存中的所有作业进行移动，使它们全都相邻接，可把原来分散的多个小分区合成一个大分区</strong>。这种技术称为存储器的“紧凑”。</p>
+<p>把一个作业从一个存储区域移动到另一个存储区域所发生的问题，正如把一个作业装入到与它地址空间不 一致的存储空间所引起的问题一样，需要对作业中的某些地址部分和地址常数等进行调整。</p>
+<p>一个较实用且可行的办法是采用动态重定位技术。<strong>当一个作业在主存中移动后，只要改变重定位寄存器中的内容即可</strong></p>
+</li>
+<li><p>动态重定位</p>
+<p>在动态运行时装入的方式中，作业装入内存后的所有地址都仍然是相对地址，将相对地址转换为物理地址的工作，被推迟到程序指令要真正执行时进行。</p>
+<p>程序在执行时，真正访问的内存地址是相对地址与重定位寄存器中的地址相加而形成的。</p>
+<p>动态重定位机制需要硬件的支持， 即须在系统中增设一个重定位寄存器，用它来存放程序(数据)在内存中的起始地址。</p>
+<p><a href="https://imgtu.com/i/RQ1PpV"><img src="https://z3.ax1x.com/2021/06/24/RQ1PpV.png" srcset="/img/loading.gif" lazyload alt="RQ1PpV.png"></a></p>
+</li>
+<li><p>动态重定位分区分配</p>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/RQ1Q1K"><img src="https://z3.ax1x.com/2021/06/24/RQ1Q1K.png" srcset="/img/loading.gif" lazyload alt="RQ1Q1K.png"></a></p>
+<h2 id="4-4-基于分页存储管理方式"><a href="#4-4-基于分页存储管理方式" class="headerlink" title="4.4 基于分页存储管理方式"></a>4.4 基于分页存储管理方式</h2><ul>
+<li><p><strong>离散分配方式</strong>的引入</p>
+<p><strong>连续分配方式会产生内/外零头</strong></p>
+<p><strong>为解决零头问题又要进行紧凑等高开销活动</strong></p>
+<p>前面介绍的分区存储管理，一般都要求把一个作业的地址空间装入到连续的存储区域内。因此，在动态分区的存储空间中，常常由于存在着一些不足以装入任何作业的小的分区而浪费掉部分存储资源，这就是所谓存储器的零头问题。</p>
+<p>尽管采用“紧凑”技术可以解决这个问题，但要为移动大量信息花去不少处理机时间，代价较高。</p>
+<p>如果我们能取消对其存储区域的连续性要求，必然会进一步提高主存空间的利用率，又无需为移动信息付出代价。</p>
+</li>
+<li><p>什么是离散分配</p>
+<p>程序在内存中不一定连续存放</p>
+</li>
+<li><p>根据离散时的基本单位不同，可分为三种：</p>
+<ul>
+<li>分页存储管理、</li>
+<li>分段存储管理</li>
+<li>段页式存储管理</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-4-1-分页存储管理基本思想"><a href="#4-4-1-分页存储管理基本思想" class="headerlink" title="4.4.1 分页存储管理基本思想"></a>4.4.1 分页存储管理基本思想</h3><ul>
+<li><p>离散的基础</p>
+<p><strong>分页(Pages)：将程序地址空间分页</strong></p>
+<p><strong>分块(Frames)：将内存空间分块</strong></p>
+</li>
+<li><p>离散分配的体现</p>
+<p>内存一块可以装入程序一页</p>
+<p><strong>连续的多个页不一定装入连续的多个块中。</strong></p>
+<p>注意：系统中页块的大小是不变的。</p>
+</li>
+<li><p>离散分配的优点</p>
+<p>没有外零头：不受连续空间限制，每块都能分出去</p>
+<p>仅有小于一个页面的内零头：程序大小一般不是页大小的整数倍</p>
+<p><strong>由于进程的最后一页经常装不满一块而形成了不可利用的碎片，称之为“页内碎片”或称为“内零头”。</strong></p>
+<p><a href="https://imgtu.com/i/RQGkX8"><img src="https://z3.ax1x.com/2021/06/24/RQGkX8.png" srcset="/img/loading.gif" lazyload alt="RQGkX8.png"></a></p>
+</li>
+<li><p>页面与物理块</p>
+<p>页面或页(Page)：<strong>把每个进程的逻辑地址空间分成一些大小相等的片</strong>。</p>
+<p>物理块或页框(Page Frame)：<strong>内存空间也分成与页相同大小的若干存储块。在为进程分配存储空间时，总是以页框为单位。</strong></p>
+<p>例如：一个作业的地址空间有m页。那么，只要分配给它m个页框，每一页分别装入一个页框内即可。这里，并不要求这些页框是连续的。</p>
+<p>​    说明：</p>
+<p>​    ⑴从0开始编制页号，页内地址是相对于0编址；</p>
+<p>​    ⑵在<strong>进程调度时，必须把它的所有页一次装入到主存的页框内</strong>；如果当时页框数不足，则该进程必须等待，系统再调度另外的进程。（<strong>纯分页方式</strong>）</p>
+</li>
+<li><p>页面大小的选择</p>
+<p><strong>页面大小由机器的地址结构决定。某一机器只能采用一种大小的页面。</strong></p>
+<ul>
+<li><p>小页面：优点是可减少碎片，能提高内存的利用率。缺点是页表过长，占用较多的内存空间。且以页为单位进行换进、换出时效率低。</p>
+</li>
+<li><p>大页面：优点是页表小，换进换出时效率高。但页内碎片相应较大。</p>
+</li>
+</ul>
+<p>页面的大小通常在1KB~8KB之间</p>
+</li>
+<li><p>实现分页存储管理的<strong>数据结构</strong></p>
+<ul>
+<li><p>页表：<strong>每个进程对应1个页表</strong>，描述该进程的各页面在内存中对应的物理块号。</p>
+<ul>
+<li>页表中包括页号、物理块号（<strong>还可有存取控制字段，对存储块中的内容进行保护</strong>）。</li>
+<li>注意：全部页表集中<strong>存放在主存的系统专用区</strong>中，<strong>只有系统有权访问页表</strong>，保证安全。</li>
+</ul>
+</li>
+<li><p>作业表：<strong>整个系统只有1张</strong>，记录作业的页表情况，包含进程号、页表长度、页表始址等信息。</p>
+</li>
+<li><p>空闲块表：<strong>整个系统只有1张</strong>，记录主存当前空闲块。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/RQYgSI"><img src="https://z3.ax1x.com/2021/06/24/RQYgSI.png" srcset="/img/loading.gif" lazyload alt="RQYgSI.png"></a></p>
+<p><a href="https://imgtu.com/i/RQtPpR"><img src="https://z3.ax1x.com/2021/06/24/RQtPpR.png" srcset="/img/loading.gif" lazyload alt="RQtPpR.png"></a></p>
+<ul>
+<li><p>例如：</p>
+<p>假设内存能提供16个空闲页框，进程P1被分割成4个页面，装入内存中的0号至3号页框。进程P2被分割成3个页面，装入4号至6号页框。进程P3被装入7号至12号页框，如图(a)所示。</p>
+<p>此时，进程P4请求分配5个页框大小的存储空间，但内存只有3个空闲页框。于是，将暂时不运行的P2交换出内存，如图(b)所示。</p>
+<p>然后，再将P4装入4、5、6、13、14号页框，如图(c)所示。</p>
+<p><a href="https://imgtu.com/i/RQtbUe"><img src="https://z3.ax1x.com/2021/06/24/RQtbUe.png" srcset="/img/loading.gif" lazyload alt="RQtbUe.png"></a></p>
+<p><a href="https://imgtu.com/i/RQNPUg"><img src="https://z3.ax1x.com/2021/06/24/RQNPUg.png" srcset="/img/loading.gif" lazyload alt="RQNPUg.png"></a></p>
+</li>
+<li><p>地址结构</p>
+<p>地址空间为程序限定的空间。</p>
+<p>物理空间为内存限定空间。</p>
+<p><strong>在页式管理系统中将地址空间分成大小相同页面。将内存空间分成与页面相同大小的存储块。</strong></p>
+<p><a href="https://imgtu.com/i/RQNtr6"><img src="https://z3.ax1x.com/2021/06/24/RQNtr6.png" srcset="/img/loading.gif" lazyload alt="RQNtr6.png"></a></p>
+</li>
+<li><p>分页存储管理的逻辑地址表示</p>
+<p><a href="https://imgtu.com/i/RQNHs0"><img src="https://z3.ax1x.com/2021/06/24/RQNHs0.png" srcset="/img/loading.gif" lazyload alt="RQNHs0.png"></a></p>
+</li>
+<li><p>例题：</p>
+<p><a href="https://imgtu.com/i/RQauh4"><img src="https://z3.ax1x.com/2021/06/24/RQauh4.png" srcset="/img/loading.gif" lazyload alt="RQauh4.png"></a></p>
+<p>计算指导：把1K换成8进制进行计算即可！</p>
+</li>
+</ul>
+<h3 id="4-4-2-地址变换机构"><a href="#4-4-2-地址变换机构" class="headerlink" title="4.4.2 地址变换机构"></a>4.4.2 地址变换机构</h3><ul>
+<li><p>地址变换机构的功能是将用户的逻辑地址转变为内存中的物理地址。</p>
+<p>逻辑地址由<strong>页号和页内位移量</strong>组成。</p>
+<p>页的大小和内存物理块的大小是相同的，所以页内位移量即为物理块内位移量。</p>
+<p><strong>关键是页号到物理块号的转换，由页表完成。</strong></p>
+<h4 id="基本的地址变换机构"><a href="#基本的地址变换机构" class="headerlink" title="基本的地址变换机构"></a>基本的地址变换机构</h4><ul>
+<li><p>使用寄存器存放页表</p>
+<ul>
+<li>速度快，成本高。特别对于大的系统，页表很长，不可能都用寄存器实现。</li>
+</ul>
+</li>
+<li><p><strong>一般系统，将页表存放在内存中。</strong></p>
+<ul>
+<li><p>设置一个<strong>页表寄存器(PTR)**，</strong>记录当前运行的进程的页表在内存中的起始地址和页表长度<strong>。(**平时存放于PCB-进程控制块中，要运行时，才装入PTR中</strong>)。</p>
+<p>当进程真正投入运行时，从进程PCB中读出页表的始址和页表长度，并将这两个数据装入PTR中，以后地址转换时直接从PTR中获得页表的起始地址。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>分页系统中的地址变换过程如下：</p>
+<p>（1）根据逻辑地址,计算出页号和页内偏移量；</p>
+<p>（2）从PTR中得到页表首址，然后检索页表，查找指定页面对应的页框号；</p>
+<p>（3）用页框号乘以页面大小获得其对应的起始地址，并将其送入<strong>物理地址的高端</strong>。</p>
+<p>（4）将<strong>页内偏移量送入物理地址低端</strong>，形成完整的物理地址。</p>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/RQdQIS"><img src="https://z3.ax1x.com/2021/06/24/RQdQIS.png" srcset="/img/loading.gif" lazyload alt="RQdQIS.png"></a></p>
+<ul>
+<li><p>例题1：</p>
+<p><a href="https://imgtu.com/i/RQdaZV"><img src="https://z3.ax1x.com/2021/06/24/RQdaZV.png" srcset="/img/loading.gif" lazyload alt="RQdaZV.png"></a></p>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/RQdLeP"><img src="https://z3.ax1x.com/2021/06/24/RQdLeP.png" srcset="/img/loading.gif" lazyload alt="RQdLeP.png"></a><br><a href="https://imgtu.com/i/RQdbLt"><img src="https://z3.ax1x.com/2021/06/24/RQdbLt.png" srcset="/img/loading.gif" lazyload alt="RQdbLt.png"></a></p>
+<p><strong>千万小心！！！物理块号和页表中的页号都是从0开始！！！</strong></p>
+<ul>
+<li><p>例题2：</p>
+<p><a href="https://imgtu.com/i/RQwPLq"><img src="https://z3.ax1x.com/2021/06/24/RQwPLq.png" srcset="/img/loading.gif" lazyload alt="RQwPLq.png"></a></p>
+<p><a href="https://imgtu.com/i/RQwOXR"><img src="https://z3.ax1x.com/2021/06/24/RQwOXR.png" srcset="/img/loading.gif" lazyload alt="RQwOXR.png"></a></p>
+</li>
+<li><p>例题3：</p>
+<p><a href="https://imgtu.com/i/RQ0i1H"><img src="https://z3.ax1x.com/2021/06/24/RQ0i1H.png" srcset="/img/loading.gif" lazyload alt="RQ0i1H.png"></a></p>
+</li>
+</ul>
+<h4 id="具有快表的地址变换机构"><a href="#具有快表的地址变换机构" class="headerlink" title="具有快表的地址变换机构"></a>具有快表的地址变换机构</h4><ul>
+<li><p>分页系统中处理机每次存取指令或数据至少需要访问两次物理内存</p>
+<ul>
+<li>第一次访问页表，以得到物理地址</li>
+<li>第二次访问物理地址，以得到数据。</li>
+</ul>
+</li>
+<li><p>存取速度几乎降低了一倍，代价太高</p>
+</li>
+<li><p>为了提高地址变换速度，为进程页表设置一个专用的高速缓冲存储器，称为快表TLB(Translation Lookaside Buffer)，或联想存储器（Associative Memory）。</p>
+</li>
+<li><p>工作原理</p>
+<p>类似于系统中的数据高速缓存(cache)，其中<strong>专门保存当前进程最近访问过的一组页表项</strong>。</p>
+</li>
+<li><p>进程最近访问过的页面在不久的将来还可能被访问。</p>
+</li>
+<li><p>工作流程</p>
+<ul>
+<li><p>根据逻辑地址中的页号，查找快表中是否存在对应的页表项。</p>
+</li>
+<li><p>若快表中存在该表项，称为<strong>命中</strong>（hit），取出其中的页框号，加上页内偏移量，计算出物理地址。</p>
+</li>
+<li><p>若快表中不存在该页表项，称为<strong>命中失败</strong>，则再查找页表，找到逻辑地址中指定页号对应的页框号。同时，更新快表，将该表项插入快表中。并计算物理地址.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/RQBwIf"><img src="https://z3.ax1x.com/2021/06/24/RQBwIf.png" srcset="/img/loading.gif" lazyload alt="RQBwIf.png"></a></p>
+<h3 id="4-4-3-访问内存的有效时间EAT"><a href="#4-4-3-访问内存的有效时间EAT" class="headerlink" title="4.4.3 访问内存的有效时间EAT"></a>4.4.3 访问内存的有效时间EAT</h3><ul>
+<li><p>定义：<strong>从进程发出指定逻辑地址的访问请求，经过地址变换，再到内存中找到对应的物理单元并取出数据，所花费的总时间。</strong></p>
+<p>因成本关系，联想存储器不是很大，通常只能存放16~512个页表项。这对中小作业，已有可能把全部页表放在其中；但对大型作业，只能放一部分。</p>
+</li>
+<li><p>如检索快表时间为20ns，访问内存为100 ns。</p>
+<p>若能在快表中检索到CPU给出的页号，则CPU存取一个数据共需120 ns</p>
+<p>否则，需要220ns的时间。</p>
+</li>
+<li><p>当访问联想存储器时的命中率分别为0%，50%，80%，90%，98%时，其有效访问时间如下表所示：</p>
+<p><a href="https://imgtu.com/i/RQDMOs"><img src="https://z3.ax1x.com/2021/06/24/RQDMOs.png" srcset="/img/loading.gif" lazyload alt="RQDMOs.png"></a></p>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/RQD6fO"><img src="https://z3.ax1x.com/2021/06/24/RQD6fO.png" srcset="/img/loading.gif" lazyload alt="RQD6fO.png"></a><br><a href="https://imgtu.com/i/RQDytK"><img src="https://z3.ax1x.com/2021/06/24/RQDytK.png" srcset="/img/loading.gif" lazyload alt="RQDytK.png"></a></p>
+<h3 id="4-4-4-两级和多级页表"><a href="#4-4-4-两级和多级页表" class="headerlink" title="4.4.4 两级和多级页表"></a>4.4.4 两级和多级页表</h3><ul>
+<li><p>问题</p>
+<p>32位逻辑地址空间，假设页面大小为4KB（2<sup>12</sup>），则4GB（2<sup>32</sup>）的逻辑地址空间将被划分成220个页面。</p>
+<p> 若采用一级页表，则该表将包含1M（2<sup>20</sup>）个页表项。若按字节寻址，一个页表项占4B，则一级页表需要占用4MB（2<sup>22</sup>）内存空间。<strong>不可能将4MB的页表保存在一个连续区中</strong>。</p>
+<p>那么，如何处理<strong>大页表的存储与检索</strong>呢？</p>
+</li>
+<li><p>可以采用这样两个方法来解决这一问题：</p>
+<p>① 采用离散分配方式来解决难以找到一块连续的大内存空间的问题，（即<strong>引入两级页表</strong>）；</p>
+<p>② <strong>只将当前需要的部分页表项调入内存</strong>， 其余的页表项仍驻留在磁盘上，需要时再调入。</p>
+</li>
+<li><p>对于要求连续的内存空间来存放页表的问题：</p>
+<p>可将页表进行分页，并离散地将各个页面分别存放在不同的物理块中，</p>
+<p>同样也要<strong>为离散分配的页表再建立一张页表，称为外层页表</strong>(Outer Page Table)，<strong>在每个页表项中记录了页表分页的物理块号</strong>。</p>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/RQrybn"><img src="https://z3.ax1x.com/2021/06/24/RQrybn.png" srcset="/img/loading.gif" lazyload alt="RQrybn.png"></a></p>
+<p><a href="https://imgtu.com/i/RQsXoq"><img src="https://z3.ax1x.com/2021/06/24/RQsXoq.png" srcset="/img/loading.gif" lazyload alt="RQsXoq.png"></a><br><a href="https://imgtu.com/i/RQsOwn"><img src="https://z3.ax1x.com/2021/06/24/RQsOwn.png" srcset="/img/loading.gif" lazyload alt="RQsOwn.png"></a></p>
+<p>地址变换机构中增设<strong>外层页表寄存器</strong>，用于存放外层页表的始址。</p>
+<p>利用逻辑地址中的外层页号，作为外层页表的索引，从中找到指定页表分页的始址，再利用指定页表分页的索引，找到指定的页表项，即该页在内存的物理块号。</p>
+<p>用该块号和页内地址即可构成访问的内存物理地址。 </p>
+<h4 id="多级页表"><a href="#多级页表" class="headerlink" title="多级页表"></a>多级页表</h4><p>对于64位机器，采用两级页表是否合适？</p>
+<p><strong>注意：4B为一个页表项大小！！！</strong></p>
+<p><a href="https://imgtu.com/i/RQy3TI"><img src="https://z3.ax1x.com/2021/06/24/RQy3TI.png" srcset="/img/loading.gif" lazyload alt="RQy3TI.png"></a></p>
+<p>(2^52^<em>4B)/2^12^=2^42^  个页表分页      2^42^\</em>4B=16KGB 外层页表大小</p>
+<p>[<img src="https://z3.ax1x.com/2021/06/24/RQWnpt.png" srcset="/img/loading.gif" lazyload alt="RQWnpt.png"></p>
+<p><a href="https://imgtu.com/i/RQWnpt"></a></p>
+<h3 id="4-4-5-反置页表Inverted-Page-Table（IPT）"><a href="#4-4-5-反置页表Inverted-Page-Table（IPT）" class="headerlink" title="4.4.5 反置页表Inverted Page Table（IPT）"></a>4.4.5 反置页表Inverted Page Table（IPT）</h3><ul>
+<li><p>大地址空间问题</p>
+<ul>
+<li>对于大地址空间(64-bits)系统，多级页表变得繁琐。</li>
+<li>如：5级页表</li>
+<li>逻辑(虚拟)地址空间增长速度快于物理地址空间。</li>
+</ul>
+</li>
+<li><p>反置页表的思路</p>
+<ul>
+<li>不让页表与逻辑地址空间大小相对应</li>
+<li>让页表和物理地址空间的大小相对应</li>
+</ul>
+</li>
+<li><p>IPT主要解决问题</p>
+<p>逻辑空间越来越大，页表占用内存也越来越大，为解决大页表问题占内存多现象，减少内存开销，避免一个进程一个页表。</p>
+</li>
+<li><p>IPT思想：</p>
+<ul>
+<li><p>IPT是为主存中的每一个物理块建立一个页表项并按照块号排序。</p>
+</li>
+<li><p>该表每个表项包含正在访问该物理块的进程标识、页号及特征位,<strong>用来完成主存物理块到访问进程的页号的转换</strong>。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://imgtu.com/i/RQf02t"><img src="https://z3.ax1x.com/2021/06/24/RQf02t.png" srcset="/img/loading.gif" lazyload alt="RQf02t.png"></a></p>
+<ul>
+<li><p><strong>Hash表检索</strong></p>
+</li>
+<li><p>IPT只包含已经调入内存的页面，不包含尚未调入内存的页面。</p>
+</li>
+<li><p>反置页表地址转换过程如下：</p>
+<p>给出进程标识和页号,用它们去比较IPT,若整个反置页表中未能找到匹配的页表项,说明该页不在主存，产生<strong>请求调页中断</strong>,请求操作系统调入。</p>
+<p>否则，该表项的序号便是物理块号,块号加上位移,便形成物理地址。</p>
+<p><a href="https://imgtu.com/i/RQhNLT"><img src="https://z3.ax1x.com/2021/06/24/RQhNLT.png" srcset="/img/loading.gif" lazyload alt="RQhNLT.png"></a><br><a href="https://imgtu.com/i/RQhtyV"><img src="https://z3.ax1x.com/2021/06/24/RQhtyV.png" srcset="/img/loading.gif" lazyload alt="RQhtyV.png"></a></p>
+</li>
+</ul>
+<h3 id="4-4-6-对换（Swapping）"><a href="#4-4-6-对换（Swapping）" class="headerlink" title="4.4.6 对换（Swapping）"></a>4.4.6 对换（Swapping）</h3><ul>
+<li><p>对换：<strong>把内存中暂不能运行的进程或暂时不用和程序和数据，换到外存上，以腾出足够的内存空间，把已具备运行条件的进程，或进程所需要的程序和数据，换入内存。</strong></p>
+<p>对换是<strong>系统行为</strong>，是提高内存的利用率的有效措施。</p>
+<p>常用于<strong>多道程序系统或小型分时系统</strong>中，<strong>与分区存储管理配合使用</strong>。</p>
+<p>实现：可在系统中设一对换进程，以执行换进内存、换出至外存操作。</p>
+<p>对换技术，最早用在分时系统UNIX中。</p>
+<p><strong>在任何时刻，在该系统的主存中只保存一个完整的用户作业</strong>，当其运行一段时间后，或由于分配给它的时间片已用完，或由于需要其它资源而等待，系统就把它交换到辅存，同时把另一个作业调入主存让其运行。这样，可以在存储容量不大的小型机上实现分时系统。Microsoft公司的 Windows OS也采用这种对换技术。</p>
+<ul>
+<li><p>分类：</p>
+<ul>
+<li><p>“整体对换”（进程对换）：</p>
+<p>  <strong>对换以整个进程为单位</strong>，用于<strong>分时系统</strong>，以解决内存紧张的问题。</p>
+</li>
+<li><p>“页面对换/分段对换”：</p>
+<p> <strong>对换以“页”或“段”为单位进行“部分对换”</strong>，<strong>该方法是实现请求分页及请求分段存储器的基础，支持虚存系统</strong>。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>为实现对换，系统需要三方面的功能：</p>
+<ul>
+<li>对换空间管理</li>
+<li>进程的换入</li>
+<li>进程的换出</li>
+</ul>
+</li>
+</ul>
+<p>一、对换空间管理</p>
+<ul>
+<li><p><strong>外存被分为两部分，文件区和对换区</strong></p>
+<p>Windows常用的分区格式有三种，分别是FAT16、FAT32、NTFS格式。在Linux操作系统里有Ext2、Ext3、Linux swap和VFAT四种格式。</p>
+<ul>
+<li><p>文件区用于存放文件，对它的管理应重在如何<strong>提高存储空间的利用率</strong>。所以对它采取<strong>离散分配方式</strong>。</p>
+<p>即：一个文件可根据当前外存的使用情况，被分成多块，分别存储到不邻接的多个存储区域中，用指针相连。</p>
+</li>
+<li><p>对换区存放从内存换出的进程，它们在外存的存放时间较短，换入、换出频繁。对对换区的管理应重在<strong>提高进程的换入换出速度</strong>。因此采用<strong>连续分配方式</strong>。</p>
+<p>即：把一个换出的进程存放到一个连续的存储空间中。</p>
+</li>
+</ul>
+</li>
+<li><p>为了能对对换区中的空闲盘块进行管理，在系统中应配置相应的数据结构，以记录外存的使用情况。</p>
+<p><strong>空闲分区表或空闲分区链</strong>。在空闲分区表中的每个表目应包含两项，即<strong>对换分区首址和对换区长度</strong>，它们的<strong>基本单位都是盘块</strong>。（盘块的大小和操作系统的具体文件系统有关系！比如FAT32的盘块大小为4KB）</p>
+</li>
+<li><p>对换区的分配，是采用连续分配方式。因而对对换区空间的分配与回收，与动态分区方式时内存的分配与回收方法雷同。</p>
+<p>分配算法可以是<strong>首次适应算法、循环首次适应算法和最佳适应算法</strong>。</p>
+<p>回收操作也可分为四种情况。</p>
+</li>
+</ul>
+<p>二、进程换入与换出(由对换进程完成)</p>
+<ul>
+<li><p>换出 swap out</p>
+<p>选择：首先选择阻塞或睡眠状态的进程，若有多个，按<strong>优先级</strong>由低到高进行选择。若没有此状态进程，则选择就绪状态的，仍然按优先级由低到高进行选择。</p>
+<p>为避免某进程被频繁的换入换出，还应考虑进程在内存中的驻留时间，<strong>优先选择驻留时间长的进程</strong>。</p>
+</li>
+<li><p>换入 swap in</p>
+<p>①从 PCB集合中查找“就绪且换出”的进程，有多个，则<strong>选择换出时间最长</strong>的。</p>
+<p>②<strong>根据进程大小申请内存，成功则读入，否则要先执行换出，再换入</strong>。</p>
+<p>③若还有可换入进程，则转向①。<strong>直至无“就绪且换出”进程或无法获得足够内存空间为止</strong>。</p>
+<h2 id="4-5-基本分段式存储管理"><a href="#4-5-基本分段式存储管理" class="headerlink" title="4.5 基本分段式存储管理"></a>4.5 基本分段式存储管理</h2></li>
+</ul>
+<p>4.5.1 分段式存储管理方式的引入<br>4.5.2 分段式存储管理的基本原理<br>4.5.3 段的共享和保护<br>4.5.4 段页式存储管理</p>
+<p>引言：程序员眼中的程序 模块化程序设计的分段结构</p>
+<p>模块化程序设计的分段结构</p>
+<h3 id="4-5-1-分段存储管理方式的引入"><a href="#4-5-1-分段存储管理方式的引入" class="headerlink" title="4.5.1 分段存储管理方式的引入"></a>4.5.1 分段存储管理方式的引入</h3><ul>
+<li><p>分段存储管理更加符合用户和程序员的如下需求：</p>
+<ul>
+<li><p>方便编程</p>
+</li>
+<li><p>信息共享</p>
+<ul>
+<li><p>一般实现程序和数据共享时都是以信息的<strong>逻辑单位</strong>（过程、函数或文件）为基础的。</p>
+</li>
+<li><p>在分页系统中的每一页都只是存放信息的物理单位，其本身并无完整意义，因而不便于实现信息共享。</p>
+</li>
+<li><p><strong>段是信息的逻辑单位</strong>，可以为共享过程建立一个独立的段，更便于实现程序和数据的共享。</p>
+</li>
+</ul>
+</li>
+<li><p>信息保护</p>
+<ul>
+<li>对内存中的信息的保护，同样也是对信息的逻辑单位进行保护。</li>
+<li>采用分段存储管理，对实现保护，将是更有效和方便。</li>
+</ul>
+</li>
+<li><p>动态链接</p>
+<ul>
+<li>程序运行时，先将主程序所对应的目标程序装入内存并启动运行，当运行过程中又需要调用某段时，才将该段调入内存并进行链接。</li>
+</ul>
+</li>
+<li><p>动态增长</p>
+<ul>
+<li>在实际使用中，往往有些段，特别是数据段会随着程序的运行不断增大，而这种增长事先并不知晓会增长到多大，采用其它存储管理方式是难以应付的，而分段存储管理却能较好的解决这一问题。 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-5-2-分段管理系统的基本原理"><a href="#4-5-2-分段管理系统的基本原理" class="headerlink" title="4.5.2 分段管理系统的基本原理"></a>4.5.2 分段管理系统的基本原理</h3><p><strong>一、分段</strong></p>
+<ul>
+<li>作业地址空间<strong>按逻辑信息的完整性</strong>被划分为若干个段；</li>
+<li>每段有段名（或段号），每段从0开始编址；</li>
+<li>段内的地址空间是连续的。</li>
+<li>许多编译程序支持分段方式，<strong>自动根据源程序的情况产生若干个段</strong>。</li>
+</ul>
+<p>在分段管理系统中，对所有地址空间的访问均要求两个成分：</p>
+<ul>
+<li>段的名字</li>
+<li>段内地址</li>
+</ul>
+<p>例如，可按下述调用：</p>
+<p>CALL [X]|&lt;Y&gt;    转移到子程序X中的入口点Y</p>
+<p>LOAD 1, [A]|&lt;D&gt;  将数组A的D单元的值读入寄存器1</p>
+<p>STORE 1,[B]|&lt;C&gt;将寄存器1的内容存入分段B的C单元中</p>
+<p>这些符号程序经汇编和装配后，指令和数据的单元地址均由两部分构成：一是表示段名的段号S；一是位移量W，即段内地址。所以，在分段系统中的地址结构有如下形式：</p>
+<p><a href="https://imgtu.com/i/Rl2AOS"><img src="https://z3.ax1x.com/2021/06/25/Rl2AOS.png" srcset="/img/loading.gif" lazyload alt="Rl2AOS.png"></a></p>
+<p>一旦段号字段和位移量字段的长度确定后，一个作业地址空间中允许的最多段数及段的长度也就限定了。</p>
+<p><strong>分段管理</strong>：<strong>就是管理由若干分段组成的作业，且按分段来进行存储分配</strong></p>
+<p>实现分段管理的关键在于，如何保证分(二维)地址空间中的一个作业在线性(一维)的存储空间中正确运行。</p>
+<p>也就是说，如何把分段地址结构变换成线性的地址结构，和分页管理一样，可采用<strong>动态重定位技术</strong>，即通过地址变换机构来实现。</p>
+<p><strong>二、段表</strong></p>
+<ul>
+<li>为每个分段分配一个连续的分区，而进程中的各个段可以离散地移入内存中不同的分区中。</li>
+<li>应像分页系统那样，在系统中为每个进程建立一张段映射表，简称“段表”。每个段在表中占有一个表项，其中记录了该段在内存中的起始地址（又称为“基址”）和段的长度。</li>
+<li>通常将段表放在内存中，执行中的进程可通过查找段表找到每个段所对应的内存区。</li>
+</ul>
+<p><strong>作用：实现从逻辑段到物理内存区的映射。</strong></p>
+<p><a href="https://imgtu.com/i/Rl2qts"><img src="https://z3.ax1x.com/2021/06/25/Rl2qts.png" srcset="/img/loading.gif" lazyload alt="Rl2qts.png"></a></p>
+<p> 每个表项（段描述子）至少有三个数据项：段长、主存起始地址和存取控制。</p>
+<p>段长指明它的大小；</p>
+<p>主存起始地址指出该段在主存中的位置；</p>
+<p>存取控制说明对该段访问的限制(R＝1，允许读；W=1，允许写；X=1,允许执行) 。</p>
+<p><a href="https://imgtu.com/i/RlRnBD"><img src="https://z3.ax1x.com/2021/06/25/RlRnBD.png" srcset="/img/loading.gif" lazyload alt="RlRnBD.png"></a><br><a href="https://imgtu.com/i/RlRmnO"><img src="https://z3.ax1x.com/2021/06/25/RlRmnO.png" srcset="/img/loading.gif" lazyload alt="RlRmnO.png"></a></p>
+<p>问：若段表放在内存中，每访问一个数据需要访问内存几次？  2次</p>
+<p>可设置联想存储器（快表），以提高访问速度。</p>
+<ul>
+<li>优点：<ul>
+<li>没有内碎片，外碎片可以通过内存紧凑来消除。便于改变进程占用空间的大小。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>进程全部装入内存</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-5-3-段的共享和保护"><a href="#4-5-3-段的共享和保护" class="headerlink" title="4.5.3 段的共享和保护"></a>4.5.3 段的共享和保护</h3><h3 id="4-5-4-段页式存储管理"><a href="#4-5-4-段页式存储管理" class="headerlink" title="4.5.4 段页式存储管理"></a>4.5.4 段页式存储管理</h3><h2 id="4-6-虚拟存储器的基本概念"><a href="#4-6-虚拟存储器的基本概念" class="headerlink" title="4.6 虚拟存储器的基本概念"></a>4.6 虚拟存储器的基本概念</h2><h3 id="4-6-1-虚拟存储器的引入"><a href="#4-6-1-虚拟存储器的引入" class="headerlink" title="4.6.1 虚拟存储器的引入"></a>4.6.1 虚拟存储器的引入</h3><h3 id="4-6-2-局部性原理"><a href="#4-6-2-局部性原理" class="headerlink" title="4.6.2 局部性原理"></a>4.6.2 局部性原理</h3>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%80%83%E8%AF%95/">考试</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    灯火阑珊
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/05/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A012/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CSS属性-动画</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/17/Java/">
+                        <span class="hidden-mobile">JAVA基础到面向对象</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark-orange';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhangjialin996/comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" lazyload class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-love" style="color: #8080ff"></i> <i class="iconfont icon-love" style="color: red"></i> <i class="iconfont icon-love" style="color: #8080ff"></i> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e71cddb60357a788e6ed79bca37db76d";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

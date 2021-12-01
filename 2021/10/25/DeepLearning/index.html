@@ -1,0 +1,693 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
+  <link rel="icon" href="/img/insert2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="我的博客">
+  <meta name="description" content="P17 Vectorization 什么是Vectorization？  在Logistic Regression中，我们需要去计算$$z &#x3D; w^Tx + b\w &#x3D;\begin{bmatrix}. \. \.\end{bmatrix}_{n1}x &#x3D;\begin{bmatrix}. \. \.\end{bmatrix}_{n*1}，w\in R^{n_x}$$如果有很多特征，那么他们就是非常大">
+<meta property="og:type" content="article">
+<meta property="og:title" content="部分DL笔记">
+<meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/2021/10/25/DeepLearning/index.html">
+<meta property="og:site_name" content="Mike Taylor">
+<meta property="og:description" content="P17 Vectorization 什么是Vectorization？  在Logistic Regression中，我们需要去计算$$z &#x3D; w^Tx + b\w &#x3D;\begin{bmatrix}. \. \.\end{bmatrix}_{n1}x &#x3D;\begin{bmatrix}. \. \.\end{bmatrix}_{n*1}，w\in R^{n_x}$$如果有很多特征，那么他们就是非常大">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211029161735554.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211029162353822.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211029171514174.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211029200114345.png">
+<meta property="article:published_time" content="2021-10-25T09:21:02.000Z">
+<meta property="article:modified_time" content="2021-11-23T13:13:02.736Z">
+<meta property="article:author" content="Mike Taylor">
+<meta property="article:tag" content="Deep Learning">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211029161735554.png">
+  
+  <title>部分DL笔记 - Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":100,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e71cddb60357a788e6ed79bca37db76d","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mike Taylor&#39;s</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/p12.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="部分DL笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-25 17:21" pubdate>
+        2021年10月25日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      35 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">部分DL笔记</h1>
+            
+            <div class="markdown-body">
+              <h2 id="P17-Vectorization"><a href="#P17-Vectorization" class="headerlink" title="P17 Vectorization"></a>P17 Vectorization</h2><ul>
+<li><p>什么是Vectorization？</p>
+<ul>
+<li>在Logistic Regression中，我们需要去计算<br>$$<br>z = w^T<em>x + b\<br>w =<br>\begin{bmatrix}<br>. \<br>. \<br>.<br>\end{bmatrix}_{n</em>1}<br>x =<br>\begin{bmatrix}<br>. \<br>. \<br>.<br>\end{bmatrix}_{n*1}，w\in R^{n_x}<br>$$<br>如果有很多特征，那么他们就是非常大的向量，所以w和x都是R内的n<sub>X</sub>维向量</li>
+</ul>
+</li>
+<li><p>在Python或Numpy中，使用<code>z = np.dot(w,x)+b</code>来计算上面的式子，并且比使用for loop来计算快得</p>
+</li>
+</ul>
+<h2 id="P18-More-vectorization-examples"><a href="#P18-More-vectorization-examples" class="headerlink" title="P18 More vectorization examples"></a>P18 More vectorization examples</h2><p>上一节课学习了如何向量化，如何使用内置函数，避免使用显式for loop，能不使用它就不要去使用。这样可以使得程序运行速度显著加快，让我们再看几个例子。</p>
+<h3 id="让v向量转化为u向量"><a href="#让v向量转化为u向量" class="headerlink" title="让v向量转化为u向量"></a>让v向量转化为u向量</h3><p>$$<br>v = \begin{bmatrix}<br>v_1 \<br> .\<br> .\<br> .\<br>v_n<br>\end{bmatrix},<br>u = \begin{bmatrix}<br>e^{v_1} \<br> .\<br> .\<br> .\<br>e^{v_n}<br>\end{bmatrix}<br>$$</p>
+<ul>
+<li>一种非向量化的实现</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>u = np.zeros((n,<span class="hljs-number">1</span>))<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span> (n):<br>    u[i] = math.exp(v[i])<br></code></pre></td></tr></table></figure>
+
+<p>注释：<code>np.zeros()</code>返回来一个给定形状和类型的用0填充的数组</p>
+<p>zeros(shape, dtype=float, order=‘C’)<br>shape:形状<br>dtype:数据类型，可选参数，默认numpy.float64<br>order:可选参数，c代表与c语言类似，行优先；F代表列优先</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>print(np.zeros((<span class="hljs-number">2</span>,<span class="hljs-number">5</span>)))<br><span class="hljs-comment"># [[0. 0. 0. 0. 0.]</span><br><span class="hljs-comment"># [0. 0. 0. 0. 0.]]</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>利用numpy实现</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>u = np.zeros((n,<span class="hljs-number">1</span>))<br>u = np.exp(v)<br></code></pre></td></tr></table></figure>
+
+<h3 id="numpy的其他方法"><a href="#numpy的其他方法" class="headerlink" title="numpy的其他方法"></a>numpy的其他方法</h3><p>需要是<code>np.array()</code>创建的vector</p>
+<ul>
+<li><p><code>np.log()</code>：返回对所有元素取对数之后的向量</p>
+</li>
+<li><p><code>np.abs()</code>：返回对所有元素取绝对值之后的向量</p>
+</li>
+<li><p><code>np.maximum()</code>：返回向量中所有元素和0相比的最大值</p>
+</li>
+<li><p><code>v**2</code>：返回对所有元素取平方之后的向量</p>
+</li>
+<li><p><code>1/v</code>：返回对所有元素取倒数之后的向量</p>
+</li>
+<li><p><code>np.dot()</code>：函数主要功能有两个——向量点积和矩阵乘法</p>
+<ul>
+<li><p>向量点积：如果处理的是一维数组，则得到的是两数组的內积。</p>
+<p>例1：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>x=np.array([<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>])<span class="hljs-comment">#等价于:x=np.arange(0,5)</span><br>y=x[::-<span class="hljs-number">1</span>]<br><span class="hljs-built_in">print</span> x<br><span class="hljs-built_in">print</span> y<br><span class="hljs-built_in">print</span> np.dot(x,y)<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json">[<span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span>]<br>[<span class="hljs-number">4</span> <span class="hljs-number">3</span> <span class="hljs-number">2</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span>]<br><span class="hljs-number">10</span><br></code></pre></td></tr></table></figure>
+
+<p>例2：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>x=np.arange(<span class="hljs-number">0</span>,<span class="hljs-number">5</span>)<br>y=np.random.randint(<span class="hljs-number">0</span>,<span class="hljs-number">10</span>,<span class="hljs-number">5</span>)<br><span class="hljs-built_in">print</span> x<br><span class="hljs-built_in">print</span> y<br><span class="hljs-built_in">print</span> np.dot(x,y)<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json">[<span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span>]<br>[<span class="hljs-number">5</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">9</span> <span class="hljs-number">2</span>]<br><span class="hljs-number">36</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>如果是二维数组（矩阵）之间的运算，则得到的是矩阵积</p>
+<p><strong>1.np.dot(x, y), 当x为二维矩阵，y为一维向量，这时y会转换一维矩阵进行计算</strong></p>
+<p><strong>首先，我们来看一下一维向量和一位矩阵的不同</strong></p>
+<p>例3：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>x=np.arange(<span class="hljs-number">0</span>,<span class="hljs-number">5</span>)<br><span class="hljs-comment"># 0,10，是随机数的方位，size=(5,1),也就是5维矩阵，且每一维元素数为1个</span><br>y=np.random.randint(<span class="hljs-number">0</span>,<span class="hljs-number">10</span>,size=(<span class="hljs-number">5</span>,<span class="hljs-number">1</span>))<br><span class="hljs-built_in">print</span> x<br><span class="hljs-built_in">print</span> y<br><span class="hljs-comment"># 查看矩阵或者数组的维数</span><br><span class="hljs-built_in">print</span> <span class="hljs-string">&quot;x.shape:&quot;</span>+<span class="hljs-built_in">str</span>(x.shape)<br><span class="hljs-built_in">print</span> <span class="hljs-string">&quot;y.shape&quot;</span>+<span class="hljs-built_in">str</span>(y.shape)<br><span class="hljs-built_in">print</span> np.dot(x,y)<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json">[<span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span>]<br>[[<span class="hljs-number">3</span>]<br> [<span class="hljs-number">7</span>]<br> [<span class="hljs-number">2</span>]<br> [<span class="hljs-number">8</span>]<br> [<span class="hljs-number">1</span>]]<br>x.shape:(5,)<br>y.shape(5, 1)<br>[<span class="hljs-number">39</span>]<br></code></pre></td></tr></table></figure>
+
+<p>可以看出一维向量的shape是(5, ), 而一维矩阵的shape是(5, 1), 若两个参数x和y中有一个是矩阵时（包括一维矩阵），dot便进行矩阵乘法运算，同时若有个参数为向量，会自动转换为一维矩阵进行计算。</p>
+<p><strong>2.np.dot(x, y)中，x、y都是二维矩阵，进行矩阵积计算</strong><br> <strong>np.dot(x, y)两个二维矩阵满足第一个矩阵的列数与第二个矩阵的行数相同，那么可以进行矩阵的乘法，即矩阵积</strong><br> 例4：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>x=np.arange(<span class="hljs-number">0</span>,<span class="hljs-number">6</span>).reshape(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)<br>y=np.random.randint(<span class="hljs-number">0</span>,<span class="hljs-number">10</span>,size=(<span class="hljs-number">3</span>,<span class="hljs-number">2</span>))<br><span class="hljs-built_in">print</span> x<br><span class="hljs-built_in">print</span> y<br><span class="hljs-built_in">print</span> <span class="hljs-string">&quot;x.shape:&quot;</span>+str(x.shape)<br><span class="hljs-built_in">print</span> <span class="hljs-string">&quot;y.shape&quot;</span>+str(y.shape)<br><span class="hljs-built_in">print</span> np.dot(x,y)<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-attr">[[0 1 2]</span><br> <span class="hljs-selector-attr">[3 4 5]</span>]<br><span class="hljs-selector-attr">[[7 5]</span><br> <span class="hljs-selector-attr">[0 7]</span><br> <span class="hljs-selector-attr">[6 2]</span>]<br>x<span class="hljs-selector-class">.shape</span>:(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)<br>y.<span class="hljs-built_in">shape</span>(<span class="hljs-number">3</span>, <span class="hljs-number">2</span>)<br>[[<span class="hljs-number">12</span> <span class="hljs-number">11</span>]<br> [<span class="hljs-number">51</span> <span class="hljs-number">53</span>]]<br></code></pre></td></tr></table></figure>
+
+<p><strong>注意：矩阵积计算不遵循交换律,np.dot(x,y) 和 np.dot(y,x) 得到的结果是不一样的。</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="简化Logistic-Regression代码"><a href="#简化Logistic-Regression代码" class="headerlink" title="简化Logistic Regression代码"></a>简化Logistic Regression代码</h3><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211029161735554.png" srcset="/img/loading.gif" lazyload alt="image-20211029161735554"></p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211029162353822.png" srcset="/img/loading.gif" lazyload alt="image-20211029162353822"></p>
+<p>这里去掉了一个for loop，一个用来遍历特征的循环，以便加快计算，后面将学习如何去掉遍历样本的循环</p>
+<h2 id="P19-Vectorizing-Logistic-Regression"><a href="#P19-Vectorizing-Logistic-Regression" class="headerlink" title="P19 Vectorizing Logistic Regression"></a>P19 Vectorizing Logistic Regression</h2><p>如何实现在Logistic Regression上面的向量化，以便可以同时处理整个训练集，来实现gradient descent的一步迭代，针对整个训练集的一步迭代，而不需要使用任何显式的for loop。<br>$$<br>z^{(i)} = w^Tx^{(i)} + b \<br>a^{(i)} = \sigma(z^{(i)})\<br>X = \begin{bmatrix}<br>.&amp;.&amp;&amp;. \<br>.&amp;.&amp;&amp;. \<br>x^{(1)}&amp;x^{(2)}&amp;…… &amp;x^{(m)}\<br>.&amp;.&amp;&amp;. \<br>.&amp;.&amp;&amp;. \<br>\end{bmatrix}_{n_x<em>m}\\<br>Z = [z{(1)}z{(2)},……z{(m)}] = w^TX+[b,……,b]_{1</em>m} = [w^TX^{(1)}+b,w^TX^{(2)}+b,……,w^TX^{(m)}+b]\\<br>A = [a^{(1)},a^{(2)},……,a^{(m)}] = \sigma(Z)<br>$$<br>使用numpy：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>Z = np.dot(w.T,x) + b<br><span class="hljs-comment"># 此处b会被自动扩展为一个1*m的行向量,在python中叫做广播(broadcasting)</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211029171514174.png" srcset="/img/loading.gif" lazyload alt="image-20211029171514174"></p>
+<h2 id="p20-Vectorizing-Logistic-Regression’s-Gradient-Computation"><a href="#p20-Vectorizing-Logistic-Regression’s-Gradient-Computation" class="headerlink" title="p20 Vectorizing Logistic Regression’s Gradient Computation"></a>p20 Vectorizing Logistic Regression’s Gradient Computation</h2><p>我们将学习如何向量化同时计算m个训练数据的梯度。</p>
+<p>回顾：<br>$$<br>dz^{(1)} = a^{(1)} - y^{(1)}……dz^{(m)} = a^{(m)} - y^{(m)}\<br>dz = [dz^{(1)},……,dz^{(m)}]<em>{1*m}<br>$$<br>我们已经描述了如何计算：<br>$$<br>a^{(i)} = \sigma(z^{(i)})\<br>X = \begin{bmatrix}<br>.&amp;.&amp;&amp;. \<br>.&amp;.&amp;&amp;. \<br>x^{(1)}&amp;x^{(2)}&amp;…… &amp;x^{(m)}\<br>.&amp;.&amp;&amp;. \<br>.&amp;.&amp;&amp;. \<br>\end{bmatrix}</em>{n_x<em>m}\\<br>Z = [z{(1)}z{(2)},……z{(m)}] = w^TX+[b,……,b]_{1</em>m} = [w^TX^{(1)}+b,w^TX^{(2)}+b,……,w^TX^{(m)}+b]\<br>A = [a^{(1)},a^{(2)},……,a^{(m)}] = \sigma(Z)\<br>Y = [y^{(1)},y^{(2)},……,y^{(m)}]<em>{1*m}<br>$$<br>那么有：<br>$$<br>dZ = [dz^{(1)},dz^{(2)},……,dz^{(m)}]=<br>\A - Y = [a^{(1)}-y^{(1)},a^{(2)}-y^{(2)},……,a^{(m)}-y^{(m)}]<br>$$<br>虽然我们已经去掉了一个for loop（用于遍历每个样本的特征的循环）但是我们仍然还有一个遍历训练集的for loop，以w计算为例：<br>$$<br>dw = 0\<br>dw += x^{(1)}dz\<br>dw += x^{(2)}dz\<br>dw += x^{(3)}dz\……\<br>dw += x^{(m)}dz\<br>dw /= m\\<br>db = 0\<br>db += dz^{(1)}\<br>db += dz^{(2)}\<br>db += dz^{(3)}\……\<br>db += dz^{(m)}\<br>db /= m<br>$$<br>向量化实现：<br>$$<br>db = \frac{1}{m}\sum</em>{i=1}^mdz^{(i)}<br>$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> mp<br>db = <span class="hljs-number">1</span>/m*np.<span class="hljs-built_in">sum</span>(dZ)<br></code></pre></td></tr></table></figure>
+
+<p>$$<br>dw = \frac{1}{m}X(dZ)^T \= \frac{1}{m}\begin{bmatrix}<br>.&amp;.&amp;&amp;. \<br>.&amp;.&amp;&amp;. \<br>x^{(1)}&amp;x^{(2)}&amp;…… &amp;x^{(m)}\<br>.&amp;.&amp;&amp;. \<br>.&amp;.&amp;&amp;. \<br>\end{bmatrix}_{n_x*m}<em>\begin{bmatrix}<br>dz^(1) \<br>.\<br>.\<br>dz^{(m)}<br>\end{bmatrix}_{m</em>1}\=\frac{1}{m}[x^{(1)}dz^{(1)}+……+x^{(m)}dz^{(m)}]<br>$$</p>
+<p>所以，综上，对于一次迭代应该有：<br>$$<br>Z = w^Tx+b=np.dot(w.T,X) + b\<br>A=\sigma(Z)\<br>dZ = A-Y\<br>dw = \frac{1}{m}XdZ^T\<br>db = \frac{1}{m}np*sum(dZ)\<br>w := w -\alpha dw \<br>b := b - \alpha db<br>$$<br>可以看到我们去掉了所有的for loop，但是，要由于要进行多次迭代，我们仍然需要使用for loop，即：<code>for iteration in range(times)</code></p>
+<h2 id="p21-Python中的广播"><a href="#p21-Python中的广播" class="headerlink" title="p21 Python中的广播"></a>p21 Python中的广播</h2><p>广播是一种可以让python代码执行得更快的手段，本节介绍python中的广播是如何运作的。</p>
+<ul>
+<li><p>计算每种食物中，来自carbon的calorie所占的比例，但是不使用for loop</p>
+<ul>
+<li>用一行代码对各列求和，可得到四种不同食物的卡路里总量、</li>
+<li>第二行代码让每一列都除以对应的和</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># 例子1：</span><br>A = np.array([[<span class="hljs-number">56.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">4.4</span>, <span class="hljs-number">68.0</span>],<br>              [<span class="hljs-number">1.2</span>, <span class="hljs-number">104.0</span>, <span class="hljs-number">52.0</span>, <span class="hljs-number">8.0</span>],<br>              [<span class="hljs-number">1.8</span>, <span class="hljs-number">135.0</span>, <span class="hljs-number">99.0</span>, <span class="hljs-number">0.9</span>]])<br>print(A)<br><br>calorie = A.<span class="hljs-built_in">sum</span>(axis=<span class="hljs-number">0</span>)<br><span class="hljs-comment"># axis 代表每列竖直相加，如果希望水平方向相加，可以令axis = 1</span><br>print(calorie)<br><br>percentage = <span class="hljs-number">100</span> * A / calorie.reshape(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>)<br><span class="hljs-comment"># 使用矩阵A，将它除以1x4的矩阵,就得到百分比矩阵</span><br><span class="hljs-comment"># 这里可以省略reshape，由于它的算法复杂度为O(1)，成本很低，所以能写就写，以确保矩阵的正确性</span><br><span class="hljs-comment"># A为3x4矩阵，将他除以一个1x4的矩阵，这似乎是不可行的</span><br>print(percentage)<br><br><span class="hljs-comment"># 例子2：</span><br>B = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>])<br>B += <span class="hljs-number">10</span><br>print(B)  <span class="hljs-comment"># [11 12 13 14]</span><br><br><span class="hljs-comment"># 例子3：</span><br>C = np.array([[<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">35</span>, <span class="hljs-number">5</span>], [<span class="hljs-number">54</span>, <span class="hljs-number">54</span>, <span class="hljs-number">4545</span>, <span class="hljs-number">5</span>]])<br>print(B + C)<br><span class="hljs-comment"># [[  13   12   48   19]</span><br><span class="hljs-comment"># [  65   66 4558   19]]</span><br><span class="hljs-comment"># 将一个m*n的矩阵加上一个1*n的矩阵，python会将矩阵复制m次，将它变成一个m*n的矩阵之后再相加</span><br><br>D = np.array([<span class="hljs-number">100</span>, <span class="hljs-number">100</span>]).reshape(<span class="hljs-number">2</span>, -<span class="hljs-number">1</span>)<br>print(C + D)<br><span class="hljs-comment"># [[ 102  100  135  105]</span><br><span class="hljs-comment">#  [ 154  154 4645  105]]</span><br><span class="hljs-comment"># 这里水平复制了三次</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>python广播中的一些通用规则：</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211029200114345.png" srcset="/img/loading.gif" lazyload alt="image-20211029200114345"></p>
+<h3 id="numpy中reshape函数的三种常见相关用法"><a href="#numpy中reshape函数的三种常见相关用法" class="headerlink" title="numpy中reshape函数的三种常见相关用法"></a>numpy中reshape函数的三种常见相关用法</h3><ul>
+<li>numpy.arange(n).reshape(a, b)   依次生成n个自然数，并且以a行b列的数组形式显示</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">np.arange(<span class="hljs-number">16</span>).reshape(<span class="hljs-number">2</span>,<span class="hljs-number">8</span>) <span class="hljs-comment">#生成16个自然数，以2行8列的形式显示</span><br><br><span class="hljs-comment"># Out: </span><br><span class="hljs-comment"># array([[ 0,  1,  2,  3,  4,  5,  6,  7],</span><br><span class="hljs-comment">#       [ 8,  9, 10, 11, 12, 13, 14, 15]])</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>mat (or array).reshape(c, -1)   必须是<strong>矩阵格式或者数组格式</strong>，才能使用 .reshape(c, -1) 函数， 表示将此矩阵或者数组重组，以 c行d列的形式表示</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">arr.shape    <span class="hljs-comment"># (a,b)</span><br>arr.reshape(m,-<span class="hljs-number">1</span>) <span class="hljs-comment">#改变维度为m行、d列 （-1表示列数自动计算，d= a*b /m </span><br>arr.reshape(-<span class="hljs-number">1</span>,m) <span class="hljs-comment">#改变维度为d行、m列 （-1表示行数自动计算，d= a*b /m ）</span><br></code></pre></td></tr></table></figure>
+
+<p>-1的作用就在此**: 自动计算d：d=数组或者矩阵里面所有的元素个数/c**, d必须是整数，不然报错）</p>
+<p>（reshape(-1, m)即列数固定，行数需要计算）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python">arr=np.arange(<span class="hljs-number">16</span>).reshape(<span class="hljs-number">2</span>,<span class="hljs-number">8</span>)<br>arr<br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">out:</span><br><span class="hljs-string">array([[ 0,  1,  2,  3,  4,  5,  6,  7],</span><br><span class="hljs-string">       [ 8,  9, 10, 11, 12, 13, 14, 15]])</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br>arr.reshape(<span class="hljs-number">4</span>,-<span class="hljs-number">1</span>) <span class="hljs-comment">#将arr变成4行的格式，列数自动计算的(c=4, d=16/4=4)</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">out:</span><br><span class="hljs-string">array([[ 0,  1,  2,  3],</span><br><span class="hljs-string">       [ 4,  5,  6,  7],</span><br><span class="hljs-string">       [ 8,  9, 10, 11],</span><br><span class="hljs-string">       [12, 13, 14, 15]])</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span> <br>arr.reshape(<span class="hljs-number">8</span>,-<span class="hljs-number">1</span>) <span class="hljs-comment">#将arr变成8行的格式，列数自动计算的(c=8, d=16/8=2)</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">out:</span><br><span class="hljs-string">array([[ 0,  1],</span><br><span class="hljs-string">       [ 2,  3],</span><br><span class="hljs-string">       [ 4,  5],</span><br><span class="hljs-string">       [ 6,  7],</span><br><span class="hljs-string">       [ 8,  9],</span><br><span class="hljs-string">       [10, 11],</span><br><span class="hljs-string">       [12, 13],</span><br><span class="hljs-string">       [14, 15]])</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span> <br>arr.reshape(<span class="hljs-number">10</span>,-<span class="hljs-number">1</span>) <span class="hljs-comment">#将arr变成10行的格式，列数自动计算的(c=10, d=16/10=1.6 != Int)</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">out:</span><br><span class="hljs-string">ValueError: cannot reshape array of size 16 into shape (10,newaxis)</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>numpy.arange(a,b,c)  从 数字a起, 步长为c, 到b结束，生成array</li>
+<li>numpy.arange(a,b,c).reshape(m,n) ：将array的维度变为m 行 n列。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">np.arange(<span class="hljs-number">1</span>,<span class="hljs-number">12</span>,<span class="hljs-number">2</span>)<span class="hljs-comment">#间隔2生成数组，范围在1到12之间</span><br><span class="hljs-comment"># Out: array([ 1,  3,  5,  7,  9, 11])</span><br>np.arange(<span class="hljs-number">1</span>,<span class="hljs-number">12</span>,<span class="hljs-number">2</span>).reshape(<span class="hljs-number">3</span>,<span class="hljs-number">2</span>)<br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">Out: </span><br><span class="hljs-string">array([[ 1,  3],</span><br><span class="hljs-string">       [ 5,  7],</span><br><span class="hljs-string">       [ 9, 11]])</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="P22-A-note-on-python-numpy-vectors"><a href="#P22-A-note-on-python-numpy-vectors" class="headerlink" title="P22 A note on python / numpy vectors"></a>P22 A note on python / numpy vectors</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">import numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-keyword">a</span> = np.<span class="hljs-built_in">random</span>.randn(<span class="hljs-number">5</span>)<br><span class="hljs-comment"># 生成5个随机的高斯变量，存储在数组a中</span><br>print(<span class="hljs-keyword">a</span>.shape)<br><span class="hljs-comment"># (5,)，这种结构就是所谓的Python秩为1的数组，它既不是行向量，也不是列向量</span><br><span class="hljs-comment"># m × n矩阵的秩最大为m和n中的较小者</span><br><br>print(<span class="hljs-keyword">a</span>.T)  <span class="hljs-comment"># a和a的转置看起来相同</span><br>print(np.dot(<span class="hljs-keyword">a</span>, <span class="hljs-keyword">a</span>.T))  <span class="hljs-comment"># 4.676296983566586</span><br><br><br><span class="hljs-comment"># 建议不要使用上述a这种形式的数据结构编写代码，推荐使用以下方式构建向量</span><br><span class="hljs-keyword">a</span> = np.<span class="hljs-built_in">random</span>.randn(<span class="hljs-number">5</span>, <span class="hljs-number">1</span>)<br>print(<span class="hljs-keyword">a</span>)<br><span class="hljs-comment"># [[ 1.06285306]</span><br><span class="hljs-comment">#  [ 0.09125329]</span><br><span class="hljs-comment">#  [-1.03121605]</span><br><span class="hljs-comment">#  [-0.28563524]</span><br><span class="hljs-comment">#  [ 1.55272952]]</span><br>print(<span class="hljs-keyword">a</span>.shape)  <span class="hljs-comment"># (5, 1)</span><br>print(<span class="hljs-keyword">a</span>.T)<br><span class="hljs-comment"># [[ 1.06285306  0.09125329 -1.03121605 -0.28563524  1.55272952]]</span><br>print(np.dot(<span class="hljs-keyword">a</span>, <span class="hljs-keyword">a</span>.T))<br><br><span class="hljs-comment"># 或者你也可以使用reshape()来重构向量</span><br><span class="hljs-comment"># assert(a.shape == (5,2))断言，可以用来检查向量是否</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="p23-Jupyter-ipython（略）"><a href="#p23-Jupyter-ipython（略）" class="headerlink" title="p23 Jupyter_ipython（略）"></a>p23 Jupyter_ipython（略）</h2><h2 id="p24-Explanation-of-logistic-regression-cost-funcion"><a href="#p24-Explanation-of-logistic-regression-cost-funcion" class="headerlink" title="p24 Explanation of logistic regression cost funcion"></a>p24 Explanation of logistic regression cost funcion</h2>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Deep-Learning/">Deep Learning</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    灯火阑珊
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">pytorch深度学习框架</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/30/JavaScript%E5%9F%BA%E7%A1%80+%E9%AB%98%E7%BA%A7/">
+                        <span class="hidden-mobile">JavaScript基础 + 高级</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark-orange';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhangjialin996/comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" lazyload class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-love" style="color: #8080ff"></i> <i class="iconfont icon-love" style="color: red"></i> <i class="iconfont icon-love" style="color: #8080ff"></i> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e71cddb60357a788e6ed79bca37db76d";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

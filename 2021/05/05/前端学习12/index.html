@@ -1,0 +1,830 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
+  <link rel="icon" href="/img/insert2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="我的博客">
+  <meta name="description" content="第九章 基础属性-布局课程提要  多列布局 box布局 flex布局 响应式布局 媒体查询 Web字体  9.1 多列（分栏）尽管当前计算机的屏幕已经变得很宽了，研究表明，人们在阅读长文本时会感到困难（通常认为每行大概65~75个字符为最适合阅读的长度）。文本行长度的习惯导致了我们设计布局时存在一些限制，也导致网站无法充分利用宽屏所赋予的机会。多年来，杂志和报纸已经在使用多列布局使内容流动起来，这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS属性-动画">
+<meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/2021/05/05/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A012/index.html">
+<meta property="og:site_name" content="Mike Taylor">
+<meta property="og:description" content="第九章 基础属性-布局课程提要  多列布局 box布局 flex布局 响应式布局 媒体查询 Web字体  9.1 多列（分栏）尽管当前计算机的屏幕已经变得很宽了，研究表明，人们在阅读长文本时会感到困难（通常认为每行大概65~75个字符为最适合阅读的长度）。文本行长度的习惯导致了我们设计布局时存在一些限制，也导致网站无法充分利用宽屏所赋予的机会。多年来，杂志和报纸已经在使用多列布局使内容流动起来，这">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-05T15:25:53.000Z">
+<meta property="article:modified_time" content="2021-05-28T09:19:41.230Z">
+<meta property="article:author" content="Mike Taylor">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>CSS属性-动画 - Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":100,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e71cddb60357a788e6ed79bca37db76d","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mike Taylor&#39;s</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/p12.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="CSS属性-动画">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-05 23:25" pubdate>
+        2021年5月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      24k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      120 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CSS属性-动画</h1>
+            
+            <div class="markdown-body">
+              <h1 id="第九章-基础属性-布局"><a href="#第九章-基础属性-布局" class="headerlink" title="第九章 基础属性-布局"></a>第九章 基础属性-布局</h1><p><strong>课程提要</strong></p>
+<ul>
+<li>多列布局</li>
+<li>box布局</li>
+<li>flex布局</li>
+<li>响应式布局</li>
+<li>媒体查询</li>
+<li>Web字体</li>
+</ul>
+<h2 id="9-1-多列（分栏）"><a href="#9-1-多列（分栏）" class="headerlink" title="9.1 多列（分栏）"></a>9.1 多列（分栏）</h2><p>尽管当前计算机的屏幕已经变得很宽了，研究表明，人们在阅读长文本时会感到困难（通常认为每行大概65~75个字符为最适合阅读的长度）。文本行长度的习惯导致了我们设计布局时存在一些限制，也导致网站无法充分利用宽屏所赋予的机会。多年来，杂志和报纸已经在使用多列布局使内容流动起来，这种布局解决了长文本行的处理以及如和把许多材料放入到有限的空间布局。</p>
+<p>现在，随着CSS3中多列布局的出现，网站可以利用多列布局了。通过多列布局，能够创建多个列来对文本进行布局。</p>
+<p>CSS3多列属性：</p>
+<ul>
+<li><p>column-count：规定元素应该被分隔的列数/栏数。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">column-count</span>: number|auto;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>column-gap：规定列之间的间隔。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">column-gap</span>: ?px|normal|%;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>column-rule：设置所有column-rule-*属性的简写属性。（设置分栏间隔线）</p>
+<ul>
+<li><p>column-rule-style：设置线型。</p>
+<ul>
+<li>none：没有分隔线（默认）</li>
+<li>hidden：隐藏</li>
+<li>dotted：点状</li>
+<li>dashed：虚线</li>
+<li>solid：实线</li>
+<li>double：双线</li>
+<li>ridge：定义3D ridge规则。该效果取决于宽度和颜色值。(3D沟槽效果)</li>
+<li>groove：定义3D groove规则。该效果取决于宽度和颜色值。（3D脊状效果）</li>
+<li>inset：定义3D inset规则。该效果取决于宽度和颜色值。（3D左上角阴影）</li>
+<li>outset：定义3D outset规则。该效果取决于宽度和颜色值。（3D右上角阴影）</li>
+</ul>
+</li>
+<li><p>3D线型在分栏中没有效果，当实线处理。</p>
+</li>
+<li><p>column-rule-width：设置线宽。</p>
+</li>
+<li><p>column-rule-color：设置分隔线颜色。</p>
+</li>
+<li><p>简洁/复合写法：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">column-rule</span>: width style color;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>column-width：规定列的宽度。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">column-width</span>: length|auto;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>columns：规定设置column-width和column-count的简写属性。</p>
+<p>记得加兼容！</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">columns</span>: column-width column-count;<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>分栏<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">        <span class="hljs-selector-tag">p</span>&#123;</span><br><span class="css">            <span class="hljs-comment">/*分栏数*/</span></span><br><span class="css">            -webkit-<span class="hljs-attribute">column-count</span>: <span class="hljs-number">3</span>;</span><br><span class="css">            -moz-<span class="hljs-attribute">column-count</span>: <span class="hljs-number">3</span>;</span><br><span class="css">            <span class="hljs-attribute">column-count</span>: <span class="hljs-number">3</span>;</span><br><br><span class="css">            <span class="hljs-comment">/*栏间距*/</span></span><br><span class="css">            -webkit-<span class="hljs-attribute">column-gap</span>: <span class="hljs-number">50px</span>;</span><br><span class="css">            -moz-<span class="hljs-attribute">column-gap</span>: <span class="hljs-number">50px</span>;</span><br><span class="css">            <span class="hljs-attribute">column-gap</span>: <span class="hljs-number">50px</span>;</span><br><br><span class="css">            <span class="hljs-comment">/*栏间分隔线*/</span></span><br><span class="css">            -webkit-<span class="hljs-attribute">column-rule-style</span>: groove;</span><br><span class="css">            -moz-<span class="hljs-attribute">column-rule-style</span>: groove;</span><br><span class="css">            <span class="hljs-attribute">column-rule-style</span>: groove;</span><br><span class="css">            <span class="hljs-comment">/*设置分隔线线宽*/</span></span><br><span class="css">            -webkit-<span class="hljs-attribute">column-rule-width</span>: <span class="hljs-number">50px</span>;</span><br><span class="css">            -moz-<span class="hljs-attribute">column-rule-width</span>: <span class="hljs-number">50px</span>;</span><br><span class="css">            <span class="hljs-attribute">column-rule-width</span>: <span class="hljs-number">50px</span>;</span><br><span class="css">            -webkit-<span class="hljs-attribute">column-rule-color</span>: <span class="hljs-number">#87faf8</span>;</span><br><span class="css">            -moz-<span class="hljs-attribute">column-rule-color</span>: <span class="hljs-number">#87faf8</span>;</span><br><span class="css">            <span class="hljs-attribute">column-rule-color</span>: <span class="hljs-number">#87faf8</span>;</span><br><br><span class="css">            <span class="hljs-comment">/*设置栏宽*/</span></span><br><span class="css">            -webkit-<span class="hljs-attribute">column-width</span>: <span class="hljs-number">50px</span>;</span><br><span class="css">            -moz-<span class="hljs-attribute">column-width</span>: <span class="hljs-number">50px</span>;</span><br><span class="css">            <span class="hljs-attribute">column-width</span>: <span class="hljs-number">50px</span>;</span><br>        &#125;<br>        .box&#123;<br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">200px</span>;</span><br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">200px</span>;</span><br><span class="css">            <span class="hljs-attribute">border</span>: <span class="hljs-number">20px</span> groove <span class="hljs-number">#8080ff</span>;<span class="hljs-comment">/*3D*/</span></span><br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span> 习近平主席对巴赫连任国际奥委会主席表示祝贺，表示在巴赫主席领导下，国际奥委会团结各方力量，推动奥林匹克运动蓬勃发展。新冠肺炎疫情发生以来，国际奥委会做了不少工作，为全球团结抗疫提供了正能量。疫情对奥运会等体育盛会造成很大影响。中方愿继续配合国际奥委会，支持举办东京奥运会。中方愿同国际奥委会加强疫苗合作，共同构建保护运动员安全参赛的有效屏障。<br>        习近平主席强调，中方正在围绕如期举办北京冬奥会、冬残奥会目标，稳步推进各项筹办工作。目前，所有竞赛场馆全部完工，赛事组织和场馆运行有序开展，赛会服务保障工作加快推进，宣传推广和文化活动有序推进。中方举办了雪上项目、冰上项目测试活动，对办赛涉及的关键要素进行了有效检验。中方将组织好下半年各项测试赛，为北京冬奥会、冬残奥会打下更加坚实的基础。<br>        习近平主席强调，北京冬奥会、冬残奥会是世界各国的盛会，是全球运动员公平竞技的舞台。感谢国际奥委会为北京冬奥会、冬残奥会筹办提供积极支持和指导。中方对北京冬奥会、冬残奥会如期成功举行充满信心，愿同国际奥委会和国际社会一道，确保北京冬奥会、冬残奥会成为一届简约、安全、精彩的奥运盛会。<br>        巴赫表示，祝贺中国各领域发展取得骄傲的成就，特别是中国率先成功抗击新冠肺炎疫情、率先恢复经济增长，为全球抗疫合作和经济复苏发挥了重要引领作用。国际奥委会高度重视同中方的良好合作，愿同中方加强疫苗合作。当前北京冬奥会筹备工作处于重要阶段。国际奥委会坚守《奥林匹克宪章》，反对将奥林匹克运动政治化，愿同中方继续密切合作，全力支持中方如期举办北京冬奥会、冬残奥会。相信北京冬奥会、冬残奥会将向世界展现抗击疫情的榜样力量，推动世界冰雪运动发展，为奥林匹克运动发展作出重要贡献。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="9-2-flex布局"><a href="#9-2-flex布局" class="headerlink" title="9.2 flex布局"></a>9.2 flex布局</h2><p>弹性盒子是CSS3的一种新的布局模式。<br>CSS3弹性盒子(Flexible Box)，是一种当<strong>页面需要适应不同的屏幕大小以及设备类型</strong>时确保元素拥有恰当的行为的布局方式。<br>引入弹性盒布局模型的目的是提供一种更加有效的方式来对一个容器的子元素进行排列、对齐和分配空白空间。</p>
+<h3 id="9-2-1-弹性盒子定义方式"><a href="#9-2-1-弹性盒子定义方式" class="headerlink" title="9.2.1 弹性盒子定义方式"></a>9.2.1 弹性盒子定义方式</h3><p>弹性容器通过设置display属性的值为flex或者inline-flex将其定义为弹性容器。</p>
+<p>弹性盒子只定义了弹性元素如何在弹性容器内布局。</p>
+<p>弹性子元素通常在弹性盒子内一行显示。默认情况：每个容器只有一行。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Flex Box弹性布局<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>        *&#123;<br><span class="css">            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;</span><br><span class="css">            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;</span><br>        &#125;<br>        .menu&#123;<br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span><br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;</span><br><span class="css">            <span class="hljs-attribute">line-height</span>: <span class="hljs-number">44px</span>;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -webkit-flex;<span class="hljs-comment">/*兼容*/</span></span><br><span class="css">            <span class="hljs-attribute">display</span>: -moz-flex;<span class="hljs-comment">/*兼容*/</span></span><br><span class="css">            <span class="hljs-attribute">display</span>: -o-flex;<span class="hljs-comment">/*兼容*/</span></span><br><span class="css">            <span class="hljs-attribute">display</span>: -ms-flex;<span class="hljs-comment">/*兼容*/</span></span><br><span class="css">            <span class="hljs-attribute">display</span>: flex;</span><br><span class="css">            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">40px</span>;</span><br><span class="css">            <span class="hljs-attribute">position</span>: fixed;</span><br><span class="css">            <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;</span><br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.menu</span> <span class="hljs-selector-tag">li</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">list-style-type</span>: none;</span><br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">20%</span>;</span><br><span class="css">            <span class="hljs-attribute">text-align</span>: center;</span><br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;menu&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>菜单项1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>菜单项2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>菜单项3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>菜单项4<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>菜单项5<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>常用属性：</p>
+<ul>
+<li><p>flex-direction：指定了弹性子元素在父元素中的位置。此属性<strong>作用于父容器</strong>。</p>
+<p><strong>语法</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">flex-direction</span>: row|row-reserve|column|column-reserve;<br></code></pre></td></tr></table></figure>
+
+<p>row：横向从左到右排列（左对齐），默认的排列方式。</p>
+<p>row-reserve：反转横向排列（右对齐，从后往前排，最后一项排在最前面。）</p>
+<p>column：纵向排列。</p>
+<p>column-reserve：反向纵向排列，从后往前排，最后一项排在最上面。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>flex-direction<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>        *&#123;<br><span class="css">            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;</span><br><span class="css">            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;</span><br>        &#125;<br>        .menu&#123;<br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -webkit-flex;<span class="hljs-comment">/*兼容*/</span></span><br><span class="css">            <span class="hljs-attribute">display</span>: -moz-flex;<span class="hljs-comment">/*兼容*/</span></span><br><span class="css">            <span class="hljs-attribute">display</span>: -o-flex;<span class="hljs-comment">/*兼容*/</span></span><br><span class="css">            <span class="hljs-attribute">display</span>: -ms-flex;<span class="hljs-comment">/*兼容*/</span></span><br><span class="css">            <span class="hljs-attribute">display</span>: flex;</span><br><span class="css">            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">40px</span>;</span><br><br><span class="css">            <span class="hljs-comment">/*flex-direction: row;*/</span></span><br><span class="css">            <span class="hljs-comment">/*flex-direction: row-reverse;!*右对齐*!*/</span></span><br><span class="css">            <span class="hljs-comment">/*flex-direction: column;!*纵向*!*/</span></span><br><span class="css">            <span class="hljs-attribute">flex-direction</span>: column-reverse;<span class="hljs-comment">/*纵向反向*/</span></span><br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.menu</span> <span class="hljs-selector-tag">li</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">list-style-type</span>: none;</span><br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">15%</span>;</span><br><span class="css">            <span class="hljs-attribute">text-align</span>: center;</span><br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;menu&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>菜单项1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>菜单项2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>菜单项3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>菜单项4<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>菜单项5<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>justify-content：应用于弹性容器上，<strong>把弹性项沿着弹性容器的主轴线(main axis)对齐</strong>。此属性<strong>作用于父容器</strong>。</p>
+<p><strong>语法</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">justify-content</span>: flex-start|flex-end|center|space-between|space-around;<br></code></pre></td></tr></table></figure>
+
+<p>flex-start：弹性项目向行头紧挨着填充。这是默认值。第一个弹性项的main-start外边距线被放置在该行的main-start边线，而后续弹性项依次平齐摆放。(<strong>紧凑方式左对齐</strong>)</p>
+<p>flex-end：弹性项目向行尾紧挨着填充。这是默认值。第一个弹性项的main-end外边距线被放置在该行的main-end边线，而后续弹性项依次平齐摆放。（<strong>紧凑方式右对齐</strong>）</p>
+<p>center：弹性项目居中紧挨着填充。（如果剩余的自由空间是负的，则弹性项目将在两个方向上同时溢出。）（<strong>紧凑方式居中对齐</strong>）</p>
+<p><strong>space-between</strong>：弹性项目平均分布在该行上。如果剩余空间为负或者只有一个弹性项，则该值等同于flex-start。否则，第一弹性项的外边距和行的main-start边线对齐，而最后一个弹性项的外边距和行的mian-end边线对齐，然后剩余的弹性项分布在该行上，相邻项目的时间间隔相等。（<strong>除了第一个和最后一个子元素外，其他子元素等分空白区域</strong>）</p>
+<p><strong>space-around</strong>：弹性项目平均分布在该行上，两边留有一半的间隔空间。如果剩余空间为负或者只有一个弹性项，则该值等同于center。否则，弹性项目沿着该行分布，且彼此间隔相等（比如是20px），同时首尾两边和弹性容器之间留有一半的间隔。（1/2*20px= 10px）（<strong>所有子元素等分空白区域</strong>）</p>
+</li>
+<li><p>align-items：设置或检索弹性盒子元素在侧轴（纵轴）方向上的对齐方式。此属性作用于<strong>父容器</strong>。</p>
+<p><strong>语法</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">align-items</span>: flex-start|flex-end<br>|center|baseline|stretch;<br></code></pre></td></tr></table></figure>
+
+<p> flex-start：沿着纵轴顶端对齐。(默认值)</p>
+<p>flex-end：沿着纵轴底端对齐。</p>
+<p>center：沿着纵轴垂直居中对齐。</p>
+<p>baseline：沿着纵轴基线对齐。（主要用于文字）</p>
+<p>stretch：纵向拉伸对齐。（纵向铺满）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>align-items<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>        .box&#123;<br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span><br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">600px</span>;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -o-flex;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -webkit-flex;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -moz-flex;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -ms-flex;</span><br><span class="css">            <span class="hljs-attribute">display</span>: flex;</span><br><span class="css">            <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> navy solid;</span><br><br><span class="css">            <span class="hljs-comment">/*align-items: flex-start;!*默认值*!*/</span></span><br><span class="css">            <span class="hljs-comment">/*align-items: flex-end;!*底端对齐*!*/</span></span><br><span class="css">            <span class="hljs-comment">/*align-items: center;!*中间对齐*!*/</span></span><br><span class="css">            <span class="hljs-comment">/*align-items: baseline;!*基线对齐*!*/</span></span><br><span class="css">            <span class="hljs-attribute">align-items</span>: stretch;<span class="hljs-comment">/*拉伸对齐*/</span></span><br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.box</span> <span class="hljs-selector-tag">div</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span>;</span><br><span class="css">            <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;</span><br><span class="css">            <span class="hljs-attribute">text-align</span>: center;</span><br>        &#125;<br>        .box1&#123;<br><span class="css">            <span class="hljs-comment">/*height: 200px;*/</span></span><br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#8080ff</span>;</span><br>        &#125;<br>        .box2&#123;<br><span class="css">            <span class="hljs-comment">/*height: 400px;*/</span></span><br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#00ffff</span>;</span><br><span class="css">            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">30px</span>;</span><br>        &#125;<br>        .box3&#123;<br><span class="css">            <span class="hljs-comment">/*height: 300px;*/</span></span><br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#ff8070</span>;</span><br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box1&quot;</span>&gt;</span>第一个盒子<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box2&quot;</span>&gt;</span>第二个盒子<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box3&quot;</span>&gt;</span>第三个盒子<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>flex-grow：定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。该属性<strong>作用于子元素</strong>。</p>
+<p><strong>语法</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">flex-grow</span>: &lt;number&gt;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>flex-grow<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>        .box&#123;<br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span><br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">600px</span>;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -o-flex;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -webkit-flex;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -moz-flex;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -ms-flex;</span><br><span class="css">            <span class="hljs-attribute">display</span>: flex;</span><br><span class="css">            <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> navy solid;</span><br>        &#125;<br>        .box1&#123;<br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">200px</span>;</span><br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;</span><br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#8080ff</span>;</span><br><span class="css">            <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">1</span>;<span class="hljs-comment">/*20%*/</span></span><br>        &#125;<br>        .box2&#123;<br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span>;</span><br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;</span><br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#00ffff</span>;</span><br><span class="css">            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">30px</span>;</span><br><span class="css">            <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">3</span>;<span class="hljs-comment">/*60%*/</span></span><br>        &#125;<br>        .box3&#123;<br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">300px</span>;</span><br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;</span><br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#ff8070</span>;</span><br><span class="css">            <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">1</span>;<span class="hljs-comment">/*20%*/</span></span><br><span class="css">            <span class="hljs-comment">/*其实他不是真正意义上的等分宽度，而是等分剩余宽度，而剩余宽度是总宽度减去内容宽度，再进行等分。而且这个等分甚至还是根据内容多少来等分，有的内容多，他等分还多一些。*/</span></span><br><span class="css">            <span class="hljs-comment">/*实现等分:   给每个box加上width: 0;*/</span></span><br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box1&quot;</span>&gt;</span>第一个盒子<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box2&quot;</span>&gt;</span>第二个盒子<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box3&quot;</span>&gt;</span>第三个盒子<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>flex：用于指定弹性元素如何分配空间。<strong>作用于子元素</strong>。</p>
+<p><strong>语法</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">flex</span>: auto|initial|none|inherit|[flex-grow]||[flex-shrink]||[flex-basis];<br></code></pre></td></tr></table></figure>
+
+<p>auto：等价于 1 1 auto</p>
+<p>initial：等价于 0 1 auto</p>
+<p>none：等价于  0 0 auto</p>
+<p>inherit：从父元素继承</p>
+<p>flex-shrink：收缩比例（当子元素超出父元素时才生效，是一种宽度损失规则。）</p>
+<p>flex-basis：默认基准值</p>
+<ul>
+<li><p>tips:   flex可以带1到3个参数</p>
+<ul>
+<li><p>带1个参数</p>
+<ul>
+<li><p>无单位：数值会被当做flex-grow（放大比例）的值</p>
+</li>
+<li><p>带单位：这个数值会被当做flex-basis（基本宽度）的值</p>
+</li>
+<li><p>auto（自动宽度）|initial（初始宽度）|none（无）</p>
+</li>
+<li><pre><code class="css">min-width: 1000px;/*低于1000px会出现滚动条*/
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs xml"><br>  * 带2个参数：<br><br>    第1个参数必须是无单位的数值，这个数值会被当做flex-grow的值。<br><br>    第2个参数：<br><br>    * 无单位：数值会被当做flex-shrink（收缩比例）的值<br>    * 带单位：这个数值会被当做flex-basis（基本宽度）的值<br><br>  * 带3个参数：<br><br>    第1个参数必须是无单位的数值，这个数值会被当做flex-grow的值。<br><br>    第2个参数必须是无单位的数值，这个数值会被当做flex-shrink的值。<br><br>    第3个参数必须是一个有效的宽度值（有单位），它会被当做基准宽度。<br><br>```html<br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>flex<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>        .box&#123;<br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span><br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">600px</span>;</span><br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#8080ff</span>;</span><br><span class="css">            <span class="hljs-attribute">display</span>: flex;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -o-flex;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -moz-flex;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -ms-flex;</span><br><span class="css">            <span class="hljs-attribute">display</span>: -webkit-flex;</span><br><span class="css">            <span class="hljs-comment">/*min-width: 1000px;!*低于1000px会出现滚动条*!*/</span></span><br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.box</span> <span class="hljs-selector-tag">div</span>&#123;</span><br><br><span class="css">            <span class="hljs-comment">/*flex: auto;*/</span></span><br><span class="css">            <span class="hljs-comment">/*flex: 1 1 auto;*/</span></span><br><span class="css">            <span class="hljs-comment">/*flex: 1;*/</span></span><br><span class="css">            <span class="hljs-comment">/*flex: initial;!*初始*!*/</span></span><br><span class="css">            <span class="hljs-comment">/*flex: none;*/</span></span><br>        &#125;<br>        .box1&#123;<br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#ff8070</span>;</span><br><span class="css">            <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;</span><br>        &#125;<br>        .box2&#123;<br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#6a8bbc</span>;</span><br><span class="css">            <span class="hljs-comment">/*flex: 1 5;*/</span></span><br><span class="css">            <span class="hljs-comment">/*flex: 1 500px;*/</span></span><br><span class="css">            <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">10px</span>;</span><br>        &#125;<br>        .box3&#123;<br><span class="css">            <span class="hljs-attribute">background-color</span>: greenyellow;</span><br><span class="css">            <span class="hljs-attribute">flex</span>: <span class="hljs-number">2</span>;</span><br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box1&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box2&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box3&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="9-4-响应式布局"><a href="#9-4-响应式布局" class="headerlink" title="9.4 响应式布局"></a>9.4 响应式布局</h2><p>概念：响应式布局（Responsive Design）在实现不同分辨率的终端上浏览网页的不同展示方式。通过响应式设计能使网站在手机和平板上有更好的浏览阅读体验。</p>
+<p>响应式与自适应的区别：</p>
+<ul>
+<li><p>响应式布局只开发<strong>一套</strong>代码，通过检测视口的分辨率，针对不同客户端，在客户端做代码处理，来展现不同的布局和内容。</p>
+</li>
+<li><p>自适应需要开发<strong>多套</strong>界面，通过检测视口的分辨率，判断当前访问的设备是PC还是手机/平板，从而请求服务层，返回不同的页面。</p>
+</li>
+<li><p>响应式布局等同于<strong>流动网格布局</strong>，而自适应等同于使用<strong>固定分割点</strong>来进行布局。</p>
+</li>
+<li><p>自适应布局给出了更多的设计空间，只用考虑几种不同的状态即可，而响应式布局需要考虑上百种不同的状态，虽然有些状态差异较小，但也要考虑到。</p>
+</li>
+</ul>
+<p>响应式开发实现方法：</p>
+<ul>
+<li>媒体查询（一般不用）</li>
+<li>百分比布局</li>
+<li>rem布局：相对于根节点（元素）HTML中的字号布局</li>
+<li>视口单位布局(vw/vh)：相对于窗口大小布局（视口：不同的客户端）</li>
+</ul>
+<p>响应式设计步骤：</p>
+<ul>
+<li>设置meta标签</li>
+<li>通过媒体查询来设置样式</li>
+<li>设置多种视图的宽度<ul>
+<li>宽度需要使用%/rem/vw$vh等</li>
+<li>处理图片缩放</li>
+<li>其他属性处理<ul>
+<li>pre/iframe/video等，都要缩放其大小</li>
+<li>table建议不要增加padding属性，低分辨率下要使用内容居中操纵</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="9-5-媒体查询"><a href="#9-5-媒体查询" class="headerlink" title="9.5 媒体查询"></a>9.5 媒体查询</h2><p>媒体查询通过不同的媒体类型和条件定义样式表规则。</p>
+<p>步骤：</p>
+<ul>
+<li><p>设置meta标签</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,usr-scalable=no&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>说明：以上标签内容只能被移动端设备识别。</p>
+<p>view-point：视口（移动端）</p>
+<p>width=device-width：宽度等于当前设备的宽度。</p>
+<p>initial-scale=1.0：初始缩放比例（默认为1.0）</p>
+<p>maximum-scale=1.0：允许用户缩放到的最大比例（默认为1.0）</p>
+<p>minimum-scale=1.0：允许用户缩放到的最小比例（默认为1.0）</p>
+<p>usr-scalable=no：是否可以手动缩放（默认为no）</p>
+</li>
+<li><p>设置IE默认渲染方式  默认为最高版本</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;x-ua-compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;IE=Edge,chrome=1&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>说明：以上代码表示如果浏览器有chrome插件，将以chrome提供的V8引擎渲染页面；如果没有，将以IE的最高版本渲染页面。（chrome渲染更快）</p>
+</li>
+<li><p>引入兼容的JS文件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!--[if lt IE 9]&gt;</span><br><span class="hljs-comment">   &lt;script src=&quot;https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js&quot;&gt;&lt;/script&gt;</span><br><span class="hljs-comment">   &lt;script src=&quot;https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="hljs-comment">   &lt;![endif]--&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>解释：如果浏览器版本小于IE9，那么就加载下面的两个文件。</p>
+<p>因为IE8及其以下版本，既不支持HTML5，也不支持CSS3 中的Media，所以我们需要加载JS文件来处理兼容。</p>
+<p>if和endif是一个注释语句(条件hacker)，也就是说，IE9及以上版本不会编译这几行代码。</p>
+</li>
+<li><p>进入CSS3提供的媒体查询功能</p>
+<ul>
+<li><p>第一种方案：引入外部CSS文件时使用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;CSS/screen480.css&quot;</span> <span class="hljs-attr">media</span>=<span class="hljs-string">&quot;screen and (max-width:480px)&quot;</span>&gt;</span><span class="hljs-comment">&lt;!--屏幕最大为480时，加载该文件--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;CSS/screen800.css&quot;</span> <span class="hljs-attr">media</span>=<span class="hljs-string">&quot;screen and (min-width:480px) and (max-width:800px)&quot;</span>&gt;</span><span class="hljs-comment">&lt;!--屏幕最小为480，最大为800时，加载该文件--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;CSS/screengt800.css&quot;</span> <span class="hljs-attr">media</span>=<span class="hljs-string">&quot;screen and (min-width:800px)&quot;</span>&gt;</span><span class="hljs-comment">&lt;!--屏幕最小为800时，加载该文件--&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/*screen480.css*/</span><br><span class="hljs-selector-tag">body</span>&#123;<br>    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#ffff00</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/*screen800.css*/</span><br><span class="hljs-selector-tag">body</span>&#123;<br>    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#ff00ff</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/*screengt800.css*/</span><br><span class="hljs-selector-tag">body</span>&#123;<br>    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#00ffff</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>设备：</p>
+<ul>
+<li>all：所有设备 *</li>
+<li>screen: PC端显示器 *</li>
+<li>print：打印机/打印预览图</li>
+<li>handheld：移动便携设别</li>
+<li>TV：电视</li>
+<li>speech：音频合成器</li>
+<li>braille：盲人点触设别</li>
+<li>embossed：盲人打印机</li>
+<li>projection：投影设备</li>
+<li>tty：固定密度字母栅格设备</li>
+<li>only：排除不支持媒体查询的浏览器 *</li>
+</ul>
+</li>
+<li><p>第二种方案：在style标签中用@media定义</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>媒体查询2<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>        *&#123;<br><span class="css">            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;</span><br><span class="css">            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;</span><br>        &#125;<br>        .menu&#123;<br><span class="css">             <span class="hljs-attribute">overflow</span>: hidden;</span><br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span><br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">44px</span>;</span><br><span class="css">            <span class="hljs-attribute">line-height</span>: <span class="hljs-number">44px</span>;</span><br>         &#125;<br><span class="css">        <span class="hljs-selector-tag">li</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">list-style-type</span>: none;</span><br><span class="css">            <span class="hljs-attribute">float</span>: left;</span><br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">20%</span>;</span><br><span class="css">            <span class="hljs-attribute">text-align</span>: center;</span><br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#8080ff</span>;</span><br>        &#125;<br><span class="css">        <span class="hljs-selector-tag">a</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">text-decoration</span>: none;</span><br><span class="css">            <span class="hljs-attribute">color</span>: white;</span><br>        &#125;<br><span class="css">        <span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">480px</span>)&#123;</span><br>            .menu&#123;<br><span class="css">                <span class="hljs-attribute">display</span>: none;</span><br>            &#125;<br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;menu&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>菜单项1<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>菜单项2<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>菜单项3<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>菜单项4<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>菜单项5<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>媒体查询3<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>        *&#123;<br><span class="css">            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;</span><br><span class="css">            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;</span><br>        &#125;<br><span class="css">        <span class="hljs-selector-tag">body</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">10px</span>;</span><br>        &#125;<br><span class="css">        <span class="hljs-selector-tag">section</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">overflow</span>: hidden;</span><br>        &#125;<br><span class="css">        <span class="hljs-comment">/*.row1 div,.row2 .div,.row3 div,.row4 div*/</span></span><br><span class="css">        <span class="hljs-selector-tag">section</span> <span class="hljs-selector-tag">div</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">float</span>: left;</span><br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.row1</span> <span class="hljs-selector-tag">div</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">48%</span>;</span><br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;</span><br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#8080ff</span>;</span><br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.row1</span> <span class="hljs-selector-tag">div</span><span class="hljs-selector-pseudo">:first</span>-child&#123;</span><br><span class="css">           <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">4%</span>;</span><br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.row2</span> <span class="hljs-selector-tag">div</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">10px</span>;</span><br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span><br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">200px</span>;</span><br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#ff8070</span>;</span><br>        &#125;<br>        .row3,.row4&#123;<br><span class="css">            <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">10px</span>;</span><br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.row3</span> <span class="hljs-selector-tag">div</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">30%</span>;</span><br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;</span><br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#00ffff</span>;</span><br><span class="css">            <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">5%</span>;</span><br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.row3</span> <span class="hljs-selector-tag">div</span><span class="hljs-selector-pseudo">:first</span>-child&#123;</span><br><span class="css">            <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">0</span>;</span><br>        &#125;<br>        .row4&#123;<br><span class="css">            <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">10px</span>;</span><br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.row4</span> <span class="hljs-selector-tag">div</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">22%</span>;</span><br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">150px</span>;</span><br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#555500</span>;</span><br><span class="css">            <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">4%</span>;</span><br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.row4</span> <span class="hljs-selector-tag">div</span><span class="hljs-selector-pseudo">:last-child</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">0</span>;</span><br>        &#125;<br><span class="css">        <span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">600px</span>)&#123;</span><br><span class="css">            <span class="hljs-selector-class">.row1</span> <span class="hljs-selector-tag">div</span>&#123;</span><br><span class="css">                <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span><br><span class="css">                <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">10px</span>;</span><br>            &#125;<br><span class="css">            <span class="hljs-selector-class">.row3</span> <span class="hljs-selector-tag">div</span>&#123;</span><br><span class="css">                <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span><br><span class="css">                <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">10px</span>;</span><br>            &#125;<br><span class="css">            <span class="hljs-selector-class">.row4</span> <span class="hljs-selector-tag">div</span>&#123;</span><br><span class="css">                <span class="hljs-attribute">width</span>: <span class="hljs-number">48%</span>;</span><br><span class="css">                <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">10px</span>;</span><br><span class="css">                <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">2%</span>;</span><br>            &#125;<br><span class="css">            <span class="hljs-selector-class">.row3</span> <span class="hljs-selector-tag">div</span>+<span class="hljs-selector-tag">div</span>&#123;</span><br><span class="css">                <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">0</span>;</span><br>            &#125;<br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row1&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;div&quot;</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;div&quot;</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row2&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;div&quot;</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row3&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;div&quot;</span>&gt;</span>4<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;div&quot;</span>&gt;</span>5<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;div&quot;</span>&gt;</span>6<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row4&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;div&quot;</span>&gt;</span>7<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;div&quot;</span>&gt;</span>8<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;div&quot;</span>&gt;</span>9<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;div&quot;</span>&gt;</span>10<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="9-6-WEB字体"><a href="#9-6-WEB字体" class="headerlink" title="9.6 WEB字体"></a>9.6 WEB字体</h2><h3 id="开发者引入外部字体"><a href="#开发者引入外部字体" class="headerlink" title="开发者引入外部字体"></a>开发者引入外部字体</h3><p>语法：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@font-face</span>&#123;<br>	<span class="hljs-attribute">font-family</span>: 字体名;<br>	<span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;字体文件.ttf&quot;</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;字体文件格式以处理浏览器兼容问题&quot;</span>), <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;字体文件.woff&quot;</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>说明：可以同时引入多个字体文件，字体一样，文件的扩展名不一样，目的是处理浏览器兼容。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>WEB字体<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">        <span class="hljs-selector-tag">body</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#000</span>;</span><br>        &#125;<br><span class="css">        <span class="hljs-keyword">@font-face</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">font-family</span>: stick;</span><br><span class="css">            <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;Font/1.ttf&quot;</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;truetype&quot;</span>);</span><br>        &#125;<br><span class="css">        <span class="hljs-selector-tag">p</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">font-family</span>: stick;</span><br><span class="css">            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">28px</span>;</span><br><span class="css">            <span class="hljs-attribute">color</span>: white;</span><br><span class="css">            <span class="hljs-attribute">font-weight</span>: bolder;</span><br>        &#125;<br>        <br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><br>        据中国载人航天工程办公室消息，经监测分析，2021年5月9日10时24分，长征五号B遥二运载火箭末级残骸已再入大气层，落区位于东经72.47°，北纬2.65°周边海域，绝大部分器件在再入大气层过程中烧蚀销毁。<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="iconfont的使用"><a href="#iconfont的使用" class="headerlink" title="iconfont的使用"></a>iconfont的使用</h3><p><a href="%22https://www.iconfont.cn/%22">矢量图网站</a> ：由阿里巴巴提供的一种图标字体(可以把图标当做文字来处理，比如设置颜色。)</p>
+<p>步骤：</p>
+<ul>
+<li>进入网站注册，登录</li>
+<li>创建项目</li>
+<li>添加图标到购物车</li>
+<li>将购物车中的图标添加到项目中</li>
+<li>下载iconfont文件，解压后，将部分文件复制到网页项目中（去掉js和html文件）</li>
+<li>使用字体图标前，先引入iconfont.css文件</li>
+<li>使用方法：<ul>
+<li>方法一：名称</li>
+<li>方法二：unicode值(微信小程序开发不支持这种写法)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>iconfont<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;iconfont/css/iconfont.css&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">        <span class="hljs-selector-tag">li</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">list-style-type</span>: none;</span><br>        &#125;<br><span class="css">        <span class="hljs-selector-tag">i</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">color</span>: <span class="hljs-number">#8080ff</span>;</span><br><span class="css">            <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">5px</span>;</span><br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont iconliwu&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont iconliwu&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont iconliwu&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont iconliwu&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont&quot;</span>&gt;</span><span class="hljs-symbol">&amp;#xe6de;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>列表1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont&quot;</span>&gt;</span><span class="hljs-symbol">&amp;#xe6de;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>列表2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont&quot;</span>&gt;</span><span class="hljs-symbol">&amp;#xe6de;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>列表3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont&quot;</span>&gt;</span><span class="hljs-symbol">&amp;#xe6de;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>列表4<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont&quot;</span>&gt;</span><span class="hljs-symbol">&amp;#xe6de;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>列表5<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="课后实训"><a href="#课后实训" class="headerlink" title="课后实训"></a>课后实训</h2><p>第8次作业.css</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><code class="hljs css">*&#123;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;<br>    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-selector-tag">body</span>&#123;<br>    <span class="hljs-attribute">min-width</span>: <span class="hljs-number">700px</span>;<br>&#125;<br><span class="hljs-selector-tag">header</span>&#123;<br>    <span class="hljs-attribute">margin</span>: auto <span class="hljs-number">1%</span>;<br>    <span class="hljs-attribute">border-bottom-right-radius</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">border-bottom-left-radius</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">border-top-right-radius</span>: <span class="hljs-number">20px</span>;<br>    <span class="hljs-attribute">border-top-left-radius</span>: <span class="hljs-number">20px</span>;<br>&#125;<br><span class="hljs-selector-tag">header</span> <span class="hljs-selector-class">.banner</span>&#123;<br>    <span class="hljs-attribute">overflow</span>: hidden;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">80px</span>;<br>    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">80px</span>;<br>    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(to left,<span class="hljs-number">#000</span>,<span class="hljs-number">#8080ff</span>,<span class="hljs-number">#000</span>);<br>    <span class="hljs-attribute">border-top-right-radius</span>: <span class="hljs-number">20px</span>;<br>    <span class="hljs-attribute">border-top-left-radius</span>: <span class="hljs-number">20px</span>;<br>&#125;<br><span class="hljs-selector-tag">header</span> <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h1</span>&#123;<br>    <span class="hljs-attribute">font-family</span>: snow;<br>    <span class="hljs-attribute">font-weight</span>: lighter;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">float</span>: left;<br>    <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">150px</span>;<br>    <span class="hljs-attribute">color</span>: white;<br>    <span class="hljs-attribute">text-align</span>: center;<br>    <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">3px</span> <span class="hljs-number">3px</span> <span class="hljs-number">6px</span> <span class="hljs-number">#00ffff</span>;<br>&#125;<br><span class="hljs-selector-tag">header</span> <span class="hljs-selector-tag">ul</span>&#123;<br>    <span class="hljs-attribute">overflow</span>: hidden;<br>    <span class="hljs-attribute">display</span>: flex;<br>    <span class="hljs-attribute">display</span>: -o-flex;<br>    <span class="hljs-attribute">display</span>: -ms-flex;<br>    <span class="hljs-attribute">display</span>: -moz-flex;<br>    <span class="hljs-attribute">display</span>: -webkit-flex;<br>    <span class="hljs-attribute">justify-content</span>: space-around;<br>&#125;<br><span class="hljs-selector-tag">header</span> <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">ul</span> <span class="hljs-selector-tag">li</span>&#123;<br>    <span class="hljs-attribute">list-style-type</span>: none;<br>    <span class="hljs-attribute">float</span>: left;<br>    <span class="hljs-attribute">font-family</span>: blackborad;<br>    <span class="hljs-attribute">text-align</span>: center;<br>    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">10px</span>;<br>&#125;<br><span class="hljs-selector-tag">header</span> <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">ul</span> <span class="hljs-selector-tag">li</span> <span class="hljs-selector-tag">a</span>&#123;<br>    <span class="hljs-attribute">text-decoration</span>: none;<br>    <span class="hljs-attribute">color</span>: white;<br>    <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">2px</span> <span class="hljs-number">2px</span> <span class="hljs-number">2px</span> <span class="hljs-number">#87faf8</span>;<br>&#125;<br><span class="hljs-selector-tag">header</span> <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">ul</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:hover</span>&#123;<br>    <span class="hljs-attribute">color</span>: black;<br>    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fff</span>;<br>    -webkit-<span class="hljs-attribute">border-radius</span>: <span class="hljs-number">25%</span>;<br>    -moz-<span class="hljs-attribute">border-radius</span>: <span class="hljs-number">25%</span>;<br>    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">25%</span>;<br>    <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#00ffff</span>;<br>&#125;<br><span class="hljs-selector-tag">header</span> <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">ul</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-tag">a</span>&#123;<br>    <span class="hljs-attribute">color</span>: black;<br>    <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">2px</span> <span class="hljs-number">2px</span> <span class="hljs-number">2px</span> red;<br>&#125;<br><span class="hljs-selector-class">.content</span>&#123;<br>    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(to left,<span class="hljs-number">#aaaaaa</span>,<span class="hljs-number">#dea46b</span>,<span class="hljs-number">#aaaaaa</span>);<br>    <span class="hljs-attribute">overflow</span>: hidden;<br>    <span class="hljs-attribute">display</span>: flex;<br>    <span class="hljs-attribute">border-bottom-right-radius</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">border-bottom-left-radius</span>: <span class="hljs-number">50px</span>;<br><br>&#125;<br><span class="hljs-selector-class">.content</span> <span class="hljs-selector-tag">img</span>&#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">15%</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">15%</span>;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">30px</span> <span class="hljs-number">0</span>  <span class="hljs-number">30px</span>;<br>    <span class="hljs-attribute">border</span>: <span class="hljs-number">10px</span> groove dodgerblue;<br>&#125;<br><span class="hljs-selector-class">.content</span> <span class="hljs-selector-class">.words</span>&#123;<br>    <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">10%</span>;<br>    <span class="hljs-attribute">overflow</span>: hidden;<br>&#125;<br><span class="hljs-selector-class">.content</span> <span class="hljs-selector-class">.words</span> <span class="hljs-selector-tag">h2</span>&#123;<br>    <span class="hljs-attribute">font-family</span>: stick;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">30px</span> <span class="hljs-number">0</span> <span class="hljs-number">30px</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-attribute">color</span>: white;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">35px</span>;<br>    <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">3px</span> <span class="hljs-number">3px</span> <span class="hljs-number">2px</span> black;<br>&#125;<br><span class="hljs-selector-class">.content</span> <span class="hljs-selector-class">.words</span> <span class="hljs-selector-tag">p</span>&#123;<br>    <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">30px</span>;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;<br>    <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">3px</span> <span class="hljs-number">3px</span> <span class="hljs-number">2px</span> black;<br>    <span class="hljs-attribute">color</span>: white;<br>    <span class="hljs-attribute">font-family</span>: snow;<br>&#125;<br><br><span class="hljs-selector-class">.content</span> <span class="hljs-selector-tag">p</span><span class="hljs-selector-pseudo">:last-child</span>&#123;<br>    <span class="hljs-attribute">background-color</span>: black;<br>&#125;<br><span class="hljs-selector-tag">header</span> <span class="hljs-selector-class">.content</span> <span class="hljs-selector-class">.words</span> <span class="hljs-selector-tag">ul</span>&#123;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">30px</span>;<br>    <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">30px</span>;<br>    <span class="hljs-attribute">float</span>: left;<br>&#125;<br><span class="hljs-selector-tag">header</span> <span class="hljs-selector-class">.content</span> <span class="hljs-selector-class">.words</span> <span class="hljs-selector-tag">ul</span> <span class="hljs-selector-tag">li</span>&#123;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;<br>    <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">3px</span> <span class="hljs-number">3px</span> <span class="hljs-number">2px</span> black;<br>    <span class="hljs-attribute">list-style-type</span>: none;<br>    <span class="hljs-attribute">color</span>: white;<br>    <span class="hljs-attribute">font-family</span>: snow;<br>    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">10px</span>;<br>    <span class="hljs-attribute">text-align</span>: center;<br>&#125;<br><span class="hljs-selector-tag">header</span> <span class="hljs-selector-class">.content</span> <span class="hljs-selector-class">.words</span> <span class="hljs-selector-tag">ul</span> <span class="hljs-selector-tag">li</span> <span class="hljs-selector-tag">a</span>&#123;<br>    <span class="hljs-attribute">text-decoration</span>: none;<br>&#125;<br><span class="hljs-selector-tag">header</span> <span class="hljs-selector-class">.content</span> <span class="hljs-selector-class">.words</span> <span class="hljs-selector-tag">ul</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:hover</span>&#123;<br>    <span class="hljs-attribute">color</span>: black;<br>    <span class="hljs-attribute">background-color</span>: white;<br>    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">10px</span>;<br>    <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">2px</span> <span class="hljs-number">2px</span> <span class="hljs-number">1px</span> <span class="hljs-number">3px</span> inset;<br>&#125;<br><span class="hljs-selector-tag">i</span>&#123;<br>    <span class="hljs-attribute">color</span>: black;<br>    <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">10px</span>;<br>    -webkit-<span class="hljs-attribute">transition</span>: color <span class="hljs-number">1s</span> ease-in-out;<br>    -moz-<span class="hljs-attribute">transition</span>: color <span class="hljs-number">1s</span> ease-in-out;<br>    -ms-<span class="hljs-attribute">transition</span>: color <span class="hljs-number">1s</span> ease-in-out;<br>    -o-<span class="hljs-attribute">transition</span>: color <span class="hljs-number">1s</span> ease-in-out;<br>    <span class="hljs-attribute">transition</span>: color <span class="hljs-number">1s</span> ease-in-out;<br>&#125;<br><span class="hljs-selector-tag">i</span><span class="hljs-selector-pseudo">:hover</span>&#123;<br>    <span class="hljs-attribute">color</span>: red;<br>&#125;<br><span class="hljs-selector-tag">section</span>&#123;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">50px</span> <span class="hljs-number">2%</span>;<br>    <span class="hljs-attribute">display</span>: flex;<br>    <span class="hljs-attribute">display</span>: -moz-flex;<br>    <span class="hljs-attribute">display</span>: -o-flex;<br>    <span class="hljs-attribute">display</span>: -ms-flex;<br>    <span class="hljs-attribute">display</span>: -webkit-flex;<br>    <span class="hljs-attribute">justify-content</span>: space-between;<br><br>&#125;<br><span class="hljs-selector-tag">section</span> <span class="hljs-selector-tag">div</span>&#123;<br>    <span class="hljs-attribute">border-top-left-radius</span>: <span class="hljs-number">10%</span>;<br>    <span class="hljs-attribute">border-top-right-radius</span>: <span class="hljs-number">10%</span>;<br>    <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">5px</span> <span class="hljs-number">5px</span> <span class="hljs-number">5px</span> black;<br>&#125;<br><span class="hljs-selector-tag">section</span> <span class="hljs-selector-tag">div</span> <span class="hljs-selector-tag">p</span>&#123;<br>    <span class="hljs-attribute">background</span>: <span class="hljs-number">#8080ff</span>;<br>    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">80px</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">80px</span>;<br>    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">20px</span>;<br>    <span class="hljs-attribute">border-top-left-radius</span>: <span class="hljs-number">10%</span>;<br>    <span class="hljs-attribute">border-top-right-radius</span>: <span class="hljs-number">10%</span>;<br>    <span class="hljs-attribute">font-family</span>: spring;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;<br>    <span class="hljs-attribute">color</span>: white;<br>&#125;<br><span class="hljs-selector-tag">section</span> <span class="hljs-selector-tag">div</span> <span class="hljs-selector-tag">ul</span>&#123;<br>    <span class="hljs-attribute">list-style-type</span>: none;<br>    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#eee</span>;<br>&#125;<br><span class="hljs-selector-tag">section</span> <span class="hljs-selector-tag">div</span> <span class="hljs-selector-tag">ul</span> <span class="hljs-selector-tag">li</span>&#123;<br>    <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">20px</span>;<br>    <span class="hljs-attribute">font-family</span>: autumn;<br>&#125;<br><span class="hljs-selector-tag">section</span> <span class="hljs-selector-tag">div</span> <span class="hljs-selector-tag">ul</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:last-child</span>&#123;<br>    <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">30px</span>;<br>&#125;<br><span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width</span>:<span class="hljs-number">800px</span>) &#123;<br>    <span class="hljs-selector-tag">section</span> <span class="hljs-selector-tag">div</span>&#123;<br>        <span class="hljs-attribute">width</span>: <span class="hljs-number">20%</span>;<br>    &#125;<br>&#125;<br><span class="hljs-selector-tag">footer</span>&#123;<br>    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#808000</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">60px</span>;<br>    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">15px</span>;<br>    <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">3px</span> <span class="hljs-number">3px</span> <span class="hljs-number">3px</span> black inset;<br>    <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">20px</span>;<br>&#125;<br><span class="hljs-selector-tag">footer</span> <span class="hljs-selector-tag">p</span>&#123;<br>    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">60px</span>;<br>    <span class="hljs-attribute">color</span>: white;<br>    <span class="hljs-attribute">font-family</span>: slience;<br>    <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">20px</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>第九天实训<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--引入字体--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;./CSS/font.css&quot;</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--引入CSS布局--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;./CSS/第8次作业.css&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;./iconfont/css/iconfont.css&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--导航栏--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">header</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;banner&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>张加林<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://miketaylorjuly123.cn&quot;</span>&gt;</span>主页<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://miketaylorjuly123.cn&quot;</span>&gt;</span>个人信息<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://miketaylorjuly123.cn&quot;</span>&gt;</span>联系方式<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://miketaylorjuly123.cn&quot;</span>&gt;</span>友链<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://miketaylorjuly123.cn&quot;</span>&gt;</span>反馈<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-comment">&lt;!--内容栏--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./imgs/payment.jpg&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;words&quot;</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>卓越软件工程师<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>年龄19岁，目前处于本科大二学习阶段，当前学期主要学习内容：数据库、智慧视觉、计算机基础课程。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>课外目标：该学期学完HTML、CSS以及JS基础部分，以及VUE的简单架构，必要的话还需要学习Java、人工神经网络。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont&quot;</span>&gt;</span><span class="hljs-symbol">&amp;#xe6e7;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>了解更多<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">header</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;first&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>大一上课程<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>微积分<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>线性代数<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>C程序设计<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>大学英语<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>近代史<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;second&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>大一下课程<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>微积分<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>大学物理<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>离散数学<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>公共演讲<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>思修<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;third&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>大二上课程<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>概率论<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>计算机组成原理<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>人工智能<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>交通管理与控制<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>综合课程设计<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;forth&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>大二下课程<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>操作系统<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>计算机网络<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>数据库<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>商务英语<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>数据库<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>版本号：01 作者：张加林 时间：2021 / 05 / 09 / 22:12<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>font.css</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@font-face</span> &#123;<br>    <span class="hljs-attribute">font-family</span>: stick;<br>    <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;../Font/stick.ttf&quot;</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;truetype&quot;</span>);<br>&#125;<br><span class="hljs-keyword">@font-face</span> &#123;<br>    <span class="hljs-attribute">font-family</span>: rabit;<br>    <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;../Font/rabit.ttf&quot;</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;truetype&quot;</span>);<br>&#125;<br><span class="hljs-keyword">@font-face</span> &#123;<br>    <span class="hljs-attribute">font-family</span>: snow;<br>    <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;../Font/汉仪雪君体简.ttf&quot;</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;truetype&quot;</span>);<br>&#125;<br><span class="hljs-keyword">@font-face</span> &#123;<br>    <span class="hljs-attribute">font-family</span>: spring;<br>    <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;../Font/演示春风楷.ttf&quot;</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;truetype&quot;</span>);<br>&#125;<br><span class="hljs-keyword">@font-face</span> &#123;<br>    <span class="hljs-attribute">font-family</span>: autumn;<br>    <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;../Font/演示秋鸿楷.ttf&quot;</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;truetype&quot;</span>);<br>&#125;<br><span class="hljs-keyword">@font-face</span> &#123;<br>    <span class="hljs-attribute">font-family</span>: blackborad;<br>    <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;../Font/鸿雷板书简体.ttf&quot;</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;truetype&quot;</span>);<br>&#125;<span class="hljs-keyword">@font-face</span> &#123;<br>    <span class="hljs-attribute">font-family</span>: slience;<br>    <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;../Font/默陌山魂手迹.ttf&quot;</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;truetype&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/CSS/">CSS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    灯火阑珊
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/05/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A011/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CSS属性-动画</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/19/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F2-4%E7%AB%A0/">
+                        <span class="hidden-mobile">操作系统2-4章部分笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark-orange';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhangjialin996/comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+  <div class="col-lg-7 mx-auto nopadding-x-md">
+    <div class="container custom post-custom mx-auto">
+      <img src="https://octodex.github.com/images/jetpacktocat.png" srcset="/img/loading.gif" lazyload class="rounded mx-auto d-block mt-5" style="width:150px; height:150px;">
+    </div>
+  </div>
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-love" style="color: #8080ff"></i> <i class="iconfont icon-love" style="color: red"></i> <i class="iconfont icon-love" style="color: #8080ff"></i> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e71cddb60357a788e6ed79bca37db76d";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
