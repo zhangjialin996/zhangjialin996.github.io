@@ -1,0 +1,731 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
+  <link rel="icon" href="/img/insert2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="我的博客">
+  <meta name="description" content="&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;     &#x2F;*      问题: 结果输出多少?            作用域在函数定义时就已经确定      *&#x2F;     var x &#x3D; 10;     function fn() &amp;#123;       console.log(x);     &amp;#125;     function show(f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mike Taylor">
+<meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/2021/12/25/%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="Mike Taylor">
+<meta property="og:description" content="&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;     &#x2F;*      问题: 结果输出多少?            作用域在函数定义时就已经确定      *&#x2F;     var x &#x3D; 10;     function fn() &amp;#123;       console.log(x);     &amp;#125;     function show(f">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-25T05:42:56.040Z">
+<meta property="article:modified_time" content="2022-01-12T08:02:58.449Z">
+<meta property="article:author" content="Mike Taylor">
+<meta property="article:tag" content="我的博客">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":100,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e71cddb60357a788e6ed79bca37db76d","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mike Taylor&#39;s</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/p12.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-25 13:42" pubdate>
+        2021年12月25日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      10k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      50 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            <div class="markdown-body">
+              <ol>
+<li><pre><code class="html">&lt;script type=&quot;text/javascript&quot;&gt;
+    /*
+     问题: 结果输出多少?
+     
+     作用域在函数定义时就已经确定
+     */
+    var x = 10;
+    function fn() &#123;
+      console.log(x);
+    &#125;
+    function show(f) &#123;
+      var x = 20;
+      f();
+    &#125;
+    show(fn) // 10
+&lt;/script&gt;
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs xml"><br>```html<br><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><br>    /*<br>     问题: 结果输出多少?<br>     <br>     作用域在函数定义时就已经确定<br>     */<br><span class="javascript">    <span class="hljs-keyword">var</span> x = <span class="hljs-number">10</span>;</span><br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">      <span class="hljs-keyword">var</span> x = <span class="hljs-number">20</span>;</span><br><span class="javascript">      <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">      <span class="hljs-built_in">console</span>.log(x);</span><br>    &#125;<br>      fn();<br>    &#125;<br><span class="javascript">    show() <span class="hljs-comment">// 20</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+沿着作用域链找变量，而作用域链在函数定义时就已经确定好了。
+</code></pre>
+</li>
+<li><pre><code class="js">var obj = &#123;
+    fn2: function () &#123;
+        console.log(fn2) // fn2不是声明的变量，而是obj的属性
+    &#125;
+&#125;
+obj.fn2()
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br></pre></td><td class="code"><pre><code class="hljs markdown">   <br><span class="hljs-bullet">3.</span> XSS攻击：<br><br>   方法：<br><br><span class="hljs-bullet">   *</span> 在 HTML 中内嵌的文本中，恶意内容以 script 标签形成注入。<br><span class="hljs-bullet">   *</span> 在内联的 JavaScript 中，拼接的数据突破了原本的限制（字符串，变量，方法名等）。<br><span class="hljs-bullet">   *</span> 在标签属性中，恶意内容包含引号，从而突破属性值的限制，注入其他属性或者标签。<br><span class="hljs-bullet">   *</span> 在标签的 href、src 等属性中，包含 <span class="hljs-code">`javascript:`</span> 等可执行代码。<br><span class="hljs-bullet">   *</span> 在 onload、onerror、onclick 等事件中，注入不受控制代码。<br><br>   如果开发者没有将用户输入的文本进行合适的过滤，就贸然插入到 HTML 中，这很容易造成注入漏洞。攻击者可以利用漏洞，构造出恶意的代码指令，进而利用恶意代码危害数据安全。<br><br>   Cross-Site Scripting（跨站脚本攻击）简称 XSS，是一种代码注入攻击。<br><br>   XSS 的本质是：恶意代码未经过滤，与网站正常的代码混在一起；浏览器无法分辨哪些脚本是可信的，导致恶意脚本被执行。<br><br>   分类：<br><br><span class="hljs-bullet">   *</span> 存储型 - 攻击者将恶意代码提交到目标网站的数据库中<br><span class="hljs-bullet">   *</span> 反射型 - 攻击者构造出特殊的 URL，其中包含恶意代码<br><span class="hljs-bullet">   *</span> DOM型 - 攻击者构造出特殊的 URL，其中包含恶意代码<br><span class="hljs-bullet">     *</span> DOM 型 XSS 攻击中，取出和执行恶意代码由浏览器端完成，属于前端 JavaScript 自身的安全漏洞，而其他两种 XSS 都属于服务端的安全漏洞。<br><span class="hljs-bullet">     *</span> 实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行，如VUE中的<span class="hljs-code">`v-html`</span><br><br>   预防：<br><br><span class="hljs-bullet">   *</span> 输入过滤<br><span class="hljs-bullet">   *</span> 纯前端渲染<br><span class="hljs-bullet">   *</span> HTML转义，使用转义HTML库<br><span class="hljs-bullet">   *</span> 在使用 <span class="hljs-code">`.innerHTML`</span>、<span class="hljs-code">`.outerHTML`</span>、<span class="hljs-code">`document.write()`</span> 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 <span class="hljs-code">`.textContent`</span>、<span class="hljs-code">`.setAttribute()`</span> 等。<br><span class="hljs-bullet">   *</span> 如果用 Vue/React 技术栈，并且不使用 <span class="hljs-code">`v-html`</span>/<span class="hljs-code">`dangerouslySetInnerHTML`</span> 功能，就在前端 render 阶段避免 <span class="hljs-code">`innerHTML`</span>、<span class="hljs-code">`outerHTML`</span> 的 XSS 隐患。<br><span class="hljs-bullet">   *</span> 输入内容长度限制<br><span class="hljs-bullet">   *</span> 验证码<br><span class="hljs-bullet">   *</span> HTTP-only Cookie<br><br>   [<span class="hljs-string">前端安全系列（一）：如何防止XSS攻击？ - 美团技术团队 (meituan.com)</span>](<span class="hljs-link">https://tech.meituan.com/2018/09/27/fe-security.html</span>)<br><br><span class="hljs-bullet">*</span> 区分赋值、浅拷贝、深拷贝？<br><br>  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20211226155317204.png&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;image-20211226155317204&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;zoom:80%;&quot;</span> /&gt;</span></span><br><br><span class="hljs-bullet">*</span> 面试：讲一讲ES6里面的Set/WeakSet/Map/WeakMap<br><br><span class="hljs-bullet">  *</span> Set：<br><span class="hljs-bullet">    *</span> 成员唯一、无序且不重复。<br><span class="hljs-bullet">    *</span> [value, value]，键值与键名是一致的（或者说只有键值，没有键名）。<br><span class="hljs-bullet">    *</span> 可以遍历，方法有：add、delete、has。<br><br><span class="hljs-bullet">  *</span> WeakSet：<br><span class="hljs-bullet">    *</span> 成员都是对象。<br><span class="hljs-bullet">    *</span> 成员都是弱引用，可以被垃圾回收机制回收，可以用来保存DOM节点，不容易造成内存泄漏。<br><span class="hljs-bullet">    *</span> 不能遍历，方法有add、delete、has。<br><br><span class="hljs-bullet">  *</span> Map：<br><span class="hljs-bullet">    *</span> 本质上是键值对的集合，类似集合。<br><span class="hljs-bullet">    *</span> 可以遍历，方法很多可以跟各种数据格式转换。<br><span class="hljs-bullet">  *</span> WeakMap：<br><span class="hljs-bullet">    *</span> 只接受对象作为键名（null除外），不接受其他类型的值作为键名。<br><span class="hljs-bullet">    *</span> 键名是弱引用，键值可以是任意的，键名所指向的对象可以被垃圾回收，此时键名是无效的。<br><span class="hljs-bullet">    *</span> 不能遍历，方法有get、set、has、delete。<br><br><span class="hljs-bullet">*</span> ES6手写迭代器并优化（太难了）。。。<br><span class="hljs-bullet">*</span> <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><span class="hljs-section">## <span class="hljs-strong">**Vue面试题**</span></span><br><br><br><span class="hljs-strong">**生命周期函数面试题**</span><br><br><span class="hljs-bullet">+</span> 1.什么是 vue 生命周期<br><span class="hljs-bullet">+</span> 2.vue生命周期的作用是什么<br><span class="hljs-bullet">+</span> 3.第一次页面加载会触发哪几个钩子<br><span class="hljs-bullet">+</span> 4.简述每个周期具体适合哪些场景<br><span class="hljs-bullet">+</span> 5.created和mounted的区别<br><span class="hljs-bullet">+</span> 6.vue获取数据在哪个周期函数<br><span class="hljs-bullet">+</span> 7.请详细说下你对vue生命周期的理解？<br><br><span class="hljs-strong">**vue路由面试题**</span><br><br><span class="hljs-bullet">+</span> 1.mvvm 框架是什么？<br><span class="hljs-bullet">+</span> 2.vue-router 是什么?它有哪些组件<br><span class="hljs-bullet">+</span> 3.active-class 是哪个组件的属性？<br><span class="hljs-bullet">+</span> 4.怎么定义 vue-router 的动态路由? 怎么获取传过来的值<br><span class="hljs-bullet">+</span> 5.vue-router 有哪几种导航钩子?<br><span class="hljs-bullet">+</span> 6.route和router 的区别<br><span class="hljs-bullet">+</span> 7.vue-router响应路由参数的变化<br><span class="hljs-bullet">+</span> 8.vue-router传参<br><span class="hljs-bullet">+</span> 9.vue-router的两种模式<br><span class="hljs-bullet">+</span> 10.vue-router实现路由懒加载（ 动态加载路由 ）<br><br><span class="hljs-strong">**vue常见面试题**</span><br><br><span class="hljs-bullet">+</span> 1.vue优点<br><span class="hljs-bullet">+</span> 2.vue父组件向子组件传递数据？<br><span class="hljs-bullet">+</span> 3.子组件像父组件传递事件<br><span class="hljs-bullet">+</span> 4.v-show和v-if指令的共同点和不同点<br><span class="hljs-bullet">+</span> 5.如何让CSS只在当前组件中起作用<br><span class="hljs-bullet">+</span> 6.的作用是什么?<br><span class="hljs-bullet">+</span> 7.如何获取dom<br><span class="hljs-bullet">+</span> 8.说出几种vue当中的指令和它的用法？<br><span class="hljs-bullet">+</span> 9.vue-loader是什么？使用它的用途有哪些？<br><span class="hljs-bullet">+</span> 10.为什么使用key<br><span class="hljs-bullet">+</span> 11.axios及安装<br><span class="hljs-bullet">+</span> 12.axios解决跨域<br><span class="hljs-bullet">+</span> 13.v-modal的使用<br><span class="hljs-bullet">+</span> 14.scss的安装以及使用<br><span class="hljs-bullet">+</span> 15.请说出vue.cli项目中src目录每个文件夹和文件的用法？<br><span class="hljs-bullet">+</span> 16.分别简述computed和watch的使用场景<br><span class="hljs-bullet">+</span> 17.v-on可以监听多个方法吗<br><span class="hljs-bullet">+</span> 18.$nextTick的使用<br><span class="hljs-bullet">+</span> 19.vue组件中data为什么必须是一个函数<br><span class="hljs-bullet">+</span> 20.vue事件对象的使用<br><span class="hljs-bullet">+</span> 21 组件间的通信<br><span class="hljs-bullet">+</span> 22.渐进式框架的理解<br><span class="hljs-bullet">+</span> 23.Vue中双向数据绑定是如何实现的<br><span class="hljs-bullet">+</span> 24.单页面应用和多页面应用区别及优缺点<br><span class="hljs-bullet">+</span> 25.vue中过滤器有什么作用及详解<br><span class="hljs-bullet">+</span> 26.v-if和v-for的优先级<br><span class="hljs-bullet">+</span> 27.assets和static的区别<br><span class="hljs-bullet">+</span> 28.列举常用的指令<br><span class="hljs-bullet">+</span> 29.vue常用的修饰符<br><span class="hljs-bullet">+</span> 30.数组更新检测<br><span class="hljs-bullet">+</span> 31.Vue.set视图更新<br><span class="hljs-bullet">+</span> 32.自定义指令详解<br><span class="hljs-bullet">+</span> 33.vue的两个核心点<br><span class="hljs-bullet">+</span> 34.vue和jQuery的区别<br><span class="hljs-bullet">+</span> 35 引进组件的步骤<br><span class="hljs-bullet">+</span> 36.Vue-cli打包命令是什么？打包后悔导致路径问题，应该在哪里修改<br><span class="hljs-bullet">+</span> 37.三大框架的对比<br><span class="hljs-bullet">+</span> 38.跨组件双向数据绑定<br><span class="hljs-bullet">+</span> 39.delete和Vue.delete删除数组的区别<br><span class="hljs-bullet">+</span> 40.SPA首屏加载慢如何解决<br><span class="hljs-bullet">+</span> 41.Vue-router跳转和location.href有什么区别<br><span class="hljs-bullet">+</span> 42.vue slot<br><span class="hljs-bullet">+</span> 43.你们vue项目是打包了一个js文件，一个css文件，还是有多个文件？<br><span class="hljs-bullet">+</span> 44.vue遇到的坑，如何解决的？<br><span class="hljs-bullet">+</span> 45.Vue里面router-link在电脑上有用，在安卓上没反应怎么解决？<br><span class="hljs-bullet">+</span> 46.Vue2中注册在router-link上事件无效解决方法<br><span class="hljs-bullet">+</span> 47.RouterLink在IE和Firefox中不起作用（路由不跳转）的问题<br><span class="hljs-bullet">+</span> 48.axios的特点有哪些<br><span class="hljs-bullet">+</span> 49.请说下封装 vue 组件的过程？<br><span class="hljs-bullet">+</span> 50.vue 各种组件通信方法（父子 子父 兄弟 爷孙 毫无关系的组件）<br><span class="hljs-bullet">+</span> 51.params和query的区别<br><span class="hljs-bullet">+</span> 52.vue mock数据<br><span class="hljs-bullet">+</span> 53 vue封装通用组件<br><span class="hljs-bullet">+</span> 54.vue初始化页面闪动问题<br><span class="hljs-bullet">+</span> 55.vue禁止弹窗后的屏幕滚动<br><span class="hljs-bullet">+</span> 56.vue更新数组时触发视图更新的方法<br><span class="hljs-bullet">+</span> 57.vue常用的UI组件库<br><span class="hljs-bullet">+</span> 58.vue如何引进本地背景图片<br><span class="hljs-bullet">+</span> 59.vue如何引进sass<br><span class="hljs-bullet">+</span> 60.vue修改打包后静态资源路径的修改<br><br><span class="hljs-strong">**vuex常见面试题**</span><br><br><span class="hljs-bullet">+</span> 1.vuex是什么？怎么使用？哪种功能场景使用它？<br><span class="hljs-bullet">+</span> 2.vuex有哪几种属性<br><span class="hljs-bullet">+</span> 3.不使用Vuex会带来什么问题<br><span class="hljs-bullet">+</span> 4.Vue.js中ajax请求代码应该写在组件的methods中还是vuex的actions中？<br><span class="hljs-bullet">+</span> 5.vuex一个例子方法<br><span class="hljs-bullet">+</span> 6.Vuex中如何异步修改状态<br><span class="hljs-bullet">+</span> 7.Vuex中actions和mutations的区别<br><br><span class="hljs-strong">**vue项目实战**</span><br><br><span class="hljs-bullet">+</span> 1.顶部悬停效果<br><span class="hljs-bullet">+</span> 2.电话本列表效果（ 右边字母分类 上下滑动 旁边字母显示高亮）<br><span class="hljs-bullet">+</span> 3.vue做代理<br><span class="hljs-bullet">+</span> 4.Vue路由切换时的左滑和右滑效果示例<br><br><span class="hljs-section">## <span class="hljs-strong">**ES6面试题**</span></span><br><br><br><span class="hljs-strong">**ES6新增方法面试题**</span><br><br><span class="hljs-bullet">+</span> 1.let const var比较<br><span class="hljs-bullet">+</span> 2.反引号（`）标识<br><span class="hljs-bullet">+</span> 3.函数默认参数<br><span class="hljs-bullet">+</span> 4.箭头函数<br><span class="hljs-bullet">+</span> 5.属性简写<br><span class="hljs-bullet">+</span> 6.方法简写<br><span class="hljs-bullet">+</span> 7.Object.keys()方法，获取对象的所有属性名或方法名<br><span class="hljs-bullet">+</span> 8.Object.assign ()原对象的属性和方法都合并到了目标对象<br><span class="hljs-bullet">+</span> 9.for...of 循环<br><span class="hljs-bullet">+</span> 10.import和export<br><span class="hljs-bullet">+</span> 11.Promise对象<br><span class="hljs-bullet">+</span> 12.解构赋值<br><span class="hljs-bullet">+</span> 13.set数据结构（可用于快速去重）<br><span class="hljs-bullet">+</span> 14.Spread Operator 展开运算符(...)<br><span class="hljs-bullet">+</span> 15.字符串新增方法<br><br><br><br><span class="hljs-strong">**ES6数组面试题**</span><br><br><span class="hljs-bullet">+</span> 1.forEach()<br><span class="hljs-bullet">+</span> 2.map()<br><span class="hljs-bullet">+</span> 3.filter()<br><span class="hljs-bullet">+</span> 4.reduce()<br><span class="hljs-bullet">+</span> 5.some()<br><span class="hljs-bullet">+</span> 6.every()<br><span class="hljs-bullet">+</span> 7.all()方法<br><br><span class="hljs-strong">**ES6编程题**</span><br><br><span class="hljs-bullet">+</span> 1.使用解构，实现两个变量的值的交换<br><span class="hljs-bullet">+</span> 2.利用数组推导，计算出数组 [1,2,3,4] 每一个元素的平方并组成新的数组。<br><span class="hljs-bullet">+</span> 3.使用ES6改下面的模板<br><span class="hljs-bullet">+</span> 4.把以下代码使用两种方法，来依次输出0到9？<br><br><span class="hljs-section">## <span class="hljs-strong">**js面试题**</span></span><br><br><span class="hljs-bullet">+</span> 1.简述同步和异步的区别<br><span class="hljs-bullet">+</span> 2.怎么添加、移除、复制、创建、和查找节点<br><span class="hljs-bullet">+</span> 3.实现一个函数clone 可以对Javascript中的五种主要数据类型（Number、string、Object、Array、Boolean）进行复制<br><span class="hljs-bullet">+</span> 4.如何消除一个数组里面重复的元素<br><span class="hljs-bullet">+</span> 5.写一个返回闭包的函数<br><span class="hljs-bullet">+</span> 6.使用递归完成1到100的累加<br><span class="hljs-bullet">+</span> 7.Javascript有哪几种数据类型<br><span class="hljs-bullet">+</span> 8.如何判断数据类型<br><span class="hljs-bullet">+</span> 9.console.log(1+&#x27;2&#x27;)和console.log(1-&#x27;2&#x27;)的打印结果<br><span class="hljs-bullet">+</span> 10.Js的事件委托是什么，原理是什么<br><span class="hljs-bullet">+</span> 11.如何改变函数内部的this指针的指向<br><span class="hljs-bullet">+</span> 12.列举几种解决跨域问题的方式，且说明原理<br><span class="hljs-bullet">+</span> 13.谈谈垃圾回收机制的方式及内存管理<br><span class="hljs-bullet">+</span> 14.写一个function ，清除字符串前后的空格<br><span class="hljs-bullet">+</span> 15.js实现继承的方法有哪些<br><span class="hljs-bullet">+</span> 16.判断一个变量是否是数组，有哪些办法<br><span class="hljs-bullet">+</span> 17.let ，const ，var 有什么区别<br><span class="hljs-bullet">+</span> 18.箭头函数与普通函数有什么区别<br><span class="hljs-bullet">+</span> 19.随机取1-10之间的整数<br><span class="hljs-bullet">+</span> 20.new操作符具体干了什么<br><span class="hljs-bullet">+</span> 21.Ajax原理<br><span class="hljs-bullet">+</span> 22.模块化开发怎么做<br><span class="hljs-bullet">+</span> 23.异步加载Js的方式有哪些<br><span class="hljs-bullet">+</span> 24.xml和 json的区别<br><span class="hljs-bullet">+</span> 25.webpack如何实现打包的<br><span class="hljs-bullet">+</span> 26.常见web安全及防护原理<br><span class="hljs-bullet">+</span> 27.用过哪些设计模式<br><span class="hljs-bullet">+</span> 28.为什么要同源限制<br><span class="hljs-bullet">+</span> 29.offsetWidth/offsetHeight,clientWidth/clientHeight与scrollWidth/scrollHeight的区别<br><span class="hljs-bullet">+</span> 30.javascript有哪些方法定义对象<br><span class="hljs-bullet">+</span> 31.说说你对promise的了解<br><span class="hljs-bullet">+</span> 32.谈谈你对AMD、CMD的理解<br><span class="hljs-bullet">+</span> 33.web开发中会话跟踪的方法有哪些<br><span class="hljs-bullet">+</span> 34.介绍js有哪些内置对象？<br><span class="hljs-bullet">+</span> 35.说几条写JavaScript的基本规范？<br><span class="hljs-bullet">+</span> 36.javascript创建对象的几种方式？<br><span class="hljs-bullet">+</span> 37.eval是做什么的？<br><span class="hljs-bullet">+</span> 38.null，undefined 的区别？<br><span class="hljs-bullet">+</span> 39.[“1”, “2”, “3”].map(parseInt) 答案是多少？<br><span class="hljs-bullet">+</span> 40.javascript 代码中的”use strict”;是什么意思 ? 使用它区别是什么？<br><span class="hljs-bullet">+</span> 41.js延迟加载的方式有哪些？<br><span class="hljs-bullet">+</span> 42.defer和async<br><span class="hljs-bullet">+</span> 43.说说严格模式的限制<br><span class="hljs-bullet">+</span> 44.attribute和property的区别是什么？<br><span class="hljs-bullet">+</span> 45.ECMAScript6 怎么写class么，为什么会出现class这种东西?<br><span class="hljs-bullet">+</span> 46.常见兼容性问题<br><span class="hljs-bullet">+</span> 47.函数防抖节流的原理<br><span class="hljs-bullet">+</span> 48.原始类型有哪几种？null是对象吗？<br><span class="hljs-bullet">+</span> 49.为什么console.log(0.2+0.1==0.3) //false<br><span class="hljs-bullet">+</span> 50.说一下JS中类型转换的规则？<br><span class="hljs-bullet">+</span> 51.深拷贝和浅拷贝的区别？如何实现<br><span class="hljs-bullet">+</span> 52.如何判断this？箭头函数的this是什么<br><span class="hljs-bullet">+</span> 53.== 和 ===的区别<br><span class="hljs-bullet">+</span> 54.什么是闭包<br><span class="hljs-bullet">+</span> 55.JavaScript原型，原型链 ? 有什么特点？<br><span class="hljs-bullet">+</span> 56.typeof()和instanceof()的用法区别<br><span class="hljs-bullet">+</span> 57.什么是变量提升<br><span class="hljs-bullet">+</span> 58.all、apply以及bind函数内部实现是怎么样的<br><span class="hljs-bullet">+</span> 59.为什么会出现setTimeout倒计时误差？如何减少<br><span class="hljs-bullet">+</span> 60.谈谈你对JS执行上下文栈和作用域链的理解<br><span class="hljs-bullet">+</span> 61.new的原理是什么？通过new的方式创建对象和通过字面量创建有什么区别？<br><span class="hljs-bullet">+</span> 62.prototype 和 proto 区别是什么？<br><span class="hljs-bullet">+</span> 63.使用ES5实现一个继承？<br><span class="hljs-bullet">+</span> 64.取数组的最大值（ES5、ES6）<br><span class="hljs-bullet">+</span> 65.ES6新的特性有哪些？<br><span class="hljs-bullet">+</span> 66.promise 有几种状态, Promise 有什么优缺点 ?<br><span class="hljs-bullet">+</span> 67.Promise构造函数是同步还是异步执行，then呢 ?promise如何实现then处理 ?<br><span class="hljs-bullet">+</span> 68.Promise和setTimeout的区别 ?<br><span class="hljs-bullet">+</span> 69.如何实现 Promise.all ?<br><span class="hljs-bullet">+</span> 70.如何实现 Promise.finally ?<br><span class="hljs-bullet">+</span> 71.如何判断img加载完成<br><span class="hljs-bullet">+</span> 72.如何阻止冒泡？<br><span class="hljs-bullet">+</span> 73.如何阻止默认事件？<br><span class="hljs-bullet">+</span> 74.ajax请求时，如何解释json数据<br><span class="hljs-bullet">+</span> 75.json和jsonp的区别?<br><span class="hljs-bullet">+</span> 76.如何用原生js给一个按钮绑定两个onclick事件？<br><span class="hljs-bullet">+</span> 77.拖拽会用到哪些事件<br><span class="hljs-bullet">+</span> 78.document.write和innerHTML的区别<br><span class="hljs-bullet">+</span> 79.jQuery的事件委托方法bind 、live、delegate、on之间有什么区别？<br><span class="hljs-bullet">+</span> 80.浏览器是如何渲染页面的？<br><span class="hljs-bullet">+</span> 81.$(document).ready()方法和window.onload有什么区别？<br><span class="hljs-bullet">+</span> 82.jquery中.get()提交和post()提交有区别吗？<br><span class="hljs-bullet">+</span> 83.对前端路由的理解？前后端路由的区别？<br><span class="hljs-bullet">+</span> 84.手写一个类的继承<br><span class="hljs-bullet">+</span> 85.XMLHttpRequest：XMLHttpRequest.readyState;状态码的意思<br><br><br><br><span class="hljs-section">## <span class="hljs-strong">**正则表达式常见面试题**</span></span><br><br><span class="hljs-bullet">+</span> 1.给一个连字符串例如：get-element-by-id转化成驼峰形式。<br><br>  <span class="hljs-code">```js</span><br><span class="hljs-code">  let str = &quot;get-element-by-id&quot;</span><br><span class="hljs-code">  str.match(/[a-z]+/g).map(v=&gt;&#123;</span><br><span class="hljs-code">      return v.slice(0,1).toUpperCase() + v.slice(1) </span><br><span class="hljs-code">  &#125;).join(&quot;&quot;)</span><br></code></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ol>
+<ul>
+<li><p>2.匹配二进制数字</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> str = <span class="hljs-string">&quot;10101111&quot;</span>;<br><span class="hljs-keyword">var</span> reg = <span class="hljs-regexp">/^[01]+$/g</span>;<br><span class="hljs-built_in">console</span>.log(reg.test(str));<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>3.非零的十进制数字 (有至少一位数字, 但是不能以0开头)</p>
+</li>
+<li><p>4.匹配一年中的12个月</p>
+</li>
+<li><p>5.匹配qq号最长为13为</p>
+</li>
+<li><p>6.匹配常见的固定电话号码</p>
+</li>
+<li><p>7.匹配ip地址</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> address = <span class="hljs-string">&#x27;127.0.0.1&#x27;</span>;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-regexp">/((0.)|([1-9]+.))/</span>.test(address))<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>8.匹配用尖括号括起来的以a开头的字符串</p>
+</li>
+<li><p>9.分割数字每三个以一个逗号划分</p>
+</li>
+<li><p>10.判断字符串是否包含数字</p>
+</li>
+<li><p>11.判断电话号码</p>
+</li>
+<li><p>12.判断是否符合指定格式</p>
+</li>
+<li><p>13.判断是否符合USD格式</p>
+</li>
+<li><p>14.JS实现千位分隔符</p>
+</li>
+<li><p>15.获取 url 参数</p>
+</li>
+<li><p>16.验证邮箱</p>
+</li>
+<li><p>17.验证身份证号码</p>
+</li>
+<li><p>18.匹配汉字</p>
+</li>
+<li><p>19.去除首尾的’/‘</p>
+</li>
+<li><p>20.判断日期格式是否符合 ‘2017-05-11’的形式，简单判断，只判断格式</p>
+</li>
+<li><p>21.判断日期格式是否符合 ‘2017-05-11’的形式，严格判断（比较复杂）</p>
+</li>
+<li><p>22.IPv4地址正则</p>
+</li>
+<li><p>23.十六进制颜色正则</p>
+</li>
+<li><p>24.车牌号正则</p>
+</li>
+<li><p>25.过滤HTML标签</p>
+</li>
+<li><p>26.密码强度正则，最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符</p>
+</li>
+<li><p>27.URL正则</p>
+</li>
+<li><p>28.匹配浮点数</p>
+</li>
+</ul>
+<h2 id="浏览器-html-css面试题"><a href="#浏览器-html-css面试题" class="headerlink" title="浏览器/html/css面试题"></a><strong>浏览器/html/css面试题</strong></h2><p>1.什么是盒模型</p>
+<p>2.行内元素有哪些？块级元素有哪些？ 空(void)元素有那些？行内元素和块级元素有什么区别？</p>
+<p>3.简述src和href的区别</p>
+<p>4.什么是css Hack</p>
+<p>5.什么叫优雅降级和渐进增强</p>
+<p>6.px和em的区别</p>
+<p>7.HTML5 为什么只写</p>
+<p>8.Http的状态码有哪些</p>
+<p>9.一次完整的HTTP事务是怎么一个过程</p>
+<p>10.HTTPS是如何实现加密</p>
+<p>11.浏览器是如何渲染页面的</p>
+<p>12.浏览器的内核有哪些？分别有什么代表的浏览器</p>
+<p>13.页面导入时，使用link和@import有什么区别</p>
+<p>14.如何优化图像，图像格式的区别</p>
+<p>15.列举你了解Html5. Css3 新特性</p>
+<p>16.可以通过哪些方法优化css3 animation渲染</p>
+<p>17.列举几个前端性能方面的优化</p>
+<p>18.如何实现同一个浏览器多个标签页之间的通信</p>
+<p>19.浏览器的存储技术有哪些</p>
+<p>20.css定位方式</p>
+<p>21.尽可能多的写出浏览器兼容性问题</p>
+<p>22.垂直上下居中的方法</p>
+<p>23.响应式布局原理</p>
+<p>25.清除浮动的方法</p>
+<p>26.http协议和tcp协议</p>
+<p>27.刷新页面，js请求一般会有哪些地方有缓存处理</p>
+<p>28.如何对网站的文件和资源进行优化</p>
+<p>29.你对网页标准和W3C重要性的理解</p>
+<p>30.Http和https的区别</p>
+<p>31.data-属性的作用</p>
+<p>32.如何让Chrome浏览器显示小于12px的文字</p>
+<p>33.哪些操作会引起页面回流（Reflow）</p>
+<p>34.CSS预处理器的比较less sass</p>
+<p>35.如何实现页面每次打开时清除本页缓存</p>
+<p>36.什么是Virtual DOM,为何要用Virtual DOM</p>
+<p>37.伪元素和伪类的区别</p>
+<p>38.http的几种请求方法和区别</p>
+<p>39.前端需要注意哪些SEO</p>
+<p>40.的title和alt有什么区别</p>
+<p>41.从浏览器地址栏输入url到显示页面的步骤</p>
+<p>42.如何进行网站性能优化</p>
+<p>43.语义化的理解</p>
+<p>44.HTML5的离线储存怎么使用，工作原理能不能解释一下？</p>
+<p>45.浏览器是怎么对HTML5的离线储存资源进行管理和加载的呢</p>
+<p>46.iframe有那些缺点？</p>
+<p>47.WEB标准以及W3C标准是什么?</p>
+<p>48.Doctype作用? 严格模式与混杂模式如何区分？它们有何意义?</p>
+<p>49.HTML全局属性(global attribute)有哪些</p>
+<p>50.Canvas和SVG有什么区别？</p>
+<p>51.如何在页面上实现一个圆形的可点击区域？</p>
+<p>52.网页验证码是干嘛的，是为了解决什么安全问题</p>
+<p>53.请描述一下 cookies，sessionStorage 和 localStorage 的区别？</p>
+<p>54.CSS选择器有哪些？哪些属性可以继承？</p>
+<p>55.CSS优先级算法如何计算？</p>
+<p>56.CSS3有哪些新特性？</p>
+<p>57.请解释一下CSS3的flexbox（弹性盒布局模型）,以及适用场景？</p>
+<p>58.用纯CSS创建一个三角形的原理是什么？</p>
+<p>59.常见的兼容性问题？</p>
+<p>60.为什么要初始化CSS样式</p>
+<p>61.absolute的containing block计算方式跟正常流有什么不同？</p>
+<p>62.CSS里的visibility属性有个collapse属性值？在不同浏览器下以后什么区别？</p>
+<p>63.display:none与visibility：hidden的区别？</p>
+<p>64.position跟display、overflow、float这些特性相互叠加后会怎么样？</p>
+<p>65.对BFC规范(块级格式化上下文：block formatting context)的理解？</p>
+<p>66.为什么会出现浮动和什么时候需要清除浮动？清除浮动的方式？</p>
+<p>67.上下margin重合的问题</p>
+<p>68.设置元素浮动后，该元素的display值是多少？</p>
+<p>69.移动端的布局用过媒体查询吗？</p>
+<p>70.CSS优化、提高性能的方法有哪些？</p>
+<p>71.浏览器是怎样解析CSS选择器的？</p>
+<p>72.在网页中的应该使用奇数还是偶数的字体？为什么呢？</p>
+<p>73.margin和padding分别适合什么场景使用？</p>
+<p>74.元素竖向的百分比设定是相对于容器的高度吗？</p>
+<p>75.全屏滚动的原理是什么？用到了CSS的哪些属性？</p>
+<p>76.什么是响应式设计？响应式设计的基本原理是什么？如何兼容低版本的IE？</p>
+<p>77.视差滚动效果？</p>
+<p>78.::before 和 :after中双冒号和单冒号有什么区别？解释一下这2个伪元素的作用</p>
+<p>79.让页面里的字体变清晰，变细用CSS怎么做？</p>
+<p>80.position:fixed;在android下无效怎么处理？</p>
+<p>81.如果需要手动写动画，你认为最小时间间隔是多久，为什么？</p>
+<p>82.li与li之间有看不见的空白间隔是什么原因引起的？有什么解决办法？</p>
+<p>83.display:inline-block 什么时候会显示间隙？</p>
+<p>84.有一个高度自适应的div，里面有两个div，一个高度100px，希望另一个填满剩下的高度</p>
+<p>85.png、jpg、gif 这些图片格式解释一下，分别什么时候用。有没有了解过webp？</p>
+<p>86.style标签写在body后与body前有什么区别？</p>
+<p>87.CSS属性overflow属性定义溢出元素内容区的内容会如何处理?</p>
+<p>88.阐述一下CSS Sprites</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    灯火阑珊
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/12/26/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%8E%9F%E7%90%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%8A%80%E6%9C%AF%E5%8F%8A%E5%B7%A5%E7%A8%8B%E5%BA%94%E7%94%A8/">
+                        <span class="hidden-mobile">计算机控制技术及工程应用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark-orange';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhangjialin996/comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-love" style="color: #8080ff"></i> <i class="iconfont icon-love" style="color: red"></i> <i class="iconfont icon-love" style="color: #8080ff"></i> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e71cddb60357a788e6ed79bca37db76d";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

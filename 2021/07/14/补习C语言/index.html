@@ -13,18 +13,18 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="无聊的人生只剩下无尽的空虚。">
+  <meta name="description" content="后面再说">
   <meta name="author" content="Mike Taylor">
   <meta name="keywords" content="我的博客">
-  <meta name="description" content="C语言教材：C语言程序设计现代方法—第二版—（K.N.King著） 第11章 指针1                          第12章 指针和数组第13章 字符串第14章  预处理器第15章  编写大型程序第16章 结构、联合、枚举第17章 指针的高级应用第18章 声明第19章 程序设计第20章 底层程序设计第21章 标准库第22章 输入&#x2F;输出第23章 库对数值和字符数据的支持第24章">
+  <meta name="description" content="后面再说">
 <meta property="og:type" content="article">
 <meta property="og:title" content="补习C语言">
 <meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/2021/07/14/%E8%A1%A5%E4%B9%A0C%E8%AF%AD%E8%A8%80/index.html">
 <meta property="og:site_name" content="Mike Taylor">
-<meta property="og:description" content="C语言教材：C语言程序设计现代方法—第二版—（K.N.King著） 第11章 指针1                          第12章 指针和数组第13章 字符串第14章  预处理器第15章  编写大型程序第16章 结构、联合、枚举第17章 指针的高级应用第18章 声明第19章 程序设计第20章 底层程序设计第21章 标准库第22章 输入&#x2F;输出第23章 库对数值和字符数据的支持第24章">
+<meta property="og:description" content="后面再说">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-14T08:21:26.000Z">
-<meta property="article:modified_time" content="2021-09-11T11:13:20.996Z">
+<meta property="article:modified_time" content="2022-02-27T13:58:32.996Z">
 <meta property="article:author" content="Mike Taylor">
 <meta property="article:tag" content="C语言">
 <meta name="twitter:card" content="summary_large_image">
@@ -214,7 +214,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      196 字
+      629 字
     </span>
   
 
@@ -223,7 +223,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1 分钟
+      3 分钟
     </span>
   
 
@@ -264,6 +264,21 @@
             
             <div class="markdown-body">
               <h1 id="C语言"><a href="#C语言" class="headerlink" title="C语言"></a>C语言</h1><p>教材：C语言程序设计现代方法—第二版—（K.N.King著）</p>
+<p>编辑器：Dev C++</p>
+<h2 id="第10章-程序结构"><a href="#第10章-程序结构" class="headerlink" title="第10章 程序结构"></a>第10章 程序结构</h2><h3 id="10-1-局部变量"><a href="#10-1-局部变量" class="headerlink" title="10.1 局部变量"></a>10.1 局部变量</h3><p>局部变量：函数题内声明的变量。</p>
+<p>例子：计算一个数的位数digits</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">	计算一个数字的位数 </span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sum_digits</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span>&#123;<br>	<span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;<br>	<br>	<span class="hljs-keyword">while</span>(n&gt;<span class="hljs-number">0</span>)&#123;<br>		sum++;<br>		n /= <span class="hljs-number">10</span>;<br>	&#125;<br>	<span class="hljs-keyword">return</span> sum;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>&#123;<br>	<span class="hljs-keyword">int</span> sum = sum_digits(<span class="hljs-number">1008006</span>);<br>    <span class="hljs-comment">// 块作用域范围为从变量声明处开始，区别于js中的块作用域概念，因为存在变量提升。</span><br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,sum);<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125; <br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>局部变量性质：</p>
+<ul>
+<li><p>自动存储期限：变量的存储期限是在变量存储单元存在期内</p>
+</li>
+<li><p>块作用域：</p>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="第11章-指针"><a href="#第11章-指针" class="headerlink" title="第11章 指针"></a>第11章 指针</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br></code></pre></td></tr></table></figure>
 
 
@@ -290,7 +305,13 @@
 
 
 
-<h2 id="第12章-指针和数组"><a href="#第12章-指针和数组" class="headerlink" title="第12章 指针和数组"></a>第12章 指针和数组</h2><h2 id="第13章-字符串"><a href="#第13章-字符串" class="headerlink" title="第13章 字符串"></a>第13章 字符串</h2><h2 id="第14章-预处理器"><a href="#第14章-预处理器" class="headerlink" title="第14章  预处理器"></a>第14章  预处理器</h2><h2 id="第15章-编写大型程序"><a href="#第15章-编写大型程序" class="headerlink" title="第15章  编写大型程序"></a>第15章  编写大型程序</h2><h2 id="第16章-结构、联合、枚举"><a href="#第16章-结构、联合、枚举" class="headerlink" title="第16章 结构、联合、枚举"></a>第16章 结构、联合、枚举</h2><h2 id="第17章-指针的高级应用"><a href="#第17章-指针的高级应用" class="headerlink" title="第17章 指针的高级应用"></a>第17章 指针的高级应用</h2><h2 id="第18章-声明"><a href="#第18章-声明" class="headerlink" title="第18章 声明"></a>第18章 声明</h2><h2 id="第19章-程序设计"><a href="#第19章-程序设计" class="headerlink" title="第19章 程序设计"></a>第19章 程序设计</h2><h2 id="第20章-底层程序设计"><a href="#第20章-底层程序设计" class="headerlink" title="第20章 底层程序设计"></a>第20章 底层程序设计</h2><h2 id="第21章-标准库"><a href="#第21章-标准库" class="headerlink" title="第21章 标准库"></a>第21章 标准库</h2><h2 id="第22章-输入-输出"><a href="#第22章-输入-输出" class="headerlink" title="第22章 输入/输出"></a>第22章 输入/输出</h2><h2 id="第23章-库对数值和字符数据的支持"><a href="#第23章-库对数值和字符数据的支持" class="headerlink" title="第23章 库对数值和字符数据的支持"></a>第23章 库对数值和字符数据的支持</h2><h2 id="第24章-错误处理"><a href="#第24章-错误处理" class="headerlink" title="第24章 错误处理"></a>第24章 错误处理</h2><h2 id="第25章-国际化特性"><a href="#第25章-国际化特性" class="headerlink" title="第25章 国际化特性"></a>第25章 国际化特性</h2><h2 id="第26章-其他库函数"><a href="#第26章-其他库函数" class="headerlink" title="第26章 其他库函数"></a>第26章 其他库函数</h2><h2 id="第27章-C99对数学计算的新增支持"><a href="#第27章-C99对数学计算的新增支持" class="headerlink" title="第27章 C99对数学计算的新增支持"></a>第27章 C99对数学计算的新增支持</h2>
+<h2 id="第12章-指针和数组"><a href="#第12章-指针和数组" class="headerlink" title="第12章 指针和数组"></a>第12章 指针和数组</h2><h2 id="第13章-字符串"><a href="#第13章-字符串" class="headerlink" title="第13章 字符串"></a>第13章 字符串</h2><h2 id="第14章-预处理器"><a href="#第14章-预处理器" class="headerlink" title="第14章  预处理器"></a>第14章  预处理器</h2><h2 id="第15章-编写大型程序"><a href="#第15章-编写大型程序" class="headerlink" title="第15章  编写大型程序"></a>第15章  编写大型程序</h2><h2 id="第16章-结构、联合、枚举"><a href="#第16章-结构、联合、枚举" class="headerlink" title="第16章 结构、联合、枚举"></a>第16章 结构、联合、枚举</h2><h2 id="第17章-指针的高级应用"><a href="#第17章-指针的高级应用" class="headerlink" title="第17章 指针的高级应用"></a>第17章 指针的高级应用</h2><h2 id="第18章-声明"><a href="#第18章-声明" class="headerlink" title="第18章 声明"></a>第18章 声明</h2><h2 id="第19章-程序设计"><a href="#第19章-程序设计" class="headerlink" title="第19章 程序设计"></a>第19章 程序设计</h2><h2 id="第20章-底层程序设计"><a href="#第20章-底层程序设计" class="headerlink" title="第20章 底层程序设计"></a>第20章 底层程序设计</h2><h2 id="扩展知识"><a href="#扩展知识" class="headerlink" title="扩展知识"></a>扩展知识</h2><ul>
+<li><p><code>int main(int argc,char* argv[])</code>详解</p>
+<p>argc是命令行总的参数个数<br>argv[]是argc个参数，其中第0个参数是程序的全名，以后的参数命令行后面跟的用户输入的参数</p>
+</li>
+</ul>
+<p>python c javascript sql shell node.js</p>
+
             </div>
             <hr>
             <div>
@@ -327,8 +348,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/06/02/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A020/">
-                        <span class="hidden-mobile">jQuery选择器和DOM操作</span>
+                      <a href="/2021/05/22/JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="hidden-mobile">JavaScript数据结构</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

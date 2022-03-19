@@ -1,0 +1,635 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
+  <link rel="icon" href="/img/insert2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="《深入浅出nodejs》第一版 朴灵">
+  <meta name="author" content="Mike Taylor">
+  <meta name="keywords" content="我的博客">
+  <meta name="description" content="《深入浅出nodejs》第一版 朴灵">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入浅出nodejs">
+<meta property="og:url" content="https://github.com/zhangjialin996/zhangjialin996.github.io/2021/01/16/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAnodejs/index.html">
+<meta property="og:site_name" content="Mike Taylor">
+<meta property="og:description" content="《深入浅出nodejs》第一版 朴灵">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220121215537942.png">
+<meta property="article:published_time" content="2021-01-16T06:23:08.000Z">
+<meta property="article:modified_time" content="2022-02-04T08:57:05.868Z">
+<meta property="article:author" content="Mike Taylor">
+<meta property="article:tag" content="nodejs">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220121215537942.png">
+  
+  <title>深入浅出nodejs - Mike Taylor</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":100,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e71cddb60357a788e6ed79bca37db76d","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mike Taylor&#39;s</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/p12.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="深入浅出nodejs">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-16 14:23" pubdate>
+        2021年1月16日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      11 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">深入浅出nodejs</h1>
+            
+            <div class="markdown-body">
+              <h1 id="深入浅出nodejs"><a href="#深入浅出nodejs" class="headerlink" title="深入浅出nodejs"></a>深入浅出nodejs</h1><h2 id="第一章-nodejs简介"><a href="#第一章-nodejs简介" class="headerlink" title="第一章 nodejs简介"></a>第一章 nodejs简介</h2><h3 id="1-1-nodejs诞生历程"><a href="#1-1-nodejs诞生历程" class="headerlink" title="1.1 nodejs诞生历程"></a>1.1 nodejs诞生历程</h3><p>浏览器内核组成：<strong>渲染引擎+JS引擎</strong></p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220121215537942.png" srcset="/img/loading.gif" lazyload alt="image-20220121215537942"></p>
+<p>浏览器一般由七个模块组成，User Interface（用户界面）、Browser engine（浏览器引擎）、Rendering engine（渲染引擎）、Networking（网络）、JavaScript Interpreter（js解释器）、UI Backend（UI 后端）、Date Persistence（数据持久化存储）</p>
+<p>nodejs是基于V8引擎（C++开发，开源的JavaScript引擎，Google chrome，运行速度媲美二进制程序）开发的轻量级web服务器库。</p>
+<h3 id="1-2-node命名与起源"><a href="#1-2-node命名与起源" class="headerlink" title="1.2 node命名与起源"></a>1.2 node命名与起源</h3><p>选择javascript：高性能、符合事件驱动、没有历史包袱</p>
+<p>nodejs发展为一个强制不共享任何资源的单线程、单进程系统，包含十分适宜的网络的库，为构建大型分布式应用程序提供基础设施，其目标也是成为一个构建快速、可伸缩的网络应用平台。</p>
+<p>js是一门图灵完备的语言，图灵完备：在可计算性理论中，若一系列操作数据的规则可用来模拟单带图灵机，那么他就是图灵完备的。</p>
+<h3 id="1-3-node给javascript带来的意义"><a href="#1-3-node给javascript带来的意义" class="headerlink" title="1.3 node给javascript带来的意义"></a>1.3 node给javascript带来的意义</h3><p>Node和chrome十分相似，他们都是基于事件驱动的异步架构，浏览器通过事件驱动来服务界面上的交互，Node通过事件驱动来服务I/O。</p>
+<ul>
+<li><p>组件构成：</p>
+<p>Chrome浏览器：HTML+JavaScript+Webkit+V8+中间层+网卡+硬盘+显卡</p>
+<p>Node：JavaScript+V8+中间层(libuv)+网卡+硬盘……</p>
+</li>
+</ul>
+<h3 id="1-4-nodejs特点"><a href="#1-4-nodejs特点" class="headerlink" title="1.4 nodejs特点"></a>1.4 nodejs特点</h3><h4 id="1-4-1-异步I-O"><a href="#1-4-1-异步I-O" class="headerlink" title="1.4.1 异步I/O"></a>1.4.1 异步I/O</h4><h4 id="1-4-2-事件和回调函数"><a href="#1-4-2-事件和回调函数" class="headerlink" title="1.4.2 事件和回调函数"></a>1.4.2 事件和回调函数</h4><h4 id="1-4-3-单线程"><a href="#1-4-3-单线程" class="headerlink" title="1.4.3 单线程"></a>1.4.3 单线程</h4><h4 id="1-4-4-跨平台"><a href="#1-4-4-跨平台" class="headerlink" title="1.4.4 跨平台"></a>1.4.4 跨平台</h4><h3 id="1-5nodejs应用场景"><a href="#1-5nodejs应用场景" class="headerlink" title="1.5nodejs应用场景"></a>1.5nodejs应用场景</h3><h2 id="第二章-模块机制"><a href="#第二章-模块机制" class="headerlink" title="第二章 模块机制"></a>第二章 模块机制</h2><h2 id="第三章-异步I-O"><a href="#第三章-异步I-O" class="headerlink" title="第三章 异步I/O"></a>第三章 异步I/O</h2><h2 id="第四章-异步编程"><a href="#第四章-异步编程" class="headerlink" title="第四章 异步编程"></a>第四章 异步编程</h2><h2 id="第五章-内存控制"><a href="#第五章-内存控制" class="headerlink" title="第五章 内存控制"></a>第五章 内存控制</h2><h2 id="第六章-理解Buffer"><a href="#第六章-理解Buffer" class="headerlink" title="第六章 理解Buffer"></a>第六章 理解Buffer</h2><h2 id="第七章-网络编程"><a href="#第七章-网络编程" class="headerlink" title="第七章 网络编程"></a>第七章 网络编程</h2><h2 id="第八章-构建web应用"><a href="#第八章-构建web应用" class="headerlink" title="第八章 构建web应用"></a>第八章 构建web应用</h2><h2 id="第九章-玩转进程"><a href="#第九章-玩转进程" class="headerlink" title="第九章 玩转进程"></a>第九章 玩转进程</h2><h2 id="第十章-测试"><a href="#第十章-测试" class="headerlink" title="第十章 测试"></a>第十章 测试</h2><h2 id="第十一章-产品化"><a href="#第十一章-产品化" class="headerlink" title="第十一章 产品化"></a>第十一章 产品化</h2><h2 id="附录部分"><a href="#附录部分" class="headerlink" title="附录部分"></a>附录部分</h2><h3 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h3><h3 id="调试nodejs"><a href="#调试nodejs" class="headerlink" title="调试nodejs"></a>调试nodejs</h3><h3 id="node编码规范"><a href="#node编码规范" class="headerlink" title="node编码规范"></a>node编码规范</h3><h3 id="搭建局域网npm仓库"><a href="#搭建局域网npm仓库" class="headerlink" title="搭建局域网npm仓库"></a>搭建局域网npm仓库</h3><h2 id="nodejs学习指南"><a href="#nodejs学习指南" class="headerlink" title="nodejs学习指南"></a>nodejs学习指南</h2><ul>
+<li><p>Nodejs核心API</p>
+<p>Buffer(缓冲)<br>fs(文件系统)<br>path(路径)</p>
+</li>
+<li><p>Nodejs编程基础</p>
+</li>
+</ul>
+<p>http(服务器)</p>
+<ul>
+<li>学习数据库MySQL</li>
+</ul>
+<p>学习数据库MySQL<br>Nodejs操作MySQL-增删改查</p>
+<ul>
+<li><p>存储Nodejs程序中的数据</p>
+</li>
+<li><p>Connect</p>
+</li>
+<li><p>Connect自带的中间件</p>
+</li>
+<li><p>Express</p>
+</li>
+<li><p>Express进阶</p>
+</li>
+<li><p>Nodejs测试</p>
+</li>
+<li><p>Nodejs爬虫</p>
+</li>
+</ul>
+<h2 id="Nodejs读取文件"><a href="#Nodejs读取文件" class="headerlink" title="Nodejs读取文件"></a>Nodejs读取文件</h2><p>nodejs中所有与文件相关的操作都在fs模块中，而读写操作又是我们会经常用到的操作，nodejs的fs模块针对读操作为我们提供了readFile，read, createReadStream三个方法，针对写操作为我们提供了writeFile，write， createWriteStream三个方法，下面分析一下它们的区别：</p>
+<ul>
+<li><p>readFile和writeFile</p>
+<ul>
+<li><p><code>readFile</code>方法是将要读取的文件内容完整读入缓存区，再从该缓存区中读取文件内容</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">fs.readFile(<span class="hljs-string">&#x27;./test.txt&#x27;</span>, <span class="hljs-string">&#x27;utf8&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, data</span>)</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(data);  <br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>对应的同步方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> data = fs.readFileSync(<span class="hljs-string">&#x27;./test.txt&#x27;</span>,<span class="hljs-string">&#x27;utf-8&#x27;</span>);<br><span class="hljs-built_in">console</span>.log(data);<br></code></pre></td></tr></table></figure>
+
+<p>同步与异步的区别：</p>
+<p>在使用同步方法执行的操作结束之前，不能执行后续代码的执行；而异步方法将操作结果作为回调函数的参数返回，方法调用之后，就可以立即执行后续代码，读取完毕后会调用对应的回调函数。</p>
+<p><strong>异步读取文件的时候由操作系统在后台进行读取，不会阻碍下面的代码执行。同步读取的时候会阻碍下面的代码执行</strong></p>
+</li>
+<li><p><code>writeFile</code>方法是将要写入的文件内容完整的读入缓存区，然后一次性的将缓存区中的内容写入都文件中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// fs.writeFile(filename, data[, options], callback)</span><br><br><span class="hljs-comment">/* 异步方法 */</span> <br><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);<br>fs.writeFile(<span class="hljs-string">&quot;./demo.txt&quot;</span>, <span class="hljs-string">&quot;天才美少女卡莎&quot;</span>, <span class="hljs-string">&quot;utf-8&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>&#123;<br>	<span class="hljs-keyword">if</span> (err) <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;出错了！&quot;</span>);<br>	<span class="hljs-keyword">else</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;写入成功!&quot;</span>);<br>&#125;);<br><br><span class="hljs-comment">/* 同步方法 */</span><br>fs.writeFileSync(<span class="hljs-string">&#x27;./message.txt&#x27;</span>,<span class="hljs-string">&#x27;天才美少女卡莎&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>以上的读写操作，Node.js将文件内容视为一个整体，为其分配缓存区并且一次性将文件内容读取到缓存区中，在这个期间，Node.js将不能执行任何其他处理。所以当读写大文件的时候，有可能造成缓存区“爆仓”。</p>
+</li>
+<li><p>read和write</p>
+<ul>
+<li>read或readSync方法读取文件内容是不断地将文件中的一小块内容读入缓存区，最后从该缓存区中读取文件内容</li>
+<li></li>
+</ul>
+</li>
+<li><p>createReadStream和createWriteStream</p>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/nodejs/">nodejs</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    灯火阑珊
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/16/%E5%B0%8F%E6%8A%80%E5%B7%A7/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">杂货铺</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/16/%E8%84%9A%E6%89%8B%E6%9E%B6%E5%8D%A1%E6%AD%BB/">
+                        <span class="hidden-mobile">Vue-Cli一直卡着不动</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark-orange';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zhangjialin996/comments');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-love" style="color: #8080ff"></i> <i class="iconfont icon-love" style="color: red"></i> <i class="iconfont icon-love" style="color: #8080ff"></i> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e71cddb60357a788e6ed79bca37db76d";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
