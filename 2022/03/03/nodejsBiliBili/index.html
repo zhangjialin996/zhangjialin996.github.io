@@ -7,6 +7,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer" />
   <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
   <link rel="icon" href="/img/insert2.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -51,8 +52,11 @@
 <meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220311233751710.png">
 <meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220311233817824.png">
 <meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220313230207687.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220320180338632.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220320180556154.png">
+<meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220320182045720.png">
 <meta property="article:published_time" content="2022-03-03T14:17:33.000Z">
-<meta property="article:modified_time" content="2022-03-19T09:29:54.292Z">
+<meta property="article:modified_time" content="2023-03-14T02:31:28.120Z">
 <meta property="article:author" content="Mike Taylor">
 <meta property="article:tag" content="NodeJs">
 <meta name="twitter:card" content="summary_large_image">
@@ -243,7 +247,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      72k 字
+      80k 字
     </span>
   
 
@@ -252,7 +256,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      358 分钟
+      400 分钟
     </span>
   
 
@@ -1745,7 +1749,7 @@
 <p>用户首次请求服务器，服务器返回cookie，浏览器将cookie持久化，浏览器每次访问浏览器都会带上cookie，cookie有效期到后，浏览器会自动删除Cookie。</p>
 <p>将用户名和密码保存在cookie中，很不安全，因为cookie中的信息可能泄露，就产生了session会话。浏览器访问服务器就是会话的开始，服务器会对每个用户会话设定时间(结束会话时间)以及唯一的sessionID，保存在数据库中，sessionID也会返回给浏览器，浏览器将它保存在cookie中，这里相当于将保存在cookie中的账号密码加密了。此时就算sessionID被黑客得到也没有问题，因为信息被加密，而且服务器在发送cookie前会对SessionID进行签名，那么黑客修改了sessionID，那么服务器将不能识别该sessionID。用户注销后，删除服务器中的sessionID()。</p>
 <p>由于用户群体基数庞大，如果服务器依旧使用基于cookie的session，当某个时间有大量用户访问服务器时，服务器将可能面临存储大量SessionID；当有多台服务器，一台服务器存储了sessionID，又将面临需要分享SessionID给其他服务器，所以这台服务器很可能超载，就需要分配一些用户到其他服务器，这就是分布式session，还可以将所有sessionID存到单独数据库中，所有服务器都可以访问，但是服务器崩溃就会影响服务器获取sessionID，以上前提下，产生了JSON WEB TOKEN。</p>
-<p>对于jwt，服务器需要保存jwt签名的密文，而不需要保存jwt（原来要保存很多个sessionID，现在只需要保存一个简单的签名），接着将jwt发送给浏览器，让浏览器以cookie或者Storge形式进行存储；后续用户每次需要将该jwt发送至服务器，用户就不需要再输入账号密码。</p>
+<p>对于jwt，服务器需要保存jwt签名的密文，不需要保存jwt（原来要保存很多个sessionID，现在只需要保存一个简单的签名），接着将jwt发送给浏览器，让浏览器以cookie或者Storge形式进行存储；后续用户每次需要将该jwt发送至服务器，用户就不需要再输入账号密码。</p>
 <p>jwt深挖：</p>
 <ul>
 <li>组成：<code>header.payload.signature</code>，三部分<ul>
@@ -1980,8 +1984,200 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">nvmw install &lt;version&gt;<br><br>// 切换版本<br>nvmw use &lt;version&gt;<br><br>// 我的历史版本<br>v12.8.3<br><br>//当前最新<br>v16.4.0<br></code></pre></td></tr></table></figure>
 
 <p>切换命令执行成功，但是就是node版本不变，可能是配置了环境变量（显示是system version），貌似需要改环境变量。</p>
-<h2 id="第八章-数据库"><a href="#第八章-数据库" class="headerlink" title="第八章 数据库"></a>第八章 数据库</h2><h3 id="8-1-安装mysql"><a href="#8-1-安装mysql" class="headerlink" title="8.1 安装mysql"></a>8.1 安装mysql</h3><h3 id="8-2-SQL语句"><a href="#8-2-SQL语句" class="headerlink" title="8.2 SQL语句"></a>8.2 SQL语句</h3><h3 id="8-3-连接数据"><a href="#8-3-连接数据" class="headerlink" title="8.3 连接数据"></a>8.3 连接数据</h3><p>mysql是多线程数据库，每一个应用会话连接到数据库时，会创建一个用户线程，调用对应的数据库连接对象connection完成sql的操作</p>
-<h2 id="第九章-主流Koa框架"><a href="#第九章-主流Koa框架" class="headerlink" title="第九章 主流Koa框架"></a>第九章 主流Koa框架</h2><h2 id="第十章-打包部署发布"><a href="#第十章-打包部署发布" class="headerlink" title="第十章 打包部署发布"></a>第十章 打包部署发布</h2><h3 id="10-1-webpack压缩打包"><a href="#10-1-webpack压缩打包" class="headerlink" title="10.1 webpack压缩打包"></a>10.1 webpack压缩打包</h3><p><a href="https://webpack.docschina.org/concepts/">概念 | webpack 中文文档 (docschina.org)</a></p>
+<h2 id="第八章-数据库"><a href="#第八章-数据库" class="headerlink" title="第八章 数据库"></a>第八章 数据库</h2><h3 id="8-1-mysql"><a href="#8-1-mysql" class="headerlink" title="8.1 mysql"></a>8.1 mysql</h3><p>mysql是多线程数据库，每一个应用会话连接到数据库时，会创建一个用户线程，调用对应的数据库连接对象connection完成sql的操作。</p>
+<p>安装中间件：<code>npm install mysql</code></p>
+<p>使用数据库连接池：</p>
+<p><code>db.js</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 连接数据库文件</span><br><span class="hljs-comment"> * */</span><br><span class="hljs-built_in">module</span>.exports = &#123;<br>	mysql: &#123;<br>		host: <span class="hljs-string">&quot;localhost&quot;</span>, <span class="hljs-comment">// 主机</span><br>		user: <span class="hljs-string">&quot;root&quot;</span>, <span class="hljs-comment">// 用户名</span><br>		password: <span class="hljs-string">&quot;zhulan&quot;</span>,<br>		database: <span class="hljs-string">&quot;sumodemo&quot;</span>,<br>		port: <span class="hljs-string">&quot;3306&quot;</span>, <span class="hljs-comment">// mysql链接端口</span><br>		connectTimeout: <span class="hljs-number">5000</span>, <span class="hljs-comment">//连接超时</span><br>		multipleStatements: <span class="hljs-literal">false</span>, <span class="hljs-comment">//是否允许一个query中包含多条sql语句</span><br>		connectionLimit: <span class="hljs-number">5</span>, <span class="hljs-comment">// 数据库连接池大小</span><br>		timezone: <span class="hljs-string">&quot;08:00&quot;</span>,<br>	&#125;,<br>&#125;;<br><br></code></pre></td></tr></table></figure>
+
+<p>创建连接初始化</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> mysql = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;mysql&quot;</span>);<br><span class="hljs-keyword">let</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./db.js&quot;</span>);<br><br><span class="hljs-keyword">let</span> pool = mysql.createPool(config.mysql);<br><br>pool.getConnection(<span class="hljs-function">(<span class="hljs-params">err, connection</span>) =&gt;</span> &#123;<br>	<span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;数据库连接失败&quot;</span> + err);<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;数据库连接成功&quot;</span>, connection.threadId);<br>&#125;);<br><br><span class="hljs-built_in">module</span>.exports = pool;<br></code></pre></td></tr></table></figure>
+
+<p>执行sql语句</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js">mysqlPool.query(commentSql.historyComments, <span class="hljs-function">(<span class="hljs-params">err, results</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span> (err)<br>        res.status(<span class="hljs-number">500</span>).json(&#123;<br>            err: err.message,<br>        &#125;);<br>    <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-built_in">console</span>.log(results);<br>        res.status(<span class="hljs-number">200</span>).json(results.reverse());<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="8-2-MongoDB"><a href="#8-2-MongoDB" class="headerlink" title="8.2 MongoDB"></a>8.2 MongoDB</h3><p><a href="https://db-engines.com/en/ranking">DB-Engines Ranking - popularity ranking of database management systems</a></p>
+<p>安装</p>
+<p>配置</p>
+<ul>
+<li><p>设置环境变量</p>
+</li>
+<li><p>创建数据库文件夹db &amp; log</p>
+</li>
+<li><p>设置数据库保存位置</p>
+</li>
+<li><p>将mongodb安装为windows服务，自动启动mongodb服务</p>
+</li>
+</ul>
+<p>启动</p>
+<p>cmd窗口下：mongo</p>
+<h3 id="8-3-mongoDB基本操作"><a href="#8-3-mongoDB基本操作" class="headerlink" title="8.3 mongoDB基本操作"></a>8.3 mongoDB基本操作</h3><h3 id="8-4-mongoose数据库操作"><a href="#8-4-mongoose数据库操作" class="headerlink" title="8.4 mongoose数据库操作"></a>8.4 mongoose数据库操作</h3><h4 id="mongoose简介"><a href="#mongoose简介" class="headerlink" title="mongoose简介"></a>mongoose简介</h4><p>node.js依赖mongoose模块对MongoDB进行操作</p>
+<h2 id="第九章-Koa框架"><a href="#第九章-Koa框架" class="headerlink" title="第九章 Koa框架"></a>第九章 Koa框架</h2><h3 id="9-1-koa框架简介"><a href="#9-1-koa框架简介" class="headerlink" title="9.1 koa框架简介"></a>9.1 koa框架简介</h3><p>下一代Node.js WEB框架</p>
+<h4 id="koa与express的区别"><a href="#koa与express的区别" class="headerlink" title="koa与express的区别"></a>koa与express的区别</h4><ul>
+<li><p>Express是第一代最流行的Web框架，作为两个框架中最早诞生者，经过长时间的发展完善，Express非常为成熟，资料丰富。</p>
+</li>
+<li><p>Koa是下一代的Node.js的Web框架，由Express团队设计，旨在提供一个更小型、更富有表现力、更可靠的Web应用和API的开发框架。</p>
+</li>
+<li><p>Express的团队基于ES6的Generator编写。</p>
+<p>免除重复繁琐的回调函数嵌套，极大地提升错误处理效率。</p>
+<p>不断追随ECMAScript规范，解决Express痛点，从一代Generator函数到二代Async/Await，备受青睐。</p>
+<p>Koa轻量简洁、表达力强、自由度高，容易定制。</p>
+</li>
+</ul>
+<h4 id="koa框架的简单应用"><a href="#koa框架的简单应用" class="headerlink" title="koa框架的简单应用"></a>koa框架的简单应用</h4><p>Koa框架所有功能通过中间件实现，目前有1.x和2.0两个版本。</p>
+<p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220320180338632.png" srcset="/img/loading.gif" lazyload alt="image-20220320180338632"></p>
+<ul>
+<li>koa支持context传递数据，采用洋葱模型进行顺序执行，出去反向执行。</li>
+<li>express本身无洋葱模型，需要引入插件；不支持context</li>
+</ul>
+<h5 id="koa核心概念"><a href="#koa核心概念" class="headerlink" title="koa核心概念"></a>koa核心概念</h5><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220320180556154.png" srcset="/img/loading.gif" lazyload alt="image-20220320180556154"></p>
+<ul>
+<li><p>koa最主要的应用是实现http协议的处理，有四个核心概念：</p>
+<ul>
+<li><p>Application：主程序</p>
+<p>koa的全局应用对象，有且仅有一个，在应用启动时被创建。</p>
+</li>
+<li><p>Context：请求上下文</p>
+<p>请求级别的对象，每次请求生成一个context实例，通常简写为<code>ctx</code>。</p>
+</li>
+<li><p>Request：请求</p>
+<p>请求级别的对象，提供大量请求相关的方法以供使用。</p>
+</li>
+<li><p>Response：相应</p>
+<p>请求级别的对象，提供大量相应相关的方法。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="express与koa语法对比"><a href="#express与koa语法对比" class="headerlink" title="express与koa语法对比"></a>express与koa语法对比</h5><table>
+<thead>
+<tr>
+<th><strong>功能</strong></th>
+<th><strong>Express</strong></th>
+<th><strong>Koa</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>初始化</td>
+<td>const app = express()</td>
+<td>const app = new koa()</td>
+</tr>
+<tr>
+<td>实例化路由</td>
+<td>const router = express.Router()</td>
+<td>const router = Router()</td>
+</tr>
+<tr>
+<td>app级别中间件</td>
+<td>app.use</td>
+<td>app.use</td>
+</tr>
+<tr>
+<td>路由级别中间件</td>
+<td>router.get</td>
+<td>router.get</td>
+</tr>
+<tr>
+<td>路由中间件挂载</td>
+<td>app.use(‘/‘,router)</td>
+<td>app.use(router.routes())</td>
+</tr>
+<tr>
+<td>监听端口</td>
+<td>app.listen(3000)</td>
+<td>app.listen(3000)</td>
+</tr>
+</tbody></table>
+<h5 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h5><p><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220320182045720.png" srcset="/img/loading.gif" lazyload alt="image-20220320182045720"></p>
+<ul>
+<li><p>异步</p>
+<p>koa2完全使用Promise并配合async来实现异步</p>
+</li>
+<li><p>中间件</p>
+<p>每个async函数称为中间件，默认接收两个参数：Context对象和next函数。</p>
+</li>
+<li><p>next()函数</p>
+<p>只要调用next()函数就可以将执行权转交给下一个中间件。</p>
+</li>
+<li><p>堆栈展开</p>
+<p><strong>当在下游没有更多中间件执行后，堆栈将展开并且每个中间件恢复执行其上游行为。</strong></p>
+</li>
+</ul>
+<p>案例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;koa&quot;</span>);<br><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> koa();<br><br><span class="hljs-keyword">const</span> M1 = <span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;<br>	ctx.type = <span class="hljs-string">&quot;text/html&quot;</span>;<br>	<span class="hljs-keyword">await</span> next();<br>	ctx.body = ctx.body + <span class="hljs-string">&quot;m1&quot;</span>;<br>&#125;;<br><span class="hljs-keyword">const</span> M2 = <span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;<br>	ctx.body = <span class="hljs-string">&quot;Hi, &quot;</span>;<br>	<span class="hljs-keyword">await</span> next();<br>	ctx.body = ctx.body + <span class="hljs-string">&quot;m2&quot;</span>;<br>&#125;;<br><span class="hljs-keyword">const</span> M3 = <span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;<br>	ctx.body = ctx.body + <span class="hljs-string">&quot;class!&quot;</span>;<br>	<span class="hljs-keyword">await</span> next();<br>	ctx.body = ctx.body + <span class="hljs-string">&quot;m3&quot;</span>;<br>&#125;;<br><br>app.use(M1);<br>app.use(M2);<br>app.use(M3);<br>app.listen(<span class="hljs-number">3000</span>);<br><br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Hi</span>, class!m<span class="hljs-number">3</span>m<span class="hljs-number">2</span>m<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="9-2-应用程序和上下文"><a href="#9-2-应用程序和上下文" class="headerlink" title="9.2 应用程序和上下文"></a>9.2 应用程序和上下文</h3><h4 id="语法糖syntactic-sugar"><a href="#语法糖syntactic-sugar" class="headerlink" title="语法糖syntactic sugar"></a>语法糖syntactic sugar</h4><p>英国计算机科学家彼得·约翰·兰达（Peter J. Landin）计算机语言中添加的某种语法，更方便程序员使用。</p>
+<p>优点：对语言的功能并没有影响，更方便程序员使用，增加程序的可读性，从而减少程序代码出错的机会。</p>
+<p>koa中的语法糖：async/await是专门为异步操作设计的基于Generator函数的语法糖。</p>
+<h4 id="Http服务"><a href="#Http服务" class="headerlink" title="Http服务"></a>Http服务</h4><p>Koa将Node.js中的request和response对象都封装到了上下文(Context)中，每次请求都会创建一个ctx。</p>
+<h4 id="上下文Context"><a href="#上下文Context" class="headerlink" title="上下文Context"></a>上下文Context</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  request: &#123;<br>    method: &#x27;GET&#x27;,<br>    url: &#x27;/&#x27;,<br>    header: &#123;<br>      host: &#x27;localhost:3000&#x27;,<br>      connection: &#x27;keep-alive&#x27;,<br>      &#x27;sec-ch-ua&#x27;: &#x27;&quot; Not A;Brand&quot;;v=&quot;99&quot;, &quot;Chromium&quot;;v=&quot;99&quot;, &quot;Microsoft Edge&quot;;v=&quot;99&quot;&#x27;,<br>      &#x27;sec-ch-ua-mobile&#x27;: &#x27;?0&#x27;,<br>      &#x27;sec-ch-ua-platform&#x27;: &#x27;&quot;Windows&quot;&#x27;,<br>      &#x27;upgrade-insecure-requests&#x27;: &#x27;1&#x27;,<br>      &#x27;user-agent&#x27;: &#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36 Edg/99.0.1150.46&#x27;,<br>      accept: &#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9&#x27;,<br>      &#x27;sec-fetch-site&#x27;: &#x27;none&#x27;,<br>      &#x27;sec-fetch-mode&#x27;: &#x27;navigate&#x27;,<br>      &#x27;sec-fetch-user&#x27;: &#x27;?1&#x27;,<br>      &#x27;sec-fetch-dest&#x27;: &#x27;document&#x27;,<br>      &#x27;accept-encoding&#x27;: &#x27;gzip, deflate, br&#x27;,<br>      &#x27;accept-language&#x27;: &#x27;zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#x27;,<br>      cookie: &#x27;Hm_lvt_e71cddb60357a788e6ed79bca37db76d=1646641982,1647689532&#x27;<br>    &#125;<br>  &#125;,<br>  response: &#123;<br>    status: 404,<br>    message: &#x27;Not Found&#x27;,<br>    header: [Object: null prototype] &#123;<br>      &#x27;content-type&#x27;: &#x27;text/html; charset=utf-8&#x27;<br>    &#125;<br>  &#125;,<br>  app: &#123; subdomainOffset: 2, proxy: false, env: &#x27;development&#x27; &#125;,<br>  originalUrl: &#x27;/&#x27;,<br>  req: &#x27;&lt;original node req&gt;&#x27;,<br>  res: &#x27;&lt;original node res&gt;&#x27;,<br>  socket: &#x27;&lt;original node socket&gt;&#x27;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="9-3-koa路由"><a href="#9-3-koa路由" class="headerlink" title="9.3 koa路由"></a>9.3 koa路由</h3><p>路由中间件与动态路由：路由（Route）根据监听前端发来的URL进行判断，通过识别请求的方法（GET、POST、PUT等）和请求的具体路径（path），来执行相应的代码，进行不同的处理。</p>
+<p>koa-router路由中间件引入与使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 安装 npm install koa-router -S</span><br><span class="hljs-comment">// 加载</span><br><span class="hljs-keyword">const</span> router = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;koa-router&#x27;</span>);<br><br><span class="hljs-comment">//识别请求，设置请求路径，匹配逻辑</span><br>router.get|post|put|<span class="hljs-keyword">delete</span>(<span class="hljs-string">&#x27;/&#x27;</span>,<span class="hljs-keyword">async</span>(context, next)=&gt;&#123;&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>案例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;koa&quot;</span>);<br><span class="hljs-keyword">const</span> Router = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;koa-router&quot;</span>);<br><span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> Router();<br><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> koa();<br><br>router.get(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;<br>	ctx.body = <span class="hljs-string">&quot;主页&quot;</span>;<br>&#125;);<br><br>router.get(<span class="hljs-string">&quot;/news&quot;</span>, <span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;<br>	ctx.body = <span class="hljs-string">&quot;新闻&quot;</span>;<br>&#125;);<br><br>router.get(<span class="hljs-string">&quot;/author/:name&quot;</span>, <span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;<br>	<span class="hljs-keyword">const</span> name = ctx.params.name;<br>	ctx.body = <span class="hljs-string">&quot;作者为：&quot;</span> + name;<br>&#125;);<br><br>app.use(router.routes());<br>app.use(router.allowedMethods);<br><br>app.listen(<span class="hljs-number">3000</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;服务已启动~~~&quot;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="9-4-静态访问资源"><a href="#9-4-静态访问资源" class="headerlink" title="9.4 静态访问资源"></a>9.4 静态访问资源</h3><h4 id="静态资源"><a href="#静态资源" class="headerlink" title="静态资源"></a>静态资源</h4><p>静态资源：指不需要程序处理、不需要查数据库直接就能够显示的页面资源。多次访问，源代码不变，访问效率高。（比如：html、js、css、json、图片等）</p>
+<p>动态资源：指需要程序处理或者从数据库中读数据，能够根据不同的条件在页面显示不同的数据。</p>
+<p>动静分离：将静态资源与后台应用分开部署，提高用户访问静态代码的速度，降低对后台应用访问负担。</p>
+<p>读取文件：对于一张图片而言，对于URL <code>http://127.0.0.1/0.jpg</code>，那么服务器端需要通过读取文件的方式，客户端才能请求到图片资源，如果网页中含有多张图片，这样读取很麻烦。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">if</span>(req.url==<span class="hljs-string">&quot;/0.jpg&quot;</span>)&#123;<br>  fs.readFile(<span class="hljs-string">&quot;./0.jpg&quot;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err,data</span>)</span>&#123;<br>res.end(data);<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h4 id="koa-static模块"><a href="#koa-static模块" class="headerlink" title="koa-static模块"></a>koa-static模块</h4><p>封装了网站静态资源的请求，可以用来搭建静态资源服务器，实现复杂路由加载静态资源，省去需要从本地目录读取文件的很多步骤。</p>
+<p>安装：<code>npm install koa-static</code></p>
+<p>加载：<code>const server = require(&#39;koa-static&#39;);</code></p>
+<p>设置静态文件：<code>app.use(server(path.join(__dirname),&#39;./public&#39;));</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> Koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;koa&quot;</span>);<br><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Koa();<br><span class="hljs-keyword">const</span> server = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;koa-static&quot;</span>);<br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;path&quot;</span>);<br><br><span class="hljs-comment">// 设置dist文件夹为静态资源文件夹 ./dist/x1.png</span><br>app.use(server(path.join(__dirname, <span class="hljs-string">&quot;./dist&quot;</span>)));<br><br><span class="hljs-comment">// http://localhost:3000/x1.png请求</span><br>app.listen(<span class="hljs-number">3000</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="9-5-补充"><a href="#9-5-补充" class="headerlink" title="9.5 补充"></a>9.5 补充</h3><h4 id="params参数和query参数"><a href="#params参数和query参数" class="headerlink" title="params参数和query参数"></a>params参数和query参数</h4><h5 id="VueRouter"><a href="#VueRouter" class="headerlink" title="VueRouter"></a>VueRouter</h5><p>传参是前端经常需要用的一个操作，很多场景都会需要用到上个页面的参数，比如传个id获取个详情信息，今天咱们就来看看Vue中是怎么实现这种传递参数得</p>
+<p>在Vue中提供了两种方法来进行路由传参：query 和 params ，下面来看看他们两个得区别在哪里</p>
+<p>query语法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">this</span>.$router.push(&#123;<span class="hljs-attr">path</span>:<span class="hljs-string">&quot;地址&quot;</span>,<span class="hljs-attr">query</span>:&#123;<span class="hljs-attr">id</span>:<span class="hljs-string">&quot;123&quot;</span>&#125;&#125;); <span class="hljs-comment">// 这是传递参数</span><br><span class="hljs-built_in">this</span>.$route.query.id； <span class="hljs-comment">// 这是接受参数</span><br></code></pre></td></tr></table></figure>
+
+<p>params语法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">this</span>.$router.push(&#123;<span class="hljs-attr">name</span>:<span class="hljs-string">&quot;地址&quot;</span>,<span class="hljs-attr">params</span>:&#123;<span class="hljs-attr">id</span>:<span class="hljs-string">&quot;123&quot;</span>&#125;&#125;); <span class="hljs-comment">// 这是传递参数</span><br><span class="hljs-built_in">this</span>.$route.params.id; <span class="hljs-comment">// 这是接受参数</span><br></code></pre></td></tr></table></figure>
+
+<p>以上就是这两种方法得语法，那大家也能从中看出一点区别：</p>
+<p>1.首先就是写法得不同，query 的写法是 用 path 来编写传参地址，而 params 得写法是用 name 来编写传参地址，你可以看一下编写路由时候得相关属性，你也可以输出一下 路由对象信息 看一下。</p>
+<p>2.接收方法不同， 一个用 query 来接收， 一个用 params 接收 ，总结就是谁发得谁去接收。</p>
+<p>3.query 在刷新页面得时候参数不会消失，而 params 刷新页面得时候会参数消失，可以考虑本地存储解决。</p>
+<p>4.query 传得参数都是显示在url 地址栏当中，而 params 传参不会显示在地址栏。这里说一下 route 是路由对象信息 而 router 是路由对象的实例，区分一下。</p>
+<h5 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h5><p>在后端中，要接受前端的<code>axios</code>请求，于是我们又会接触到了query、params。</p>
+<p>什么样的<code>axios</code>请求对应什么样的接受方式？<br>还有不止是<code>req.query</code>,<code>req.params</code>,还多了<code>req.body</code></p>
+<p>假设前端现在用axios向后端发送一个请求，发送id值请求后端的数据。</p>
+<ul>
+<li><p>req.query</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">axios.get(<span class="hljs-string">`/api/?id=1234`</span>)<br></code></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">axios.get(<span class="hljs-string">`/api`</span>，&#123; <span class="hljs-attr">params</span>:&#123;<span class="hljs-attr">id</span>:<span class="hljs-string">&#x27;1234&#x27;</span> &#125;)<br></code></pre></td></tr></table></figure>
+
+<p>在前端里面，<code>router</code>怎么发送的就怎么收</p>
+<ul>
+<li><code>query</code>发送的就用<code>this.$route.query</code>接收</li>
+<li><code>params</code>发送的就用<code>this.$route.params</code>接收</li>
+</ul>
+<p>但在这里，虽然第二种方式里面有<code>params</code>，但这两种我们都要用<code>req.query.id</code>来获取里面的<code>id</code>值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">router.get(<span class="hljs-string">&#x27;/api&#x27;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req,res</span>)</span>&#123;<br><span class="hljs-built_in">console</span>.log(req.query.id)<br>.......<br>&#125;);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>req.params</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 后端</span><br>router.get(<span class="hljs-string">&#x27;/api/:id&#x27;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req,res</span>)</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(req.params.id);<br>    .......<br>&#125;);<br><span class="hljs-comment">// 多个params参数</span><br>router.get(<span class="hljs-string">&#x27;/api/:id-:age&#x27;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req,res</span>)</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(req.params.id);<br>    <span class="hljs-built_in">console</span>.log(req.params.age);<br>    .......<br>    &#125;)<br><br><span class="hljs-comment">// 前端axios</span><br>axios.get(<span class="hljs-string">`/api/1234`</span>);<br><br><span class="hljs-comment">// 多个params参数</span><br>axios.get(<span class="hljs-string">`/api/1234-12`</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>req.body</p>
+<p>上面两个都是处理<code>get</code>请求的，而<code>req.body</code>就是用来处理<code>post</code>请求的。(需要安装<code>body-parser</code>中间件）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 请求</span><br>axios.post(<span class="hljs-string">`/api`</span>,&#123; <span class="hljs-attr">id</span>:<span class="hljs-string">&#x27;1234&#x27;</span> &#125;);<br><br><span class="hljs-comment">// 路由</span><br>router.get(<span class="hljs-string">&#x27;/api&#x27;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req,res</span>)</span>&#123;<br><span class="hljs-built_in">console</span>.log(req.body.id)<br>.......<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="访问存放在dist中的静态页面"><a href="#访问存放在dist中的静态页面" class="headerlink" title="访问存放在dist中的静态页面"></a>访问存放在dist中的静态页面</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 允许返回本地静态资源</span><br>app.use(express.static(<span class="hljs-string">&quot;public&quot;</span>));<br><br>app.use(express.static(path.join(__dirname, <span class="hljs-string">&quot;./dist&quot;</span>))); <span class="hljs-comment">// 允许访问dist资源</span><br></code></pre></td></tr></table></figure>
+
+<p>注意：在浏览器输入<code>http://localhost:port</code>，node服务器会自动加载静态资源，默认访问index.html文件！</p>
+<h2 id="第十章-打包部署发布"><a href="#第十章-打包部署发布" class="headerlink" title="第十章 打包部署发布"></a>第十章 打包部署发布</h2><h3 id="10-1-webpack压缩打包"><a href="#10-1-webpack压缩打包" class="headerlink" title="10.1 webpack压缩打包"></a>10.1 webpack压缩打包</h3><p><a href="https://webpack.docschina.org/concepts/">概念 | webpack 中文文档 (docschina.org)</a></p>
 <p><strong>webpack</strong> 是一个用于现代 JavaScript 应用程序的 <strong>静态模块打包工具</strong>，将各种存在依赖关系的模块打包成静态可用资源。</p>
 <p>会递归地构建一个依赖关系图，其中包含应用程序所需地所有模块，然后将所有模块打包成一个或多个bundle文件。</p>
 <h4 id="安装webpack"><a href="#安装webpack" class="headerlink" title="安装webpack"></a>安装webpack</h4><p>全局安装<code>npm i -g webpack</code></p>

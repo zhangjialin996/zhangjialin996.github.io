@@ -7,6 +7,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer" />
   <link rel="apple-touch-icon" sizes="76x76" href="/img/insert1.jfif">
   <link rel="icon" href="/img/insert2.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -67,7 +68,7 @@
 <meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220110213327994.png">
 <meta property="og:image" content="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220110213336282.png">
 <meta property="article:published_time" content="2021-03-04T04:08:49.000Z">
-<meta property="article:modified_time" content="2022-01-10T13:33:58.916Z">
+<meta property="article:modified_time" content="2022-04-25T06:12:04.759Z">
 <meta property="article:author" content="Mike Taylor">
 <meta property="article:tag" content="Git">
 <meta name="twitter:card" content="summary_large_image">
@@ -258,7 +259,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      22k 字
+      23k 字
     </span>
   
 
@@ -267,7 +268,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      112 分钟
+      115 分钟
     </span>
   
 
@@ -397,8 +398,6 @@
 <p>一旦你把文件改乱了，或者误删了文件，还可以从最近的一个<code>commit</code>恢复，然后继续工作，而不是把几个月的工作成果全部丢失。</p>
 <p>查看历史记录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">log</span><br></code></pre></td></tr></table></figure>
-
-
 
 <img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220110155154478.png" srcset="/img/loading.gif" lazyload alt="image-20220110155154478" style="zoom:80%;" />
 
@@ -987,9 +986,39 @@
 <li>要方便管理公钥，用<a href="https://github.com/res0nat0r/gitosis">Gitosis</a>；</li>
 <li>要像SVN那样变态地控制权限，用<a href="https://github.com/sitaramc/gitolite">Gitolite</a>。</li>
 </ul>
-<h2 id="常用命令表"><a href="#常用命令表" class="headerlink" title="常用命令表"></a>常用命令表</h2><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220110213327994.png" srcset="/img/loading.gif" lazyload alt="image-20220110213327994" style="zoom:80%;" />
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220110213327994.png" srcset="/img/loading.gif" lazyload alt="image-20220110213327994" style="zoom:80%;" />
 
 <img src="https://gitee.com/zhangjialin_zhulan/myimagerepo/raw/master/images/image-20220110213336282.png" srcset="/img/loading.gif" lazyload alt="image-20220110213336282" style="zoom:80%;" />
+
+<h3 id="撤销add之前的修改"><a href="#撤销add之前的修改" class="headerlink" title="撤销add之前的修改"></a>撤销add之前的修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$git</span> restore &lt;file&gt;...<br></code></pre></td></tr></table></figure>
+
+<p>add 把工作区的代码添加到暂存区，restore 是撤销工作区的代码修改</p>
+<h3 id="撤销add之后的修改"><a href="#撤销add之后的修改" class="headerlink" title="撤销add之后的修改"></a>撤销add之后的修改</h3><p>如果要保留修改，把代码从暂存区撤回工作区。</p>
+<p>$git restore –staged <file>…</p>
+<p>或</p>
+<p>$git reset –mixed HEAD <file>…  #可以简写为 $git reset <file>…</p>
+<p>如果不保留修改</p>
+<p>$git reset –hard HEAD <file>… 或 $git checkout – <file>…</p>
+<p>PS:如果要跨版本撤回，要把HEAD改为版本号</p>
+<h3 id="撤销commit-之后的修改"><a href="#撤销commit-之后的修改" class="headerlink" title="撤销commit 之后的修改"></a>撤销commit 之后的修改</h3><p>撤回到add之后，也就是commit之前</p>
+<p>$git reset –soft HEAD~</p>
+<p>撤回到add之前</p>
+<p>$git reset –mixed HEAD~</p>
+<p>撤回到修改之前，即恢复了修改的文件。</p>
+<p>$git reset –hard HEAD~</p>
+<p>以上是按整个HEAD进行reset，如果只是要对某个文件进行reset，只要加上文件的路径。</p>
+<p>$git reset –soft HEAD~ <file>…</p>
+<p>$git reset –mixed HEAD~ <file>…</p>
+<p>$git reset –hard HEAD~ <file>…</p>
+<p>PS:如果要跨版本撤回，要把HEAD~改为版本号</p>
+<h3 id="撤销本地所有修改常用"><a href="#撤销本地所有修改常用" class="headerlink" title="撤销本地所有修改常用"></a>撤销本地所有修改常用</h3><p>撤销所有文件的修改（不算未进入版本控制的文件）</p>
+<p>$ git reset –hard #实际是git reset –hard HEAD的简写</p>
+<p>删除所有未进入版本控制的文件</p>
+<p>$ git clean -fd   </p>
+<h3 id="撤消到指定版本"><a href="#撤消到指定版本" class="headerlink" title="撤消到指定版本"></a>撤消到指定版本</h3><p>情况一：退回到之前的那一个版本</p>
+<p>$git reset –hard HEAD~</p>
+<p>情况二：退回到任意版本，版本commitid为 a24s0…</p>
+<p>$git reset –hard a24s0</p>
 
             </div>
             <hr>
@@ -1027,8 +1056,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/01/16/%E5%B0%8F%E6%8A%80%E5%B7%A7/">
-                        <span class="hidden-mobile">杂货铺</span>
+                      <a href="/2021/03/04/ES6/">
+                        <span class="hidden-mobile">ES6</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
